@@ -35,6 +35,22 @@ namespace _Project.Scripts.Input
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""2845b809-a060-45d8-8360-aeb2910e3247"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Button"",
+                    ""id"": ""0d205290-b1d7-4d2a-a178-a83b118acb07"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -103,6 +119,72 @@ namespace _Project.Scripts.Input
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ce85ba3e-2421-4450-b00e-88e2d4079c29"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""LookVector"",
+                    ""id"": ""f8f5de9d-dfd2-47f0-914f-9f2576a888aa"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=0.1)"",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""1512af8e-545a-4fbd-98c3-c493561ced3a"",
+                    ""path"": ""<Mouse>/delta/y"",
+                    ""interactions"": """",
+                    ""processors"": ""Invert"",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""fac5b932-464d-477f-9e9b-d0bcb36f5e3b"",
+                    ""path"": ""<Mouse>/delta/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""6ad8165d-8cbe-4f66-a457-1bc6f88a5c79"",
+                    ""path"": ""<Mouse>/delta/x"",
+                    ""interactions"": """",
+                    ""processors"": ""Invert"",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""31c44262-fe61-4922-bd8b-6afa538f0d8b"",
+                    ""path"": ""<Mouse>/delta/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -130,6 +212,8 @@ namespace _Project.Scripts.Input
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
             m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
+            m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+            m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -181,12 +265,16 @@ namespace _Project.Scripts.Input
         private IPlayerActions m_PlayerActionsCallbackInterface;
         private readonly InputAction m_Player_Movement;
         private readonly InputAction m_Player_Shoot;
+        private readonly InputAction m_Player_Jump;
+        private readonly InputAction m_Player_Look;
         public struct PlayerActions
         {
             private @InputMaster m_Wrapper;
             public PlayerActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
             public InputAction @Movement => m_Wrapper.m_Player_Movement;
             public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
+            public InputAction @Jump => m_Wrapper.m_Player_Jump;
+            public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -202,6 +290,12 @@ namespace _Project.Scripts.Input
                     @Shoot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                     @Shoot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                     @Shoot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
+                    @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                    @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                    @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                    @Look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                    @Look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                    @Look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -212,6 +306,12 @@ namespace _Project.Scripts.Input
                     @Shoot.started += instance.OnShoot;
                     @Shoot.performed += instance.OnShoot;
                     @Shoot.canceled += instance.OnShoot;
+                    @Jump.started += instance.OnJump;
+                    @Jump.performed += instance.OnJump;
+                    @Jump.canceled += instance.OnJump;
+                    @Look.started += instance.OnLook;
+                    @Look.performed += instance.OnLook;
+                    @Look.canceled += instance.OnLook;
                 }
             }
         }
@@ -229,6 +329,8 @@ namespace _Project.Scripts.Input
         {
             void OnMovement(InputAction.CallbackContext context);
             void OnShoot(InputAction.CallbackContext context);
+            void OnJump(InputAction.CallbackContext context);
+            void OnLook(InputAction.CallbackContext context);
         }
     }
 }

@@ -20,6 +20,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "2845b809-a060-45d8-8360-aeb2910e3247",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Look",
+                    "type": "Button",
+                    "id": "0d205290-b1d7-4d2a-a178-a83b118acb07",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -88,6 +104,72 @@
                     "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ce85ba3e-2421-4450-b00e-88e2d4079c29",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and mouse",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "LookVector",
+                    "id": "f8f5de9d-dfd2-47f0-914f-9f2576a888aa",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "Scale(factor=0.1)",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "1512af8e-545a-4fbd-98c3-c493561ced3a",
+                    "path": "<Mouse>/delta/y",
+                    "interactions": "",
+                    "processors": "Invert",
+                    "groups": "Keyboard and mouse",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "fac5b932-464d-477f-9e9b-d0bcb36f5e3b",
+                    "path": "<Mouse>/delta/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and mouse",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "6ad8165d-8cbe-4f66-a457-1bc6f88a5c79",
+                    "path": "<Mouse>/delta/x",
+                    "interactions": "",
+                    "processors": "Invert",
+                    "groups": "Keyboard and mouse",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "31c44262-fe61-4922-bd8b-6afa538f0d8b",
+                    "path": "<Mouse>/delta/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and mouse",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
