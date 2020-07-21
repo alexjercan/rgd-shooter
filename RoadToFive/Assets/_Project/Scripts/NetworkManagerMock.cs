@@ -1,4 +1,5 @@
 ﻿using System;
+using _Project.Scripts.Packet;
 using UnityEngine;
 
 namespace _Project.Scripts
@@ -32,8 +33,8 @@ namespace _Project.Scripts
                     break;
                 case ClientPacket.ShootInput:
                     break;
-                case ClientPacket.CameraYInput:
-                    serverCharacterController.CameraYRotation = packetReader.ReadFloat();
+                case ClientPacket.RotationPacket:
+                    serverCharacterController.ClientRotation = packetReader.ReadQuaternion();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -52,9 +53,6 @@ namespace _Project.Scripts
                 case ServerPacket.PositionPacket:
                     clientTransform.position = packetReader.ReadVector3();
                     break;
-                case ServerPacket.RotationPacket:
-                    clientTransform.rotation = packetReader.ReadQuaternion();
-                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -66,12 +64,6 @@ namespace _Project.Scripts
             
             var packetBuilder = new PacketBuilder((int) ServerPacket.PositionPacket);
             var bytes = packetBuilder.Write(position).ToByteArray();
-            SendPacketToClient(bytes);
-
-            var rotation = _serverCharacterControllerTransform.rotation;
-            
-            packetBuilder = new PacketBuilder((int) ServerPacket.RotationPacket);
-            bytes = packetBuilder.Write(rotation).ToByteArray();
             SendPacketToClient(bytes);
         }
     }

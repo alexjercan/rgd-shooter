@@ -22,9 +22,9 @@ namespace _Project.Scripts.Input
             ""actions"": [
                 {
                     ""name"": ""Movement"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""fbd9aa40-6369-4465-baaf-738d9984302c"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
@@ -46,9 +46,9 @@ namespace _Project.Scripts.Input
                 },
                 {
                     ""name"": ""Look"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""0d205290-b1d7-4d2a-a178-a83b118acb07"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -132,9 +132,9 @@ namespace _Project.Scripts.Input
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""LookVector"",
+                    ""name"": ""LookVectorMouse"",
                     ""id"": ""f8f5de9d-dfd2-47f0-914f-9f2576a888aa"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -147,7 +147,7 @@ namespace _Project.Scripts.Input
                     ""id"": ""1512af8e-545a-4fbd-98c3-c493561ced3a"",
                     ""path"": ""<Mouse>/delta/y"",
                     ""interactions"": """",
-                    ""processors"": ""Invert"",
+                    ""processors"": """",
                     ""groups"": ""Keyboard and mouse"",
                     ""action"": ""Look"",
                     ""isComposite"": false,
@@ -158,7 +158,7 @@ namespace _Project.Scripts.Input
                     ""id"": ""fac5b932-464d-477f-9e9b-d0bcb36f5e3b"",
                     ""path"": ""<Mouse>/delta/y"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""Invert"",
                     ""groups"": ""Keyboard and mouse"",
                     ""action"": ""Look"",
                     ""isComposite"": false,
@@ -169,7 +169,7 @@ namespace _Project.Scripts.Input
                     ""id"": ""6ad8165d-8cbe-4f66-a457-1bc6f88a5c79"",
                     ""path"": ""<Mouse>/delta/x"",
                     ""interactions"": """",
-                    ""processors"": ""Invert"",
+                    ""processors"": """",
                     ""groups"": ""Keyboard and mouse"",
                     ""action"": ""Look"",
                     ""isComposite"": false,
@@ -180,7 +180,7 @@ namespace _Project.Scripts.Input
                     ""id"": ""31c44262-fe61-4922-bd8b-6afa538f0d8b"",
                     ""path"": ""<Mouse>/delta/x"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""Invert"",
                     ""groups"": ""Keyboard and mouse"",
                     ""action"": ""Look"",
                     ""isComposite"": false,

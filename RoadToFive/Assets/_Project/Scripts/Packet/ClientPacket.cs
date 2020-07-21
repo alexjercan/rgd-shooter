@@ -1,4 +1,4 @@
-﻿namespace _Project.Scripts
+﻿namespace _Project.Scripts.Packet
 {
     public enum ClientPacket : int
     {
@@ -6,6 +6,6 @@
         MovementInput,
         JumpInput,
         ShootInput,
-        CameraYInput,
+        RotationPacket,
     }
 }
