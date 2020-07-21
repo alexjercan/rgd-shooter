@@ -136,7 +136,7 @@ namespace _Project.Scripts.Input
                     ""id"": ""f8f5de9d-dfd2-47f0-914f-9f2576a888aa"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
-                    ""processors"": ""Normalize(min=-0.1,max=0.1)"",
+                    ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Look"",
                     ""isComposite"": true,
