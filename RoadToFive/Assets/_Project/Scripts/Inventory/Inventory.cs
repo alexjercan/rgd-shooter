@@ -8,6 +8,13 @@ using UnityEngine.InputSystem.Controls;
 
 public class Inventory : MonoBehaviour
 {
+    /*
+     * IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     * La multiplayer pot aparea desincronizari din cauza Destroy-ului
+     */
+
+
+
     public const int maxInvetory = 10;
 
     [Serializable]
@@ -76,7 +83,7 @@ public class Inventory : MonoBehaviour
             itemInHand.count--;
             if (itemInHand.count <= 0)
             {
-                GameObject.Destroy(itemInHand.item);
+                Destroy(itemInHand.item);
                 inventory[currentItemInHand].InitItem();
             }
             dropTimer = 0;
@@ -161,6 +168,10 @@ public class Inventory : MonoBehaviour
             if (item.GetComponent<LootDetails>().stackable)
             {
                 inventory[itemIndex(item)].count += item.GetComponent<LootDetails>().count;
+                Destroy(item);
+            } else
+            {
+                Debug.Log("You already have this item");
             }
         } else
         {
