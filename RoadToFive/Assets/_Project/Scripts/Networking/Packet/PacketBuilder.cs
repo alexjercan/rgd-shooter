@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace _Project.Scripts.Packet
+namespace _Project.Scripts.Networking.Packet
 {
     public class PacketBuilder
     {

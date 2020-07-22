@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace _Project.Scripts.Packet
+namespace _Project.Scripts.Networking.Packet
 {
     public class PacketReader
     {

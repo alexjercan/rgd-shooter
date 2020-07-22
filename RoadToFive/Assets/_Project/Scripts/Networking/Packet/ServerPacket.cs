@@ -1,4 +1,4 @@
-﻿namespace _Project.Scripts.Packet
+﻿namespace _Project.Scripts.Networking.Packet
 {
     public enum ServerPacket : int
     {
