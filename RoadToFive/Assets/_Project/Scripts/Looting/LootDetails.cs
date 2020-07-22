@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LootDetails : MonoBehaviour
 {
+    public GameObject owner;
+
     public int count;
     public bool stackable;
     
@@ -11,4 +13,6 @@ public class LootDetails : MonoBehaviour
 
     public bool isAmmo;
     public AmmoType ammoType;
+
+    public bool isMedKit;
 }
