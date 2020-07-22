@@ -8,6 +8,13 @@ using UnityEngine.InputSystem.Controls;
 
 public class Inventory : MonoBehaviour
 {
+    /*
+     * IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     * La multiplayer pot aparea desincronizari din cauza Destroy-ului
+     */
+
+
+
     public const int maxInvetory = 10;
 
     [Serializable]
