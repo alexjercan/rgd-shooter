@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace _Project.Scripts.Networking.Packet
@@ -7,12 +8,39 @@ namespace _Project.Scripts.Networking.Packet
     public class PacketBuilder
     {
         private readonly List<byte> _bytes = new List<byte>();
-
-        public PacketBuilder(int packetType)
+        
+        public PacketBuilder InsertSize()
         {
-            Write(packetType);
+            _bytes.InsertRange(0, BitConverter.GetBytes(_bytes.Count));
+            return this;
         }
 
+        public PacketBuilder Write(byte data)
+        {
+            _bytes.Add(data);
+            return this;
+        }
+        
+        public PacketBuilder Write(byte[] data)
+        {
+            _bytes.AddRange(data);
+            return this;
+        }
+        
+        public PacketBuilder Write(char data)
+        {
+            var bytes = BitConverter.GetBytes(data);
+            _bytes.AddRange(bytes);
+            return this;
+        }
+
+        public PacketBuilder Write(string data)
+        {
+            var bytes = Encoding.ASCII.GetBytes(data);
+            _bytes.AddRange(bytes);
+            return Write(PacketInfo.NullTerminator);
+        }
+        
         public PacketBuilder Write(bool data)
         {
             var bytes = BitConverter.GetBytes(data);

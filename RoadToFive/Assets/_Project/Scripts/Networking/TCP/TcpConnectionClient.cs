@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Sockets;
+using _Project.Scripts.Logging;
 
 namespace _Project.Scripts.Networking.TCP
 {
@@ -23,8 +24,13 @@ namespace _Project.Scripts.Networking.TCP
             Socket.ReceiveBufferSize = DataBufferSize;
             Socket.SendBufferSize = DataBufferSize;
 
-            ReceiveBuffer = new byte[DataBufferSize];
+            ReceivedBuffer = new byte[DataBufferSize];
             Socket.BeginConnect(_ip, _port, ConnectCallback, Socket);
+        }
+
+        public override void SendPacket(byte[] packet)
+        {
+            Logger.Error("not implemented");
         }
 
         private void ConnectCallback(IAsyncResult asyncResult)
@@ -34,7 +40,7 @@ namespace _Project.Scripts.Networking.TCP
             if (!Socket.Connected) return;
 
             NetworkStream = Socket.GetStream();
-            NetworkStream.BeginRead(ReceiveBuffer, 0, DataBufferSize, ReceiveCallback, null);
+            NetworkStream.BeginRead(ReceivedBuffer, 0, DataBufferSize, ReceiveCallback, null);
         }
     }
 }

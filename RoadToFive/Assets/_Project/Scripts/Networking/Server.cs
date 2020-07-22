@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using _Project.Scripts.Logging;
+using _Project.Scripts.Networking.Packet;
 using _Project.Scripts.Networking.TCP;
 
 namespace _Project.Scripts.Networking
@@ -32,6 +33,19 @@ namespace _Project.Scripts.Networking
             Logger.Info($"Server started on port {Port}");
         }
 
+        public void SendPacket(int client, byte[] data)
+        {
+            _connections[client].SendPacket(data);
+        }
+
+        public void BroadcastPacket(byte[] data)
+        {
+            foreach (var connection in _connections.Values )
+            {
+                connection.SendPacket(data);
+            }
+        }
+        
         private void TcpConnectCallback(IAsyncResult asyncResult)
         {
             var client = _tcpListener.EndAcceptTcpClient(asyncResult);
@@ -43,6 +57,7 @@ namespace _Project.Scripts.Networking
                 if (_connections[i].Socket != null) continue;
                 
                 _connections[i].Connect(client);
+                SendPacket(i, new WelcomePacketWriter(i, 69).WritePacket());
                 return;
             }
             
