@@ -118,12 +118,26 @@ public class Inventory : MonoBehaviour
     {
         foreach (InventoryItem invItem in inventory)
         {
-            if (invItem.item.name == item.name)
+            if (invItem != null && invItem.item.name == item.name)
             {
                 return true;
             }
         }
         return false;
+    }
+
+    public int itemIndex(GameObject item)
+    {
+        int idx = 0;
+        foreach (InventoryItem invItem in inventory)
+        {
+            if (invItem != null && invItem.item.name == item.name)
+            {
+                return idx;
+            }
+            idx++;
+        }
+        return -1;
     }
 
     public void AddAmmo(AmmoType ammoType, int count)
@@ -134,6 +148,7 @@ public class Inventory : MonoBehaviour
 
 public enum AmmoType
 {
+    NONE = 99,
     ammo1 = 0,
     ammo2 = 1,
     ammo3 = 2
