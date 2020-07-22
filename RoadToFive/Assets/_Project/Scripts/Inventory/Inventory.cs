@@ -118,7 +118,7 @@ public class Inventory : MonoBehaviour
     {
         foreach (InventoryItem invItem in inventory)
         {
-            if (invItem != null && invItem.item.name == item.name)
+            if (invItem.item != null && invItem.item.name == item.name)
             {
                 return true;
             }
@@ -131,13 +131,48 @@ public class Inventory : MonoBehaviour
         int idx = 0;
         foreach (InventoryItem invItem in inventory)
         {
-            if (invItem != null && invItem.item.name == item.name)
+            if (invItem.item != null && invItem.item.name == item.name)
             {
                 return idx;
             }
             idx++;
         }
         return -1;
+    }
+
+    public int freeIndex()
+    {
+        int idx = 0;
+        foreach(InventoryItem invItem in inventory)
+        {
+            if (invItem.item == null)
+            {
+                return idx;
+            }
+            idx++;
+        }
+        return -1;
+    }
+
+    public void AddItem(GameObject item)
+    {
+        if (hasItem(item))
+        {
+            if (item.GetComponent<LootDetails>().stackable)
+            {
+                inventory[itemIndex(item)].count += item.GetComponent<LootDetails>().count;
+            }
+        } else
+        {
+            int idx = freeIndex();
+            if (idx != -1) // not full
+            {
+                inventory[idx].item = item;
+                inventory[idx].stackable = item.GetComponent<LootDetails>().stackable;
+                inventory[idx].count = item.GetComponent<LootDetails>().count;
+                inventory[idx].isWeapon = item.GetComponent<LootDetails>().isWeapon;
+            }
+        }
     }
 
     public void AddAmmo(AmmoType ammoType, int count)
