@@ -11,5 +11,4 @@ public class LootDetails : MonoBehaviour
 
     public bool isAmmo;
     public AmmoType ammoType;
-
 }
