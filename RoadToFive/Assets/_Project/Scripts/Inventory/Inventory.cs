@@ -41,6 +41,7 @@ public class Inventory : MonoBehaviour
     public InventoryItem itemInHand;
     public int currentItemInHand;
 
+    float dropTimer;
 
     public int GetAmmoCount(AmmoType ammoType)
     {
@@ -52,6 +53,7 @@ public class Inventory : MonoBehaviour
         inventory = new InventoryItem[maxInvetory];
         currentItemInHand = 0;
         itemInHand = inventory[0];
+        dropTimer = 1 / 20.0f;
     }
 
     void Update()
@@ -68,11 +70,16 @@ public class Inventory : MonoBehaviour
 
     public void DropItem()
     {
-        itemInHand.count--;
-        if (itemInHand.count <= 0)
+        dropTimer += Time.deltaTime;
+        if (dropTimer >= 1 / 20.0f)
         {
-            GameObject.Destroy(itemInHand.item);
-            inventory[currentItemInHand].InitItem();
+            itemInHand.count--;
+            if (itemInHand.count <= 0)
+            {
+                GameObject.Destroy(itemInHand.item);
+                inventory[currentItemInHand].InitItem();
+            }
+            dropTimer = 0;
         }
     }
     public void PickUpItem()
@@ -105,6 +112,23 @@ public class Inventory : MonoBehaviour
         {
             itemInHand.item.GetComponent<WeaponStats>().ammoCount = GetAmmoCount(itemInHand.item.GetComponent<WeaponStats>().ammoType);
         }
+    }
+
+    public bool hasItem(GameObject item)
+    {
+        foreach (InventoryItem invItem in inventory)
+        {
+            if (invItem.item.name == item.name)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void AddAmmo(AmmoType ammoType, int count)
+    {
+        munition[(int)ammoType].count += count;
     }
 }
 
