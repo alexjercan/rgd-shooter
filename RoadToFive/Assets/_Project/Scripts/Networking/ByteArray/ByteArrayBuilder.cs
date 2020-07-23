@@ -9,7 +9,7 @@ namespace _Project.Scripts.Networking.ByteArray
     {
         private readonly List<byte> _bytes = new List<byte>();
 
-        public ByteArrayBuilder Insert(int data)
+        private ByteArrayBuilder Insert(int data)
         {
             _bytes.InsertRange(0, BitConverter.GetBytes(data));
             return this;

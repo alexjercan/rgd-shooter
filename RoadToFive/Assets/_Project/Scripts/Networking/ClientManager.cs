@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using _Project.Scripts.Networking.ByteArray;
+using _Project.Scripts.Networking.Datagram;
+using UnityEngine;
 using Logger = _Project.Scripts.Logging.Logger;
 
 namespace _Project.Scripts.Networking
@@ -6,8 +8,11 @@ namespace _Project.Scripts.Networking
     public class ClientManager : MonoBehaviour
     {
         public string dummyIp = "127.0.0.1";
-        public int port = 26950;
+        public int remotePort = 26950;
+        public int localPort = 16483;
 
+        private UDP.Client _client;
+        
         private void Awake()
         {
             if (GetComponents<ClientManager>().Length > 1)
@@ -16,11 +21,9 @@ namespace _Project.Scripts.Networking
 
         private void Start()
         {
-            //var clientTcp = new ClientTcp(dummyIp, port);
-            var clientUdp = new ClientUdp(dummyIp, port);
+            _client = new UDP.Client(dummyIp, remotePort, localPort);
             
-            //clientTcp.ConnectToServer();
-            clientUdp.BindToServer(16483);
+            _client.SendDatagram(DatagramTemplates.WriteDummyMessage());
         }
     }
 }
