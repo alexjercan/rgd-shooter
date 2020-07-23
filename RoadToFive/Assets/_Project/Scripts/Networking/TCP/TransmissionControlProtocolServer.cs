@@ -2,13 +2,13 @@
 
 namespace _Project.Scripts.Networking.TCP
 {
-    public class TcpConnectionServer : TcpConnection
+    public class TransmissionControlProtocolServer : TransmissionControlProtocolSocket
     {
-        private readonly ServerTcp _serverTcp;
+        private readonly Server _server;
 
-        public TcpConnectionServer(ServerTcp serverTcp)
+        public TransmissionControlProtocolServer(Server server)
         {
-            _serverTcp = serverTcp;
+            _server = server;
         }
 
         public override void Connect(TcpClient socket)
@@ -23,6 +23,6 @@ namespace _Project.Scripts.Networking.TCP
             NetworkStream.BeginRead(ReceivedBuffer, 0, DataBufferSize, ReceiveCallback, null);
         }
 
-        protected override void HandleReadPacket(byte[] packet) => _serverTcp.ReadPacket(packet);
+        protected override void HandleReadPacket(byte[] packet) => _server.ReadPacket(packet);
     }
 }

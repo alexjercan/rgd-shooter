@@ -369,7 +369,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dummyIp: 127.0.0.1
-  port: 26950
+  remotePort: 26950
+  localPort: 16484
 --- !u!4 &2017890929
 Transform:
   m_ObjectHideFlags: 0

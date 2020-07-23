@@ -3,17 +3,17 @@ using System.Net.Sockets;
 
 namespace _Project.Scripts.Networking.TCP
 {
-    public class TcpConnectionClient : TcpConnection
+    public class TransmissionControlProtocolClient : TransmissionControlProtocolSocket
     {
-        private readonly ClientTcp _clientTcp;
+        private readonly Client _client;
         private readonly string _ipServer;
         private readonly int _port;
 
-        public TcpConnectionClient(ClientTcp clientTcp, string ipServer, int port)
+        public TransmissionControlProtocolClient(Client client, string ipServer, int port)
         {
             _ipServer = ipServer;
             _port = port;
-            _clientTcp = clientTcp;
+            _client = client;
         }
 
         public override void Connect(TcpClient socket)
@@ -26,7 +26,7 @@ namespace _Project.Scripts.Networking.TCP
             Socket.BeginConnect(_ipServer, _port, ConnectCallback, Socket);
         }
 
-        protected override void HandleReadPacket(byte[] packet) => _clientTcp.ReadPacket(packet);
+        protected override void HandleReadPacket(byte[] packet) => _client.ReadPacket(packet);
 
         private void ConnectCallback(IAsyncResult asyncResult)
         {

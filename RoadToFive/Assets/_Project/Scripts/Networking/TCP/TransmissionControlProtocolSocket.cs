@@ -5,7 +5,7 @@ using _Project.Scripts.Threading;
 
 namespace _Project.Scripts.Networking.TCP
 {
-    public abstract class TcpConnection
+    public abstract class TransmissionControlProtocolSocket
     {
         public TcpClient Socket { get; protected set; }
 

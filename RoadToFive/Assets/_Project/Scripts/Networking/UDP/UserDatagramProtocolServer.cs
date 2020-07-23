@@ -6,19 +6,14 @@ namespace _Project.Scripts.Networking.UDP
 {
     public class UserDatagramProtocolServer : IUserDatagramProtocolSocket
     {
-        public UdpClient Socket { get; }
-        public IPEndPoint LocalIpEndPoint { get; }
-        
+        private readonly UdpClient _socket;
+
         /// <summary>
         ///Initializes a new instance of the UdpClient class and binds it to the specified local endpoint.
         /// </summary>
         /// <param name="localEndPoint"></param>
-        public UserDatagramProtocolServer(IPEndPoint localEndPoint)
-        {
-            Socket = new UdpClient(localEndPoint);
-            LocalIpEndPoint = localEndPoint;
-        }
-        
+        public UserDatagramProtocolServer(IPEndPoint localEndPoint) => _socket = new UdpClient(localEndPoint);
+
         /// <summary>
         /// Starts listening asynchronously for a datagram incoming on the socket.
         /// When a datagram is received a callback is invoked.
@@ -26,7 +21,7 @@ namespace _Project.Scripts.Networking.UDP
         /// <param name="requestCallback"></param>
         public void Listen(AsyncCallback requestCallback)
         {
-            Socket.BeginReceive(requestCallback, Socket);
+            _socket.BeginReceive(requestCallback, _socket);
         }
 
         /// <summary>
@@ -37,7 +32,7 @@ namespace _Project.Scripts.Networking.UDP
         public void SendDatagram(byte[] datagram, IPEndPoint remoteHost)
         {
             if (remoteHost == null) return;
-            Socket.BeginSend(datagram, datagram.Length, remoteHost, null, null);
+            _socket.BeginSend(datagram, datagram.Length, remoteHost, null, null);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using _Project.Scripts.Networking.ByteArray;
+﻿using System.Net;
+using System.Net.Sockets;
 using _Project.Scripts.Networking.Datagram;
 using UnityEngine;
 using Logger = _Project.Scripts.Logging.Logger;
@@ -9,10 +10,7 @@ namespace _Project.Scripts.Networking
     {
         public string dummyIp = "127.0.0.1";
         public int remotePort = 26950;
-        public int localPort = 16483;
 
-        private UDP.Client _client;
-        
         private void Awake()
         {
             if (GetComponents<ClientManager>().Length > 1)
@@ -21,9 +19,10 @@ namespace _Project.Scripts.Networking
 
         private void Start()
         {
-            _client = new UDP.Client(dummyIp, remotePort, localPort);
+            var clientTcp = new TCP.Client(dummyIp, remotePort);
+            var clientUdp = new UDP.Client(dummyIp, remotePort, clientTcp.Port);
             
-            _client.SendDatagram(DatagramTemplates.WriteDummyMessage());
+            clientUdp.SendDatagram(DatagramTemplates.WriteDummyMessage());
         }
     }
 }

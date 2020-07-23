@@ -2,7 +2,7 @@
 
 namespace _Project.Scripts.Networking.Datagram
 {
-    public class DatagramTemplates
+    public static class DatagramTemplates
     {
         #region server
         public static byte[] WriteWelcomeMessage(int clientId) =>

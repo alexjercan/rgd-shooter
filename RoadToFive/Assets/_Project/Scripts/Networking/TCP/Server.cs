@@ -5,30 +5,26 @@ using System.Net.Sockets;
 using _Project.Scripts.Logging;
 using _Project.Scripts.Networking.ByteArray;
 using _Project.Scripts.Networking.Packet;
-using _Project.Scripts.Networking.TCP;
 
-namespace _Project.Scripts.Networking
+namespace _Project.Scripts.Networking.TCP
 {
-    public class ServerTcp
+    public class Server
     {
-        public int MaxPlayerCount { get; set; }
-        public int Port { get; set; }
+        private int MaxPlayerCount { get; set; }
+        private int Port { get; set; }
 
-        private readonly Dictionary<int, TcpConnection> _connections = new Dictionary<int, TcpConnection>();
+        private readonly Dictionary<int, TransmissionControlProtocolSocket> _connections = new Dictionary<int, TransmissionControlProtocolSocket>();
         private readonly TcpListener _tcpListener;
 
-        public ServerTcp(int maxPlayerCount, int port)
+        public Server(int maxPlayerCount, int port)
         {
             MaxPlayerCount = maxPlayerCount;
             Port = port;
             
-            InitializeServerData();
+            for (var i = 1; i <= MaxPlayerCount; i++) _connections.Add(i, new TransmissionControlProtocolServer(this));
             
             _tcpListener = new TcpListener(IPAddress.Any, Port);
-        }
-
-        public void Start()
-        {
+            
             _tcpListener.Start();
             _tcpListener.BeginAcceptTcpClient(TcpConnectCallback, null);
             Logger.Info($"Server started on port {Port}");
@@ -55,16 +51,11 @@ namespace _Project.Scripts.Networking
                 if (_connections[i].Socket != null) continue;
                 
                 _connections[i].Connect(client);
-                SendPacket(i, new WelcomePacketWriter(i, "welcome 69").WritePacket());
+                SendPacket(i, PacketTemplates.WriteWelcomePacket(i, "welcome 69"));
                 return;
             }
             
             Logger.Warning($"{client.Client.RemoteEndPoint} failed to connect: Server full!");
-        }
-
-        private void InitializeServerData()
-        {
-            for (var i = 1; i <= MaxPlayerCount; i++) _connections.Add(i, new TcpConnectionServer(this));
         }
 
         public void ReadPacket(byte[] packet)
@@ -86,7 +77,7 @@ namespace _Project.Scripts.Networking
         
         private void HandleWelcomeReceived(ByteArrayReader byteArrayReader)
         {
-            var (_, message) = new WelcomeReceivedReader(byteArrayReader).ReadPacket();
+            var (_, message) = PacketTemplates.WriteWelcomeReceivedPacket(byteArrayReader);
             
             Logger.Info(message);
         }

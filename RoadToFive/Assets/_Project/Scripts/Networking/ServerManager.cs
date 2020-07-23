@@ -15,7 +15,8 @@ namespace _Project.Scripts.Networking
         
         private void Start()
         {
-            var server = new UDP.Server(port);
+            var serverTcp = new TCP.Server(20, port);
+            var serverUdp = new UDP.Server(port);
         }
     }
 }
