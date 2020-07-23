@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net.Sockets;
-using _Project.Scripts.Logging;
-using _Project.Scripts.Networking.Packet;
+using _Project.Scripts.Networking.ByteArray;
 using _Project.Scripts.Threading;
 
 namespace _Project.Scripts.Networking.TCP
@@ -14,59 +13,50 @@ namespace _Project.Scripts.Networking.TCP
 
         protected NetworkStream NetworkStream;
         protected byte[] ReceivedBuffer;
-        protected PacketReader ReceivedPacketReader = new PacketReader();
+        private ByteArrayReader _receivedByteArrayReader = new ByteArrayReader();
 
         public abstract void Connect(TcpClient socket);
-        public abstract void SendPacket(byte[] packet);
-
+        
+        protected abstract void HandleReadPacket(byte[] packet);
+               
+        public void SendPacket(byte[] packet)
+        {
+            if (Socket == null) return;
+            NetworkStream.BeginWrite(packet, 0, packet.Length, null, null);
+        }
+        
         protected void ReceiveCallback(IAsyncResult asyncResult)
         {
-            try
-            {
-                var byteLength = NetworkStream.EndRead(asyncResult);
-                if (byteLength <= 0) return; //TODO: DISCONNECT
+            var byteLength = NetworkStream.EndRead(asyncResult);
+            if (byteLength <= 0) return; //TODO: DISCONNECT
 
-                var data = new byte[byteLength];
-                Array.Copy(ReceivedBuffer, data, byteLength);
+            var data = new byte[byteLength];
+            Array.Copy(ReceivedBuffer, data, byteLength);
 
-                if (ReceivePacket(data)) ReceivedPacketReader = new PacketReader();
-                NetworkStream.BeginRead(ReceivedBuffer, 0, DataBufferSize, ReceiveCallback, null);
-            }
-            catch (Exception e)
-            {
-                Logger.Error(e.ToString());
-            }
+            if (ReceivedDataHandler(data)) _receivedByteArrayReader = new ByteArrayReader();
+            NetworkStream.BeginRead(ReceivedBuffer, 0, DataBufferSize, ReceiveCallback, null);
         }
 
-        private bool ReceivePacket(byte[] receivedData)
+        private bool ReceivedDataHandler(byte[] receivedData)
         {
-            Logger.Info("Received packet");
             var packetLength = 0;
-            ReceivedPacketReader.AddBytes(receivedData);
+            _receivedByteArrayReader.AddBytes(receivedData);
             
-            if (ReceivedPacketReader.UnreadBytes >= sizeof(int))
+            if (_receivedByteArrayReader.UnreadBytes >= sizeof(int))
             {
-                packetLength = ReceivedPacketReader.ReadInt();
+                packetLength = _receivedByteArrayReader.ReadInt();
                 if (packetLength <= 0) return true;
             }
 
-            while (packetLength > 0 && packetLength <= ReceivedPacketReader.UnreadBytes)
+            while (packetLength > 0 && packetLength <= _receivedByteArrayReader.UnreadBytes)
             {
-                var packetBytes = ReceivedPacketReader.ReadBytes(packetLength);
-
-                //TODO: HANDLE PACKET BYTES ON MAIN THREAD : PLACEHOLDER
-                ThreadManager.ExecuteOnMainThread(() =>
-                {
-                    var packetReader = new PacketReader(packetBytes);
-                    var packetType = packetReader.ReadInt();
-                    var bytes = packetReader.ReadBytes(packetReader.UnreadBytes);
-                    var welcome = new WelcomePacketReader(bytes);
-                    Logger.Info(welcome.ReadPacket().Item2.ToString());
-                });
+                var packetBytes = _receivedByteArrayReader.ReadBytes(packetLength);
+                
+                MainThreadScheduler.EnqueueOnMainThread(() => HandleReadPacket(packetBytes));
                 
                 packetLength = 0;
-                if (ReceivedPacketReader.UnreadBytes < sizeof(int)) continue;
-                packetLength = ReceivedPacketReader.ReadInt();
+                if (_receivedByteArrayReader.UnreadBytes < sizeof(int)) continue;
+                packetLength = _receivedByteArrayReader.ReadInt();
                 if (packetLength <= 0) return true;
             }
 

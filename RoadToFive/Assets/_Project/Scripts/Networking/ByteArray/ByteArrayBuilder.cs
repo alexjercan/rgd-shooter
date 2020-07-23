@@ -3,76 +3,77 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace _Project.Scripts.Networking.Packet
+namespace _Project.Scripts.Networking.ByteArray
 {
-    public class PacketBuilder
+    public class ByteArrayBuilder
     {
         private readonly List<byte> _bytes = new List<byte>();
-        
-        public PacketBuilder InsertSize()
+
+        public ByteArrayBuilder Insert(int data)
         {
-            _bytes.InsertRange(0, BitConverter.GetBytes(_bytes.Count));
+            _bytes.InsertRange(0, BitConverter.GetBytes(data));
             return this;
         }
+        
+        public ByteArrayBuilder InsertSize()
+        {
+            return Insert(_bytes.Count);
+        }
 
-        public PacketBuilder Write(byte data)
+        public ByteArrayBuilder Write(byte data)
         {
             _bytes.Add(data);
             return this;
         }
         
-        public PacketBuilder Write(byte[] data)
+        public ByteArrayBuilder Write(byte[] data)
         {
             _bytes.AddRange(data);
             return this;
         }
         
-        public PacketBuilder Write(char data)
+        public ByteArrayBuilder Write(char data)
         {
             var bytes = BitConverter.GetBytes(data);
-            _bytes.AddRange(bytes);
-            return this;
+            return Write(bytes);
         }
 
-        public PacketBuilder Write(string data)
+        public ByteArrayBuilder Write(string data)
         {
             var bytes = Encoding.ASCII.GetBytes(data);
-            _bytes.AddRange(bytes);
-            return Write(PacketInfo.NullTerminator);
+            var size = bytes.Length;
+            return Write(size).Write(bytes);
         }
         
-        public PacketBuilder Write(bool data)
+        public ByteArrayBuilder Write(bool data)
         {
             var bytes = BitConverter.GetBytes(data);
-            _bytes.AddRange(bytes);
-            return this;
+            return Write(bytes);
         }
 
-        public PacketBuilder Write(int data)
+        public ByteArrayBuilder Write(int data)
         {
             var bytes = BitConverter.GetBytes(data);
-            _bytes.AddRange(bytes);
-            return this;
+            return Write(bytes);
         }
         
-        public PacketBuilder Write(float data)
+        public ByteArrayBuilder Write(float data)
         {
             var bytes = BitConverter.GetBytes(data);
-            _bytes.AddRange(bytes);
-            return this;
+            return Write(bytes);
         }
 
-        public PacketBuilder Write(Vector2 data)
+        public ByteArrayBuilder Write(Vector2 data)
         {
             return Write(data.x).Write(data.y);
         }
         
-        public PacketBuilder Write(Vector3 data)
+        public ByteArrayBuilder Write(Vector3 data)
         {
             return Write(data.x).Write(data.y).Write(data.z);
         }
 
-        public PacketBuilder Write(Quaternion data)
+        public ByteArrayBuilder Write(Quaternion data)
         {
             return Write(data.x).Write(data.y).Write(data.z).Write(data.w);
         }

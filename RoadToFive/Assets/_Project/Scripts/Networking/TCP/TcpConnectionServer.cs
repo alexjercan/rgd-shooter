@@ -4,8 +4,12 @@ namespace _Project.Scripts.Networking.TCP
 {
     public class TcpConnectionServer : TcpConnection
     {
-        //This class represents a new tcp connection on the server side.
-        //It exposes a socket that the server uses to communicate with the client.
+        private readonly ServerTcp _serverTcp;
+
+        public TcpConnectionServer(ServerTcp serverTcp)
+        {
+            _serverTcp = serverTcp;
+        }
 
         public override void Connect(TcpClient socket)
         {
@@ -18,12 +22,7 @@ namespace _Project.Scripts.Networking.TCP
             NetworkStream = Socket.GetStream();
             NetworkStream.BeginRead(ReceivedBuffer, 0, DataBufferSize, ReceiveCallback, null);
         }
-        
-        public override void SendPacket(byte[] packet)
-        {
-            if (Socket == null) return;
 
-            NetworkStream.BeginWrite(packet, 0, packet.Length, null, null);
-        }
+        protected override void HandleReadPacket(byte[] packet) => _serverTcp.ReadPacket(packet);
     }
 }

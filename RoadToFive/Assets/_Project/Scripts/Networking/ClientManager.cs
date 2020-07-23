@@ -1,14 +1,10 @@
-﻿using System.Net.Sockets;
-using _Project.Scripts.Networking.TCP;
-using UnityEngine;
+﻿using UnityEngine;
 using Logger = _Project.Scripts.Logging.Logger;
 
 namespace _Project.Scripts.Networking
 {
     public class ClientManager : MonoBehaviour
     {
-        private Client _client;
-        
         public string dummyIp = "127.0.0.1";
         public int port = 26950;
 
@@ -20,9 +16,11 @@ namespace _Project.Scripts.Networking
 
         private void Start()
         {
-            _client = new Client();
+            //var clientTcp = new ClientTcp(dummyIp, port);
+            var clientUdp = new ClientUdp(dummyIp, port);
             
-            _client.ConnectToServer(dummyIp, port);
+            //clientTcp.ConnectToServer();
+            clientUdp.BindToServer(16483);
         }
     }
 }

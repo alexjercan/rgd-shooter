@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Net.Sockets;
-using _Project.Scripts.Logging;
 
 namespace _Project.Scripts.Networking.TCP
 {
     public class TcpConnectionClient : TcpConnection
     {
-        //This class represents a new tcp connection on the client side.
-        //It exposes a socket that the client uses to communicate with the server.
-
-        private readonly string _ip;
+        private readonly ClientTcp _clientTcp;
+        private readonly string _ipServer;
         private readonly int _port;
 
-        public TcpConnectionClient(string ip, int port)
+        public TcpConnectionClient(ClientTcp clientTcp, string ipServer, int port)
         {
-            _ip = ip;
+            _ipServer = ipServer;
             _port = port;
+            _clientTcp = clientTcp;
         }
 
         public override void Connect(TcpClient socket)
@@ -25,13 +23,10 @@ namespace _Project.Scripts.Networking.TCP
             Socket.SendBufferSize = DataBufferSize;
 
             ReceivedBuffer = new byte[DataBufferSize];
-            Socket.BeginConnect(_ip, _port, ConnectCallback, Socket);
+            Socket.BeginConnect(_ipServer, _port, ConnectCallback, Socket);
         }
 
-        public override void SendPacket(byte[] packet)
-        {
-            Logger.Error("not implemented");
-        }
+        protected override void HandleReadPacket(byte[] packet) => _clientTcp.ReadPacket(packet);
 
         private void ConnectCallback(IAsyncResult asyncResult)
         {
