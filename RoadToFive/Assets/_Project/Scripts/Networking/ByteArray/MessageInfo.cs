@@ -7,5 +7,6 @@
         DummyAck,
         Welcome,
         WelcomeAck,
+        SpawnPlayer,
     }
 }

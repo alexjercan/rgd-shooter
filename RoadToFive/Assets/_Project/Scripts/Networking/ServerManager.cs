@@ -1,24 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Numerics;
 using _Project.Scripts.Networking.ByteArray;
 using _Project.Scripts.Networking.TCP;
 using _Project.Scripts.Networking.UDP;
-using UnityEngine;
 using Logger = _Project.Scripts.Logging.Logger;
 
 namespace _Project.Scripts.Networking
 {
-    public class ServerManager : MonoBehaviour
+    public class ServerManager
     {
-        private IServerManager _udpServerManager;
-        private IServerManager _tcpServerManager;
-
-        private void Awake()
-        {
-            if (GetComponents<ServerManager>().Length > 1) 
-                Logger.Error("Multiple ServerManager instances in the scene!");
-        }
+        private readonly IServerManager _udpServerManager;
+        private readonly IServerManager _tcpServerManager;
         
-        private void Start()
+        private readonly Dictionary<int, Player> _players = new Dictionary<int, Player>();
+
+        public ServerManager()
         {
             _udpServerManager = new UdpServerManager(ReadMessage);
             _tcpServerManager = new TcpServerManager(ReadMessage);
@@ -41,6 +38,8 @@ namespace _Project.Scripts.Networking
                 case MessageType.WelcomeAck:
                     HandleWelcomeAck(receivedMessage);
                     break;
+                case MessageType.SpawnPlayer:
+                    break;
                 default:
                     return;
             }
@@ -51,8 +50,14 @@ namespace _Project.Scripts.Networking
             var (clientId, clientUsername) = MessageTemplates.ReadWelcomeAck(byteArrayReader);
             
             Logger.Info($": received username: '{clientUsername}' of client {clientId}");
+
+            foreach (var idPlayerPair in _players)
+                _tcpServerManager.SendMessage(clientId,
+                    MessageTemplates.WriteSpawnPlayer(idPlayerPair.Key, idPlayerPair.Value));
             
-            //TODO: SPAWN PLAYER
+            var player = new Player(clientId, clientUsername, new Vector3(), new Quaternion());
+            _players.Add(clientId, player);
+            _tcpServerManager.BroadcastMessage(MessageTemplates.WriteSpawnPlayer(clientId, player));
         }
     }
 }

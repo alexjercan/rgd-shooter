@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using _Project.Scripts.Networking.ByteArray;
@@ -27,6 +28,18 @@ namespace _Project.Scripts.Networking.UDP
         
         public void SendDatagram(byte[] datagram, IPEndPoint remoteHost) => _udpServer.SendDatagram(datagram, remoteHost);
 
+        public void BroadcastDatagram(byte[] datagram)
+        {
+            foreach (var knownHost in _knownHosts.Values) 
+                SendDatagram(datagram, knownHost);
+        }
+        
+        public void BroadcastDatagramExcept(int clientId, byte[] data)
+        {
+            foreach (var idEndPointPairs in _knownHosts.Where(idEndPointPairs => clientId != idEndPointPairs.Key))
+                SendDatagram(data, idEndPointPairs.Value);
+        }
+        
         private void ReceiveCallback(IAsyncResult asyncResult)
         {
             var socket = (UdpClient) asyncResult.AsyncState;

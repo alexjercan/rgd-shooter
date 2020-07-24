@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using _Project.Scripts.Logging;
@@ -36,7 +37,14 @@ namespace _Project.Scripts.Networking.TCP
 
         public void BroadcastPacket(byte[] data)
         {
-            foreach (var connection in _sockets.Values ) connection.SendPacket(data);
+            foreach (var connection in _sockets.Values ) 
+                connection.SendPacket(data);
+        }
+        
+        public void BroadcastPacketExcept(int clientId, byte[] data)
+        {
+            foreach (var idConnectionPairs in _sockets.Where(idConnectionPairs => clientId != idConnectionPairs.Key))
+                idConnectionPairs.Value.SendPacket(data);
         }
         
         private void TcpConnectCallback(IAsyncResult asyncResult)

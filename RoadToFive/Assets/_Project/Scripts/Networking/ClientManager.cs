@@ -1,24 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using _Project.Scripts.Networking.ByteArray;
 using _Project.Scripts.Networking.TCP;
 using _Project.Scripts.Networking.UDP;
-using UnityEngine;
 using Logger = _Project.Scripts.Logging.Logger;
 
 namespace _Project.Scripts.Networking
 {
-    public class ClientManager : MonoBehaviour
+    public class ClientManager
     {
-        private IClientManager _udpClientManager;
+        private readonly IClientManager _udpClientManager;
         private IClientManager _tcpClientManager;
         
-        private void Awake()
-        {
-            if (GetComponents<ClientManager>().Length > 1) 
-                Logger.Error("Multiple ClientManager instances in the scene!");
-        }
-
-        private void Start()
+        private readonly Dictionary<int, Player> _players = new Dictionary<int, Player>();
+        
+        private Player _player;
+        
+        public ClientManager()
         {
             _udpClientManager = new UdpClientManager(ReadMessage);
         }
@@ -41,6 +39,9 @@ namespace _Project.Scripts.Networking
                     break;
                 case MessageType.WelcomeAck:
                     break;
+                case MessageType.SpawnPlayer:
+                    HandleSpawnPlayer(receiveMessage);
+                    break;
                 default:
                     return;
             }
@@ -61,6 +62,15 @@ namespace _Project.Scripts.Networking
             Logger.Info($": received '{message}' from server!");
             
             _tcpClientManager.SendMessage(MessageTemplates.WriteWelcomeAck(clientId, "guest " + clientId));
+        }
+
+        private void HandleSpawnPlayer(ByteArrayReader byteArrayReader)
+        {
+            var (clientId, player) = MessageTemplates.ReadSpawnPlayer(byteArrayReader);
+
+            Logger.Info($"Received player {player.Name}");
+            
+            _players.Add(clientId, player);
         }
     }
 }

@@ -30,5 +30,10 @@ namespace _Project.Scripts.Networking.UDP
         }
         
         public void SendMessage(int clientId, byte[] message) => _server.SendDatagram(message, _server.GetHost(clientId));
+
+        public void BroadcastMessage(byte[] message) => _server.BroadcastDatagram(message);
+        
+        public void BroadcastMessageExcept(int clientId, byte[] message) =>
+            _server.BroadcastDatagramExcept(clientId, message);
     }
 }

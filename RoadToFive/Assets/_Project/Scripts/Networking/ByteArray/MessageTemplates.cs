@@ -37,5 +37,16 @@ namespace _Project.Scripts.Networking.ByteArray
         
         public static Tuple<int, string> ReadWelcomeAck(ByteArrayReader byteArrayReader) =>
             new Tuple<int, string>(byteArrayReader.ReadInt(), byteArrayReader.ReadString());
+
+        public static byte[] WriteSpawnPlayer(int clientId, Player player) => 
+            new ByteArrayBuilder()
+                .Write((int) MessageType.SpawnPlayer)
+                .Write(clientId)
+                .Write(Player.Serialize(player))
+                .InsertSize()
+                .ToByteArray();
+        
+        public static Tuple<int, Player> ReadSpawnPlayer(ByteArrayReader byteArrayReader) =>
+            new Tuple<int, Player>(byteArrayReader.ReadInt(), Player.Deserialize(byteArrayReader));
     }
 }

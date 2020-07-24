@@ -26,9 +26,11 @@ namespace _Project.Scripts.Networking.TCP
             _server.Listen();
         }
 
-        public void SendMessage(int clientId, byte[] message)
-        {
-            _server.SendPacket(clientId, message);
-        }
+        public void SendMessage(int clientId, byte[] message) => _server.SendPacket(clientId, message);
+
+        public void BroadcastMessage(byte[] message) => _server.BroadcastPacket(message);
+
+        public void BroadcastMessageExcept(int clientId, byte[] message) =>
+            _server.BroadcastPacketExcept(clientId, message);
     }
 }
