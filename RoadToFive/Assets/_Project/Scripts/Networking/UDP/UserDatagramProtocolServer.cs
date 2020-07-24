@@ -27,7 +27,7 @@ namespace _Project.Scripts.Networking.UDP
         /// <summary>
         /// Sends a datagram to the specified host.
         /// </summary>
-        /// /// <param name="datagram"></param>
+        /// <param name="datagram"></param>
         /// <param name="remoteHost"></param>
         public void SendDatagram(byte[] datagram, IPEndPoint remoteHost)
         {

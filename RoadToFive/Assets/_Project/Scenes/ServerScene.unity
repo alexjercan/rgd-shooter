@@ -399,7 +399,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1120772919}
   - component: {fileID: 1120772918}
-  - component: {fileID: 1120772920}
   m_Layer: 0
   m_Name: ServerManager
   m_TagString: Untagged
@@ -416,10 +415,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1120772917}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eec743551e074b5aaff1541783393ba4, type: 3}
+  m_Script: {fileID: 11500000, guid: 228aab5a14794560a9026b84d9ddeaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  port: 26950
 --- !u!4 &1120772919
 Transform:
   m_ObjectHideFlags: 0
@@ -435,19 +433,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1120772920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1120772917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0191bcdf2a974f1288bab58b850cfa09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  port: 26950
 --- !u!1 &1474184307
 GameObject:
   m_ObjectHideFlags: 0

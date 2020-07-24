@@ -15,7 +15,7 @@ namespace _Project.Scripts.Networking.TCP
 
         public void SendPacket(byte[] data) => _socket.SendPacket(data);
 
-        public void SetReceivedDatagramHandler(ReceivedHandler handler) => _socket.ReceivedDatagram += (sender, reader) => handler(sender, reader);
+        public void SetReceivedDatagramHandler(ReceivedHandler handler) => _socket.ReceivedPacket += (sender, reader) => handler(sender, reader);
 
         public delegate void ReceivedHandler(object sender, ByteArrayReader reader);
     }

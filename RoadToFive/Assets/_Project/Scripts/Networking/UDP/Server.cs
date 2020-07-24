@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using _Project.Scripts.Networking.ByteArray;
-using _Project.Scripts.Networking.Datagram;
 
 namespace _Project.Scripts.Networking.UDP
 {
@@ -13,7 +12,9 @@ namespace _Project.Scripts.Networking.UDP
         
         private readonly Dictionary<int, IPEndPoint> _knownHosts = new Dictionary<int, IPEndPoint>();
         private readonly UserDatagramProtocolServer _udpServer;
-        
+
+        public IPEndPoint GetHost(int id) => _knownHosts[id];
+
         public Server(int port)
         {
             _udpServer = new UserDatagramProtocolServer(new IPEndPoint(IPAddress.Any, port));
@@ -41,8 +42,9 @@ namespace _Project.Scripts.Networking.UDP
 
             if (clientId == 0)
             {
-                _knownHosts.Add(_knownHosts.Count + 1, clientEndPoint);
-                SendDatagram(DatagramTemplates.WriteWelcomeMessage(_knownHosts.Count), clientEndPoint);
+                var newClientId = _knownHosts.Count + 1;
+                _knownHosts.Add(newClientId, clientEndPoint);
+                SendDatagram(MessageTemplates.WriteDummy(newClientId), clientEndPoint);
                 return;
             }
             

@@ -6,7 +6,7 @@ namespace _Project.Scripts.Networking.TCP
 {
     public abstract class TransmissionControlProtocolSocket
     {
-        public event EventHandler<ByteArrayReader> ReceivedDatagram;
+        public event EventHandler<ByteArrayReader> ReceivedPacket;
         
         public TcpClient Socket { get; protected set; }
 
@@ -61,6 +61,6 @@ namespace _Project.Scripts.Networking.TCP
             return packetLength <= 1;
         }
         
-        private void OnReceivedDatagram(ByteArrayReader e) => ReceivedDatagram?.Invoke(this, e);
+        private void OnReceivedDatagram(ByteArrayReader e) => ReceivedPacket?.Invoke(this, e);
     }
 }

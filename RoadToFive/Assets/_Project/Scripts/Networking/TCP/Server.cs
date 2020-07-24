@@ -4,7 +4,6 @@ using System.Net;
 using System.Net.Sockets;
 using _Project.Scripts.Logging;
 using _Project.Scripts.Networking.ByteArray;
-using _Project.Scripts.Networking.Packet;
 
 namespace _Project.Scripts.Networking.TCP
 {
@@ -51,17 +50,17 @@ namespace _Project.Scripts.Networking.TCP
                 if (_sockets[i].Socket != null) continue;
                 
                 _sockets[i].Connect(client);
-                SendPacket(i, PacketTemplates.WriteWelcomePacket(i, "welcome 69"));
+                SendPacket(i, MessageTemplates.WriteWelcome(i, "welcome 69"));
                 return;
             }
             
             Logger.Warning($"{client.Client.RemoteEndPoint} failed to connect: Server full!");
         }
 
-        public void SetReceivedDatagramHandler(ReceivedHandler handler)
+        public void SetReceivedPacketHandler(ReceivedHandler handler)
         {
             foreach (var socket in _sockets.Values)
-                socket.ReceivedDatagram += (sender, reader) => handler(sender, reader);
+                socket.ReceivedPacket += (sender, reader) => handler(sender, reader);
         }
         
         public delegate void ReceivedHandler(object sender, ByteArrayReader reader);

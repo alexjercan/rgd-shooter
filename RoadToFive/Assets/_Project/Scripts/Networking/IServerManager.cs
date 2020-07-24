@@ -2,6 +2,6 @@
 {
     public interface IServerManager
     {
-        
+        void SendMessage(int clientId, byte[] message);
     }
 }
