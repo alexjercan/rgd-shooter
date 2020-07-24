@@ -1,7 +1,7 @@
-﻿using System;
+﻿using _Project.Scripts.Networking.Threading;
 using UnityEngine;
 
-namespace _Project.Scripts.Threading
+namespace _Project.Scripts
 {
     public class MainThreadManager : MonoBehaviour
     {

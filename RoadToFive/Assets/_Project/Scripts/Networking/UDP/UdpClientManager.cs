@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using _Project.Scripts.Networking.ByteArray;
-using _Project.Scripts.Threading;
+using _Project.Scripts.Networking.Threading;
 
 namespace _Project.Scripts.Networking.UDP
 {
@@ -19,9 +19,7 @@ namespace _Project.Scripts.Networking.UDP
         /// <summary>
         /// Class constructor. It creates a new client instance and binds the udp socket
         /// to the remote host. It also makes sure that the receive callback will be called
-        /// each time a new datagram is received. Starts listening asynchronously and then
-        /// sends a dummy datagram with the id 0, indicating that this is the first time
-        /// this instance communicated with the server.
+        /// each time a new datagram is received. Starts listening asynchronously.
         /// </summary>
         /// <param name="messageReceivedCallback"></param>
         public UdpClientManager(MessageReceiveCallback messageReceivedCallback)
@@ -31,16 +29,14 @@ namespace _Project.Scripts.Networking.UDP
                 MainThreadScheduler.EnqueueOnMainThread(() => messageReceivedCallback(receiveDatagram));
 
             _client.Listen();
-            _client.SendDatagram(MessageTemplates.WriteDummy(0));
         }
-        
-        public void SetClientId(int id) => _client.Id = id;
 
         /// <summary>
         /// Before sending the message to the default remote host set by the constructor,
         /// the client id is inserted at the beginning.
         /// </summary>
+        /// <param name="senderId"></param>
         /// <param name="message"></param>
-        public void SendMessage(byte[] message) => _client.SendDatagram(message);
+        public void SendMessage(int senderId, byte[] message) => _client.SendDatagram(senderId, message);
     }
 }

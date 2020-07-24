@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using _Project.Scripts.Logging;
 using _Project.Scripts.Networking.ByteArray;
 
 namespace _Project.Scripts.Networking.TCP
@@ -30,7 +29,7 @@ namespace _Project.Scripts.Networking.TCP
         {
             _tcpListener.Start();
             _tcpListener.BeginAcceptTcpClient(TcpConnectCallback, null);
-            Logger.Info($"Server started on port {_port}");
+            Console.WriteLine($"Server started on port {_port}");
         }
         
         public void SendPacket(int client, byte[] data) => _sockets[client].SendPacket(data);
@@ -51,7 +50,7 @@ namespace _Project.Scripts.Networking.TCP
         {
             var client = _tcpListener.EndAcceptTcpClient(asyncResult);
             _tcpListener.BeginAcceptTcpClient(TcpConnectCallback, null);
-            Logger.Info($"Incoming connection from {client.Client.RemoteEndPoint}...");
+            Console.WriteLine($"Incoming connection from {client.Client.RemoteEndPoint}...");
 
             for (var i = 1; i <= _maxPlayerCount; i++)
             {
@@ -62,7 +61,7 @@ namespace _Project.Scripts.Networking.TCP
                 return;
             }
             
-            Logger.Warning($"{client.Client.RemoteEndPoint} failed to connect: Server full!");
+            Console.WriteLine($"{client.Client.RemoteEndPoint} failed to connect: Server full!");
         }
 
         public void SetReceivedPacketHandler(ReceivedHandler handler)

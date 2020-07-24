@@ -3,24 +3,29 @@ using System.Collections.Generic;
 using _Project.Scripts.Networking.ByteArray;
 using _Project.Scripts.Networking.TCP;
 using _Project.Scripts.Networking.UDP;
-using Logger = _Project.Scripts.Logging.Logger;
 
 namespace _Project.Scripts.Networking
 {
     public class ClientManager
     {
-        private readonly IClientManager _udpClientManager;
+        public int Id { get; private set; }
+
+        public event EventHandler<PlayerData> PlayerSpawnMessageReceived;
+        
+        private IClientManager _udpClientManager;
         private IClientManager _tcpClientManager;
-        
-        private readonly Dictionary<int, Player> _players = new Dictionary<int, Player>();
-        
-        private Player _player;
-        
+
+        private readonly List<PlayerData> _playerDataList = new List<PlayerData>();
+
         public ClientManager()
         {
+            Id = 0;
             _udpClientManager = new UdpClientManager(ReadMessage);
+            _tcpClientManager = new TcpClientManager(ReadMessage);
         }
-        
+
+        public void SendMessage(byte[] message) => _udpClientManager.SendMessage(Id, message);
+
         private void ReadMessage(ByteArrayReader receiveMessage)
         {
             var packetType = (MessageType)receiveMessage.ReadInt();
@@ -42,6 +47,8 @@ namespace _Project.Scripts.Networking
                 case MessageType.SpawnPlayer:
                     HandleSpawnPlayer(receiveMessage);
                     break;
+                case MessageType.PlayerInput:
+                    break;
                 default:
                     return;
             }
@@ -49,28 +56,28 @@ namespace _Project.Scripts.Networking
 
         private void HandleDummy(ByteArrayReader byteArrayReader)
         {
-            var clientId = MessageTemplates.ReadDummy(byteArrayReader);
-            Logger.Info($": received my new client id '{clientId}' from server!");
-            _udpClientManager.SetClientId(clientId);
-            _tcpClientManager = new TcpClientManager(ReadMessage);
+            var id = MessageTemplates.ReadDummy(byteArrayReader);
+            if (Id != id)
+            {
+            }
+            //TODO: HANDLE ERROR/DISCONNECT 
         }
         
         private void HandleWelcome(ByteArrayReader byteArrayReader)
         {
-            var (clientId, message) = MessageTemplates.ReadWelcome(byteArrayReader);
-
-            Logger.Info($": received '{message}' from server!");
+            var (id, _) = MessageTemplates.ReadWelcome(byteArrayReader);
+            Id = id;
             
-            _tcpClientManager.SendMessage(MessageTemplates.WriteWelcomeAck(clientId, "guest " + clientId));
+            _udpClientManager.SendMessage(0, MessageTemplates.WriteDummy(id));
+            _tcpClientManager.SendMessage(id, MessageTemplates.WriteWelcomeAck(id, "guest " + id));
         }
 
         private void HandleSpawnPlayer(ByteArrayReader byteArrayReader)
         {
-            var (clientId, player) = MessageTemplates.ReadSpawnPlayer(byteArrayReader);
+            var playerData = MessageTemplates.ReadSpawnPlayer(byteArrayReader);
 
-            Logger.Info($"Received player {player.Name}");
-            
-            _players.Add(clientId, player);
+            _playerDataList.Add(playerData);
+            PlayerSpawnMessageReceived?.Invoke(this, playerData);
         }
     }
 }

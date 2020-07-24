@@ -2,8 +2,6 @@
 {
     public interface IClientManager
     {
-        void SetClientId(int id);
-
-        void SendMessage(byte[] message);
+        void SendMessage(int senderId, byte[] message);
     }
 }

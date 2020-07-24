@@ -1,5 +1,5 @@
 ﻿using _Project.Scripts.Networking.ByteArray;
-using _Project.Scripts.Threading;
+using _Project.Scripts.Networking.Threading;
 
 namespace _Project.Scripts.Networking.TCP
 {
@@ -24,8 +24,7 @@ namespace _Project.Scripts.Networking.TCP
                 MainThreadScheduler.EnqueueOnMainThread(() => messageReceivedCallback(receivePacket)));
             _client.Connect();
         }
-
-        public void SetClientId(int id) => _client.Id = id;
-        public void SendMessage(byte[] message) => _client.SendPacket(message);
+        
+        public void SendMessage(int senderId, byte[] message) => _client.SendPacket(message);
     }
 }

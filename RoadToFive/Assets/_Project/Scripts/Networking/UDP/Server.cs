@@ -52,17 +52,25 @@ namespace _Project.Scripts.Networking.UDP
             
             var receiveDatagram = new ByteArrayReader(receivedBytes);
             var clientId = receiveDatagram.ReadInt();
+            
+            var datagramLength = receiveDatagram.ReadInt();
+            if (datagramLength != receiveDatagram.UnreadBytes) return;
 
             if (clientId == 0)
             {
-                var newClientId = _knownHosts.Count + 1;
-                _knownHosts.Add(newClientId, clientEndPoint);
+                if (_knownHosts.ContainsValue(clientEndPoint)) return;
+
+                var type = receiveDatagram.ReadInt();
+                if (type != (int)MessageType.Dummy) return;
+                
+                var newClientId = MessageTemplates.ReadDummy(receiveDatagram);
+                if (newClientId == 0) newClientId = _knownHosts.Count + 1;
+                if (_knownHosts.ContainsKey(newClientId)) _knownHosts[newClientId] = clientEndPoint;
+                else _knownHosts.Add(newClientId, clientEndPoint);
                 SendDatagram(MessageTemplates.WriteDummy(newClientId), clientEndPoint);
                 return;
             }
             
-            var datagramLength = receiveDatagram.ReadInt();
-            if (datagramLength != receiveDatagram.UnreadBytes) return;
             if (_knownHosts[clientId].ToString() != clientEndPoint.ToString()) return;
 
             OnReceivedDatagram(receiveDatagram);

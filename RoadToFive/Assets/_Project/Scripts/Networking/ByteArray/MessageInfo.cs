@@ -8,5 +8,6 @@
         Welcome,
         WelcomeAck,
         SpawnPlayer,
+        PlayerInput,
     }
 }

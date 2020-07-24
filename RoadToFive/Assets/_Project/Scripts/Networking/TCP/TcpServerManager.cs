@@ -1,5 +1,5 @@
 ﻿using _Project.Scripts.Networking.ByteArray;
-using _Project.Scripts.Threading;
+using _Project.Scripts.Networking.Threading;
 
 namespace _Project.Scripts.Networking.TCP
 {

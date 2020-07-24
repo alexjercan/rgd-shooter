@@ -38,15 +38,22 @@ namespace _Project.Scripts.Networking.ByteArray
         public static Tuple<int, string> ReadWelcomeAck(ByteArrayReader byteArrayReader) =>
             new Tuple<int, string>(byteArrayReader.ReadInt(), byteArrayReader.ReadString());
 
-        public static byte[] WriteSpawnPlayer(int clientId, Player player) => 
+        public static byte[] WriteSpawnPlayer(PlayerData playerData) => 
             new ByteArrayBuilder()
                 .Write((int) MessageType.SpawnPlayer)
-                .Write(clientId)
-                .Write(Player.Serialize(player))
+                .Write(PlayerData.Serialize(playerData))
                 .InsertSize()
                 .ToByteArray();
         
-        public static Tuple<int, Player> ReadSpawnPlayer(ByteArrayReader byteArrayReader) =>
-            new Tuple<int, Player>(byteArrayReader.ReadInt(), Player.Deserialize(byteArrayReader));
+        public static PlayerData ReadSpawnPlayer(ByteArrayReader byteArrayReader) => PlayerData.Deserialize(byteArrayReader);
+        
+        public static byte[] WritePlayerInput(PlayerInput playerInput) =>
+            new ByteArrayBuilder()
+                .Write((int) MessageType.PlayerInput)
+                .Write(PlayerInput.Serialize(playerInput))
+                .InsertSize()
+                .ToByteArray();
+        
+        public static PlayerInput ReadPlayerInput(ByteArrayReader byteArrayReader) => PlayerInput.Deserialize(byteArrayReader);
     }
 }

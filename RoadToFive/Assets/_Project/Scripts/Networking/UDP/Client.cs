@@ -7,15 +7,12 @@ namespace _Project.Scripts.Networking.UDP
 {
     public class Client
     {
-        public int Id { get; set; }
-
         public event EventHandler<ByteArrayReader> ReceivedDatagram;
 
         private readonly IUserDatagramProtocolSocket _udpClient;
         
         public Client(string remoteIp, int remotePort, int localPort)
         {
-            Id = 0;
             _udpClient = new UserDatagramProtocolClient(new IPEndPoint(IPAddress.Any, localPort),
                 new IPEndPoint(IPAddress.Parse(remoteIp), remotePort));
         }
@@ -25,9 +22,9 @@ namespace _Project.Scripts.Networking.UDP
             _udpClient.Listen(ReceiveCallback);
         }
 
-        public void SendDatagram(byte[] datagram)
+        public void SendDatagram(int senderId, byte[] datagram)
         {
-            var byteArrayBuilder = new ByteArrayBuilder().Write(Id).Write(datagram).ToByteArray();
+            var byteArrayBuilder = new ByteArrayBuilder().Write(senderId).Write(datagram).ToByteArray();
             _udpClient.SendDatagram(byteArrayBuilder, null);
         }
         

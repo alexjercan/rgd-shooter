@@ -5,8 +5,6 @@ namespace _Project.Scripts.Networking.TCP
 {
     public class Client
     {
-        public int Id { get; set; }
-
         private readonly TransmissionControlProtocolSocket _socket;
 
         public Client(string serverIp, int port) => _socket = new TransmissionControlProtocolClient(serverIp, port);
