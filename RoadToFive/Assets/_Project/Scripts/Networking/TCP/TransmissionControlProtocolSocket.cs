@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Net.Sockets;
 using _Project.Scripts.Networking.ByteArray;
-using _Project.Scripts.Threading;
 
 namespace _Project.Scripts.Networking.TCP
 {
     public abstract class TransmissionControlProtocolSocket
     {
+        public event EventHandler<ByteArrayReader> ReceivedDatagram;
+        
         public TcpClient Socket { get; protected set; }
 
         protected const int DataBufferSize = 4096;
@@ -16,9 +17,7 @@ namespace _Project.Scripts.Networking.TCP
         private ByteArrayReader _receivedByteArrayReader = new ByteArrayReader();
 
         public abstract void Connect(TcpClient socket);
-        
-        protected abstract void HandleReadPacket(byte[] packet);
-               
+
         public void SendPacket(byte[] packet)
         {
             if (Socket == null) return;
@@ -50,9 +49,8 @@ namespace _Project.Scripts.Networking.TCP
 
             while (packetLength > 0 && packetLength <= _receivedByteArrayReader.UnreadBytes)
             {
-                var packetBytes = _receivedByteArrayReader.ReadBytes(packetLength);
-                
-                MainThreadScheduler.EnqueueOnMainThread(() => HandleReadPacket(packetBytes));
+                var bytes = _receivedByteArrayReader.ReadBytes(packetLength);
+                OnReceivedDatagram(new ByteArrayReader(bytes));
                 
                 packetLength = 0;
                 if (_receivedByteArrayReader.UnreadBytes < sizeof(int)) continue;
@@ -62,5 +60,7 @@ namespace _Project.Scripts.Networking.TCP
 
             return packetLength <= 1;
         }
+        
+        private void OnReceivedDatagram(ByteArrayReader e) => ReceivedDatagram?.Invoke(this, e);
     }
 }

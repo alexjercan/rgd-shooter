@@ -10,34 +10,34 @@ namespace _Project.Scripts.Networking.TCP
 {
     public class Server
     {
-        private int MaxPlayerCount { get; set; }
-        private int Port { get; set; }
+        private readonly int _maxPlayerCount;
+        private readonly int _port;
 
-        private readonly Dictionary<int, TransmissionControlProtocolSocket> _connections = new Dictionary<int, TransmissionControlProtocolSocket>();
+        private readonly Dictionary<int, TransmissionControlProtocolSocket> _sockets = new Dictionary<int, TransmissionControlProtocolSocket>();
         private readonly TcpListener _tcpListener;
 
         public Server(int maxPlayerCount, int port)
         {
-            MaxPlayerCount = maxPlayerCount;
-            Port = port;
-            
-            for (var i = 1; i <= MaxPlayerCount; i++) _connections.Add(i, new TransmissionControlProtocolServer(this));
-            
-            _tcpListener = new TcpListener(IPAddress.Any, Port);
-            
-            _tcpListener.Start();
-            _tcpListener.BeginAcceptTcpClient(TcpConnectCallback, null);
-            Logger.Info($"Server started on port {Port}");
+            _maxPlayerCount = maxPlayerCount;
+            _port = port;
+
+            for (var i = 1; i <= _maxPlayerCount; i++) _sockets.Add(i, new TransmissionControlProtocolServer());
+
+            _tcpListener = new TcpListener(IPAddress.Any, _port);
         }
 
-        public void SendPacket(int client, byte[] data) => _connections[client].SendPacket(data);
+        public void Listen()
+        {
+            _tcpListener.Start();
+            _tcpListener.BeginAcceptTcpClient(TcpConnectCallback, null);
+            Logger.Info($"Server started on port {_port}");
+        }
+        
+        public void SendPacket(int client, byte[] data) => _sockets[client].SendPacket(data);
 
         public void BroadcastPacket(byte[] data)
         {
-            foreach (var connection in _connections.Values )
-            {
-                connection.SendPacket(data);
-            }
+            foreach (var connection in _sockets.Values ) connection.SendPacket(data);
         }
         
         private void TcpConnectCallback(IAsyncResult asyncResult)
@@ -46,11 +46,11 @@ namespace _Project.Scripts.Networking.TCP
             _tcpListener.BeginAcceptTcpClient(TcpConnectCallback, null);
             Logger.Info($"Incoming connection from {client.Client.RemoteEndPoint}...");
 
-            for (var i = 1; i <= MaxPlayerCount; i++)
+            for (var i = 1; i <= _maxPlayerCount; i++)
             {
-                if (_connections[i].Socket != null) continue;
+                if (_sockets[i].Socket != null) continue;
                 
-                _connections[i].Connect(client);
+                _sockets[i].Connect(client);
                 SendPacket(i, PacketTemplates.WriteWelcomePacket(i, "welcome 69"));
                 return;
             }
@@ -58,28 +58,12 @@ namespace _Project.Scripts.Networking.TCP
             Logger.Warning($"{client.Client.RemoteEndPoint} failed to connect: Server full!");
         }
 
-        public void ReadPacket(byte[] packet)
+        public void SetReceivedDatagramHandler(ReceivedHandler handler)
         {
-            var packetReader = new ByteArrayReader(packet);
-            var packetType = (ClientPacket)packetReader.ReadInt();
-
-            switch (packetType)
-            {
-                case ClientPacket.InvalidPacket:
-                    break;
-                case ClientPacket.WelcomeReceived:
-                    HandleWelcomeReceived(packetReader);
-                    break;
-                default:
-                    return;
-            }
+            foreach (var socket in _sockets.Values)
+                socket.ReceivedDatagram += (sender, reader) => handler(sender, reader);
         }
         
-        private void HandleWelcomeReceived(ByteArrayReader byteArrayReader)
-        {
-            var (_, message) = PacketTemplates.WriteWelcomeReceivedPacket(byteArrayReader);
-            
-            Logger.Info(message);
-        }
+        public delegate void ReceivedHandler(object sender, ByteArrayReader reader);
     }
 }

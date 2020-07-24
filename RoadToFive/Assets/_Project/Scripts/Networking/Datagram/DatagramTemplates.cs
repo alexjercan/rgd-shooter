@@ -1,4 +1,5 @@
-﻿using _Project.Scripts.Networking.ByteArray;
+﻿using System;
+using _Project.Scripts.Networking.ByteArray;
 
 namespace _Project.Scripts.Networking.Datagram
 {
@@ -12,7 +13,8 @@ namespace _Project.Scripts.Networking.Datagram
                 .InsertSize()
                 .ToByteArray();
 
-        public static string ReadWelcomeReceivedMessage(ByteArrayReader datagram) => datagram.ReadString();
+        public static Tuple<int, string> ReadWelcomeReceivedMessage(ByteArrayReader datagram) =>
+            new Tuple<int, string>(datagram.ReadInt(), datagram.ReadString());
 
         #endregion
 
@@ -23,9 +25,10 @@ namespace _Project.Scripts.Networking.Datagram
                 .InsertSize()
                 .ToByteArray();
         
-        public static byte[] WriteWelcomeReceivedMessage(string username) =>
+        public static byte[] WriteWelcomeReceivedMessage(int clientId, string username) =>
             new ByteArrayBuilder()
                 .Write((int) ClientDatagram.WelcomeReceived)
+                .Write(clientId)
                 .Write(username)
                 .InsertSize()
                 .ToByteArray();

@@ -1,51 +1,22 @@
-﻿using System;
-using System.Net;
-using System.Net.Sockets;
-using _Project.Scripts.Logging;
+﻿using System.Net.Sockets;
 using _Project.Scripts.Networking.ByteArray;
-using _Project.Scripts.Networking.Packet;
 
 namespace _Project.Scripts.Networking.TCP
 {
     public class Client
     {
-        private int _clientId;
-        private readonly TransmissionControlProtocolSocket _tcpConnection;
+        public int Id { get; set; }
 
-        public int Port => ((IPEndPoint) _tcpConnection.Socket.Client.LocalEndPoint).Port;
+        private readonly TransmissionControlProtocolSocket _socket;
 
-        public Client(string serverIp, int port)
-        {
-            _tcpConnection = new TransmissionControlProtocolClient(this, serverIp, port);
-            _tcpConnection.Connect(new TcpClient(new IPEndPoint(IPAddress.Any, 0)));
-        }
+        public Client(string serverIp, int port) => _socket = new TransmissionControlProtocolClient(serverIp, port);
 
-        public void SendPacket(byte[] data) => _tcpConnection.SendPacket(data);
+        public void Connect() => _socket.Connect(new TcpClient());
 
-        public void ReadPacket(byte[] packet)
-        {
-            var packetReader = new ByteArrayReader(packet);
-            var packetType = (ServerPacket)packetReader.ReadInt();
+        public void SendPacket(byte[] data) => _socket.SendPacket(data);
 
-            switch (packetType)
-            {
-                case ServerPacket.InvalidPacket:
-                    break;
-                case ServerPacket.WelcomePacket:
-                    HandleWelcomePacket(packetReader);
-                    break;
-                default:
-                    return;
-            }
-        }
-        
-        private void HandleWelcomePacket(ByteArrayReader byteArrayReader)
-        {
-            var (clientId, message) = PacketTemplates.ReadWelcomePacket(byteArrayReader);
+        public void SetReceivedDatagramHandler(ReceivedHandler handler) => _socket.ReceivedDatagram += (sender, reader) => handler(sender, reader);
 
-            _clientId = clientId;
-            Logger.Info(message);
-            SendPacket(PacketTemplates.WriteWelcomeReceivedPacket(_clientId, "guest " + clientId));
-        }
+        public delegate void ReceivedHandler(object sender, ByteArrayReader reader);
     }
 }

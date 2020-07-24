@@ -5,15 +5,13 @@ namespace _Project.Scripts.Networking.TCP
 {
     public class TransmissionControlProtocolClient : TransmissionControlProtocolSocket
     {
-        private readonly Client _client;
         private readonly string _ipServer;
         private readonly int _port;
 
-        public TransmissionControlProtocolClient(Client client, string ipServer, int port)
+        public TransmissionControlProtocolClient(string ipServer, int port)
         {
             _ipServer = ipServer;
             _port = port;
-            _client = client;
         }
 
         public override void Connect(TcpClient socket)
@@ -25,8 +23,6 @@ namespace _Project.Scripts.Networking.TCP
             ReceivedBuffer = new byte[DataBufferSize];
             Socket.BeginConnect(_ipServer, _port, ConnectCallback, Socket);
         }
-
-        protected override void HandleReadPacket(byte[] packet) => _client.ReadPacket(packet);
 
         private void ConnectCallback(IAsyncResult asyncResult)
         {
