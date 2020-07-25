@@ -9,22 +9,22 @@ namespace _Project.Scripts.Networking.UDP
         /// <summary>
         /// Server ip and port
         /// </summary>
-        private const string RemoteIp = "127.0.0.1";
         private const int RemotePort = 26950;
 
         private readonly Client _client;
 
         public delegate void MessageReceiveCallback(ByteArrayReader message);
-        
+
         /// <summary>
         /// Class constructor. It creates a new client instance and binds the udp socket
         /// to the remote host. It also makes sure that the receive callback will be called
         /// each time a new datagram is received. Starts listening asynchronously.
         /// </summary>
         /// <param name="messageReceivedCallback"></param>
-        public ClientManager(MessageReceiveCallback messageReceivedCallback)
+        /// <param name="remoteIp"></param>
+        public ClientManager(MessageReceiveCallback messageReceivedCallback, string remoteIp)
         {
-            _client = new Client(RemoteIp, RemotePort, new IPEndPoint(IPAddress.Any, 0).Port);
+            _client = new Client(remoteIp, RemotePort, new IPEndPoint(IPAddress.Any, 0).Port);
             _client.ReceivedDatagram += (sender, receiveDatagram) =>
                 MainThreadScheduler.EnqueueOnMainThread(() => messageReceivedCallback(receiveDatagram));
 

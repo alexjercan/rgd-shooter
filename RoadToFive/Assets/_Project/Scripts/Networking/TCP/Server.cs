@@ -46,15 +46,12 @@ namespace _Project.Scripts.Networking.TCP
                 idConnectionPairs.Value.SendPacket(data);
         }
 
-        public void RemoveClient(int clientId)
-        {
-            _sockets[clientId].Disconnect();
-        }
-        
+        public void RemoveClient(int clientId) => _sockets[clientId].Disconnect();
+
         public void Disconnect()
         {
             _tcpListener.Stop();
-            for (var i = 1; i <= _maxPlayerCount; i++) _sockets[i].Disconnect();
+            foreach (var socket in _sockets.Values) socket.Disconnect();
         }
 
         private void TcpConnectCallback(IAsyncResult asyncResult)
@@ -75,6 +72,7 @@ namespace _Project.Scripts.Networking.TCP
             
             Console.WriteLine(" failed to connect: Server full!");
         }
+
 
         public void SetReceivedPacketHandler(ReceivedHandler handler)
         {

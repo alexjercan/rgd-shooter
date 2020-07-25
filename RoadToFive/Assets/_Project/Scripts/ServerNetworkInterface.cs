@@ -110,6 +110,8 @@ namespace _Project.Scripts
         
         private void OnApplicationQuit()
         {
+            if (_tcpServerManager == null || _udpServerManager == null) return;
+            
             _tcpServerManager.BroadcastMessage(MessageTemplates.WriteServerDisconnect());
             _udpServerManager.Disconnect();
             _tcpServerManager.Disconnect();
