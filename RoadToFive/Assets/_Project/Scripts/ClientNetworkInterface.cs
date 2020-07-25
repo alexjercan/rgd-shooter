@@ -5,22 +5,21 @@ using _Project.Scripts.Networking.ByteArray;
 using UnityEngine;
 using UDP = _Project.Scripts.Networking.UDP;
 using TCP = _Project.Scripts.Networking.TCP;
+using Numeric = System.Numerics;
 
 namespace _Project.Scripts
 {
     public class ClientNetworkInterface : MonoBehaviour
     {
-        public PlayerManager LocalPlayer => _players[_id];
-
-        [SerializeField] private PlayerManager localPlayerPrefab;
-        [SerializeField] private PlayerManager playerPrefab;
+        [SerializeField] private ClientPlayerManager localPlayerPrefab;
+        [SerializeField] private ClientPlayerManager playerPrefab;
         
         private int _id;
-        
+
         private UDP.ClientManager _udpClientManager;
         private TCP.ClientManager _tcpClientManager;
         
-        private Dictionary<int, PlayerManager> _players = new Dictionary<int, PlayerManager>();
+        private Dictionary<int, ClientPlayerManager> _players = new Dictionary<int, ClientPlayerManager>();
         
         private void Start()
         {
@@ -28,6 +27,14 @@ namespace _Project.Scripts
             _tcpClientManager = new TCP.ClientManager(ReadMessage);
             
             _tcpClientManager.Connect();
+        }
+
+        public void SendMovementInput(Vector2 movementInput, bool jumpInput, Vector2 rotationValue)
+        {
+            var movement = new Numeric.Vector3(movementInput.x, jumpInput ? 1 : 0, movementInput.y);
+            var rotation = new Numeric.Vector2(rotationValue.x, rotationValue.y);
+            var playerInput = new PlayerInput(_id, movement, rotation);
+            _udpClientManager.SendMessage(_id, MessageTemplates.WritePlayerInput(playerInput));
         }
         
         private void ReadMessage(ByteArrayReader receiveMessage)
@@ -59,6 +66,9 @@ namespace _Project.Scripts
                 case MessageType.ServerDisconnect:
                     HandleServerDisconnect(receiveMessage);
                     break;
+                case MessageType.PlayerMovement:
+                    HandlePlayerMovement(receiveMessage);
+                    break;
                 default:
                     return;
             }
@@ -83,11 +93,25 @@ namespace _Project.Scripts
         private void HandleSpawnPlayer(ByteArrayReader byteArrayReader)
         {
             var playerData = MessageTemplates.ReadSpawnPlayer(byteArrayReader);
-            var player = Instantiate(_id == playerData.Id ? localPlayerPrefab : playerPrefab);
-
-            player.PlayerData = playerData;
             
+            var player = Instantiate(_id == playerData.Id ? localPlayerPrefab : playerPrefab);
+            
+            player.PlayerRotation = new Vector2(playerData.Rotation.X, playerData.Rotation.Y);
+            player.PlayerPosition = new Vector3(playerData.Position.X, playerData.Position.Y, playerData.Position.Z);
             _players.Add(playerData.Id, player);
+        }
+        
+        private void HandlePlayerMovement(ByteArrayReader receiveMessage)
+        {
+            var playerData = MessageTemplates.ReadPlayerMovement(receiveMessage);
+            
+            var playerId = playerData.Id;
+            var playerToHandle = _players[playerId];
+            var receivedPosition = playerData.Position;
+            var receivedRotation = playerData.Rotation;
+            
+            playerToHandle.PlayerPosition = new Vector3(receivedPosition.X, receivedPosition.Y, receivedPosition.Z);
+            playerToHandle.PlayerRotation = new Vector2(receivedRotation.X, receivedPosition.Y);
         }
 
         private void HandlePlayerDisconnect(ByteArrayReader byteArrayReader)
@@ -105,7 +129,7 @@ namespace _Project.Scripts
             _udpClientManager.Disconnect();
             _tcpClientManager.Disconnect();
         }
-        
+
         private void OnApplicationQuit()
         {
             _tcpClientManager.SendMessage(MessageTemplates.WritePlayerDisconnect(_id));

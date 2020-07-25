@@ -36,6 +36,8 @@ namespace _Project.Scripts.Networking.UDP
         public void BroadcastMessageExcept(int clientId, byte[] message) =>
             _server.BroadcastDatagramExcept(clientId, message);
 
+        public void RemoveClient(int clientId) => _server.RemoveClient(clientId);
+        
         public void Disconnect() => _server.Disconnect();
     }
 }

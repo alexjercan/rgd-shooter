@@ -9,6 +9,7 @@
         WelcomeAck,
         SpawnPlayer,
         PlayerInput,
+        PlayerMovement,
         PlayerDisconnect,
         ServerDisconnect,
     }

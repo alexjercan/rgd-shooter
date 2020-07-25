@@ -46,6 +46,11 @@ namespace _Project.Scripts.Networking.TCP
                 idConnectionPairs.Value.SendPacket(data);
         }
 
+        public void RemoveClient(int clientId)
+        {
+            _sockets[clientId].Disconnect();
+        }
+        
         public void Disconnect()
         {
             _tcpListener.Stop();
