@@ -4,7 +4,7 @@ using _Project.Scripts.Networking.Threading;
 
 namespace _Project.Scripts.Networking.UDP
 {
-    public class UdpClientManager : IClientManager
+    public class ClientManager
     {
         /// <summary>
         /// Server ip and port
@@ -22,7 +22,7 @@ namespace _Project.Scripts.Networking.UDP
         /// each time a new datagram is received. Starts listening asynchronously.
         /// </summary>
         /// <param name="messageReceivedCallback"></param>
-        public UdpClientManager(MessageReceiveCallback messageReceivedCallback)
+        public ClientManager(MessageReceiveCallback messageReceivedCallback)
         {
             _client = new Client(RemoteIp, RemotePort, new IPEndPoint(IPAddress.Any, 0).Port);
             _client.ReceivedDatagram += (sender, receiveDatagram) =>
@@ -38,5 +38,7 @@ namespace _Project.Scripts.Networking.UDP
         /// <param name="senderId"></param>
         /// <param name="message"></param>
         public void SendMessage(int senderId, byte[] message) => _client.SendDatagram(senderId, message);
+        
+        public void Disconnect() => _client.Disconnect();
     }
 }

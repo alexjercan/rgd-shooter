@@ -1,4 +1,4 @@
-﻿namespace _Project.Scripts.Networking.ByteArray
+﻿namespace _Project.Scripts.Networking
 {
     public enum MessageType : int
     {
@@ -9,5 +9,7 @@
         WelcomeAck,
         SpawnPlayer,
         PlayerInput,
+        PlayerDisconnect,
+        ServerDisconnect,
     }
 }

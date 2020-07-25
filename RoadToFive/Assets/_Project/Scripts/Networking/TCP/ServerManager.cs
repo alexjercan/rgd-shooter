@@ -3,7 +3,7 @@ using _Project.Scripts.Networking.Threading;
 
 namespace _Project.Scripts.Networking.TCP
 {
-    public class TcpServerManager : IServerManager
+    public class ServerManager
     {
         private const int Port = 26950;
 
@@ -18,7 +18,7 @@ namespace _Project.Scripts.Networking.TCP
         /// to the client. 
         /// </summary>
         /// <param name="messageReceivedCallback"></param>
-        public TcpServerManager(MessageReceiveCallback messageReceivedCallback)
+        public ServerManager(MessageReceiveCallback messageReceivedCallback)
         {
             _server = new Server(20, Port);
             _server.SetReceivedPacketHandler((sender, receivePacket) =>
@@ -32,5 +32,7 @@ namespace _Project.Scripts.Networking.TCP
 
         public void BroadcastMessageExcept(int clientId, byte[] message) =>
             _server.BroadcastPacketExcept(clientId, message);
+        
+        public void Disconnect() => _server.Disconnect();
     }
 }

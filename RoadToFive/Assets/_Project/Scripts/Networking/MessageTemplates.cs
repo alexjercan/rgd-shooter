@@ -1,6 +1,7 @@
 ﻿using System;
+using _Project.Scripts.Networking.ByteArray;
 
-namespace _Project.Scripts.Networking.ByteArray
+namespace _Project.Scripts.Networking
 {
     public static class MessageTemplates
     {
@@ -55,5 +56,22 @@ namespace _Project.Scripts.Networking.ByteArray
                 .ToByteArray();
         
         public static PlayerInput ReadPlayerInput(ByteArrayReader byteArrayReader) => PlayerInput.Deserialize(byteArrayReader);
+
+        public static byte[] WritePlayerDisconnect(int clientId) =>
+            new ByteArrayBuilder()
+                .Write((int) MessageType.PlayerDisconnect)
+                .Write(clientId)
+                .InsertSize()
+                .ToByteArray();
+
+        public static int ReadPlayerDisconnect(ByteArrayReader byteArrayReader) => byteArrayReader.ReadInt();
+
+        public static byte[] WriteServerDisconnect() =>
+            new ByteArrayBuilder()
+                .Write((int) MessageType.ServerDisconnect)
+                .InsertSize()
+                .ToByteArray();
+
+        public static void ReadServerDisconnect(ByteArrayReader byteArrayReader) {}
     }
 }

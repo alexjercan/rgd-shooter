@@ -3,7 +3,7 @@ using _Project.Scripts.Networking.Threading;
 
 namespace _Project.Scripts.Networking.UDP
 {
-    public class UdpServerManager : IServerManager
+    public class ServerManager
     {
         /// <summary>
         /// The port on which the server runs
@@ -20,7 +20,7 @@ namespace _Project.Scripts.Networking.UDP
         /// a new client and the server adds it to the known hosts, and sends its new udp id.
         /// </summary>
         /// <param name="messageReceivedCallback"></param>
-        public UdpServerManager(MessageReceiveCallback messageReceivedCallback)
+        public ServerManager(MessageReceiveCallback messageReceivedCallback)
         {
             _server = new Server(Port);
             _server.ReceivedDatagram += (sender, receiveDatagram) =>
@@ -29,11 +29,13 @@ namespace _Project.Scripts.Networking.UDP
             _server.Listen();
         }
         
-        public void SendMessage(int clientId, byte[] message) => _server.SendDatagram(message, _server.GetHost(clientId));
+        public void SendMessage(int clientId, byte[] message) => _server.SendDatagram(message, clientId);
 
         public void BroadcastMessage(byte[] message) => _server.BroadcastDatagram(message);
         
         public void BroadcastMessageExcept(int clientId, byte[] message) =>
             _server.BroadcastDatagramExcept(clientId, message);
+
+        public void Disconnect() => _server.Disconnect();
     }
 }

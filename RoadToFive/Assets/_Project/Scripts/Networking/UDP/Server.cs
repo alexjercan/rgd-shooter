@@ -9,35 +9,57 @@ namespace _Project.Scripts.Networking.UDP
 {
     public class Server
     {
+        /// <summary>
+        /// This event is being invoked when a message is received by the socket.
+        /// </summary>
         public event EventHandler<ByteArrayReader> ReceivedDatagram;
         
         private readonly Dictionary<int, IPEndPoint> _knownHosts = new Dictionary<int, IPEndPoint>();
-        private readonly UserDatagramProtocolServer _udpServer;
+        private readonly ServerSocket _socket;
 
-        public IPEndPoint GetHost(int id) => _knownHosts[id];
+        /// <summary>
+        /// Creates a new socket and binds it to the local port.
+        /// </summary>
+        /// <param name="port"></param>
+        public Server(int port) => _socket = new ServerSocket(new IPEndPoint(IPAddress.Any, port));
 
-        public Server(int port)
-        {
-            _udpServer = new UserDatagramProtocolServer(new IPEndPoint(IPAddress.Any, port));
-        }
+        /// <summary>
+        /// Start listening on the socket for datagrams from the clients.
+        /// </summary>
+        public void Listen() => _socket.Listen(ReceiveCallback);
 
-        public void Listen()
-        {
-            _udpServer.Listen(ReceiveCallback);
-        }
-        
-        public void SendDatagram(byte[] datagram, IPEndPoint remoteHost) => _udpServer.SendDatagram(datagram, remoteHost);
+        /// <summary>
+        /// Sends a datagram to the specified remote host.
+        /// </summary>
+        /// <param name="datagram"></param>
+        /// <param name="hostId"></param>
+        public void SendDatagram(byte[] datagram, int hostId) => _socket.SendDatagram(datagram, _knownHosts[hostId]);
 
+        /// <summary>
+        /// Broadcasts a datagram to all known hosts
+        /// </summary>
+        /// <param name="datagram"></param>
         public void BroadcastDatagram(byte[] datagram)
         {
-            foreach (var knownHost in _knownHosts.Values) 
-                SendDatagram(datagram, knownHost);
+            foreach (var hostId in _knownHosts.Keys) 
+                SendDatagram(datagram, hostId);
         }
         
+        /// <summary>
+        /// Broadcasts a datagram to all known hosts except one.
+        /// </summary>
+        /// <param name="clientId"></param>
+        /// <param name="data"></param>
         public void BroadcastDatagramExcept(int clientId, byte[] data)
         {
             foreach (var idEndPointPairs in _knownHosts.Where(idEndPointPairs => clientId != idEndPointPairs.Key))
-                SendDatagram(data, idEndPointPairs.Value);
+                SendDatagram(data, idEndPointPairs.Key);
+        }
+        
+        public void Disconnect()
+        {
+            _socket.Disconnect();
+            _knownHosts.Clear();
         }
         
         private void ReceiveCallback(IAsyncResult asyncResult)
@@ -67,7 +89,7 @@ namespace _Project.Scripts.Networking.UDP
                 if (newClientId == 0) newClientId = _knownHosts.Count + 1;
                 if (_knownHosts.ContainsKey(newClientId)) _knownHosts[newClientId] = clientEndPoint;
                 else _knownHosts.Add(newClientId, clientEndPoint);
-                SendDatagram(MessageTemplates.WriteDummy(newClientId), clientEndPoint);
+                SendDatagram(MessageTemplates.WriteDummy(newClientId), newClientId);
                 return;
             }
             
