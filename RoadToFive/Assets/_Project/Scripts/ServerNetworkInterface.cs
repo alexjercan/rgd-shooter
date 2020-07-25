@@ -12,6 +12,8 @@ namespace _Project.Scripts
     public class ServerNetworkInterface : MonoBehaviour
     {
         [SerializeField] private ServerPlayerManager playerPrefab;
+        [SerializeField] private Transform spawnPointTransform;
+        
         
         private UDP.ServerManager _udpServerManager;
         private TCP.ServerManager _tcpServerManager;
@@ -72,11 +74,14 @@ namespace _Project.Scripts
 
             foreach (var player in _players.Values)
                 _tcpServerManager.SendMessage(clientId, MessageTemplates.WriteSpawnPlayer(player.PlayerData));
-            
-            var playerData = new PlayerData(clientId, new Numeric.Vector3(), new Numeric.Vector2());
+
+            var position = spawnPointTransform.position;
+            var rotation = Quaternion.AngleAxis(spawnPointTransform.rotation.y, Vector3.up);
+            var playerData = new PlayerData(clientId, new Numeric.Vector3(position.x, position.y, position.z),
+                new Numeric.Vector2(0, rotation.y));
             _tcpServerManager.BroadcastMessage(MessageTemplates.WriteSpawnPlayer(playerData));
             
-            var instance = Instantiate(playerPrefab);
+            var instance = Instantiate(playerPrefab, position, rotation);
             instance.PlayerData = playerData;
             
             _players.Add(playerData.Id, instance);
