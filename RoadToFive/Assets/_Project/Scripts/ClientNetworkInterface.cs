@@ -94,10 +94,13 @@ namespace _Project.Scripts
         {
             var playerData = MessageTemplates.ReadSpawnPlayer(byteArrayReader);
             
-            var player = Instantiate(_id == playerData.Id ? localPlayerPrefab : playerPrefab);
+            var playerPosition = new Vector3(playerData.Position.X, playerData.Position.Y, playerData.Position.Z);
+            var playerRotation = Quaternion.AngleAxis(playerData.Rotation.Y, Vector3.up);
+            
+            var player = Instantiate(_id == playerData.Id ? localPlayerPrefab : playerPrefab, playerPosition, playerRotation);
             
             player.PlayerRotation = new Vector2(playerData.Rotation.X, playerData.Rotation.Y);
-            player.PlayerPosition = new Vector3(playerData.Position.X, playerData.Position.Y, playerData.Position.Z);
+            player.PlayerPosition = playerPosition;
             _players.Add(playerData.Id, player);
         }
         
