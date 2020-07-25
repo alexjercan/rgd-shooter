@@ -1,11 +1,11 @@
-﻿using _Project.Scripts.Character;
+﻿using _Project.Scripts.Movement.Mechanics;
 using UnityEngine;
 
-namespace _Project.Scripts
+namespace _Project.Scripts.Movement.Character
 {
     public class ServerCharacterController : MonoBehaviour
     {
-        [SerializeField] private ServerInputHandler serverInputHandler;
+        [SerializeField] private ServerPlayerManager serverPlayerManager;
         [SerializeField] private CharacterController characterController;
 
         [SerializeField] private float movementSpeed = 12.0f;
@@ -14,11 +14,13 @@ namespace _Project.Scripts
         
         private Transform _transform;
         private CharacterMovement _characterMovement;
+        private ServerNetworkInterface _serverNetworkInterface;
 
         private void Awake()
         {
             if (!characterController) characterController = GetComponent<CharacterController>();
             _transform = GetComponent<Transform>();
+            _serverNetworkInterface = FindObjectOfType<ServerNetworkInterface>();
         }
 
         private void Start()
@@ -33,19 +35,24 @@ namespace _Project.Scripts
             MoveCharacter();
         }
 
+        private void FixedUpdate()
+        {
+            _serverNetworkInterface.BroadcastPositionRotation(serverPlayerManager.PlayerData.Id, _transform.position,
+                serverPlayerManager.PlayerRotation);
+        }
+
         private void UpdateRotation()
         {
-            var rotationYValue = serverInputHandler.PlayerRotationValue.y;
+            var rotationYValue = serverPlayerManager.PlayerRotation.y;
 
             _transform.localRotation = Quaternion.Euler(0, rotationYValue, 0);
         }
 
         private void MoveCharacter()
         {
-            var movementInput = serverInputHandler.MovementInput;
-            var jumpInput = serverInputHandler.JumpInput;
+            var movementInput = serverPlayerManager.PlayerMovementInput;
 
-            var controllerInput = _characterMovement.GetControllerInput(movementInput, jumpInput, _transform.forward,
+            var controllerInput = _characterMovement.GetControllerInput(movementInput, _transform.forward,
                 _transform.right, characterController.isGrounded, jumpHeight, movementSpeed);
 
             characterController.Move(controllerInput * Time.deltaTime);

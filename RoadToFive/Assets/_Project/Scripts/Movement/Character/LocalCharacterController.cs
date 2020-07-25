@@ -1,28 +1,33 @@
-﻿using _Project.Scripts.Character;
+﻿﻿using _Project.Scripts.Movement.Mechanics;
 using UnityEngine;
 
-namespace _Project.Scripts
+namespace _Project.Scripts.Movement.Character
 {
-    public class ClientCharacterController : MonoBehaviour
+    public class LocalCharacterController : MonoBehaviour
     {
         [SerializeField] private ClientInputHandler clientInputHandler;
+        [SerializeField] private ClientPlayerManager clientPlayerManager;
         [SerializeField] private Camera playerCamera;
         
         [Header("Camera settings")]
         [Range(0.1f, 5.0f)] [SerializeField] private float mouseSensitivity = 2.0f;
         [Range(0.0f, 180.0f)] [SerializeField] private float verticalRotationRange = 170.0f;
         [Range(1.0f, 5.0f)] [SerializeField] private float cameraSmoothing = 1.0f;
+
+        private ClientNetworkInterface _clientNetworkInterface;
         
         private Transform _transform;
         private Transform _cameraTransform;
         private float _internalMouseSensitivity;
 
         private LookRotation _characterLookRotation;
+        private Vector2 _playerRotation;
 
         private void Awake()
         {
             _transform = GetComponent<Transform>();
             _cameraTransform = playerCamera.GetComponent<Transform>();
+            _clientNetworkInterface = FindObjectOfType<ClientNetworkInterface>();
         }
 
         private void Start()
@@ -38,9 +43,16 @@ namespace _Project.Scripts
         {
             RotateCharacter();
 
-            UpdatePosition();
+            UpdateMovement();
         }
 
+        private void FixedUpdate()
+        {
+            _clientNetworkInterface.SendMovementInput(clientInputHandler.MovementInput,
+                clientInputHandler.JumpInput,
+                _playerRotation);
+        }
+        
         private void RotateCharacter()
         {
             var mouseYInput = clientInputHandler.LookInput.y;
@@ -49,11 +61,13 @@ namespace _Project.Scripts
                 playerCamera.fieldOfView, _internalMouseSensitivity, verticalRotationRange, cameraSmoothing);
             _cameraTransform.localRotation = Quaternion.Euler(lookRotation.x,0,0);
             _transform.localRotation = Quaternion.Euler(0, lookRotation.y, 0);
+            _playerRotation.x = lookRotation.x;
+            _playerRotation.y = lookRotation.y;
         }
-
-        private void UpdatePosition()
+        
+        private void UpdateMovement()
         {
-            _transform.position = clientInputHandler.ServerPositionValue;
+            _transform.position = clientPlayerManager.PlayerPosition;
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace _Project.Scripts.Character
+namespace _Project.Scripts.Movement.Mechanics
 {
     public class CharacterMovement
     {
@@ -15,13 +15,14 @@ namespace _Project.Scripts.Character
             _gravity = gravity;
         }
         
-        public Vector3 GetControllerInput(Vector2 movementInput, bool jumpInput, Vector3 forward, Vector3 right,
+        public Vector3 GetControllerInput(Vector3 movementInput, Vector3 forward, Vector3 right,
             bool isGrounded, float jumpHeight, float movementSpeed)
         {
-            var movementDirection = right * movementInput.x + forward * movementInput.y;
+            var movementDirection = right * movementInput.x + forward * movementInput.z;
+            var jumpInput = movementInput.y;
 
             _velocity.y = (float) (isGrounded
-                ? (jumpInput ? Math.Sqrt(-2 * jumpHeight * _gravity) : 0)
+                ? jumpInput > 0.0f ? Math.Sqrt(-2 * jumpHeight * _gravity) : 0
                 : _velocity.y + _gravity * Time.deltaTime);
 
             var controllerInput = movementDirection * movementSpeed + _velocity;

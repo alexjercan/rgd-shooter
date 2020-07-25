@@ -57,6 +57,16 @@ namespace _Project.Scripts.Networking
         
         public static PlayerInput ReadPlayerInput(ByteArrayReader byteArrayReader) => PlayerInput.Deserialize(byteArrayReader);
 
+        public static byte[] WritePlayerMovement(PlayerData playerData) =>
+            new ByteArrayBuilder()
+                .Write((int) MessageType.PlayerMovement)
+                .Write(PlayerData.Serialize(playerData))
+                .InsertSize()
+                .ToByteArray();
+
+        public static PlayerData ReadPlayerMovement(ByteArrayReader byteArrayReader) =>
+            PlayerData.Deserialize(byteArrayReader);
+        
         public static byte[] WritePlayerDisconnect(int clientId) =>
             new ByteArrayBuilder()
                 .Write((int) MessageType.PlayerDisconnect)

@@ -1,4 +1,4 @@
-﻿using System.Numerics;
+﻿﻿﻿using System.Numerics;
 using _Project.Scripts.Networking.ByteArray;
 
 namespace _Project.Scripts.Networking
@@ -7,9 +7,9 @@ namespace _Project.Scripts.Networking
     {
         public int Id { get; }
         public Vector3 MovementInput { get; }
-        public Quaternion Rotation { get; }
+        public Vector2 Rotation { get; set; }
 
-        public PlayerInput(int id, Vector3 movementInput, Quaternion rotation)
+        public PlayerInput(int id, Vector3 movementInput, Vector2 rotation)
         {
             Id = id;
             MovementInput = movementInput;
@@ -28,6 +28,6 @@ namespace _Project.Scripts.Networking
         public static PlayerInput Deserialize(ByteArrayReader reader) =>
             new PlayerInput(reader.ReadInt(),
                 reader.ReadVector3(),
-                reader.ReadQuaternion());
+                reader.ReadVector2());
     }
 }

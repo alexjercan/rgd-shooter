@@ -1,16 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace _Project.Scripts
+namespace _Project.Scripts.Movement
 {
     public class ClientInputHandler : MonoBehaviour
     {
         public Vector2 MovementInput { get; set; }
         public Vector2 LookInput { get; set; }
         public bool JumpInput { get; set; }
-        
-        public Vector3 ServerPositionValue { get; set; }
-        public Vector2 PlayerRotationValue { get; set; }
 
         public void MovementInputCallback(InputAction.CallbackContext context) => MovementInput = context.ReadValue<Vector2>();
 

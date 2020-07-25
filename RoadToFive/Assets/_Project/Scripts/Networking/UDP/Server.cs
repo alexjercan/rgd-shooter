@@ -55,6 +55,11 @@ namespace _Project.Scripts.Networking.UDP
             foreach (var idEndPointPairs in _knownHosts.Where(idEndPointPairs => clientId != idEndPointPairs.Key))
                 SendDatagram(data, idEndPointPairs.Key);
         }
+
+        public void RemoveClient(int clientId)
+        {
+            _knownHosts.Remove(clientId);
+        }
         
         public void Disconnect()
         {

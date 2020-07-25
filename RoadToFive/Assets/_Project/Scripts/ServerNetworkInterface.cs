@@ -11,18 +11,27 @@ namespace _Project.Scripts
 {
     public class ServerNetworkInterface : MonoBehaviour
     {
-        [SerializeField] private PlayerManager playerPrefab;
+        [SerializeField] private ServerPlayerManager playerPrefab;
         
         private UDP.ServerManager _udpServerManager;
         private TCP.ServerManager _tcpServerManager;
         
         private readonly List<PlayerData> _playerDataList = new List<PlayerData>();
-        private readonly Dictionary<int, PlayerManager> _players = new Dictionary<int, PlayerManager>();
+        private readonly Dictionary<int, ServerPlayerManager> _players = new Dictionary<int, ServerPlayerManager>();
 
         private void Start()
         {
             _udpServerManager = new UDP.ServerManager(ReadMessage);
             _tcpServerManager = new TCP.ServerManager(ReadMessage);
+        }
+        
+        public void BroadcastPositionRotation(int playerId, Vector3 playerPosition, Vector2 playerRotation)
+        {
+            var playerData = new PlayerData(playerId,
+                new Numeric.Vector3(playerPosition.x, playerPosition.y, playerPosition.z),
+                new Numeric.Vector2(playerRotation.x, playerRotation.y));
+            
+            _udpServerManager.BroadcastMessage(MessageTemplates.WritePlayerMovement(playerData));
         }
 
         private void ReadMessage(ByteArrayReader receivedMessage)
@@ -45,7 +54,7 @@ namespace _Project.Scripts
                 case MessageType.SpawnPlayer:
                     break;
                 case MessageType.PlayerInput:
-                    //HandlePlayerInput(receivedMessage);
+                    HandlePlayerInput(receivedMessage);
                     break;
                 case MessageType.PlayerDisconnect:
                     HandlePlayerDisconnect(receivedMessage);
@@ -59,12 +68,12 @@ namespace _Project.Scripts
 
         private void HandleWelcomeAck(ByteArrayReader byteArrayReader)
         {
-            var (clientId, clientUsername) = MessageTemplates.ReadWelcomeAck(byteArrayReader);
+            var (clientId, _) = MessageTemplates.ReadWelcomeAck(byteArrayReader);
 
             foreach (var player in _players.Values)
                 _tcpServerManager.SendMessage(clientId, MessageTemplates.WriteSpawnPlayer(player.PlayerData));
             
-            var playerData = new PlayerData(clientId, clientUsername, new Numeric.Vector3(), new Numeric.Quaternion());
+            var playerData = new PlayerData(clientId, new Numeric.Vector3(), new Numeric.Vector2());
             _tcpServerManager.BroadcastMessage(MessageTemplates.WriteSpawnPlayer(playerData));
             
             var instance = Instantiate(playerPrefab);
@@ -79,10 +88,11 @@ namespace _Project.Scripts
             
             var playerId = playerInput.Id;
             var playerToHandle = _players[playerId];
-            playerToHandle.Rotate(playerInput.Rotation);
-            playerToHandle.Move(playerInput.MovementInput);
+            var rotationValue = playerInput.Rotation;
+            var movementInput = playerInput.MovementInput;
             
-            //TODO: SEND BACK RESULTS
+            playerToHandle.PlayerMovementInput = new Vector3(movementInput.X, movementInput.Y, movementInput.Z);
+            playerToHandle.PlayerRotation = new Vector2(rotationValue.X, rotationValue.Y);
         }
 
         private void HandlePlayerDisconnect(ByteArrayReader byteArrayReader)
@@ -91,7 +101,10 @@ namespace _Project.Scripts
             
             _tcpServerManager.BroadcastMessageExcept(playerId, MessageTemplates.WritePlayerDisconnect(playerId));
             
-            Destroy(_players[playerId]);
+            _udpServerManager.RemoveClient(playerId);
+            _tcpServerManager.RemoveClient(playerId);
+            
+            Destroy(_players[playerId].gameObject);
             _players.Remove(playerId);
         }
         

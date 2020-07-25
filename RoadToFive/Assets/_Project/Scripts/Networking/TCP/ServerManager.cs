@@ -33,6 +33,8 @@ namespace _Project.Scripts.Networking.TCP
         public void BroadcastMessageExcept(int clientId, byte[] message) =>
             _server.BroadcastPacketExcept(clientId, message);
         
+        public void RemoveClient(int clientId) => _server.RemoveClient(clientId);
+        
         public void Disconnect() => _server.Disconnect();
     }
 }

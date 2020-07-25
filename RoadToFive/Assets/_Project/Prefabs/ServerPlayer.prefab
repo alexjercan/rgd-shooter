@@ -9,10 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3907515094001334495}
-  - component: {fileID: 7622205623409839679}
-  - component: {fileID: 5085576310536189129}
+  - component: {fileID: 5462781134774312540}
+  - component: {fileID: -534895706661573384}
+  - component: {fileID: 5590989165321434473}
   m_Layer: 0
-  m_Name: Player
+  m_Name: ServerPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +34,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7622205623409839679
+--- !u!143 &5462781134774312540
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3907515094001334465}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-534895706661573384
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,10 +61,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3907515094001334465}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d76a11b75b714920ac0b64dde78223ee, type: 3}
+  m_Script: {fileID: 11500000, guid: 7112b6f8e7e940918bbbe5425d5c54da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5085576310536189129
+--- !u!114 &5590989165321434473
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -54,10 +73,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3907515094001334465}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 875ea57cd05a4344949609b2d85b4cea, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a264d9df82048d4c9f00b15a744bf81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clientPlayerManager: {fileID: 7622205623409839679}
+  serverPlayerManager: {fileID: -534895706661573384}
+  characterController: {fileID: 5462781134774312540}
+  movementSpeed: 12
+  gravity: -19.62
+  jumpHeight: 3
 --- !u!1 &5198852694175132192
 GameObject:
   m_ObjectHideFlags: 0
