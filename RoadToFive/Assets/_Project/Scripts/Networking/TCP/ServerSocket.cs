@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Sockets;
-using _Project.Scripts.Logging;
 using _Project.Scripts.Networking.ByteArray;
 
 namespace _Project.Scripts.Networking.TCP

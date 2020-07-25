@@ -23,7 +23,7 @@ namespace _Project.Scripts.Movement.Mechanics
 
             _velocity.y = (float) (isGrounded
                 ? jumpInput > 0.0f ? Math.Sqrt(-2 * jumpHeight * _gravity) : 0
-                : _velocity.y + _gravity * Time.deltaTime);
+                : _velocity.y + _gravity * Time.fixedDeltaTime);
 
             var controllerInput = movementDirection * movementSpeed + _velocity;
             return controllerInput;

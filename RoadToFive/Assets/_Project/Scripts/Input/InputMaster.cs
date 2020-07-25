@@ -22,7 +22,7 @@ namespace _Project.Scripts.Input
             ""actions"": [
                 {
                     ""name"": ""Movement"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Value"",
                     ""id"": ""9860f76b-e661-404e-b797-dd742773418b"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",

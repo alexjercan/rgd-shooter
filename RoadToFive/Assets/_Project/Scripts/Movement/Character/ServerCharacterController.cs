@@ -28,15 +28,12 @@ namespace _Project.Scripts.Movement.Character
             _characterMovement = new CharacterMovement(gravity);
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             UpdateRotation();
             
             MoveCharacter();
-        }
 
-        private void FixedUpdate()
-        {
             _serverNetworkInterface.BroadcastPositionRotation(serverPlayerManager.PlayerData.Id, _transform.position,
                 serverPlayerManager.PlayerRotation);
         }
@@ -55,7 +52,7 @@ namespace _Project.Scripts.Movement.Character
             var controllerInput = _characterMovement.GetControllerInput(movementInput, _transform.forward,
                 _transform.right, characterController.isGrounded, jumpHeight, movementSpeed);
 
-            characterController.Move(controllerInput * Time.deltaTime);
+            characterController.Move(controllerInput * Time.fixedDeltaTime);
         }
     }
 }
