@@ -55,6 +55,7 @@ namespace _Project.Scripts.Networking.TCP
         /// </summary>
         public void Disconnect()
         {
+            if (Socket == null) return;
             Console.WriteLine($"{Socket.Client.RemoteEndPoint} has disconnected");
             Socket.Close();
             _networkStream = null;
@@ -71,11 +72,7 @@ namespace _Project.Scripts.Networking.TCP
         private void ReceiveCallback(IAsyncResult asyncResult)
         {
             var byteLength = _networkStream.EndRead(asyncResult);
-            if (byteLength <= 0)
-            {
-                Disconnect();
-                return;
-            }
+            if (byteLength <= 0) return;
 
             var data = new byte[byteLength];
             Array.Copy(_receivedBuffer, data, byteLength);

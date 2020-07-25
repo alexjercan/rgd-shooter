@@ -21,10 +21,10 @@ namespace _Project.Scripts
         
         private Dictionary<int, ClientPlayerManager> _players = new Dictionary<int, ClientPlayerManager>();
         
-        private void Start()
+        public void ConnectToServer(string remoteIp)
         {
-            _udpClientManager = new UDP.ClientManager(ReadMessage);
-            _tcpClientManager = new TCP.ClientManager(ReadMessage);
+            _udpClientManager = new UDP.ClientManager(ReadMessage, remoteIp);
+            _tcpClientManager = new TCP.ClientManager(ReadMessage, remoteIp);
             
             _tcpClientManager.Connect();
         }
@@ -132,6 +132,8 @@ namespace _Project.Scripts
 
         private void OnApplicationQuit()
         {
+            if (_tcpClientManager == null || _udpClientManager == null) return;
+            
             _tcpClientManager.SendMessage(MessageTemplates.WritePlayerDisconnect(_id));
             _udpClientManager.Disconnect();
             _tcpClientManager.Disconnect();
