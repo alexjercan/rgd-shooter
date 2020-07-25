@@ -1,40 +1,60 @@
-﻿using UnityEngine;
+﻿using _Project.Scripts.Character;
+using _Project.Scripts.Networking;
+using UnityEngine;
 
 namespace _Project.Scripts
 {
     public class ClientCharacterController : MonoBehaviour
     {
-        public Vector2 RotationInput { get; set; }
-
-        [SerializeField] private float clampMinXRotation = -90.0f;
-        [SerializeField] private float clampMaxXRotation = 90.0f;
-        [SerializeField] private float sensitivityX = 15.0f;
-        [SerializeField] private float sensitivityY = 15.0f;
-        [SerializeField] private float angleThreshold = 1.0f;
-        [SerializeField] private Transform cameraTransform;
-
-        private float _xRotation = 0.0f;
+        [SerializeField] private ClientInputHandler clientInputHandler;
+        [SerializeField] private Camera playerCamera;
+        
+        [Header("Camera settings")]
+        [Range(0.1f, 5.0f)] [SerializeField] private float mouseSensitivity = 2.0f;
+        [Range(0.0f, 180.0f)] [SerializeField] private float verticalRotationRange = 170.0f;
+        [Range(1.0f, 5.0f)] [SerializeField] private float cameraSmoothing = 1.0f;
+        
         private Transform _transform;
+        private Transform _cameraTransform;
+        private float _internalMouseSensitivity;
+
+        private CharacterLookRotation _characterLookRotation;
 
         private void Awake()
         {
             _transform = GetComponent<Transform>();
+            _cameraTransform = playerCamera.GetComponent<Transform>();
+        }
+
+        private void Start()
+        {
+            _internalMouseSensitivity = mouseSensitivity / 100.0f;
+            var originalYRotation = _transform.eulerAngles.y;
+            var baseCameraFieldOfView = playerCamera.fieldOfView;
+            
+            _characterLookRotation = new CharacterLookRotation(baseCameraFieldOfView, originalYRotation);
         }
 
         private void Update()
         {
-            var newXRotation = _xRotation - RotationInput.y * sensitivityX * Time.deltaTime;
+            RotateCharacter();
 
-            var deltaAbsXRotation = Mathf.Abs(newXRotation - _xRotation);
-            var deltaYRotation = RotationInput.x * sensitivityY * Time.deltaTime;
-            
-            _xRotation = (deltaAbsXRotation <= angleThreshold * sensitivityX * Time.deltaTime) ? _xRotation : newXRotation;
-            var newYRotation = Mathf.Abs(deltaYRotation) <= angleThreshold * sensitivityY * Time.deltaTime ? 0 : deltaYRotation;
-            
-            _xRotation = Mathf.Clamp(_xRotation, clampMinXRotation, clampMaxXRotation);
-            
-            cameraTransform.localRotation = Quaternion.Euler(_xRotation, 0.0f, 0.0f);
-            _transform.Rotate(Vector3.up * newYRotation);
+            UpdatePosition();
+        }
+
+        private void RotateCharacter()
+        {
+            var mouseYInput = clientInputHandler.LookInput.y;
+            var mouseXInput = clientInputHandler.LookInput.x;
+            var lookRotation = _characterLookRotation.GetCharacterRotation(mouseXInput, mouseYInput,
+                playerCamera.fieldOfView, _internalMouseSensitivity, verticalRotationRange, cameraSmoothing);
+            _cameraTransform.localRotation = Quaternion.Euler(lookRotation.x,0,0);
+            _transform.localRotation = Quaternion.Euler(0, lookRotation.y, 0);
+        }
+
+        private void UpdatePosition()
+        {
+            _transform.position = clientInputHandler.ServerPositionValue;
         }
     }
 }
