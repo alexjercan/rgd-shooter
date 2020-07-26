@@ -12,16 +12,19 @@ namespace _Project.Scripts.Networking.UDP
         /// Initializes a new instance of the UdpClient class and binds it to the specified local endpoint.
         /// This represents the socket used by the server to communicate with the clients.
         /// </summary>
-        /// <param name="localEndPoint"></param>
-        public ServerSocket(IPEndPoint localEndPoint) => _socket = new UdpClient(localEndPoint);
+        /// <param name="port"></param>
+        public ServerSocket(int port) => _socket = new UdpClient(port, AddressFamily.InterNetwork);
 
         /// <summary>
         /// Starts listening asynchronously for a datagram incoming on the socket.
         /// When a datagram is received a callback is invoked.
         /// </summary>
         /// <param name="requestCallback"></param>
-        public void Listen(AsyncCallback requestCallback) => _socket.BeginReceive(requestCallback, _socket);
+        public void Listen(AsyncCallback requestCallback) => _socket.BeginReceive(requestCallback, null);
 
+        public byte[] EndReceive(IAsyncResult asyncResult, ref IPEndPoint remoteHostEndPoint) => _socket.EndReceive(asyncResult, ref remoteHostEndPoint);
+
+        
         /// <summary>
         /// Sends a datagram to the specified host.
         /// </summary>

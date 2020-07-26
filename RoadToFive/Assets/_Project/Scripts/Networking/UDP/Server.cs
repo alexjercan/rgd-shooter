@@ -16,12 +16,17 @@ namespace _Project.Scripts.Networking.UDP
         
         private readonly Dictionary<int, IPEndPoint> _knownHosts = new Dictionary<int, IPEndPoint>();
         private readonly ServerSocket _socket;
+        private IPEndPoint _currentClientEndPoint;
 
         /// <summary>
         /// Creates a new socket and binds it to the local port.
         /// </summary>
         /// <param name="port"></param>
-        public Server(int port) => _socket = new ServerSocket(new IPEndPoint(IPAddress.Any, port));
+        public Server(int port)
+        {
+            _socket = new ServerSocket(port);
+            _currentClientEndPoint = default;
+        }
 
         /// <summary>
         /// Start listening on the socket for datagrams from the clients.
@@ -69,12 +74,9 @@ namespace _Project.Scripts.Networking.UDP
         
         private void ReceiveCallback(IAsyncResult asyncResult)
         {
-            var socket = (UdpClient) asyncResult.AsyncState;
-            var clientEndPoint = new IPEndPoint(IPAddress.Any, 0);
-            var receivedBytes = socket.EndReceive(asyncResult, ref clientEndPoint);
-            
-            socket.BeginReceive(ReceiveCallback, socket);
-            
+            var receivedBytes = _socket.EndReceive(asyncResult, ref _currentClientEndPoint);
+            _socket.Listen(ReceiveCallback);
+
             if (receivedBytes.Length < 4) return;
             
             var receiveDatagram = new ByteArrayReader(receivedBytes);
@@ -85,20 +87,20 @@ namespace _Project.Scripts.Networking.UDP
 
             if (clientId == 0)
             {
-                if (_knownHosts.ContainsValue(clientEndPoint)) return;
+                if (_knownHosts.ContainsValue(_currentClientEndPoint)) return;
 
                 var type = receiveDatagram.ReadInt();
                 if (type != (int)MessageType.Dummy) return;
                 
                 var newClientId = MessageTemplates.ReadDummy(receiveDatagram);
                 if (newClientId == 0) newClientId = _knownHosts.Count + 1;
-                if (_knownHosts.ContainsKey(newClientId)) _knownHosts[newClientId] = clientEndPoint;
-                else _knownHosts.Add(newClientId, clientEndPoint);
+                if (_knownHosts.ContainsKey(newClientId)) _knownHosts[newClientId] = _currentClientEndPoint;
+                else _knownHosts.Add(newClientId, _currentClientEndPoint);
                 SendDatagram(MessageTemplates.WriteDummy(newClientId), newClientId);
                 return;
             }
             
-            if (_knownHosts[clientId].ToString() != clientEndPoint.ToString()) return;
+            if (_knownHosts[clientId].ToString() != _currentClientEndPoint.ToString()) return;
 
             OnReceivedDatagram(receiveDatagram);
         }
