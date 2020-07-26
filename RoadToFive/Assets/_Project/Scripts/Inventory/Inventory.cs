@@ -195,8 +195,11 @@ public class Inventory : MonoBehaviour
 public enum AmmoType
 {
     NONE = 99,
-    ammo1 = 0,
-    ammo2 = 1,
-    ammo3 = 2
+    CINCI = 0,
+    SASE = 1,
+    SAPTE = 2,
+    OPT = 3,
+    NOUA = 4,
+    ZECE = 5
     // TODO: Sa ne gandim ce fel de munitie folosim
 }
