@@ -125,19 +125,4 @@ namespace _Project.Scripts.Core
             _client.Disconnect();
         }
     }
-
-    /*public class NetworkEntity : MonoBehaviour
-    {
-        public int EntityId { get; set; }
-    }
-
-    public class ClientTransformInterface
-    {
-        private readonly Dictionary<int, NetworkTransform> _transforms = new Dictionary<int, NetworkTransform>();
-    }
-
-    public class ClientSpawnInterface : MonoBehaviour
-    {
-        
-    }*/
 }
