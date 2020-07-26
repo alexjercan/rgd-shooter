@@ -1,5 +1,5 @@
 ﻿using System;
-using _Project.Scripts.Networking.ByteArray;
+using _Project.Scripts.ByteArray;
 
 namespace _Project.Scripts.Networking
 {

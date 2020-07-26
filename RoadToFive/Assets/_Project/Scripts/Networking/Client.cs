@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
-using _Project.Scripts.Networking.ByteArray;
-using _Project.Scripts.Networking.Threading;
+using _Project.Scripts.ByteArray;
+using _Project.Scripts.Threading;
 using UnityEngine;
 
 namespace _Project.Scripts.Networking
@@ -66,8 +66,8 @@ namespace _Project.Scripts.Networking
         
         public void SendUdpMessage(int senderId, byte[] datagram)
         {
+            //TODO FIX BUG : SERVER DOES NOT RECEIVE MESSAGES ON PUBLIC IP
             var byteArrayBuilder = new ByteArrayBuilder().Write(senderId).Write(datagram).ToByteArray();
-            Debug.Log($"SENDING MESSAGE TO {_udpSocket.Client.RemoteEndPoint}");
             _udpSocket?.BeginSend(byteArrayBuilder, byteArrayBuilder.Length, null, null);
         }
 

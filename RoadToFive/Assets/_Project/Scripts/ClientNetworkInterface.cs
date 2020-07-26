@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
+using _Project.Scripts.ByteArray;
 using _Project.Scripts.Networking;
-using _Project.Scripts.Networking.ByteArray;
 using UnityEngine;
 using Numeric = System.Numerics;
 

@@ -1,4 +1,4 @@
-﻿using _Project.Scripts.Networking.Threading;
+﻿using _Project.Scripts.Threading;
 using UnityEngine;
 
 namespace _Project.Scripts

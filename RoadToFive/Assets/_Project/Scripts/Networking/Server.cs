@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
-using _Project.Scripts.Networking.ByteArray;
-using _Project.Scripts.Networking.Threading;
+using _Project.Scripts.ByteArray;
+using _Project.Scripts.Threading;
 using UnityEngine;
 
 namespace _Project.Scripts.Networking
@@ -21,7 +21,7 @@ namespace _Project.Scripts.Networking
         private readonly TcpListener _tcpListener;
         private readonly UdpClient _udpListener;
         
-        private IPEndPoint clientEndPoint;
+        private IPEndPoint _clientEndPoint;
 
         public Server(int maxPlayerCount, int port, MessageReceiveCallback messageReceivedCallback)
         {
@@ -34,7 +34,7 @@ namespace _Project.Scripts.Networking
             _tcpListener = new TcpListener(IPAddress.Any, _port);
             _udpListener = new UdpClient(_port);
             
-            clientEndPoint = new IPEndPoint(IPAddress.Any, port);
+            _clientEndPoint = new IPEndPoint(IPAddress.Any, port);
         }
         
         public void Listen()
@@ -45,10 +45,8 @@ namespace _Project.Scripts.Networking
             _tcpListener.BeginAcceptTcpClient(TcpConnectCallback, null);
 
             Debug.Log($"TCP local endpoint {_tcpListener.Server.LocalEndPoint}");
-            Debug.Log($"TCP remote endpoint {_tcpListener.Server.RemoteEndPoint}");
             Debug.Log($"UDP local endpoint {_udpListener.Client.LocalEndPoint}");
-            Debug.Log($"UDP remote endpoint {_udpListener.Client.RemoteEndPoint}");
-            
+
             Debug.Log($"Server started on port {_port}");
         }
         
@@ -75,8 +73,8 @@ namespace _Project.Scripts.Networking
         {
             try
             {
-                var receivedBytes = _udpListener.EndReceive(asyncResult, ref clientEndPoint);
-                Debug.Log($"received message from {clientEndPoint}");
+                var receivedBytes = _udpListener.EndReceive(asyncResult, ref _clientEndPoint);
+                Debug.Log($"received message from {_clientEndPoint}");
                 _udpListener.BeginReceive(UdpReceiveCallback, null);
 
                 if (receivedBytes.Length < 4)
@@ -92,11 +90,11 @@ namespace _Project.Scripts.Networking
 
                 if (_sockets[clientId].ClientEndPoint == null)
                 {
-                    _sockets[clientId].ClientEndPoint =  clientEndPoint;
+                    _sockets[clientId].ClientEndPoint =  _clientEndPoint;
                     return;
                 }
 
-                if (_sockets[clientId].ClientEndPoint.ToString() != clientEndPoint.ToString())
+                if (_sockets[clientId].ClientEndPoint.ToString() != _clientEndPoint.ToString())
                 {
                     Debug.Log($"{clientId} assumed wrong endpoint!");
                     return;

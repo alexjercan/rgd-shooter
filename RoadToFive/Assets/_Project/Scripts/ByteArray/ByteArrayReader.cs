@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Numerics;
+using System.Text;
 
-namespace _Project.Scripts.Networking.ByteArray
+namespace _Project.Scripts.ByteArray
 {
     public class ByteArrayReader
     {

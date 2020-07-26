@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace _Project.Scripts.Networking.Threading
+namespace _Project.Scripts.Threading
 {
     public static class MainThreadScheduler
     {
