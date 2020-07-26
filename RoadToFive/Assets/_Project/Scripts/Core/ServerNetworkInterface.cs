@@ -26,7 +26,7 @@ namespace _Project.Scripts.Core
             _server.Listen();
         }
 
-        private void ReadMessage(ByteArrayReader receivedMessage)
+        private void ReadMessage(int clientId, ByteArrayReader receivedMessage)
         {
             var packetType = (MessageType)receivedMessage.ReadInt();
 
@@ -37,16 +37,15 @@ namespace _Project.Scripts.Core
                 case MessageType.Welcome:
                     break;
                 case MessageType.WelcomeAck:
-                    HandleWelcomeAck(receivedMessage);
+                    HandleWelcomeAck(clientId, receivedMessage);
                     break;
                 case MessageType.SpawnPlayer:
                     break;
                 case MessageType.PlayerInput:
-                    HandlePlayerInput(receivedMessage);
+                    HandlePlayerInput(clientId, receivedMessage);
                     break;
                 case MessageType.PlayerDisconnect:
-                    //HandlePlayerDisconnect(receivedMessage);
-                    PlayerDisconnectHandler.Handle(_server, _players, receivedMessage);
+                    PlayerDisconnectHandler.Handle(clientId, _server, _players, receivedMessage);
                     break;
                 case MessageType.ServerDisconnect:
                     break;
@@ -57,12 +56,12 @@ namespace _Project.Scripts.Core
             }
         }
 
-        private void HandleWelcomeAck(ByteArrayReader byteArrayReader)
+        private void HandleWelcomeAck(int clientId, ByteArrayReader byteArrayReader)
         {
-            var (clientId, _) = MessageTemplates.ReadWelcomeAck(byteArrayReader);
+            var username = MessageTemplates.ReadWelcomeAck(byteArrayReader);
            
-            foreach (var player in _players.Values)
-                _server.SendTcpMessage(clientId, MessageTemplates.WriteSpawnPlayer(player.ClientId, player.Position, player.Rotation));
+            foreach (var pair in _players)
+                _server.SendTcpMessage(clientId, MessageTemplates.WriteSpawnPlayer(pair.Key, pair.Value.Position, pair.Value.Rotation));
 
             var position = spawnPointTransform.position;
             var yRotation = spawnPointTransform.rotation.y;
@@ -74,18 +73,18 @@ namespace _Project.Scripts.Core
             instance.Position = position;
             instance.Rotation = new Vector2(0, yRotation);
 
-            _server.BroadcastTcp(MessageTemplates.WriteSpawnPlayer(instance.ClientId, instance.Position, instance.Rotation));
+            _server.BroadcastTcp(MessageTemplates.WriteSpawnPlayer(clientId, instance.Position, instance.Rotation));
         }
 
-        private void HandlePlayerInput(ByteArrayReader byteArrayReader)
+        private void HandlePlayerInput(int clientId, ByteArrayReader byteArrayReader)
         {
-            var (playerId, movementInput, rotation) = MessageTemplates.ReadPlayerInput(byteArrayReader);
+            var (movementInput, rotation) = MessageTemplates.ReadPlayerInput(byteArrayReader);
 
-            var playerToHandle = _players[playerId];
+            var playerToHandle = _players[clientId];
             playerToHandle.MovementInput = movementInput;
             playerToHandle.Rotation = rotation;
             
-            _server.BroadcastUdp(MessageTemplates.WritePlayerMovement(playerId, playerToHandle.Position, playerToHandle.Rotation));
+            _server.BroadcastUdp(MessageTemplates.WritePlayerMovement(clientId, playerToHandle.Position, playerToHandle.Rotation));
         }
 
         private void OnApplicationQuit()
@@ -99,15 +98,17 @@ namespace _Project.Scripts.Core
 
     public static class PlayerDisconnectHandler
     {
-        public static void Handle(Server server, Dictionary<int, ServerPlayerManager> players, ByteArrayReader byteArrayReader)
+        public static void Handle(int clientId, Server server, Dictionary<int, ServerPlayerManager> players, ByteArrayReader byteArrayReader)
         {
-            var playerId = MessageTemplates.ReadPlayerDisconnect(byteArrayReader);
+            var otherId = MessageTemplates.ReadPlayerDisconnect(byteArrayReader);
 
-            server.RemoveClient(playerId);
-            server.BroadcastTcp(MessageTemplates.WritePlayerDisconnect(playerId));
+            if (otherId != clientId) return;
+            
+            server.RemoveClient(clientId);
+            server.BroadcastTcp(MessageTemplates.WritePlayerDisconnect(clientId));
 
-            Object.Destroy(players[playerId].gameObject);
-            players.Remove(playerId);
+            Object.Destroy(players[clientId].gameObject);
+            players.Remove(clientId);
         }
     }
 }

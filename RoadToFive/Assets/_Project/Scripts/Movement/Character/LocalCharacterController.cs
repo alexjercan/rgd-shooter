@@ -1,17 +1,20 @@
-﻿﻿using _Project.Scripts.Core;
+﻿﻿using _Project.Scripts.ByteArray;
+ using _Project.Scripts.Core;
  using _Project.Scripts.Movement.Mechanics;
-using UnityEngine;
+ using _Project.Scripts.Networking;
+ using _Project.Scripts.SynchronizationComponents;
+ using UnityEngine;
 
 namespace _Project.Scripts.Movement.Character
 {
-    public class LocalCharacterController : MonoBehaviour
+    public class LocalCharacterController : MonoBehaviour, INetworkTransferable
     {
         public Vector2 MovementInput { get; set; }
         public Vector2 LookInput { get; set; }
         public bool JumpInput { get; set; }
         public Vector2 PlayerRotation { get; set; }
         
-        [SerializeField] private ClientPlayerManager clientPlayerManager;
+        [SerializeField] private NetworkTransform networkTransform;
         [SerializeField] private Camera playerCamera;
         
         [Header("Camera settings")]
@@ -58,9 +61,15 @@ namespace _Project.Scripts.Movement.Character
             PlayerRotation = lookRotation;
         }
         
-        private void UpdateMovement()
+        private void UpdateMovement() => _transform.position = networkTransform.PlayerPosition;
+
+        public MessageType Type => MessageType.PlayerInput;
+        
+        public byte[] Serialize()
         {
-            _transform.position = clientPlayerManager.PlayerPosition;
+            var movementInput = new Vector3(MovementInput.x, JumpInput ? 1 : 0, MovementInput.y);
+            var rotation = PlayerRotation;
+            return new ByteArrayBuilder().Write(movementInput).Write(rotation).ToByteArray();
         }
     }
 }

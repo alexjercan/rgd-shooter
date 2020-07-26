@@ -3,14 +3,12 @@ using System.Net;
 using System.Net.Sockets;
 using _Project.Scripts.ByteArray;
 using _Project.Scripts.Threading;
-using UnityEngine;
 
 namespace _Project.Scripts.Networking
 {
     public class Client
     {
-        public int Id { get; set; }
-        public delegate void MessageReceiveCallback(ByteArrayReader message);
+        public delegate void MessageReceiveCallback(int clientId, ByteArrayReader message);
         private readonly MessageReceiveCallback _messageReceivedCallback;
 
         private IPEndPoint _remoteHostEndPoint;
@@ -40,12 +38,13 @@ namespace _Project.Scripts.Networking
                 var receivedBytes = _udpSocket.EndReceive(asyncResult, ref _remoteHostEndPoint);
                 _udpSocket.BeginReceive(UdpReceiveCallback, null);
 
-                if (receivedBytes.Length < 4) return;
+                if (receivedBytes.Length < 8) return;
 
                 var receiveDatagram = new ByteArrayReader(receivedBytes);
+                var clientId = receiveDatagram.ReadInt();
                 var datagramLength = receiveDatagram.ReadInt();
                 if (datagramLength != receiveDatagram.UnreadBytes) return;
-                MainThreadScheduler.EnqueueOnMainThread(() => _messageReceivedCallback(receiveDatagram));
+                MainThreadScheduler.EnqueueOnMainThread(() => _messageReceivedCallback(clientId, receiveDatagram));
             }
             catch (Exception e)
             {
@@ -53,14 +52,18 @@ namespace _Project.Scripts.Networking
             }
         }
         
-        public void SendUdpMessage(int senderId, byte[] datagram)
+        public void SendUdpMessage(int clientId, byte[] datagram)
         {
-            //TODO FIX BUG : SERVER DOES NOT RECEIVE MESSAGES ON PUBLIC IP
-            var byteArrayBuilder = new ByteArrayBuilder().Write(senderId).Write(datagram).ToByteArray();
+            //BUG: SERVER DOES NOT RECEIVE MESSAGES ON PUBLIC IP
+            var byteArrayBuilder = new ByteArrayBuilder().Write(clientId).Write(datagram).ToByteArray();
             _udpSocket?.BeginSend(byteArrayBuilder, byteArrayBuilder.Length, null, null);
         }
 
-        public void SendTcpMessage(byte[] packet) => _tcpSocket.SendPacket(packet);
+        public void SendTcpMessage(int clientId, byte[] packet)
+        {
+            var byteArrayBuilder = new ByteArrayBuilder().Write(clientId).Write(packet).ToByteArray();
+            _tcpSocket.SendPacket(byteArrayBuilder);
+        }
 
         public void Disconnect()
         {
@@ -138,10 +141,12 @@ namespace _Project.Scripts.Networking
             private bool ReceivedDataHandler(byte[] receivedData)
             {
                 var packetLength = 0;
+                var clientId = 0;
                 _receivedByteArrayReader.AddBytes(receivedData);
                 
-                if (_receivedByteArrayReader.UnreadBytes >= sizeof(int))
+                if (_receivedByteArrayReader.UnreadBytes >= 2 * sizeof(int))
                 {
+                    clientId = _receivedByteArrayReader.ReadInt();
                     packetLength = _receivedByteArrayReader.ReadInt();
                     if (packetLength <= 0) return true;
                 }
@@ -149,10 +154,12 @@ namespace _Project.Scripts.Networking
                 while (packetLength > 0 && packetLength <= _receivedByteArrayReader.UnreadBytes)
                 {
                     var bytes = _receivedByteArrayReader.ReadBytes(packetLength);
-                    MainThreadScheduler.EnqueueOnMainThread(() => _messageReceivedCallback(new ByteArrayReader(bytes)));
+                    var id = clientId;
+                    MainThreadScheduler.EnqueueOnMainThread(() => _messageReceivedCallback(id, new ByteArrayReader(bytes)));
 
                     packetLength = 0;
-                    if (_receivedByteArrayReader.UnreadBytes < sizeof(int)) continue;
+                    if (_receivedByteArrayReader.UnreadBytes < 2 * sizeof(int)) continue;
+                    clientId = _receivedByteArrayReader.ReadInt();
                     packetLength = _receivedByteArrayReader.ReadInt();
                     if (packetLength <= 0) return true;
                 }

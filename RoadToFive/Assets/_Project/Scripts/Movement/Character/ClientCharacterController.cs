@@ -5,7 +5,7 @@ namespace _Project.Scripts.Movement.Character
 {
     public class ClientCharacterController : MonoBehaviour
     {
-        [SerializeField] private ClientPlayerManager clientPlayerManager;
+        [SerializeField] private NetworkTransform networkTransform;
         
         private Transform _transform;
         
@@ -23,12 +23,12 @@ namespace _Project.Scripts.Movement.Character
         
         private void RotateCharacter()
         {
-            _transform.localRotation = Quaternion.Euler(0, clientPlayerManager.PlayerRotation.y, 0);
+            _transform.localRotation = Quaternion.Euler(0, networkTransform.PlayerRotation.y, 0);
         }
         
         private void UpdateMovement()
         {
-            _transform.position = clientPlayerManager.PlayerPosition;
+            _transform.position = networkTransform.PlayerPosition;
         }
     }
 }
