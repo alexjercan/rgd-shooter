@@ -44,10 +44,7 @@ namespace _Project.Scripts.Networking
             _udpListener.BeginReceive(UdpReceiveCallback, null);
             _tcpListener.BeginAcceptTcpClient(TcpConnectCallback, null);
 
-            Debug.Log($"TCP local endpoint {_tcpListener.Server.LocalEndPoint}");
-            Debug.Log($"UDP local endpoint {_udpListener.Client.LocalEndPoint}");
-
-            Debug.Log($"Server started on port {_port}");
+            Console.WriteLine($"Server started on port {_port}");
         }
         
         private void TcpConnectCallback(IAsyncResult asyncResult)
@@ -59,14 +56,11 @@ namespace _Project.Scripts.Networking
             for (var i = 1; i <= _maxPlayerCount; i++)
             {
                 if (_sockets[i].Socket != null) continue;
-                
-                Debug.Log($" connecting it on socket {i}");
+
                 _sockets[i].Connect(client);
                 SendTcpMessage(i, MessageTemplates.WriteWelcome(i));
                 return;
             }
-            
-            Debug.Log(" failed to connect: Server full!");
         }
         
         private void UdpReceiveCallback(IAsyncResult asyncResult)
@@ -74,15 +68,11 @@ namespace _Project.Scripts.Networking
             try
             {
                 var receivedBytes = _udpListener.EndReceive(asyncResult, ref _clientEndPoint);
-                Debug.Log($"received message from {_clientEndPoint}");
                 _udpListener.BeginReceive(UdpReceiveCallback, null);
 
                 if (receivedBytes.Length < 4)
-                {
-                    Debug.Log("Error reading datagram: receivedBytes is to short!");
                     return;
-                }
-                
+
                 var receiveDatagram = new ByteArrayReader(receivedBytes);
                 var clientId = receiveDatagram.ReadInt();
 
@@ -90,28 +80,20 @@ namespace _Project.Scripts.Networking
 
                 if (_sockets[clientId].ClientEndPoint == null)
                 {
-                    _sockets[clientId].ClientEndPoint =  _clientEndPoint;
+                    _sockets[clientId].ClientEndPoint = _clientEndPoint;
                     return;
                 }
 
-                if (_sockets[clientId].ClientEndPoint.ToString() != _clientEndPoint.ToString())
-                {
-                    Debug.Log($"{clientId} assumed wrong endpoint!");
-                    return;
-                }
+                if (_sockets[clientId].ClientEndPoint.ToString() != _clientEndPoint.ToString()) return;
 
                 var datagramLength = receiveDatagram.ReadInt();
-                if (datagramLength != receiveDatagram.UnreadBytes)
-                {
-                    Debug.Log("Error with datagram length");
-                    return;
-                }
-                
+                if (datagramLength != receiveDatagram.UnreadBytes) return;
+
                 MainThreadScheduler.EnqueueOnMainThread(() => _messageReceivedCallback(receiveDatagram));
             }
             catch (Exception e)
             {
-                Debug.Log($"Error receiving message UDP: {e}");
+                // ignored
             }
         }
         
@@ -186,7 +168,6 @@ namespace _Project.Scripts.Networking
             public void Disconnect()
             {
                 if (Socket == null) return;
-                Debug.Log($"{Socket.Client.RemoteEndPoint} has disconnected");
                 Socket.Close();
                 _networkStream = null;
                 _receivedBuffer = null;

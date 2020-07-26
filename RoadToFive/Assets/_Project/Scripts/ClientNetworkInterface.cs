@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using _Project.Scripts.ByteArray;
 using _Project.Scripts.Networking;
 using UnityEngine;
-using Numeric = System.Numerics;
 
 namespace _Project.Scripts
 {
@@ -28,8 +26,8 @@ namespace _Project.Scripts
 
         public void SendMovementInput(Vector2 movementInput, bool jumpInput, Vector2 rotationValue)
         {
-            var movement = new Numeric.Vector3(movementInput.x, jumpInput ? 1 : 0, movementInput.y);
-            var rotation = new Numeric.Vector2(rotationValue.x, rotationValue.y);
+            var movement = new Vector3(movementInput.x, jumpInput ? 1 : 0, movementInput.y);
+            var rotation = new Vector2(rotationValue.x, rotationValue.y);
             var playerInput = new PlayerInput(_id, movement, rotation);
             _client.SendUdpMessage(_id, MessageTemplates.WritePlayerInput(playerInput));
         }
@@ -69,7 +67,6 @@ namespace _Project.Scripts
         private void HandleWelcome(ByteArrayReader byteArrayReader)
         {
             _id = MessageTemplates.ReadWelcome(byteArrayReader);
-            Debug.Log($"received my id: {_id}");
 
             _client.SendUdpMessage(_id, MessageTemplates.WriteDummy());
             _client.SendTcpMessage(MessageTemplates.WriteWelcomeAck(_id, "guest " + _id));
@@ -77,22 +74,19 @@ namespace _Project.Scripts
 
         private void HandleSpawnPlayer(ByteArrayReader byteArrayReader)
         {
-            Debug.Log("spawning player");
             var playerData = MessageTemplates.ReadSpawnPlayer(byteArrayReader);
             
-            var playerPosition = new Vector3(playerData.Position.X, playerData.Position.Y, playerData.Position.Z);
-            var playerRotation = Quaternion.AngleAxis(playerData.Rotation.Y, Vector3.up);
+            var playerRotation = Quaternion.AngleAxis(playerData.Rotation.y, Vector3.up);
             
-            var player = Instantiate(_id == playerData.Id ? localPlayerPrefab : playerPrefab, playerPosition, playerRotation);
-            
-            player.PlayerRotation = new Vector2(playerData.Rotation.X, playerData.Rotation.Y);
-            player.PlayerPosition = playerPosition;
+            var player = Instantiate(_id == playerData.Id ? localPlayerPrefab : playerPrefab, playerData.Position, playerRotation);
+
+            player.PlayerRotation = playerData.Rotation;
+            player.PlayerPosition = playerData.Position;
             _players.Add(playerData.Id, player);
         }
         
         private void HandlePlayerMovement(ByteArrayReader receiveMessage)
         {
-            Debug.Log("received movement updates");
             var playerData = MessageTemplates.ReadPlayerMovement(receiveMessage);
             
             var playerId = playerData.Id;
@@ -100,14 +94,13 @@ namespace _Project.Scripts
             var receivedPosition = playerData.Position;
             var receivedRotation = playerData.Rotation;
             
-            playerToHandle.PlayerPosition = new Vector3(receivedPosition.X, receivedPosition.Y, receivedPosition.Z);
-            playerToHandle.PlayerRotation = new Vector2(receivedRotation.X, receivedPosition.Y);
+            playerToHandle.PlayerPosition = receivedPosition;
+            playerToHandle.PlayerRotation = receivedRotation;
         }
 
         private void HandlePlayerDisconnect(ByteArrayReader byteArrayReader)
         {
             var playerId = MessageTemplates.ReadPlayerDisconnect(byteArrayReader);
-            Debug.Log($"player {playerId} left the game");
 
             Destroy(_players[playerId].gameObject);
             _players.Remove(playerId);
@@ -115,8 +108,7 @@ namespace _Project.Scripts
 
         private void HandleServerDisconnect()
         {
-            Debug.Log("server closed");
-            
+
             foreach (var player in _players.Values) Destroy(player.gameObject);
             _players.Clear();
             _client.Disconnect();

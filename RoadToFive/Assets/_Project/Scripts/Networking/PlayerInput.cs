@@ -1,7 +1,7 @@
-﻿﻿﻿using System.Numerics;
-  using _Project.Scripts.ByteArray;
+﻿using _Project.Scripts.ByteArray;
+using UnityEngine;
 
-  namespace _Project.Scripts.Networking
+namespace _Project.Scripts.Networking
 {
     public class PlayerInput
     {

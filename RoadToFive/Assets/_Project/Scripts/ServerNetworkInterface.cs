@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using _Project.Scripts.ByteArray;
 using _Project.Scripts.Networking;
 using UnityEngine;
-using Numeric = System.Numerics;
 
 namespace _Project.Scripts
 {
@@ -28,10 +27,8 @@ namespace _Project.Scripts
         
         public void BroadcastPositionRotation(int playerId, Vector3 playerPosition, Vector2 playerRotation)
         {
-            var playerData = new PlayerData(playerId,
-                new Numeric.Vector3(playerPosition.x, playerPosition.y, playerPosition.z),
-                new Numeric.Vector2(playerRotation.x, playerRotation.y));
-            
+            var playerData = new PlayerData(playerId, playerPosition, playerRotation);
+
             _server.BroadcastUdp(MessageTemplates.WritePlayerMovement(playerData));
         }
 
@@ -68,15 +65,14 @@ namespace _Project.Scripts
         private void HandleWelcomeAck(ByteArrayReader byteArrayReader)
         {
             var (clientId, _) = MessageTemplates.ReadWelcomeAck(byteArrayReader);
-            Debug.Log($"received welcome ack from {clientId} spawning their character...");
-
+           
             foreach (var player in _players.Values)
                 _server.SendTcpMessage(clientId, MessageTemplates.WriteSpawnPlayer(player.PlayerData));
 
             var position = spawnPointTransform.position;
-            var rotation = Quaternion.AngleAxis(spawnPointTransform.rotation.y, Vector3.up);
-            var playerData = new PlayerData(clientId, new Numeric.Vector3(position.x, position.y, position.z),
-                new Numeric.Vector2(0, rotation.y));
+            var yRotation = spawnPointTransform.rotation.y;
+            var rotation = Quaternion.AngleAxis(yRotation, Vector3.up);
+            var playerData = new PlayerData(clientId, position, new Vector2(0, yRotation));
             _server.BroadcastTcp(MessageTemplates.WriteSpawnPlayer(playerData));
             
             var instance = Instantiate(playerPrefab, position, rotation);
@@ -91,19 +87,13 @@ namespace _Project.Scripts
 
             var playerId = playerInput.Id;
             var playerToHandle = _players[playerId];
-            var rotationValue = playerInput.Rotation;
-            var movementInput = playerInput.MovementInput;
-            
-            playerToHandle.PlayerMovementInput = new Vector3(movementInput.X, movementInput.Y, movementInput.Z);
-            playerToHandle.PlayerRotation = new Vector2(rotationValue.X, rotationValue.Y);
-            
-            Debug.Log($"received player input from {playerId}");
+            playerToHandle.PlayerMovementInput = playerInput.MovementInput;
+            playerToHandle.PlayerRotation = playerInput.Rotation;
         }
 
         private void HandlePlayerDisconnect(ByteArrayReader byteArrayReader)
         {
             var playerId = MessageTemplates.ReadPlayerDisconnect(byteArrayReader);
-            Debug.Log($"player {playerId} disconnected");
             
             _server.RemoveClient(playerId);
             _server.BroadcastTcp(MessageTemplates.WritePlayerDisconnect(playerId));

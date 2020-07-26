@@ -30,9 +30,6 @@ namespace _Project.Scripts.Networking
         {
             _tcpSocket.Connect();
             _udpSocket.BeginReceive(UdpReceiveCallback, null);
-            
-            Debug.Log($"UDP local endpoint {_udpSocket.Client.LocalEndPoint}");
-            Debug.Log($"UDP remote endpoint {_udpSocket.Client.RemoteEndPoint}");
         }
 
         private void UdpReceiveCallback(IAsyncResult asyncResult)
@@ -42,25 +39,16 @@ namespace _Project.Scripts.Networking
                 var receivedBytes = _udpSocket.EndReceive(asyncResult, ref _remoteHostEndPoint);
                 _udpSocket.BeginReceive(UdpReceiveCallback, null);
 
-                if (receivedBytes.Length < 4)
-                {
-                    Debug.Log("Error reading datagram: receivedBytes is to short!");
-                    return;
-                }
-                
+                if (receivedBytes.Length < 4) return;
+
                 var receiveDatagram = new ByteArrayReader(receivedBytes);
                 var datagramLength = receiveDatagram.ReadInt();
-                if (datagramLength != receiveDatagram.UnreadBytes)
-                {
-                    Debug.Log("datagramLength is incorrect!");
-                    return;
-                }
-
+                if (datagramLength != receiveDatagram.UnreadBytes) return;
                 MainThreadScheduler.EnqueueOnMainThread(() => _messageReceivedCallback(receiveDatagram));
             }
             catch (Exception e)
             {
-                Debug.Log($"Error receiving datagram UDP: {e}");
+                // ignored
             }
         }
         
@@ -125,9 +113,6 @@ namespace _Project.Scripts.Networking
                 _socket.EndConnect(asyncResult);
 
                 if (!_socket.Connected) return;
-                
-                Debug.Log($"TCP local endpoint {_socket.Client.LocalEndPoint}");
-                Debug.Log($"TCP remote endpoint {_socket.Client.RemoteEndPoint}");
 
                 _networkStream = _socket.GetStream();
                 _networkStream.BeginRead(_receivedBuffer, 0, DataBufferSize, ReceiveCallback, null);

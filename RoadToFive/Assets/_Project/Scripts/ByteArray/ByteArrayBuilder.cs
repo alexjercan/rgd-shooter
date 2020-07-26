@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Numerics;
 using System.Text;
+using UnityEngine;
 
 namespace _Project.Scripts.ByteArray
 {
@@ -65,17 +65,17 @@ namespace _Project.Scripts.ByteArray
 
         public ByteArrayBuilder Write(Vector2 data)
         {
-            return Write(data.X).Write(data.Y);
+            return Write(data.x).Write(data.y);
         }
         
         public ByteArrayBuilder Write(Vector3 data)
         {
-            return Write(data.X).Write(data.Y).Write(data.Z);
+            return Write(data.x).Write(data.y).Write(data.z);
         }
 
         public ByteArrayBuilder Write(Quaternion data)
         {
-            return Write(data.X).Write(data.Y).Write(data.Z).Write(data.W);
+            return Write(data.x).Write(data.y).Write(data.z).Write(data.w);
         }
 
         public byte[] ToByteArray()
