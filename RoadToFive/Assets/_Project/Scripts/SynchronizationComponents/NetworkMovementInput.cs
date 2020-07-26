@@ -3,9 +3,9 @@ using _Project.Scripts.Movement.Character;
 using _Project.Scripts.Networking;
 using UnityEngine;
 
-namespace _Project.Scripts
+namespace _Project.Scripts.SynchronizationComponents
 {
-    class NetworkMovementInput : MonoBehaviour, INetworkTransferable
+    internal class NetworkMovementInput : MonoBehaviour, INetworkTransferable
     {
         [SerializeField] private LocalCharacterController localCharacterController;
         

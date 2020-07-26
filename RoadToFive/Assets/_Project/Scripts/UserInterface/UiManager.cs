@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using _Project.Scripts.Core;
+using UnityEngine;
 using UnityEngine.UI;
 
-namespace _Project.Scripts
+namespace _Project.Scripts.UserInterface
 {
     public class UiManager : MonoBehaviour
     {

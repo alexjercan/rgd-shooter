@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using _Project.Scripts.ByteArray;
 using _Project.Scripts.Networking;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
-namespace _Project.Scripts
+namespace _Project.Scripts.Core
 {
     public class ServerNetworkInterface : MonoBehaviour
     {
@@ -44,7 +45,8 @@ namespace _Project.Scripts
                     HandlePlayerInput(receivedMessage);
                     break;
                 case MessageType.PlayerDisconnect:
-                    HandlePlayerDisconnect(receivedMessage);
+                    //HandlePlayerDisconnect(receivedMessage);
+                    PlayerDisconnectHandler.Handle(_server, _players, receivedMessage);
                     break;
                 case MessageType.ServerDisconnect:
                     break;
@@ -86,23 +88,26 @@ namespace _Project.Scripts
             _server.BroadcastUdp(MessageTemplates.WritePlayerMovement(playerId, playerToHandle.Position, playerToHandle.Rotation));
         }
 
-        private void HandlePlayerDisconnect(ByteArrayReader byteArrayReader)
-        {
-            var playerId = MessageTemplates.ReadPlayerDisconnect(byteArrayReader);
-            
-            _server.RemoveClient(playerId);
-            _server.BroadcastTcp(MessageTemplates.WritePlayerDisconnect(playerId));
-
-            Destroy(_players[playerId].gameObject);
-            _players.Remove(playerId);
-        }
-        
         private void OnApplicationQuit()
         {
             if (_server == null) return;
             
             _server.BroadcastTcp(MessageTemplates.WriteServerDisconnect());
             _server.Stop();
+        }
+    }
+
+    public static class PlayerDisconnectHandler
+    {
+        public static void Handle(Server server, Dictionary<int, ServerPlayerManager> players, ByteArrayReader byteArrayReader)
+        {
+            var playerId = MessageTemplates.ReadPlayerDisconnect(byteArrayReader);
+
+            server.RemoveClient(playerId);
+            server.BroadcastTcp(MessageTemplates.WritePlayerDisconnect(playerId));
+
+            Object.Destroy(players[playerId].gameObject);
+            players.Remove(playerId);
         }
     }
 }

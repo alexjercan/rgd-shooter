@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using _Project.Scripts.ByteArray;
 using _Project.Scripts.Networking;
+using _Project.Scripts.SynchronizationComponents;
 using UnityEngine;
 
-namespace _Project.Scripts
+namespace _Project.Scripts.Core
 {
     public class ClientNetworkInterface : MonoBehaviour
     {

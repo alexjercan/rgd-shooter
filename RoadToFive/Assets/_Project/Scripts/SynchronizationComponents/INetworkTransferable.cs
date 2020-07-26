@@ -1,6 +1,6 @@
 ﻿using _Project.Scripts.Networking;
 
-namespace _Project.Scripts
+namespace _Project.Scripts.SynchronizationComponents
 {
     public interface INetworkTransferable
     {
