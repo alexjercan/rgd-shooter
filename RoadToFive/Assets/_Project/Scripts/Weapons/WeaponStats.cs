@@ -9,8 +9,9 @@ public class WeaponStats : MonoBehaviour
     public int damage;
     public AmmoType ammoType;
 
-    public Transform spawnPoint;
-    public Transform bulletSpawnPoint;
+    public Vector3 spawnPointPosition;
+    public Vector3 spawnPointRotation;
+    public Vector3 spawnPointScale;
 
     public GameObject owner;
 
