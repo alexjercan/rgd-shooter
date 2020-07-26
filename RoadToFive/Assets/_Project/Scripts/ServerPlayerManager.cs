@@ -1,12 +1,12 @@
-﻿using _Project.Scripts.Networking;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace _Project.Scripts
 {
     public class ServerPlayerManager : MonoBehaviour
-    { 
-        public PlayerData PlayerData { get; set; }
-        public Vector3 PlayerMovementInput { get; set; }
-        public Vector2 PlayerRotation { get; set; }
+    {
+        public int ClientId { get; set; }
+        public Vector3 Position { get; set; }
+        public Vector3 MovementInput { get; set; }
+        public Vector2 Rotation { get; set; }
     }
 }

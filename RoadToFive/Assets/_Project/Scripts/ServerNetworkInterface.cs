@@ -24,13 +24,6 @@ namespace _Project.Scripts
             
             _server.Listen();
         }
-        
-        public void BroadcastPositionRotation(int playerId, Vector3 playerPosition, Vector2 playerRotation)
-        {
-            var playerData = new PlayerData(playerId, playerPosition, playerRotation);
-
-            _server.BroadcastUdp(MessageTemplates.WritePlayerMovement(playerData));
-        }
 
         private void ReadMessage(ByteArrayReader receivedMessage)
         {
@@ -67,28 +60,30 @@ namespace _Project.Scripts
             var (clientId, _) = MessageTemplates.ReadWelcomeAck(byteArrayReader);
            
             foreach (var player in _players.Values)
-                _server.SendTcpMessage(clientId, MessageTemplates.WriteSpawnPlayer(player.PlayerData));
+                _server.SendTcpMessage(clientId, MessageTemplates.WriteSpawnPlayer(player.ClientId, player.Position, player.Rotation));
 
             var position = spawnPointTransform.position;
             var yRotation = spawnPointTransform.rotation.y;
             var rotation = Quaternion.AngleAxis(yRotation, Vector3.up);
-            var playerData = new PlayerData(clientId, position, new Vector2(0, yRotation));
-            _server.BroadcastTcp(MessageTemplates.WriteSpawnPlayer(playerData));
-            
             var instance = Instantiate(playerPrefab, position, rotation);
-            instance.PlayerData = playerData;
-            
-            _players.Add(playerData.Id, instance);
+            _players.Add(clientId, instance);
+
+            instance.ClientId = clientId;
+            instance.Position = position;
+            instance.Rotation = new Vector2(0, yRotation);
+
+            _server.BroadcastTcp(MessageTemplates.WriteSpawnPlayer(instance.ClientId, instance.Position, instance.Rotation));
         }
 
         private void HandlePlayerInput(ByteArrayReader byteArrayReader)
         {
-            var playerInput = MessageTemplates.ReadPlayerInput(byteArrayReader);
+            var (playerId, movementInput, rotation) = MessageTemplates.ReadPlayerInput(byteArrayReader);
 
-            var playerId = playerInput.Id;
             var playerToHandle = _players[playerId];
-            playerToHandle.PlayerMovementInput = playerInput.MovementInput;
-            playerToHandle.PlayerRotation = playerInput.Rotation;
+            playerToHandle.MovementInput = movementInput;
+            playerToHandle.Rotation = rotation;
+            
+            _server.BroadcastUdp(MessageTemplates.WritePlayerMovement(playerId, playerToHandle.Position, playerToHandle.Rotation));
         }
 
         private void HandlePlayerDisconnect(ByteArrayReader byteArrayReader)

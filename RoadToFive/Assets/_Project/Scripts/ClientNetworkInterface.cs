@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using _Project.Scripts.ByteArray;
 using _Project.Scripts.Networking;
 using UnityEngine;
@@ -11,12 +12,21 @@ namespace _Project.Scripts
         
         [SerializeField] private ClientPlayerManager localPlayerPrefab;
         [SerializeField] private ClientPlayerManager playerPrefab;
-        
-        private int _id;
+
         private Client _client;
 
-        private Dictionary<int, ClientPlayerManager> _players = new Dictionary<int, ClientPlayerManager>();
-        
+        private readonly Dictionary<int, ClientPlayerManager> _players = new Dictionary<int, ClientPlayerManager>();
+        private readonly List<INetworkTransferable> _localPlayerTransferables = new List<INetworkTransferable>();
+
+        private void FixedUpdate()
+        {
+            foreach (var transferable in _localPlayerTransferables)
+            {
+                var data = transferable.Serialize();
+                _client.SendUdpMessage(_client.Id, MessageTemplates.WriteByteMessage(transferable.Type, _client.Id, data));
+            }
+        }
+
         public void ConnectToServer(string remoteIp)
         {
             _client = new Client(remoteIp, RemotePort, ReadMessage);
@@ -24,14 +34,6 @@ namespace _Project.Scripts
             _client.Listen();
         }
 
-        public void SendMovementInput(Vector2 movementInput, bool jumpInput, Vector2 rotationValue)
-        {
-            var movement = new Vector3(movementInput.x, jumpInput ? 1 : 0, movementInput.y);
-            var rotation = new Vector2(rotationValue.x, rotationValue.y);
-            var playerInput = new PlayerInput(_id, movement, rotation);
-            _client.SendUdpMessage(_id, MessageTemplates.WritePlayerInput(playerInput));
-        }
-        
         private void ReadMessage(ByteArrayReader receiveMessage)
         {
             var packetType = (MessageType)receiveMessage.ReadInt();
@@ -66,36 +68,34 @@ namespace _Project.Scripts
         
         private void HandleWelcome(ByteArrayReader byteArrayReader)
         {
-            _id = MessageTemplates.ReadWelcome(byteArrayReader);
+            _client.Id = MessageTemplates.ReadWelcome(byteArrayReader);
 
-            _client.SendUdpMessage(_id, MessageTemplates.WriteDummy());
-            _client.SendTcpMessage(MessageTemplates.WriteWelcomeAck(_id, "guest " + _id));
+            _client.SendUdpMessage(_client.Id, MessageTemplates.WriteDummy());
+            _client.SendTcpMessage(MessageTemplates.WriteWelcomeAck(_client.Id, "guest " + _client.Id));
         }
 
         private void HandleSpawnPlayer(ByteArrayReader byteArrayReader)
         {
-            var playerData = MessageTemplates.ReadSpawnPlayer(byteArrayReader);
-            
-            var playerRotation = Quaternion.AngleAxis(playerData.Rotation.y, Vector3.up);
-            
-            var player = Instantiate(_id == playerData.Id ? localPlayerPrefab : playerPrefab, playerData.Position, playerRotation);
+            var (playerId, position, rotation) = MessageTemplates.ReadSpawnPlayer(byteArrayReader);
 
-            player.PlayerRotation = playerData.Rotation;
-            player.PlayerPosition = playerData.Position;
-            _players.Add(playerData.Id, player);
+            var playerRotation = Quaternion.AngleAxis(rotation.y, Vector3.up);
+            
+            var player = Instantiate(_client.Id == playerId ? localPlayerPrefab : playerPrefab, position, playerRotation);
+
+            player.PlayerRotation = rotation;
+            player.PlayerPosition = position;
+            _players.Add(playerId, player);
+
+            if (playerId == _client.Id) _localPlayerTransferables.AddRange(player.GetComponents<INetworkTransferable>());
         }
         
         private void HandlePlayerMovement(ByteArrayReader receiveMessage)
         {
-            var playerData = MessageTemplates.ReadPlayerMovement(receiveMessage);
+            var (playerId, position, rotation) = MessageTemplates.ReadPlayerMovement(receiveMessage);
             
-            var playerId = playerData.Id;
             var playerToHandle = _players[playerId];
-            var receivedPosition = playerData.Position;
-            var receivedRotation = playerData.Rotation;
-            
-            playerToHandle.PlayerPosition = receivedPosition;
-            playerToHandle.PlayerRotation = receivedRotation;
+            playerToHandle.PlayerPosition = position;
+            playerToHandle.PlayerRotation = rotation;
         }
 
         private void HandlePlayerDisconnect(ByteArrayReader byteArrayReader)
@@ -118,7 +118,7 @@ namespace _Project.Scripts
         {
             if (_client == null) return;
             
-            _client.SendTcpMessage(MessageTemplates.WritePlayerDisconnect(_id));
+            _client.SendTcpMessage(MessageTemplates.WritePlayerDisconnect(_client.Id));
             _client.Disconnect();
         }
     }

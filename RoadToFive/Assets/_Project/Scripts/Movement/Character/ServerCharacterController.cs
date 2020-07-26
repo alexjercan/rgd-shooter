@@ -14,13 +14,11 @@ namespace _Project.Scripts.Movement.Character
         
         private Transform _transform;
         private CharacterMovement _characterMovement;
-        private ServerNetworkInterface _serverNetworkInterface;
 
         private void Awake()
         {
             if (!characterController) characterController = GetComponent<CharacterController>();
             _transform = GetComponent<Transform>();
-            _serverNetworkInterface = FindObjectOfType<ServerNetworkInterface>();
         }
 
         private void Start()
@@ -33,26 +31,25 @@ namespace _Project.Scripts.Movement.Character
             UpdateRotation();
             
             MoveCharacter();
-
-            _serverNetworkInterface.BroadcastPositionRotation(serverPlayerManager.PlayerData.Id, _transform.position,
-                serverPlayerManager.PlayerRotation);
         }
 
         private void UpdateRotation()
         {
-            var rotationYValue = serverPlayerManager.PlayerRotation.y;
+            var rotationYValue = serverPlayerManager.Rotation.y;
 
             _transform.localRotation = Quaternion.Euler(0, rotationYValue, 0);
         }
 
         private void MoveCharacter()
         {
-            var movementInput = serverPlayerManager.PlayerMovementInput;
+            var movementInput = serverPlayerManager.MovementInput;
 
             var controllerInput = _characterMovement.GetControllerInput(movementInput, _transform.forward,
                 _transform.right, characterController.isGrounded, jumpHeight, movementSpeed);
 
             characterController.Move(controllerInput * Time.fixedDeltaTime);
+
+            serverPlayerManager.Position = _transform.position;
         }
     }
 }

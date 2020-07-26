@@ -9,6 +9,7 @@ namespace _Project.Scripts.Networking
 {
     public class Client
     {
+        public int Id { get; set; }
         public delegate void MessageReceiveCallback(ByteArrayReader message);
         private readonly MessageReceiveCallback _messageReceivedCallback;
 
