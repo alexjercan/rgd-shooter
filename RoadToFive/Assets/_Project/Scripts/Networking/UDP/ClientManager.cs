@@ -24,7 +24,7 @@ namespace _Project.Scripts.Networking.UDP
         /// <param name="remoteIp"></param>
         public ClientManager(MessageReceiveCallback messageReceivedCallback, string remoteIp)
         {
-            _client = new Client(remoteIp, RemotePort, new IPEndPoint(IPAddress.Any, 0).Port);
+            _client = new Client(remoteIp, RemotePort, new IPEndPoint(IPAddress.Any, 0));
             _client.ReceivedDatagram += (sender, receiveDatagram) =>
                 MainThreadScheduler.EnqueueOnMainThread(() => messageReceivedCallback(receiveDatagram));
 

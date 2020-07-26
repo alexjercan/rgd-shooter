@@ -63,6 +63,8 @@ namespace _Project.Scripts
                     break;
                 case MessageType.ServerDisconnect:
                     break;
+                case MessageType.PlayerMovement:
+                    break;
                 default:
                     return;
             }
@@ -90,7 +92,7 @@ namespace _Project.Scripts
         private void HandlePlayerInput(ByteArrayReader byteArrayReader)
         {
             var playerInput = MessageTemplates.ReadPlayerInput(byteArrayReader);
-            
+
             var playerId = playerInput.Id;
             var playerToHandle = _players[playerId];
             var rotationValue = playerInput.Rotation;

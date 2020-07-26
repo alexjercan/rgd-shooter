@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using _Project.Scripts.Networking.ByteArray;
+using UnityEngine;
 
 namespace _Project.Scripts.Networking.UDP
 {
@@ -13,19 +14,16 @@ namespace _Project.Scripts.Networking.UDP
         public event EventHandler<ByteArrayReader> ReceivedDatagram;
 
         private readonly ClientSocket _socket;
-        
+
         /// <summary>
         ///Initializes a new instance of the Client class and binds it to the specified local endpoint.
         ///It also binds the UDP Socket to the default remote host.
         /// </summary>
         /// <param name="remoteIp"></param>
         /// <param name="remotePort"></param>
-        /// <param name="localPort"></param>
-        public Client(string remoteIp, int remotePort, int localPort)
-        {
-            _socket = new ClientSocket(new IPEndPoint(IPAddress.Any, localPort),
-                new IPEndPoint(IPAddress.Parse(remoteIp), remotePort));
-        }
+        /// <param name="localEndpoint"></param>
+        public Client(string remoteIp, int remotePort, IPEndPoint localEndpoint) => _socket =
+            new ClientSocket(localEndpoint, new IPEndPoint(IPAddress.Parse(remoteIp), remotePort));
 
         /// <summary>
         /// Starts listening on the socket for datagrams from the remote host.
@@ -48,13 +46,10 @@ namespace _Project.Scripts.Networking.UDP
         
         private void ReceiveCallback(IAsyncResult asyncResult)
         {
-            var socket = (UdpClient) asyncResult.AsyncState;
-            var remoteHost = new IPEndPoint(IPAddress.Any, 0);
-            var receivedBytes = socket.EndReceive(asyncResult, ref remoteHost);
-            
-            socket.BeginReceive(ReceiveCallback, socket);
+            var receivedBytes = _socket.EndReceive(asyncResult);
+            _socket.Listen(ReceiveCallback);
 
-            if (receivedBytes.Length <= 0)
+            if (receivedBytes.Length < 4)
             {
                 _socket.Disconnect();
                 return;

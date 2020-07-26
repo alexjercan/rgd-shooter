@@ -7,6 +7,7 @@ namespace _Project.Scripts.Networking.UDP
     public class ClientSocket
     {
         private UdpClient _socket;
+        private IPEndPoint _remoteHostEndPoint;
 
         /// <summary>
         /// Initializes a new instance of the ClientSocket class and binds it to the specified local endpoint.
@@ -17,6 +18,7 @@ namespace _Project.Scripts.Networking.UDP
         /// <param name="defaultRemoteHost"></param>
         public ClientSocket(IPEndPoint localEndPoint, IPEndPoint defaultRemoteHost)
         {
+            _remoteHostEndPoint = default;
             _socket = new UdpClient(localEndPoint);
             _socket.Connect(defaultRemoteHost);
         }
@@ -26,7 +28,9 @@ namespace _Project.Scripts.Networking.UDP
         /// When a datagram is received a callback is invoked.
         /// </summary>
         /// <param name="requestCallback"></param>
-        public void Listen(AsyncCallback requestCallback) => _socket.BeginReceive(requestCallback, _socket);
+        public void Listen(AsyncCallback requestCallback) => _socket.BeginReceive(requestCallback, null);
+
+        public byte[] EndReceive(IAsyncResult asyncResult) => _socket.EndReceive(asyncResult, ref _remoteHostEndPoint);
 
         /// <summary>
         /// Sends a datagram to the default remote host.
