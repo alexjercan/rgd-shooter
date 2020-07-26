@@ -4,27 +4,26 @@ using _Project.Scripts.Networking;
 using _Project.Scripts.Networking.ByteArray;
 using UnityEngine;
 using Numeric = System.Numerics;
-using UDP = _Project.Scripts.Networking.UDP;
-using TCP = _Project.Scripts.Networking.TCP;
 
 namespace _Project.Scripts
 {
     public class ServerNetworkInterface : MonoBehaviour
     {
+        private const int Port = 26950;
+        private const int MaxPlayers = 20;
+        
         [SerializeField] private ServerPlayerManager playerPrefab;
         [SerializeField] private Transform spawnPointTransform;
-        
-        
-        private UDP.ServerManager _udpServerManager;
-        private TCP.ServerManager _tcpServerManager;
-        
-        private readonly List<PlayerData> _playerDataList = new List<PlayerData>();
+
+        private Server _server;
+
         private readonly Dictionary<int, ServerPlayerManager> _players = new Dictionary<int, ServerPlayerManager>();
 
         private void Start()
         {
-            _udpServerManager = new UDP.ServerManager(ReadMessage);
-            _tcpServerManager = new TCP.ServerManager(ReadMessage);
+            _server = new Server(MaxPlayers, Port, ReadMessage);
+            
+            _server.Listen();
         }
         
         public void BroadcastPositionRotation(int playerId, Vector3 playerPosition, Vector2 playerRotation)
@@ -33,7 +32,7 @@ namespace _Project.Scripts
                 new Numeric.Vector3(playerPosition.x, playerPosition.y, playerPosition.z),
                 new Numeric.Vector2(playerRotation.x, playerRotation.y));
             
-            _udpServerManager.BroadcastMessage(MessageTemplates.WritePlayerMovement(playerData));
+            _server.BroadcastUdp(MessageTemplates.WritePlayerMovement(playerData));
         }
 
         private void ReadMessage(ByteArrayReader receivedMessage)
@@ -43,10 +42,6 @@ namespace _Project.Scripts
             switch (packetType)
             {
                 case MessageType.Invalid:
-                    break;
-                case MessageType.Dummy:
-                    break;
-                case MessageType.DummyAck:
                     break;
                 case MessageType.Welcome:
                     break;
@@ -73,15 +68,16 @@ namespace _Project.Scripts
         private void HandleWelcomeAck(ByteArrayReader byteArrayReader)
         {
             var (clientId, _) = MessageTemplates.ReadWelcomeAck(byteArrayReader);
+            Debug.Log($"received welcome ack from {clientId} spawning their character...");
 
             foreach (var player in _players.Values)
-                _tcpServerManager.SendMessage(clientId, MessageTemplates.WriteSpawnPlayer(player.PlayerData));
+                _server.SendTcpMessage(clientId, MessageTemplates.WriteSpawnPlayer(player.PlayerData));
 
             var position = spawnPointTransform.position;
             var rotation = Quaternion.AngleAxis(spawnPointTransform.rotation.y, Vector3.up);
             var playerData = new PlayerData(clientId, new Numeric.Vector3(position.x, position.y, position.z),
                 new Numeric.Vector2(0, rotation.y));
-            _tcpServerManager.BroadcastMessage(MessageTemplates.WriteSpawnPlayer(playerData));
+            _server.BroadcastTcp(MessageTemplates.WriteSpawnPlayer(playerData));
             
             var instance = Instantiate(playerPrefab, position, rotation);
             instance.PlayerData = playerData;
@@ -100,28 +96,28 @@ namespace _Project.Scripts
             
             playerToHandle.PlayerMovementInput = new Vector3(movementInput.X, movementInput.Y, movementInput.Z);
             playerToHandle.PlayerRotation = new Vector2(rotationValue.X, rotationValue.Y);
+            
+            Debug.Log($"received player input from {playerId}");
         }
 
         private void HandlePlayerDisconnect(ByteArrayReader byteArrayReader)
         {
             var playerId = MessageTemplates.ReadPlayerDisconnect(byteArrayReader);
+            Debug.Log($"player {playerId} disconnected");
             
-            _tcpServerManager.BroadcastMessageExcept(playerId, MessageTemplates.WritePlayerDisconnect(playerId));
-            
-            _udpServerManager.RemoveClient(playerId);
-            _tcpServerManager.RemoveClient(playerId);
-            
+            _server.RemoveClient(playerId);
+            _server.BroadcastTcp(MessageTemplates.WritePlayerDisconnect(playerId));
+
             Destroy(_players[playerId].gameObject);
             _players.Remove(playerId);
         }
         
         private void OnApplicationQuit()
         {
-            if (_tcpServerManager == null || _udpServerManager == null) return;
+            if (_server == null) return;
             
-            _tcpServerManager.BroadcastMessage(MessageTemplates.WriteServerDisconnect());
-            _udpServerManager.Disconnect();
-            _tcpServerManager.Disconnect();
+            _server.BroadcastTcp(MessageTemplates.WriteServerDisconnect());
+            _server.Stop();
         }
     }
 }

@@ -6,26 +6,20 @@ namespace _Project.Scripts.Networking
     public static class MessageTemplates
     {
         
-        public static byte[] WriteDummy(int id) =>
+        public static byte[] WriteDummy() =>
             new ByteArrayBuilder()
-                .Write((int) MessageType.Dummy)
-                .Write(id)
+                .Write(0)
                 .InsertSize()
                 .ToByteArray();
 
-        public static int ReadDummy(ByteArrayReader byteArrayReader) => 
-            byteArrayReader.ReadInt();
-
-        public static byte[] WriteWelcome(int clientId, string message) =>
+        public static byte[] WriteWelcome(int clientId) =>
             new ByteArrayBuilder()
                 .Write((int) MessageType.Welcome)
                 .Write(clientId)
-                .Write(message)
                 .InsertSize()
                 .ToByteArray();
 
-        public static Tuple<int, string> ReadWelcome(ByteArrayReader byteArrayReader) =>
-            new Tuple<int, string>(byteArrayReader.ReadInt(), byteArrayReader.ReadString());
+        public static int ReadWelcome(ByteArrayReader byteArrayReader) => byteArrayReader.ReadInt();
         
 
         public static byte[] WriteWelcomeAck(int clientId, string username) =>

@@ -1,32 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Net;
 using _Project.Scripts.Networking;
 using _Project.Scripts.Networking.ByteArray;
 using UnityEngine;
-using UDP = _Project.Scripts.Networking.UDP;
-using TCP = _Project.Scripts.Networking.TCP;
 using Numeric = System.Numerics;
 
 namespace _Project.Scripts
 {
     public class ClientNetworkInterface : MonoBehaviour
     {
+        private const int RemotePort = 26950;
+        
         [SerializeField] private ClientPlayerManager localPlayerPrefab;
         [SerializeField] private ClientPlayerManager playerPrefab;
         
         private int _id;
+        private Client _client;
 
-        private UDP.ClientManager _udpClientManager;
-        private TCP.ClientManager _tcpClientManager;
-        
         private Dictionary<int, ClientPlayerManager> _players = new Dictionary<int, ClientPlayerManager>();
         
         public void ConnectToServer(string remoteIp)
         {
-            _udpClientManager = new UDP.ClientManager(ReadMessage, remoteIp);
-            _tcpClientManager = new TCP.ClientManager(ReadMessage, remoteIp);
+            _client = new Client(remoteIp, RemotePort, ReadMessage);
             
-            _tcpClientManager.Connect();
+            _client.Listen();
         }
 
         public void SendMovementInput(Vector2 movementInput, bool jumpInput, Vector2 rotationValue)
@@ -34,7 +31,7 @@ namespace _Project.Scripts
             var movement = new Numeric.Vector3(movementInput.x, jumpInput ? 1 : 0, movementInput.y);
             var rotation = new Numeric.Vector2(rotationValue.x, rotationValue.y);
             var playerInput = new PlayerInput(_id, movement, rotation);
-            _udpClientManager.SendMessage(_id, MessageTemplates.WritePlayerInput(playerInput));
+            _client.SendUdpMessage(_id, MessageTemplates.WritePlayerInput(playerInput));
         }
         
         private void ReadMessage(ByteArrayReader receiveMessage)
@@ -44,11 +41,6 @@ namespace _Project.Scripts
             switch (packetType)
             {
                 case MessageType.Invalid:
-                    break;
-                case MessageType.Dummy:
-                    HandleDummy(receiveMessage);
-                    break;
-                case MessageType.DummyAck:
                     break;
                 case MessageType.Welcome:
                     HandleWelcome(receiveMessage);
@@ -64,7 +56,7 @@ namespace _Project.Scripts
                     HandlePlayerDisconnect(receiveMessage);
                     break;
                 case MessageType.ServerDisconnect:
-                    HandleServerDisconnect(receiveMessage);
+                    HandleServerDisconnect();
                     break;
                 case MessageType.PlayerMovement:
                     HandlePlayerMovement(receiveMessage);
@@ -73,25 +65,19 @@ namespace _Project.Scripts
                     return;
             }
         }
-
-        private void HandleDummy(ByteArrayReader byteArrayReader)
-        {
-            var id = MessageTemplates.ReadDummy(byteArrayReader);
-            //TODO: HANDLE ERROR/DISCONNECT IF IDs DONT MATCH
-        }
-
+        
         private void HandleWelcome(ByteArrayReader byteArrayReader)
         {
-            var (id, _) = MessageTemplates.ReadWelcome(byteArrayReader);
+            _id = MessageTemplates.ReadWelcome(byteArrayReader);
+            Debug.Log($"received my id: {_id}");
 
-            _id = id;
-
-            _udpClientManager.SendMessage(0, MessageTemplates.WriteDummy(id));
-            _tcpClientManager.SendMessage(MessageTemplates.WriteWelcomeAck(id, "guest " + id));
+            _client.SendUdpMessage(_id, MessageTemplates.WriteDummy());
+            _client.SendTcpMessage(MessageTemplates.WriteWelcomeAck(_id, "guest " + _id));
         }
 
         private void HandleSpawnPlayer(ByteArrayReader byteArrayReader)
         {
+            Debug.Log("spawning player");
             var playerData = MessageTemplates.ReadSpawnPlayer(byteArrayReader);
             
             var playerPosition = new Vector3(playerData.Position.X, playerData.Position.Y, playerData.Position.Z);
@@ -106,6 +92,7 @@ namespace _Project.Scripts
         
         private void HandlePlayerMovement(ByteArrayReader receiveMessage)
         {
+            Debug.Log("received movement updates");
             var playerData = MessageTemplates.ReadPlayerMovement(receiveMessage);
             
             var playerId = playerData.Id;
@@ -120,26 +107,27 @@ namespace _Project.Scripts
         private void HandlePlayerDisconnect(ByteArrayReader byteArrayReader)
         {
             var playerId = MessageTemplates.ReadPlayerDisconnect(byteArrayReader);
+            Debug.Log($"player {playerId} left the game");
 
             Destroy(_players[playerId].gameObject);
             _players.Remove(playerId);
         }
 
-        private void HandleServerDisconnect(ByteArrayReader receiveMessage)
+        private void HandleServerDisconnect()
         {
+            Debug.Log("server closed");
+            
             foreach (var player in _players.Values) Destroy(player.gameObject);
             _players.Clear();
-            _udpClientManager.Disconnect();
-            _tcpClientManager.Disconnect();
+            _client.Disconnect();
         }
 
         private void OnApplicationQuit()
         {
-            if (_tcpClientManager == null || _udpClientManager == null) return;
+            if (_client == null) return;
             
-            _tcpClientManager.SendMessage(MessageTemplates.WritePlayerDisconnect(_id));
-            _udpClientManager.Disconnect();
-            _tcpClientManager.Disconnect();
+            _client.SendTcpMessage(MessageTemplates.WritePlayerDisconnect(_id));
+            _client.Disconnect();
         }
     }
 }
