@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using _Project.Scripts.Threading;
@@ -12,8 +13,9 @@ namespace _Project.Scripts.Networking.ServerSide
 
         public TransmissionControlProtocol Tcp { get; }
         public UserDatagramProtocol Udp { get; }
+        public Player Player { get; set; }
 
-        private int _clientId;
+        private readonly int _clientId;
 
         public ClientConnection(int clientId)
         {
@@ -24,7 +26,7 @@ namespace _Project.Scripts.Networking.ServerSide
 
         public class TransmissionControlProtocol
         {
-            public TcpClient Socket { get; set; }
+            public TcpClient Socket { get; private set; }
 
             private readonly int _id;
 
@@ -120,7 +122,7 @@ namespace _Project.Scripts.Networking.ServerSide
         public class UserDatagramProtocol
         {
             private readonly int _id;
-            public IPEndPoint ClientEndPoint { get; set; }
+            public IPEndPoint ClientEndPoint { get; private set; }
 
             public UserDatagramProtocol(int id) => _id = id;
 
@@ -158,6 +160,16 @@ namespace _Project.Scripts.Networking.ServerSide
                 });
             }
         }
-    }
+        
+        public void SendIntoGame(string username)
+        {
+            Player = new Player(_clientId, username, new Vector3());
 
+            foreach (var connection in Server.ClientConnections.Values.Where(connection => connection.Player != null && connection._clientId != _clientId))
+                ServerSend.SpawnPlayer(_clientId, connection.Player);
+
+            foreach (var connection in Server.ClientConnections.Values.Where(connection => connection.Player != null))
+                ServerSend.SpawnPlayer(connection._clientId, Player);
+        }
+    }
 }

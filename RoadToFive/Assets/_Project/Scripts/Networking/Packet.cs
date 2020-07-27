@@ -8,11 +8,15 @@ namespace _Project.Scripts.Networking
     public enum ServerPackets
     {
         Welcome,
+        SpawnPlayer,
+        PlayerPosition,
+        PlayerRotation,
     }
 
     public enum ClientPackets
     {
         WelcomeReceived,
+        PlayerMovement,
     }
     
     public class Packet : IDisposable

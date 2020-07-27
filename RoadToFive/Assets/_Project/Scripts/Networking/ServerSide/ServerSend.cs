@@ -1,18 +1,7 @@
-﻿using UnityEngine;
-
-namespace _Project.Scripts.Networking.ServerSide
+﻿namespace _Project.Scripts.Networking.ServerSide
 {
-    public class ServerSend
+    public static class ServerSend
     {
-        public static void Welcome(int toClient, string message)
-        {
-            using (var packet = new Packet((int) ServerPackets.Welcome))
-            {
-                packet.Write(message).Write(toClient);
-                SendTcpData(toClient, packet);
-            }
-        }
-
         private static void SendTcpData(int toClient, Packet packet)
         {
             packet.InsertLength();
@@ -51,6 +40,23 @@ namespace _Project.Scripts.Networking.ServerSide
             for (var i = 1; i <= Server.MaxPlayers; i++) 
                 if (i != exceptClient) 
                     Server.ClientConnections[i].Udp.SendData(packet);
+        }
+        
+        public static void Welcome(int toClient, string message)
+        {
+            using (var packet = new Packet((int) ServerPackets.Welcome))
+            {
+                packet.Write(message).Write(toClient);
+                SendTcpData(toClient, packet);
+            }
+        }
+
+        public static void SpawnPlayer(int toClient, Player player)
+        {
+            using (var packet = new Packet((int)ServerPackets.SpawnPlayer))
+            {
+                SendTcpData(toClient, packet.Write(player.Id).Write(player.Username).Write(player.Position).Write(player.Rotation));
+            }
         }
     }
 }

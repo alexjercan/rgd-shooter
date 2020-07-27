@@ -5,10 +5,10 @@ namespace _Project.Scripts.Networking.ClientSide
 {
     public class Client
     {
-        public static string ServerIp { get; set; }
-        public static int ServerPort { get; set; }
+        public static string ServerIp { get; private set; }
+        public static int ServerPort { get; private set; }
         public static int MyId { get; set; }
-        public static ServerConnection Connection { get; set; }
+        public static ServerConnection Connection { get; private set; }
 
         public delegate void PacketHandler(Packet packet);
         public static Dictionary<int, PacketHandler> PacketHandlers;
@@ -27,6 +27,7 @@ namespace _Project.Scripts.Networking.ClientSide
             PacketHandlers = new Dictionary<int, PacketHandler>()
             {
                 {(int)ServerPackets.Welcome, ClientHandle.Welcome},
+                {(int)ServerPackets.SpawnPlayer, ClientHandle.SpawnPlayer},
             };
         }
     }

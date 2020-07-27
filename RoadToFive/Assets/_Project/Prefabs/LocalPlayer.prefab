@@ -104,9 +104,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7597345135886232786}
   - component: {fileID: 2688584778235798391}
-  - component: {fileID: 1356393235827345798}
   - component: {fileID: 2844524217726712464}
   - component: {fileID: 3013055108535737828}
+  - component: {fileID: 1113186598399107242}
   m_Layer: 0
   m_Name: LocalPlayer
   m_TagString: Untagged
@@ -206,18 +206,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &1356393235827345798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7597345135886232780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d76a11b75b714920ac0b64dde78223ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2844524217726712464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,7 +218,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54fb9f2d91f74ae38e0ddca0ea138d07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkTransform: {fileID: 1356393235827345798}
   playerCamera: {fileID: 8830572352005294291}
   mouseSensitivity: 2
   verticalRotationRange: 170
@@ -248,6 +235,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localCharacterController: {fileID: 2844524217726712464}
+--- !u!114 &1113186598399107242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7597345135886232780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 503d5bf4d12b4004bc50717e217edd46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Id: 0
+  Username: 
 --- !u!1 &7683952888175299244
 GameObject:
   m_ObjectHideFlags: 0

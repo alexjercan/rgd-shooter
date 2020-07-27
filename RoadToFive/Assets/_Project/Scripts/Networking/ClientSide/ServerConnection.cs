@@ -21,7 +21,7 @@ namespace _Project.Scripts.Networking.ClientSide
 
         public class TransmissionControlProtocol
         {
-            public TcpClient Socket { get; set; }
+            public TcpClient Socket { get; private set; }
 
             private Packet _receivedData;
             private NetworkStream _stream;
@@ -119,13 +119,7 @@ namespace _Project.Scripts.Networking.ClientSide
 
         public class UserDatagramProtocol
         {
-            public UdpClient Socket { get; set; }
-
-            public IPEndPoint ServerEndPoint
-            {
-                get => _serverEndPoint;
-                set => _serverEndPoint = value;
-            }
+            private UdpClient Socket { get; set; }
 
             private IPEndPoint _serverEndPoint;
 
@@ -138,7 +132,7 @@ namespace _Project.Scripts.Networking.ClientSide
             {
                 Socket = new UdpClient(localPort);
 
-                Socket.Connect(ServerEndPoint);
+                Socket.Connect(_serverEndPoint);
                 Socket.BeginReceive(ReceiveCallback, null);
 
                 using (var packet = new Packet())

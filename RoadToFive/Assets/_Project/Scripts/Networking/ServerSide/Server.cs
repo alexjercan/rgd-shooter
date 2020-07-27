@@ -6,18 +6,18 @@ using UnityEngine;
 
 namespace _Project.Scripts.Networking.ServerSide
 {
-    public class Server
+    public static class Server
     {
         public static int MaxPlayers { get; private set; }
-        public static int Port { get; private set; }
+        private static int Port { get; set; }
         
         public static readonly Dictionary<int, ClientConnection> ClientConnections = new Dictionary<int, ClientConnection>();
 
         public delegate void PacketHandler(int fromClient, Packet packet);
         public static Dictionary<int, PacketHandler> PacketHandlers;
-        
-        public static TcpListener TcpListener { get; set; }
-        public static UdpClient UdpListener { get; set; }
+
+        private static TcpListener TcpListener { get; set; }
+        public static UdpClient UdpListener { get; private set; }
 
         public static void Start(int maxPlayers, int port)
         {
@@ -69,7 +69,7 @@ namespace _Project.Scripts.Networking.ServerSide
 
                     if (ClientConnections[clientId].Udp.ClientEndPoint == null)
                     {
-                        ClientConnections[clientId].Udp.ClientEndPoint = clientIpEndPoint;
+                        ClientConnections[clientId].Udp.Connect(clientIpEndPoint);
                         return;
                     }
 

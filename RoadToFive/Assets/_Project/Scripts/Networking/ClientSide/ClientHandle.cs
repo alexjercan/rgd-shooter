@@ -17,5 +17,15 @@ namespace _Project.Scripts.Networking.ClientSide
             
             Client.Connection.Udp.Connect(((IPEndPoint)Client.Connection.Tcp.Socket.Client.LocalEndPoint).Port);
         }
+
+        public static void SpawnPlayer(Packet packet)
+        {
+            var id = packet.ReadInt();
+            var username = packet.ReadString();
+            var position = packet.ReadVector3();
+            var rotation = packet.ReadQuaternion();
+            
+            GameManager.Instance.SpawnPlayer(id, username, position, rotation);
+        }
     }
 }

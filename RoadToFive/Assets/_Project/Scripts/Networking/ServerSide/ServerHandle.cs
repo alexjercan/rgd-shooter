@@ -2,7 +2,7 @@
 
 namespace _Project.Scripts.Networking.ServerSide
 {
-    public class ServerHandle
+    public static class ServerHandle
     {
         public static void WelcomeReceived(int fromClient, Packet packet)
         {
@@ -11,8 +11,7 @@ namespace _Project.Scripts.Networking.ServerSide
             
             if (clientIdCheck != fromClient) return;
             
-            Debug.Log("Spawning player");
-            //TODO: SPAWN PLAYER
+            Server.ClientConnections[fromClient].SendIntoGame(username);
         }
     }
 }
