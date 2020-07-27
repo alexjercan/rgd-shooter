@@ -4,6 +4,6 @@ namespace _Project.Scripts.Threading
 {
     public class MainThreadManager : MonoBehaviour
     {
-        private void Update() => MainThreadScheduler.UpdateMainThread();
+        private void FixedUpdate() => MainThreadScheduler.UpdateMainThread();
     }
 }

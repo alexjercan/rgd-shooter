@@ -1,21 +1,22 @@
-﻿using _Project.Scripts.Movement.Mechanics;
+﻿using _Project.Scripts.ServerSide.Movement;
+using _Project.Scripts.ServerSide.Networking;
 using UnityEngine;
 
-namespace _Project.Scripts.Networking.ServerSide
+namespace _Project.Scripts.ServerSide
 {
-    public class PlayerManager : MonoBehaviour
+    public class ServerPlayerManager : MonoBehaviour
     {
         public int Id { get; set; }
         public string Username { get; set; }
-        public Vector3 MovementInput { get; set; }
         public Transform PlayerTransform { get; private set; }
-
+        public Vector3 MovementInput { get; set; }
+        
         [SerializeField] private CharacterController characterController;
         [SerializeField] private float movementSpeed = 6.0f;
         [SerializeField] private float jumpHeight = 1.0f;
-
-        private CharacterMovement _characterMovement;
         
+        private CharacterMovement _characterMovement;
+
         private void Awake() => PlayerTransform = GetComponent<Transform>();
         
         private void Start() => _characterMovement = new CharacterMovement();

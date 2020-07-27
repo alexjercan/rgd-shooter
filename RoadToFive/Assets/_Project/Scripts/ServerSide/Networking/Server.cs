@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using _Project.Scripts.DataStructure;
 using UnityEngine;
 
-namespace _Project.Scripts.Networking.ServerSide
+namespace _Project.Scripts.ServerSide.Networking
 {
     public static class Server
     {

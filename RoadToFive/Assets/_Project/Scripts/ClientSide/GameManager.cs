@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using _Project.Scripts.ClientSide.Networking;
 using UnityEngine;
 
-namespace _Project.Scripts.Networking.ClientSide
+namespace _Project.Scripts.ClientSide
 {
     public class GameManager : MonoBehaviour
     {

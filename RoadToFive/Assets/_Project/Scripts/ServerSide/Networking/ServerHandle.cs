@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using _Project.Scripts.DataStructure;
 using UnityEngine;
 
-namespace _Project.Scripts.Networking.ServerSide
+namespace _Project.Scripts.ServerSide.Networking
 {
     public static class ServerHandle
     {
@@ -12,12 +13,12 @@ namespace _Project.Scripts.Networking.ServerSide
         {
             PacketHandlers = new Dictionary<int, PacketHandler>()
             {
-                {(int) ClientPackets.WelcomeReceived, ServerHandle.WelcomeReceived},
-                {(int) ClientPackets.PlayerMovement, ServerHandle.PlayerMovement},
+                {(int) ClientPackets.WelcomeReceived, WelcomeReceived},
+                {(int) ClientPackets.PlayerMovement, PlayerMovement},
             };
         }
-        
-        public static void WelcomeReceived(int fromClient, Packet packet)
+
+        private static void WelcomeReceived(int fromClient, Packet packet)
         {
             var clientIdCheck = packet.ReadInt();
             var username = packet.ReadString();
@@ -28,7 +29,7 @@ namespace _Project.Scripts.Networking.ServerSide
             ServerManager.Instance.SendIntoGame(fromClient, username);
         }
 
-        public static void PlayerMovement(int fromClient, Packet packet)
+        private static void PlayerMovement(int fromClient, Packet packet)
         {
             var movementInput = packet.ReadVector3();
             var rotation = packet.ReadQuaternion();

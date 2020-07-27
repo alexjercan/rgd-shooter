@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using _Project.Scripts.DataStructure;
+using UnityEngine;
 
-namespace _Project.Scripts.Networking.ClientSide
+namespace _Project.Scripts.ClientSide.Networking
 {
-    public class ClientSend
+    public static class ClientSend
     {
         public static void WelcomeReceived()
         {

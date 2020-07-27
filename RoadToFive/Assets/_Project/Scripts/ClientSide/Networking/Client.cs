@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace _Project.Scripts.Networking.ClientSide
+namespace _Project.Scripts.ClientSide.Networking
 {
     public class Client
     {

@@ -1,8 +1,8 @@
-﻿using _Project.Scripts.Movement.Mechanics;
+﻿using _Project.Scripts.ClientSide.Networking;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace _Project.Scripts.Networking.ClientSide
+namespace _Project.Scripts.ClientSide.Movement
 {
     [RequireComponent(typeof(PlayerManager))]
     public class PlayerInput : MonoBehaviour

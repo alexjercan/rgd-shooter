@@ -1,42 +1,54 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using _Project.Scripts.DataStructure;
 using _Project.Scripts.Threading;
 using UnityEngine;
 
-namespace _Project.Scripts.Networking.ClientSide
+namespace _Project.Scripts.ServerSide.Networking
 {
-    public class ServerConnection
+    public class ClientConnection
     {
         private const int DataBufferSize = 4096;
 
         public TransmissionControlProtocol Tcp { get; }
         public UserDatagramProtocol Udp { get; }
 
-        public ServerConnection()
+        private readonly int _clientId;
+
+        public ClientConnection(int clientId)
         {
-            Tcp = new TransmissionControlProtocol();
-            Udp = new UserDatagramProtocol();
+            _clientId = clientId;
+            Tcp = new TransmissionControlProtocol(clientId);
+            Udp = new UserDatagramProtocol(clientId);
         }
 
         public class TransmissionControlProtocol
         {
             public TcpClient Socket { get; private set; }
 
+            private readonly int _id;
+
             private Packet _receivedData;
             private NetworkStream _stream;
             private byte[] _receiveBuffer;
 
-            public void Connect()
-            {
-                Socket = new TcpClient
-                {
-                    ReceiveBufferSize = DataBufferSize,
-                    SendBufferSize = DataBufferSize
-                };
+            public TransmissionControlProtocol(int id) => _id = id;
 
+            public void Connect(TcpClient socket)
+            {
+                Socket = socket;
+                Socket.ReceiveBufferSize = DataBufferSize;
+                Socket.SendBufferSize = DataBufferSize;
+
+                _stream = Socket.GetStream();
+
+                _receivedData = new Packet();
                 _receiveBuffer = new byte[DataBufferSize];
-                Socket.BeginConnect(Client.ServerIp, Client.ServerPort, ConnectCallback, Socket);
+
+                _stream.BeginRead(_receiveBuffer, 0, DataBufferSize, ReceiveCallback, null);
+
+                ServerSend.Welcome(_id, "welcome to the server");
             }
 
             public void SendData(Packet packet)
@@ -44,24 +56,13 @@ namespace _Project.Scripts.Networking.ClientSide
                 try
                 {
                     if (Socket == null) return;
-                    
+
                     _stream.BeginWrite(packet.ToArray(), 0, packet.Length(), null, null);
                 }
                 catch (Exception e)
                 {
-                    Debug.Log($"Error sending data to server via TCP: {e}");
+                    Debug.Log($"Error sending data to player {_id} via TCP: {e}");
                 }
-            }
-
-            private void ConnectCallback(IAsyncResult result)
-            {
-                Socket.EndConnect(result);
-
-                if (!Socket.Connected) return;
-
-                _stream = Socket.GetStream();
-                _receivedData = new Packet();
-                _stream.BeginRead(_receiveBuffer, 0, DataBufferSize, ReceiveCallback, null);
             }
 
             private void ReceiveCallback(IAsyncResult result)
@@ -71,7 +72,7 @@ namespace _Project.Scripts.Networking.ClientSide
                     var byteLength = _stream.EndRead(result);
                     if (byteLength <= 0)
                     {
-                        Client.Disconnect();
+                        Server.ClientConnections[_id].Disconnect();
                         return;
                     }
 
@@ -81,9 +82,10 @@ namespace _Project.Scripts.Networking.ClientSide
                     _receivedData.Reset(HandleData(data));
                     _stream.BeginRead(_receiveBuffer, 0, DataBufferSize, ReceiveCallback, null);
                 }
-                catch
+                catch (Exception e)
                 {
-                    Disconnect();
+                    Server.ClientConnections[_id].Disconnect();
+                    Debug.Log($"Error receiving TCP data: {e}");
                 }
             }
 
@@ -107,7 +109,7 @@ namespace _Project.Scripts.Networking.ClientSide
                         using (var packet = new Packet(packetBytes))
                         {
                             var packetId = packet.ReadInt();
-                            ClientHandle.PacketHandlers[packetId](packet);
+                            ServerHandle.PacketHandlers[packetId](_id, packet);
                         }
                     });
 
@@ -120,10 +122,9 @@ namespace _Project.Scripts.Networking.ClientSide
                 return packetLength <= 1;
             }
 
-            private void Disconnect()
+            public void Disconnect()
             {
-                Client.Disconnect();
-
+                Socket.Close();
                 _stream = null;
                 _receivedData = null;
                 _receiveBuffer = null;
@@ -133,90 +134,64 @@ namespace _Project.Scripts.Networking.ClientSide
 
         public class UserDatagramProtocol
         {
-            public UdpClient Socket { get; private set; }
+            private readonly int _id;
+            public IPEndPoint ClientEndPoint { get; private set; }
 
-            private IPEndPoint _serverEndPoint;
+            public UserDatagramProtocol(int id) => _id = id;
 
-            public UserDatagramProtocol()
+            public void Connect(IPEndPoint ipEndPoint)
             {
-                _serverEndPoint = new IPEndPoint(IPAddress.Parse(Client.ServerIp), Client.ServerPort);
-            }
-
-            public void Connect(int localPort)
-            {
-                Socket = new UdpClient(localPort);
-
-                Socket.Connect(_serverEndPoint);
-                Socket.BeginReceive(ReceiveCallback, null);
-
-                using (var packet = new Packet())
-                {
-                    SendData(packet);
-                }
+                ClientEndPoint = ipEndPoint;
             }
 
             public void SendData(Packet packet)
             {
                 try
                 {
-                    packet.Insert(Client.MyId);
-                    if (Socket == null) return;
+                    if (ClientEndPoint == null) return;
 
-                    Socket.BeginSend(packet.ToArray(), packet.Length(), null, null);
+                    Server.UdpListener.BeginSend(packet.ToArray(), packet.Length(), ClientEndPoint, null, null);
                 }
                 catch (Exception e)
                 {
-                    //Debug.Log($"Error sending data to server via UDP: {e}");
+                    //Debug.Log($"Error sending data to {ClientEndPoint} via UDP: {e}");
                 }
             }
 
-            private void ReceiveCallback(IAsyncResult result)
+            public void HandleData(Packet data)
             {
-                try
-                {
-                    var data = Socket.EndReceive(result, ref _serverEndPoint);
-                    Socket.BeginReceive(ReceiveCallback, null);
-
-                    if (data.Length < 4)
-                    {
-                        Client.Disconnect();
-                        return;
-                    }
-                    
-
-                    HandleData(data);
-                }
-                catch
-                {
-                    Disconnect();
-                }
-            }
-
-            private void HandleData(byte[] data)
-            {
-                using (var packet = new Packet(data))
-                {
-                    var packetLength = packet.ReadInt();
-                    data = packet.ReadBytes(packetLength);
-                }
+                var packetLength = data.ReadInt();
+                var packetBytes = data.ReadBytes(packetLength);
 
                 MainThreadScheduler.EnqueueOnMainThread(() =>
                 {
-                    using (var packet = new Packet(data))
+                    using (var packet = new Packet(packetBytes))
                     {
                         var packetId = packet.ReadInt();
-                        ClientHandle.PacketHandlers[packetId](packet);
+                        ServerHandle.PacketHandlers[packetId](_id, packet);
                     }
                 });
             }
 
-            private void Disconnect()
+            public void Disconnect()
             {
-                Client.Disconnect();
-
-                _serverEndPoint = null;
-                Socket = null;
+                ClientEndPoint = null;
             }
+        }
+
+        public void Disconnect()
+        {
+            Debug.Log($"{Tcp.Socket.Client.RemoteEndPoint} has disconnected.");
+            
+            MainThreadScheduler.EnqueueOnMainThread(() =>
+            {
+                ServerManager.Instance.DeSpawn(_clientId);
+            });
+
+            Tcp.Disconnect();
+            Udp.Disconnect();
+            
+            ServerSend.PlayerDisconnected(_clientId);
         }
     }
 }

@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using _Project.Scripts.ServerSide.Networking;
 using UnityEngine;
 
-namespace _Project.Scripts.Networking.ServerSide
+namespace _Project.Scripts.ServerSide
 {
     public class ServerManager : MonoBehaviour
     {
         public static ServerManager Instance;
 
-        public Dictionary<int, PlayerManager> playerManagers = new Dictionary<int, PlayerManager>();
+        public Dictionary<int, ServerPlayerManager> playerManagers = new Dictionary<int, ServerPlayerManager>();
 
         [SerializeField] private Transform spawnLocation;
         [SerializeField] private GameObject playerPrefab;
@@ -41,7 +42,7 @@ namespace _Project.Scripts.Networking.ServerSide
         public void SendIntoGame(int clientId, string username)
         {
             var player = Instantiate(playerPrefab, spawnLocation.position, Quaternion.identity);
-            var playerManager = player.GetComponent<PlayerManager>();
+            var playerManager = player.GetComponent<ServerPlayerManager>();
             playerManager.Initialize(clientId, username);
             playerManagers.Add(clientId, playerManager);
 

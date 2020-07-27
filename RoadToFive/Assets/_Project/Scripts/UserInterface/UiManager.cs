@@ -1,4 +1,4 @@
-﻿using _Project.Scripts.Networking.ClientSide;
+﻿using _Project.Scripts.ClientSide.Networking;
 using UnityEngine;
 using UnityEngine.UI;
 

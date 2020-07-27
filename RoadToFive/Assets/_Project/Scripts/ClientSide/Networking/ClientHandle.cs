@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Net;
+using _Project.Scripts.DataStructure;
 using UnityEngine;
 
-namespace _Project.Scripts.Networking.ClientSide
+namespace _Project.Scripts.ClientSide.Networking
 {
-    public class ClientHandle
+    public static class ClientHandle
     {
         public delegate void PacketHandler(Packet packet);
         public static Dictionary<int, PacketHandler> PacketHandlers;
@@ -13,15 +14,15 @@ namespace _Project.Scripts.Networking.ClientSide
         {
             PacketHandlers = new Dictionary<int, PacketHandler>()
             {
-                {(int)ServerPackets.Welcome, ClientHandle.Welcome},
-                {(int)ServerPackets.SpawnPlayer, ClientHandle.SpawnPlayer},
-                {(int)ServerPackets.PlayerPosition, ClientHandle.PlayerPosition},
-                {(int)ServerPackets.PlayerRotation, ClientHandle.PlayerRotation},
-                {(int)ServerPackets.PlayerDisconnected, ClientHandle.PlayerDisconnected},
+                {(int)ServerPackets.Welcome, Welcome},
+                {(int)ServerPackets.SpawnPlayer, SpawnPlayer},
+                {(int)ServerPackets.PlayerPosition, PlayerPosition},
+                {(int)ServerPackets.PlayerRotation, PlayerRotation},
+                {(int)ServerPackets.PlayerDisconnected, PlayerDisconnected},
             };
         }
-        
-        public static void Welcome(Packet packet)
+
+        private static void Welcome(Packet packet)
         {
             var message = packet.ReadString();
             var myId = packet.ReadInt();
@@ -34,7 +35,7 @@ namespace _Project.Scripts.Networking.ClientSide
             Client.Connection.Udp.Connect(((IPEndPoint)Client.Connection.Tcp.Socket.Client.LocalEndPoint).Port);
         }
 
-        public static void SpawnPlayer(Packet packet)
+        private static void SpawnPlayer(Packet packet)
         {
             var id = packet.ReadInt();
             var username = packet.ReadString();
@@ -44,7 +45,7 @@ namespace _Project.Scripts.Networking.ClientSide
             GameManager.Instance.SpawnPlayer(id, username, position, rotation);
         }
 
-        public static void PlayerPosition(Packet packet)
+        private static void PlayerPosition(Packet packet)
         {
             var id = packet.ReadInt();
             var position = packet.ReadVector3();
@@ -52,7 +53,7 @@ namespace _Project.Scripts.Networking.ClientSide
             GameManager.Instance.playerManagers[id].PlayerTransform.position = position;
         }
 
-        public static void PlayerRotation(Packet packet)
+        private static void PlayerRotation(Packet packet)
         {
             var id = packet.ReadInt();
             var rotation = packet.ReadQuaternion();
@@ -60,7 +61,7 @@ namespace _Project.Scripts.Networking.ClientSide
             GameManager.Instance.playerManagers[id].PlayerTransform.rotation = rotation;
         }
 
-        public static void PlayerDisconnected(Packet packet)
+        private static void PlayerDisconnected(Packet packet)
         {
             var id = packet.ReadInt();
 

@@ -1,4 +1,6 @@
-﻿namespace _Project.Scripts.Networking.ServerSide
+﻿using _Project.Scripts.DataStructure;
+
+namespace _Project.Scripts.ServerSide.Networking
 {
     public static class ServerSend
     {
@@ -50,7 +52,7 @@
             }
         }
 
-        public static void SpawnPlayer(int toClient, PlayerManager player)
+        public static void SpawnPlayer(int toClient, ServerPlayerManager player)
         {
             using (var packet = new Packet((int)ServerPackets.SpawnPlayer))
             {
@@ -58,7 +60,7 @@
             }
         }
 
-        public static void PlayerPosition(PlayerManager player)
+        public static void PlayerPosition(ServerPlayerManager player)
         {
             using (var packet = new Packet((int) ServerPackets.PlayerPosition))
             {
@@ -66,7 +68,7 @@
             }
         }
         
-        public static void PlayerRotation(PlayerManager player)
+        public static void PlayerRotation(ServerPlayerManager player)
         {
             using (var packet = new Packet((int) ServerPackets.PlayerRotation))
             {
