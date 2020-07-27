@@ -46,8 +46,7 @@
         {
             using (var packet = new Packet((int) ServerPackets.Welcome))
             {
-                packet.Write(message).Write(toClient);
-                SendTcpData(toClient, packet);
+                SendTcpData(toClient, packet.Write(message).Write(toClient));
             }
         }
 
@@ -63,9 +62,7 @@
         {
             using (var packet = new Packet((int) ServerPackets.PlayerPosition))
             {
-                packet.Write(player.Id).Write(player.PlayerTransform.position);
-                
-                SendUdpDataToAll(packet);
+                SendUdpDataToAll(packet.Write(player.Id).Write(player.PlayerTransform.position));
             }
         }
         
@@ -73,9 +70,15 @@
         {
             using (var packet = new Packet((int) ServerPackets.PlayerRotation))
             {
-                packet.Write(player.Id).Write(player.PlayerTransform.rotation);
-                
-                SendUdpDataToAll(player.Id, packet);
+                SendUdpDataToAll(player.Id, packet.Write(player.Id).Write(player.PlayerTransform.rotation));
+            }
+        }
+
+        public static void PlayerDisconnected(int playerId)
+        {
+            using (var packet = new Packet((int) ServerPackets.PlayerDisconnected))
+            {
+                SendTcpDataToAll(packet.Write(playerId));
             }
         }
     }

@@ -107,7 +107,7 @@ namespace _Project.Scripts.Networking.ClientSide
                         using (var packet = new Packet(packetBytes))
                         {
                             var packetId = packet.ReadInt();
-                            Client.PacketHandlers[packetId](packet);
+                            ClientHandle.PacketHandlers[packetId](packet);
                         }
                     });
 
@@ -205,7 +205,7 @@ namespace _Project.Scripts.Networking.ClientSide
                     using (var packet = new Packet(data))
                     {
                         var packetId = packet.ReadInt();
-                        Client.PacketHandlers[packetId](packet);
+                        ClientHandle.PacketHandlers[packetId](packet);
                     }
                 });
             }

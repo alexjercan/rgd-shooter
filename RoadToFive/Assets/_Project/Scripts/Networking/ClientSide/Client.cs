@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace _Project.Scripts.Networking.ClientSide
 {
@@ -10,9 +9,6 @@ namespace _Project.Scripts.Networking.ClientSide
         public static int MyId { get; set; }
         public static ServerConnection Connection { get; private set; }
 
-        public delegate void PacketHandler(Packet packet);
-        public static Dictionary<int, PacketHandler> PacketHandlers;
-        
         private static bool _isConnected;
         
         public static void ConnectToServer(string ip)
@@ -22,7 +18,7 @@ namespace _Project.Scripts.Networking.ClientSide
             ServerPort = 26950;
             ServerIp = ip;
             Connection = new ServerConnection();
-            InitializeClientData();
+            ClientHandle.InitializeClientData();
             Connection.Tcp.Connect();
         }
 
@@ -35,18 +31,6 @@ namespace _Project.Scripts.Networking.ClientSide
             Connection.Udp.Socket.Close();
             
             Debug.Log("Disconnected from the server.");
-        }
-        
-        private static void InitializeClientData()
-        {
-            PacketHandlers = new Dictionary<int, PacketHandler>()
-            {
-                {(int)ServerPackets.Welcome, ClientHandle.Welcome},
-                {(int)ServerPackets.SpawnPlayer, ClientHandle.SpawnPlayer},
-                {(int)ServerPackets.PlayerPosition, ClientHandle.PlayerPosition},
-                {(int)ServerPackets.PlayerRotation, ClientHandle.PlayerRotation},
-                
-            };
         }
     }
 }

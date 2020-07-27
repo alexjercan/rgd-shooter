@@ -11,8 +11,8 @@ namespace _Project.Scripts.Networking.ServerSide
         public Transform PlayerTransform { get; private set; }
 
         [SerializeField] private CharacterController characterController;
-        [SerializeField] private float movementSpeed = 12.0f;
-        [SerializeField] private float jumpHeight = 3.0f;
+        [SerializeField] private float movementSpeed = 6.0f;
+        [SerializeField] private float jumpHeight = 1.0f;
 
         private CharacterMovement _characterMovement;
         

@@ -1,10 +1,26 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 
 namespace _Project.Scripts.Networking.ClientSide
 {
     public class ClientHandle
     {
+        public delegate void PacketHandler(Packet packet);
+        public static Dictionary<int, PacketHandler> PacketHandlers;
+
+        public static void InitializeClientData()
+        {
+            PacketHandlers = new Dictionary<int, PacketHandler>()
+            {
+                {(int)ServerPackets.Welcome, ClientHandle.Welcome},
+                {(int)ServerPackets.SpawnPlayer, ClientHandle.SpawnPlayer},
+                {(int)ServerPackets.PlayerPosition, ClientHandle.PlayerPosition},
+                {(int)ServerPackets.PlayerRotation, ClientHandle.PlayerRotation},
+                {(int)ServerPackets.PlayerDisconnected, ClientHandle.PlayerDisconnected},
+            };
+        }
+        
         public static void Welcome(Packet packet)
         {
             var message = packet.ReadString();
@@ -42,6 +58,13 @@ namespace _Project.Scripts.Networking.ClientSide
             var rotation = packet.ReadQuaternion();
 
             GameManager.Instance.playerManagers[id].PlayerTransform.rotation = rotation;
+        }
+
+        public static void PlayerDisconnected(Packet packet)
+        {
+            var id = packet.ReadInt();
+
+            GameManager.Instance.DeSpawn(id);
         }
     }
 }

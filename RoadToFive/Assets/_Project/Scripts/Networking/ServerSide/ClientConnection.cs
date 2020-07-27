@@ -108,7 +108,7 @@ namespace _Project.Scripts.Networking.ServerSide
                         using (var packet = new Packet(packetBytes))
                         {
                             var packetId = packet.ReadInt();
-                            Server.PacketHandlers[packetId](_id, packet);
+                            ServerHandle.PacketHandlers[packetId](_id, packet);
                         }
                     });
 
@@ -167,7 +167,7 @@ namespace _Project.Scripts.Networking.ServerSide
                     using (var packet = new Packet(packetBytes))
                     {
                         var packetId = packet.ReadInt();
-                        Server.PacketHandlers[packetId](_id, packet);
+                        ServerHandle.PacketHandlers[packetId](_id, packet);
                     }
                 });
             }
@@ -190,7 +190,7 @@ namespace _Project.Scripts.Networking.ServerSide
             Tcp.Disconnect();
             Udp.Disconnect();
             
-            //TODO: SEND DISCONNECT MESSAGE
+            ServerSend.PlayerDisconnected(_clientId);
         }
     }
 }

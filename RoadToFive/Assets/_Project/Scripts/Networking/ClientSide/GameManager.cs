@@ -39,5 +39,12 @@ namespace _Project.Scripts.Networking.ClientSide
             playerManager.Username = username;
             playerManagers.Add(id, playerManager);
         }
+        
+        public void DeSpawn(int clientId)
+        {
+            var player = playerManagers[clientId];
+            playerManagers.Remove(clientId);
+            Destroy(player.gameObject);
+        }
     }
 }

@@ -7,9 +7,10 @@ namespace _Project.Scripts.Networking.ServerSide
     public class ServerManager : MonoBehaviour
     {
         public static ServerManager Instance;
-        
+
         public Dictionary<int, PlayerManager> playerManagers = new Dictionary<int, PlayerManager>();
-        
+
+        [SerializeField] private Transform spawnLocation;
         [SerializeField] private GameObject playerPrefab;
         
         private void Awake()
@@ -31,10 +32,15 @@ namespace _Project.Scripts.Networking.ServerSide
             Application.targetFrameRate = 30;
             Server.Start(20, 26950);
         }
-        
+
+        private void OnApplicationQuit()
+        {
+            Server.Stop();
+        }
+
         public void SendIntoGame(int clientId, string username)
         {
-            var player = Instantiate(playerPrefab, new Vector3(), Quaternion.identity);
+            var player = Instantiate(playerPrefab, spawnLocation.position, Quaternion.identity);
             var playerManager = player.GetComponent<PlayerManager>();
             playerManager.Initialize(clientId, username);
             playerManagers.Add(clientId, playerManager);

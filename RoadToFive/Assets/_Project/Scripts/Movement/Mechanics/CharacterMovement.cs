@@ -5,7 +5,7 @@ namespace _Project.Scripts.Movement.Mechanics
 {
     public class CharacterMovement
     {
-        private const float GravityAcceleration = -9.81f;
+        private const float GravityAcceleration = -9.81f * 2;
 
         private Vector3 _velocity;
         private float _currentTurnVelocity;

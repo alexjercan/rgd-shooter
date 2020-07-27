@@ -13,8 +13,6 @@ namespace _Project.Scripts.Networking.ServerSide
         
         public static readonly Dictionary<int, ClientConnection> ClientConnections = new Dictionary<int, ClientConnection>();
 
-        public delegate void PacketHandler(int fromClient, Packet packet);
-        public static Dictionary<int, PacketHandler> PacketHandlers;
 
         private static TcpListener TcpListener { get; set; }
         public static UdpClient UdpListener { get; private set; }
@@ -25,6 +23,7 @@ namespace _Project.Scripts.Networking.ServerSide
             Port = port;
             
             InitializeServerData();
+            ServerHandle.InitializeServerData();
             
             TcpListener = new TcpListener(IPAddress.Any, port);
             TcpListener.Start();
@@ -87,11 +86,12 @@ namespace _Project.Scripts.Networking.ServerSide
         private static void InitializeServerData()
         {
             for (var i = 1; i <= MaxPlayers; i++) ClientConnections.Add(i, new ClientConnection(i));
-            PacketHandlers = new Dictionary<int, PacketHandler>()
-            {
-                {(int) ClientPackets.WelcomeReceived, ServerHandle.WelcomeReceived},
-                {(int) ClientPackets.PlayerMovement, ServerHandle.PlayerMovement},
-            };
+        }
+
+        public static void Stop()
+        {
+            TcpListener.Stop();
+            UdpListener.Close();
         }
     }
 }

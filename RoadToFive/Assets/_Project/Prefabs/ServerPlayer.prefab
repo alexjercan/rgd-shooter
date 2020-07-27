@@ -64,8 +64,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 5462781134774312540}
-  movementSpeed: 12
-  jumpHeight: 3
+  movementSpeed: 6
+  jumpHeight: 1
 --- !u!1 &5198852694175132192
 GameObject:
   m_ObjectHideFlags: 0
