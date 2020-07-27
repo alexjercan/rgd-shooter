@@ -27,5 +27,21 @@ namespace _Project.Scripts.Networking.ClientSide
             
             GameManager.Instance.SpawnPlayer(id, username, position, rotation);
         }
+
+        public static void PlayerPosition(Packet packet)
+        {
+            var id = packet.ReadInt();
+            var position = packet.ReadVector3();
+
+            GameManager.Instance.playerManagers[id].Position = position;
+        }
+
+        public static void PlayerRotation(Packet packet)
+        {
+            var id = packet.ReadInt();
+            var rotation = packet.ReadQuaternion();
+
+            GameManager.Instance.playerManagers[id].Rotation = rotation;
+        }
     }
 }

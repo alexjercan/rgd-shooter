@@ -11,7 +11,17 @@ namespace _Project.Scripts.Networking.ServerSide
             
             if (clientIdCheck != fromClient) return;
             
-            Server.ClientConnections[fromClient].SendIntoGame(username);
+            Debug.Log($"Spawning player {username}");
+            ServerManager.Instance.SendIntoGame(fromClient, username);
+        }
+
+        public static void PlayerMovement(int fromClient, Packet packet)
+        {
+            var movementInput = packet.ReadVector3();
+            var rotation = packet.ReadQuaternion();
+
+            ServerManager.Instance.playerManagers[fromClient].MovementInput = movementInput;
+            ServerManager.Instance.playerManagers[fromClient].Rotation = rotation;
         }
     }
 }

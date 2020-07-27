@@ -41,7 +41,7 @@ namespace _Project.Scripts.Networking.ServerSide
             var client = TcpListener.EndAcceptTcpClient(result);
             TcpListener.BeginAcceptTcpClient(TcpConnectCallback, null);
             
-            Debug.Log($"Incoming connection from {client}...");
+            Debug.Log($"Incoming connection from {client.Client.RemoteEndPoint}...");
             
             for (var i = 1; i <= MaxPlayers; i++)
             {
@@ -90,6 +90,7 @@ namespace _Project.Scripts.Networking.ServerSide
             PacketHandlers = new Dictionary<int, PacketHandler>()
             {
                 {(int) ClientPackets.WelcomeReceived, ServerHandle.WelcomeReceived},
+                {(int) ClientPackets.PlayerMovement, ServerHandle.PlayerMovement},
             };
         }
     }

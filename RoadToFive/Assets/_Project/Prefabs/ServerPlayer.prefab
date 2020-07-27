@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3907515094001334495}
   - component: {fileID: 5462781134774312540}
-  - component: {fileID: -534895706661573384}
-  - component: {fileID: 5590989165321434473}
+  - component: {fileID: 5488954405374406406}
   m_Layer: 0
   m_Name: ServerPlayer
   m_TagString: Untagged
@@ -52,7 +51,7 @@ CharacterController:
   m_SkinWidth: 0.0001
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-534895706661573384
+--- !u!114 &5488954405374406406
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -61,25 +60,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3907515094001334465}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7112b6f8e7e940918bbbe5425d5c54da, type: 3}
+  m_Script: {fileID: 11500000, guid: be0dabc950374d0e9217c629949dc142, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5590989165321434473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3907515094001334465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a264d9df82048d4c9f00b15a744bf81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serverPlayerManager: {fileID: -534895706661573384}
   characterController: {fileID: 5462781134774312540}
   movementSpeed: 12
-  gravity: -19.62
   jumpHeight: 3
 --- !u!1 &5198852694175132192
 GameObject:

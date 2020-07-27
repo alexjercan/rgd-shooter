@@ -51,11 +51,31 @@
             }
         }
 
-        public static void SpawnPlayer(int toClient, Player player)
+        public static void SpawnPlayer(int toClient, PlayerManager player)
         {
             using (var packet = new Packet((int)ServerPackets.SpawnPlayer))
             {
                 SendTcpData(toClient, packet.Write(player.Id).Write(player.Username).Write(player.Position).Write(player.Rotation));
+            }
+        }
+
+        public static void PlayerPosition(PlayerManager player)
+        {
+            using (var packet = new Packet((int) ServerPackets.PlayerPosition))
+            {
+                packet.Write(player.Id).Write(player.Position);
+                
+                SendUdpDataToAll(packet);
+            }
+        }
+        
+        public static void PlayerRotation(PlayerManager player)
+        {
+            using (var packet = new Packet((int) ServerPackets.PlayerRotation))
+            {
+                packet.Write(player.Id).Write(player.Rotation);
+                
+                SendUdpDataToAll(player.Id, packet);
             }
         }
     }

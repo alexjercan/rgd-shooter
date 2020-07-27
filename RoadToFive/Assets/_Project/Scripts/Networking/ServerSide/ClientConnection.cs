@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using _Project.Scripts.Threading;
@@ -13,7 +12,6 @@ namespace _Project.Scripts.Networking.ServerSide
 
         public TransmissionControlProtocol Tcp { get; }
         public UserDatagramProtocol Udp { get; }
-        public Player Player { get; set; }
 
         private readonly int _clientId;
 
@@ -71,7 +69,11 @@ namespace _Project.Scripts.Networking.ServerSide
                 try
                 {
                     var byteLength = _stream.EndRead(result);
-                    if (byteLength <= 0) return;
+                    if (byteLength <= 0)
+                    {
+                        Server.ClientConnections[_id].Disconnect();
+                        return;
+                    }
 
                     var data = new byte[byteLength];
                     Array.Copy(_receiveBuffer, data, byteLength);
@@ -82,6 +84,7 @@ namespace _Project.Scripts.Networking.ServerSide
                 catch (Exception e)
                 {
                     Debug.Log($"Error receiving TCP data: {e}");
+                    Server.ClientConnections[_id].Disconnect();
                 }
             }
 
@@ -117,6 +120,15 @@ namespace _Project.Scripts.Networking.ServerSide
 
                 return packetLength <= 1;
             }
+
+            public void Disconnect()
+            {
+                Socket.Close();
+                _stream = null;
+                _receivedData = null;
+                _receiveBuffer = null;
+                Socket = null;
+            }
         }
 
         public class UserDatagramProtocol
@@ -141,13 +153,13 @@ namespace _Project.Scripts.Networking.ServerSide
                 }
                 catch (Exception e)
                 {
-                    Debug.Log($"Error sending data to {ClientEndPoint} via UDP: {e}");
+                    //Debug.Log($"Error sending data to {ClientEndPoint} via UDP: {e}");
                 }
             }
 
             public void HandleData(Packet data)
             {
-                var packetLength = data.Length();
+                var packetLength = data.ReadInt();
                 var packetBytes = data.ReadBytes(packetLength);
 
                 MainThreadScheduler.EnqueueOnMainThread(() =>
@@ -159,17 +171,27 @@ namespace _Project.Scripts.Networking.ServerSide
                     }
                 });
             }
+
+            public void Disconnect()
+            {
+                ClientEndPoint = null;
+            }
         }
-        
-        public void SendIntoGame(string username)
+
+        public void Disconnect()
         {
-            Player = new Player(_clientId, username, new Vector3());
+            Debug.Log($"{Tcp.Socket.Client.RemoteEndPoint} has disconnected.");
+            
+            MainThreadScheduler.EnqueueOnMainThread(() =>
+            {
+                //TODO DESPAWN METHOD IN SERVER MANAGER
+                //UnityEngine.Object.Destroy(ServerManager.Instance.playerManagers[_clientId].gameObject);
+            });
 
-            foreach (var connection in Server.ClientConnections.Values.Where(connection => connection.Player != null && connection._clientId != _clientId))
-                ServerSend.SpawnPlayer(_clientId, connection.Player);
-
-            foreach (var connection in Server.ClientConnections.Values.Where(connection => connection.Player != null))
-                ServerSend.SpawnPlayer(connection._clientId, Player);
+            Tcp.Disconnect();
+            Udp.Disconnect();
+            
+            //TODO: SEND DISCONNECT MESSAGE
         }
     }
 }

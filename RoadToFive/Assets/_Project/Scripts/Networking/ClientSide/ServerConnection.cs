@@ -44,7 +44,7 @@ namespace _Project.Scripts.Networking.ClientSide
                 try
                 {
                     if (Socket == null) return;
-
+                    
                     _stream.BeginWrite(packet.ToArray(), 0, packet.Length(), null, null);
                 }
                 catch (Exception e)
@@ -69,7 +69,11 @@ namespace _Project.Scripts.Networking.ClientSide
                 try
                 {
                     var byteLength = _stream.EndRead(result);
-                    if (byteLength <= 0) return; //TODO: DISCONNECT
+                    if (byteLength <= 0)
+                    {
+                        Client.Disconnect();
+                        return;
+                    }
 
                     var data = new byte[byteLength];
                     Array.Copy(_receiveBuffer, data, byteLength);
@@ -79,7 +83,7 @@ namespace _Project.Scripts.Networking.ClientSide
                 }
                 catch
                 {
-                    //DISCONNECT
+                    Disconnect();
                 }
             }
 
@@ -115,11 +119,21 @@ namespace _Project.Scripts.Networking.ClientSide
 
                 return packetLength <= 1;
             }
+
+            private void Disconnect()
+            {
+                Client.Disconnect();
+
+                _stream = null;
+                _receivedData = null;
+                _receiveBuffer = null;
+                Socket = null;
+            }
         }
 
         public class UserDatagramProtocol
         {
-            private UdpClient Socket { get; set; }
+            public UdpClient Socket { get; private set; }
 
             private IPEndPoint _serverEndPoint;
 
@@ -152,7 +166,7 @@ namespace _Project.Scripts.Networking.ClientSide
                 }
                 catch (Exception e)
                 {
-                    Debug.Log($"Error sending data to server via UDP: {e}");
+                    //Debug.Log($"Error sending data to server via UDP: {e}");
                 }
             }
 
@@ -163,13 +177,18 @@ namespace _Project.Scripts.Networking.ClientSide
                     var data = Socket.EndReceive(result, ref _serverEndPoint);
                     Socket.BeginReceive(ReceiveCallback, null);
 
-                    if (data.Length < 4) return;
+                    if (data.Length < 4)
+                    {
+                        Client.Disconnect();
+                        return;
+                    }
+                    
 
                     HandleData(data);
                 }
                 catch
                 {
-                    // TODO: DISCONNECT
+                    Disconnect();
                 }
             }
 
@@ -190,7 +209,14 @@ namespace _Project.Scripts.Networking.ClientSide
                     }
                 });
             }
+
+            private void Disconnect()
+            {
+                Client.Disconnect();
+
+                _serverEndPoint = null;
+                Socket = null;
+            }
         }
     }
-
 }

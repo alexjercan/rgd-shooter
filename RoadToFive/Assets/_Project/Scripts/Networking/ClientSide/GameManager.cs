@@ -7,7 +7,7 @@ namespace _Project.Scripts.Networking.ClientSide
     {
         public static GameManager Instance;
         
-        public static readonly Dictionary<int, PlayerManager> Players = new Dictionary<int, PlayerManager>();
+        public Dictionary<int, PlayerManager> playerManagers = new Dictionary<int, PlayerManager>();
 
         [SerializeField] private GameObject localPlayerPrefab;
         [SerializeField] private GameObject playerPrefab;
@@ -25,6 +25,11 @@ namespace _Project.Scripts.Networking.ClientSide
             }
         }
 
+        private void OnApplicationQuit()
+        {
+            Client.Disconnect();
+        }
+
         public void SpawnPlayer(int id, string username, Vector3 position, Quaternion rotation)
         {
             var player = Instantiate(id == Client.MyId ? localPlayerPrefab : playerPrefab, position, rotation);
@@ -32,7 +37,7 @@ namespace _Project.Scripts.Networking.ClientSide
             var playerManager = player.GetComponent<PlayerManager>();
             playerManager.Id = id;
             playerManager.Username = username;
-            Players.Add(id, playerManager);
+            playerManagers.Add(id, playerManager);
         }
     }
 }

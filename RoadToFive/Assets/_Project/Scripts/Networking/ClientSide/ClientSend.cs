@@ -1,4 +1,6 @@
-﻿namespace _Project.Scripts.Networking.ClientSide
+﻿using UnityEngine;
+
+namespace _Project.Scripts.Networking.ClientSide
 {
     public class ClientSend
     {
@@ -22,6 +24,16 @@
         {
             packet.InsertLength();
             Client.Connection.Udp.SendData(packet);
+        }
+        
+        public static void PlayerMovement(Vector3 movementInput, Quaternion rotation)
+        {
+            using (var packet = new Packet((int) ClientPackets.PlayerMovement))
+            {
+                packet.Write(movementInput).Write(rotation);
+
+                SendUdpData(packet);
+            }
         }
     }
 }

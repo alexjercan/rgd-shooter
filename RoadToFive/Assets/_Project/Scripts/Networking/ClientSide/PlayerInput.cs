@@ -1,17 +1,14 @@
-﻿ using _Project.Scripts.Movement.Mechanics;
- using UnityEngine;
+﻿using _Project.Scripts.Movement.Mechanics;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
-namespace _Project.Scripts.Movement.Character
+namespace _Project.Scripts.Networking.ClientSide
 {
-    public class LocalCharacterController : MonoBehaviour
+    public class PlayerInput : MonoBehaviour
     {
-        public Vector2 MovementInput { get; set; }
-        public Vector2 LookInput { get; set; }
-        public bool JumpInput { get; set; }
-        public Vector2 PlayerRotation { get; set; }
-
         [SerializeField] private Camera playerCamera;
-        
+        [SerializeField] private PlayerManager playerManager;
+
         [Header("Camera settings")]
         [Range(0.1f, 5.0f)] [SerializeField] private float mouseSensitivity = 2.0f;
         [Range(0.0f, 180.0f)] [SerializeField] private float verticalRotationRange = 170.0f;
@@ -22,6 +19,10 @@ namespace _Project.Scripts.Movement.Character
         private float _internalMouseSensitivity;
 
         private LookRotation _characterLookRotation;
+        
+        private Vector2 _movementInput;
+        private Vector2 _lookInput;
+        private bool _jumpInput;
 
         private void Awake()
         {
@@ -38,24 +39,29 @@ namespace _Project.Scripts.Movement.Character
             _characterLookRotation = new LookRotation(baseCameraFieldOfView, originalYRotation);
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             RotateCharacter();
-
-            UpdateMovement();
+            
+            ClientSend.PlayerMovement(MovementInput(_movementInput, _jumpInput), playerManager.Rotation);
         }
+        
+        public void MovementInputCallback(InputAction.CallbackContext context) => _movementInput = context.ReadValue<Vector2>();
+
+        public void JumpInputCallback(InputAction.CallbackContext context) => _jumpInput = context.ReadValueAsButton();
+
+        public void LookInputCallback(InputAction.CallbackContext context) => _lookInput = context.ReadValue<Vector2>();
+
+        private static Vector3 MovementInput(Vector2 movementInput, bool jumpInput) => new Vector3(movementInput.x, jumpInput ? 1 : 0, movementInput.y);
 
         private void RotateCharacter()
         {
-            var mouseYInput = LookInput.y;
-            var mouseXInput = LookInput.x;
+            var mouseYInput = _lookInput.y;
+            var mouseXInput = _lookInput.x;
             var lookRotation = _characterLookRotation.GetCharacterRotation(mouseXInput, mouseYInput,
                 playerCamera.fieldOfView, _internalMouseSensitivity, verticalRotationRange, cameraSmoothing);
             _cameraTransform.localRotation = Quaternion.Euler(lookRotation.x,0,0);
-            _transform.localRotation = Quaternion.Euler(0, lookRotation.y, 0);
-            PlayerRotation = lookRotation;
+            playerManager.Rotation = Quaternion.Euler(0, lookRotation.y, 0);
         }
-        
-        private void UpdateMovement() {}
     }
 }
