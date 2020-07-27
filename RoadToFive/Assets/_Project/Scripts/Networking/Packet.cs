@@ -4,7 +4,17 @@ using System.Text;
 using UnityEngine;
 
 namespace _Project.Scripts.Networking
-{ 
+{
+    public enum ServerPackets
+    {
+        Welcome,
+    }
+
+    public enum ClientPackets
+    {
+        WelcomeReceived,
+    }
+    
     public class Packet : IDisposable
     {
         private List<byte> _byteBuffer;
@@ -30,7 +40,13 @@ namespace _Project.Scripts.Networking
             _byteBuffer = new List<byte>(); 
             _readIndex = 0; 
 
+            AddBytes(data);
+        }
+        
+        public void AddBytes(byte[] data)
+        {
             Write(data);
+            _byteArray = _byteBuffer.ToArray();
         }
 
         public Packet InsertLength()
@@ -56,8 +72,14 @@ namespace _Project.Scripts.Networking
 
         public int UnreadLength() => Length() - _readIndex;
         
-        public void Reset()
+        public void Reset(bool shouldReset = true)
         {
+            if (shouldReset == false)
+            {
+                _readIndex -= 4;
+                return;
+            }
+            
             _byteBuffer.Clear();
             _byteArray = null;
             _readIndex = 0;

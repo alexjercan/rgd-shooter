@@ -219,7 +219,6 @@ namespace _Project.Scripts.Networking
                     if (packetLength <= 0) return true;
                 }
 
-                //TODO: IF FALSE SHOULD GO BACK TO ORIGINAL STATE
                 return packetLength <= 1;
             }
         }
