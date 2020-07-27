@@ -6,20 +6,9 @@ namespace _Project.Scripts.Networking.ClientSide
     {
         public int Id { get; set; }
         public string Username { get; set; }
-        public Vector3 Position { get; set; }
-        public Quaternion Rotation { get; set; }
-        
-        private Transform _transform;
 
-        private void Awake()
-        {
-            _transform = GetComponent<Transform>();
-        }
+        public Transform PlayerTransform { get; private set; }
 
-        private void FixedUpdate()
-        {
-            _transform.position = Position;
-            _transform.rotation = Rotation;
-        }
+        private void Awake() => PlayerTransform = GetComponent<Transform>();
     }
 }

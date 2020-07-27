@@ -55,7 +55,7 @@
         {
             using (var packet = new Packet((int)ServerPackets.SpawnPlayer))
             {
-                SendTcpData(toClient, packet.Write(player.Id).Write(player.Username).Write(player.Position).Write(player.Rotation));
+                SendTcpData(toClient, packet.Write(player.Id).Write(player.Username).Write(player.PlayerTransform.position).Write(player.PlayerTransform.rotation));
             }
         }
 
@@ -63,7 +63,7 @@
         {
             using (var packet = new Packet((int) ServerPackets.PlayerPosition))
             {
-                packet.Write(player.Id).Write(player.Position);
+                packet.Write(player.Id).Write(player.PlayerTransform.position);
                 
                 SendUdpDataToAll(packet);
             }
@@ -73,7 +73,7 @@
         {
             using (var packet = new Packet((int) ServerPackets.PlayerRotation))
             {
-                packet.Write(player.Id).Write(player.Rotation);
+                packet.Write(player.Id).Write(player.PlayerTransform.rotation);
                 
                 SendUdpDataToAll(player.Id, packet);
             }

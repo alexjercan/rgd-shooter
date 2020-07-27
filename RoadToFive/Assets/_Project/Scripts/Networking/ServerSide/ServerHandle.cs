@@ -20,8 +20,7 @@ namespace _Project.Scripts.Networking.ServerSide
             var movementInput = packet.ReadVector3();
             var rotation = packet.ReadQuaternion();
 
-            ServerManager.Instance.playerManagers[fromClient].MovementInput = movementInput;
-            ServerManager.Instance.playerManagers[fromClient].Rotation = rotation;
+            ServerManager.Instance.playerManagers[fromClient].SetInput(movementInput, rotation);
         }
     }
 }

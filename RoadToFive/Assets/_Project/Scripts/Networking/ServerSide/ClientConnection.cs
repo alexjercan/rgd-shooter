@@ -184,8 +184,7 @@ namespace _Project.Scripts.Networking.ServerSide
             
             MainThreadScheduler.EnqueueOnMainThread(() =>
             {
-                //TODO DESPAWN METHOD IN SERVER MANAGER
-                //UnityEngine.Object.Destroy(ServerManager.Instance.playerManagers[_clientId].gameObject);
+                ServerManager.Instance.DeSpawn(_clientId);
             });
 
             Tcp.Disconnect();

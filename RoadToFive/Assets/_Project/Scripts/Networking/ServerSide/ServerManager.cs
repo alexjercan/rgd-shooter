@@ -27,6 +27,8 @@ namespace _Project.Scripts.Networking.ServerSide
         
         private void Start()
         {
+            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = 30;
             Server.Start(20, 26950);
         }
         
@@ -34,7 +36,7 @@ namespace _Project.Scripts.Networking.ServerSide
         {
             var player = Instantiate(playerPrefab, new Vector3(), Quaternion.identity);
             var playerManager = player.GetComponent<PlayerManager>();
-            playerManager.Initialize(clientId, username, new Vector3(), Quaternion.identity);
+            playerManager.Initialize(clientId, username);
             playerManagers.Add(clientId, playerManager);
 
             foreach (var manager in playerManagers.Values.Where(manager => manager.Id != clientId))
@@ -42,6 +44,13 @@ namespace _Project.Scripts.Networking.ServerSide
 
             foreach(var manager in playerManagers.Values)
                 ServerSend.SpawnPlayer(manager.Id, playerManager);
+        }
+
+        public void DeSpawn(int clientId)
+        {
+            var player = playerManagers[clientId];
+            playerManagers.Remove(clientId);
+            Destroy(player.gameObject);
         }
     }
 }

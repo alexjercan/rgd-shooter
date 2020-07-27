@@ -33,7 +33,7 @@ namespace _Project.Scripts.Networking.ClientSide
             var id = packet.ReadInt();
             var position = packet.ReadVector3();
 
-            GameManager.Instance.playerManagers[id].Position = position;
+            GameManager.Instance.playerManagers[id].PlayerTransform.position = position;
         }
 
         public static void PlayerRotation(Packet packet)
@@ -41,7 +41,7 @@ namespace _Project.Scripts.Networking.ClientSide
             var id = packet.ReadInt();
             var rotation = packet.ReadQuaternion();
 
-            GameManager.Instance.playerManagers[id].Rotation = rotation;
+            GameManager.Instance.playerManagers[id].PlayerTransform.rotation = rotation;
         }
     }
 }
