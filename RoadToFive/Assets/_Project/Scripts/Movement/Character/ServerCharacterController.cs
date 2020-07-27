@@ -1,12 +1,10 @@
-﻿using _Project.Scripts.Core;
-using _Project.Scripts.Movement.Mechanics;
+﻿using _Project.Scripts.Movement.Mechanics;
 using UnityEngine;
 
 namespace _Project.Scripts.Movement.Character
 {
     public class ServerCharacterController : MonoBehaviour
     {
-        [SerializeField] private ServerPlayerManager serverPlayerManager;
         [SerializeField] private CharacterController characterController;
 
         [SerializeField] private float movementSpeed = 12.0f;
@@ -36,21 +34,21 @@ namespace _Project.Scripts.Movement.Character
 
         private void UpdateRotation()
         {
-            var rotationYValue = serverPlayerManager.Rotation.y;
+           //var rotationYValue = serverPlayerManager.Rotation.y;
 
-            _transform.localRotation = Quaternion.Euler(0, rotationYValue, 0);
+            //_transform.localRotation = Quaternion.Euler(0, rotationYValue, 0);
         }
 
         private void MoveCharacter()
         {
-            var movementInput = serverPlayerManager.MovementInput;
+            //var movementInput = serverPlayerManager.MovementInput;
 
-            var controllerInput = _characterMovement.GetControllerInput(movementInput, _transform.forward,
-                _transform.right, characterController.isGrounded, jumpHeight, movementSpeed);
+            //var controllerInput = _characterMovement.GetControllerInput(movementInput, _transform.forward,
+            //    _transform.right, characterController.isGrounded, jumpHeight, movementSpeed);
 
-            characterController.Move(controllerInput * Time.fixedDeltaTime);
+            //characterController.Move(controllerInput * Time.fixedDeltaTime);
 
-            serverPlayerManager.Position = _transform.position;
+            //serverPlayerManager.Position = _transform.position;
         }
     }
 }

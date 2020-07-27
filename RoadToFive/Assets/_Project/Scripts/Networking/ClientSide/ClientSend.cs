@@ -15,13 +15,13 @@
         private static void SendTcpData(Packet packet)
         {
             packet.InsertLength();
-            Client.Socket.TcpSendData(packet);
+            Client.Connection.Tcp.SendData(packet);
         }
 
         private static void SendUdpData(Packet packet)
         {
             packet.InsertLength();
-            Client.Socket.UdpSendData(packet);
+            Client.Connection.Udp.SendData(packet);
         }
     }
 }

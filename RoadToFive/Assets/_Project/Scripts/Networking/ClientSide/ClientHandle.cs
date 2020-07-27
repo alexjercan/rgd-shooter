@@ -15,7 +15,7 @@ namespace _Project.Scripts.Networking.ClientSide
             Client.MyId = myId;
             ClientSend.WelcomeReceived();
             
-            Client.Socket.UdpConnect(((IPEndPoint)Client.Socket.TcpSocket.Client.LocalEndPoint).Port);
+            Client.Connection.Udp.Connect(((IPEndPoint)Client.Connection.Tcp.Socket.Client.LocalEndPoint).Port);
         }
     }
 }

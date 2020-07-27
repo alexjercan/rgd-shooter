@@ -1,12 +1,9 @@
-﻿using _Project.Scripts.Core;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace _Project.Scripts.Movement.Character
 {
     public class ClientCharacterController : MonoBehaviour
     {
-        [SerializeField] private NetworkTransform networkTransform;
-        
         private Transform _transform;
         
         private void Awake()
@@ -23,12 +20,12 @@ namespace _Project.Scripts.Movement.Character
         
         private void RotateCharacter()
         {
-            _transform.localRotation = Quaternion.Euler(0, networkTransform.PlayerRotation.y, 0);
+            //_transform.localRotation = Quaternion.Euler(0, networkTransform.PlayerRotation.y, 0);
         }
         
         private void UpdateMovement()
         {
-            _transform.position = networkTransform.PlayerPosition;
+            //_transform.position = networkTransform.PlayerPosition;
         }
     }
 }

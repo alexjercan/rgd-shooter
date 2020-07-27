@@ -9,7 +9,6 @@ namespace _Project.Scripts.Networking.ServerSide
             using (var packet = new Packet((int) ServerPackets.Welcome))
             {
                 packet.Write(message).Write(toClient);
-Debug.Log("Sending welcome");
                 SendTcpData(toClient, packet);
             }
         }
@@ -17,13 +16,13 @@ Debug.Log("Sending welcome");
         private static void SendTcpData(int toClient, Packet packet)
         {
             packet.InsertLength();
-            Server.Sockets[toClient].TcpSendData(packet);
+            Server.ClientConnections[toClient].Tcp.SendData(packet);
         }
 
         private static void SendTcpDataToAll(Packet packet)
         {
             packet.InsertLength();
-            for (var i = 1; i <= Server.MaxPlayers; i++) Server.Sockets[i].TcpSendData(packet);
+            for (var i = 1; i <= Server.MaxPlayers; i++) Server.ClientConnections[i].Tcp.SendData(packet);
         }
 
         private static void SendTcpDataToAll(int exceptClient, Packet packet)
@@ -31,19 +30,19 @@ Debug.Log("Sending welcome");
             packet.InsertLength();
             for (var i = 1; i <= Server.MaxPlayers; i++) 
                 if (i != exceptClient) 
-                    Server.Sockets[i].TcpSendData(packet);
+                    Server.ClientConnections[i].Tcp.SendData(packet);
         }
 
         private static void SendUdpData(int toClient, Packet packet)
         {
             packet.InsertLength();
-            Server.Sockets[toClient].UdpSendData(packet);
+            Server.ClientConnections[toClient].Udp.SendData(packet);
         }
         
         private static void SendUdpDataToAll(Packet packet)
         {
             packet.InsertLength();
-            for (var i = 1; i <= Server.MaxPlayers; i++) Server.Sockets[i].UdpSendData(packet);
+            for (var i = 1; i <= Server.MaxPlayers; i++) Server.ClientConnections[i].Udp.SendData(packet);
         }
 
         private static void SendUdpDataToAll(int exceptClient, Packet packet)
@@ -51,7 +50,7 @@ Debug.Log("Sending welcome");
             packet.InsertLength();
             for (var i = 1; i <= Server.MaxPlayers; i++) 
                 if (i != exceptClient) 
-                    Server.Sockets[i].UdpSendData(packet);
+                    Server.ClientConnections[i].Udp.SendData(packet);
         }
     }
 }
