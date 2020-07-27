@@ -30,7 +30,7 @@ namespace _Project.Scripts.ServerSide
                 Destroy(this);
             }
             
-            _asyncOperation = SceneManager.LoadSceneAsync(mainSceneName);
+            _asyncOperation = SceneManager.LoadSceneAsync(mainSceneName, LoadSceneMode.Additive);
             _asyncOperation.completed += operation => Server.Start(20, 26950);
         }
 

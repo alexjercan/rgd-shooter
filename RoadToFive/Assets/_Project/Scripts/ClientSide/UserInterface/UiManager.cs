@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace _Project.Scripts.UserInterface
+namespace _Project.Scripts.ClientSide.UserInterface
 {
     //UGLY UI
     public class UiManager : MonoBehaviour
@@ -21,7 +21,7 @@ namespace _Project.Scripts.UserInterface
         {
             startMenu.SetActive(true);
             connectMenu.SetActive(false);
-            _asyncOperation = SceneManager.LoadSceneAsync(mainSceneName);
+            _asyncOperation = SceneManager.LoadSceneAsync(mainSceneName, LoadSceneMode.Additive);
             _asyncOperation.completed += operation =>
             {
                 connectMenu.SetActive(true);
