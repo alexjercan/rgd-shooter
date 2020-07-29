@@ -53,6 +53,8 @@ public class Inventory : MonoBehaviour
     public Transform weaponPoint;
     public GameObject animatorRig;
 
+    private InventoryItem bestHeal;
+
     public int GetAmmoCount(AmmoType ammoType)
     {
         return munition[(int)ammoType].count;
@@ -75,6 +77,8 @@ public class Inventory : MonoBehaviour
         ScrollItems();
 
         UpdateCurrentWeaponAmmo();
+
+        HealPlayer();
     }
 
     public void DropItem()
@@ -90,10 +94,6 @@ public class Inventory : MonoBehaviour
             }
             dropTimer = 0;
         }
-    }
-    public void PickUpItem()
-    {
-        // TODO
     }
 
     public void ScrollItems()
@@ -217,28 +217,49 @@ public class Inventory : MonoBehaviour
     {
         int healthHandicap = GetComponent<EntityLogic>().MAX_HEALTH - GetComponent<EntityLogic>().health;
 
-        InventoryItem bestHeal = null;
+        InventoryItem bestSuitableHeal = null;
 
         foreach(InventoryItem itemInv in inventory)
         {
-            if (itemInv.item.GetComponent<LootDetails>().isMedKit)
+            if (itemInv.item != null && itemInv.item.GetComponent<LootDetails>().isMedKit)
             {
-                if (healthHandicap >= itemInv.item.GetComponent<MedKitLogic>().amount / 2 || bestHeal == null)
+                if (bestSuitableHeal == null)
                 {
-                    bestHeal = itemInv;
+                    bestSuitableHeal = itemInv;
+                } else
+                {
+                    if (bestSuitableHeal.item.GetComponent<MedKitLogic>().amount < itemInv.item.GetComponent<MedKitLogic>().amount)
+                    {
+                        bestSuitableHeal = itemInv;
+                    }
                 }
             }
         }
 
-        return bestHeal;
+        return bestSuitableHeal;
     }
 
     public void HealPlayer()
     {
-        InventoryItem bestHeal = GetBestSuitableHeal();
         if (bestHeal != null)
         {
-            bestHeal.item.GetComponent<MedKitLogic>().UseMedKit();
+            if (bestHeal.item.GetComponent<MedKitLogic>().isHealing)
+            {
+                bestHeal.item.GetComponent<MedKitLogic>().UseMedKit();
+            }
+            else
+            {
+                bestHeal = null;
+            }
+        }
+
+        if (Keyboard.current.hKey.wasPressedThisFrame && GetComponent<EntityLogic>().health < GetComponent<EntityLogic>().MAX_HEALTH)
+        {
+            bestHeal = GetBestSuitableHeal();
+            if (bestHeal != null)
+            {
+                bestHeal.item.GetComponent<MedKitLogic>().isHealing = true;
+            }
         }
     }
 }

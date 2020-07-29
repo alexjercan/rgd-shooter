@@ -17,25 +17,15 @@ public class MedKitLogic : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (isHealing)
-        {
-            UseMedKit();
-        }   
-    }
-
     public void UseMedKit()
     {
         // dureaza 5 sec 
         // daca primeste input se intrerupe + reset time
         // creste hp cu "amount" dupa ce s a terminat "useTime"
         // medKit dispare (count-- / distroy daca 1 singur)
-
         useTime-= Time.deltaTime;
 
-        if (Keyboard.current.anyKey.isPressed || mouseButtonPressed())
+        if (Keyboard.current.anyKey.wasPressedThisFrame || mouseButtonPressed())
         {
             useTime = MAX_TIME_MEDKIT_USE;
             isHealing = false;
@@ -58,16 +48,14 @@ public class MedKitLogic : MonoBehaviour
                 }
             }
         }
-
-
     }
 
     bool mouseButtonPressed()
     {
         Mouse mouse = Mouse.current;
-        if (mouse.backButton.isPressed || mouse.forwardButton.isPressed ||
-            mouse.leftButton.isPressed || mouse.middleButton.isPressed ||
-            mouse.rightButton.isPressed || mouse.scroll.IsPressed() )
+        if (mouse.backButton.wasPressedThisFrame || mouse.forwardButton.wasPressedThisFrame ||
+            mouse.leftButton.wasPressedThisFrame || mouse.middleButton.wasPressedThisFrame ||
+            mouse.rightButton.wasPressedThisFrame || mouse.scroll.IsPressed() )
         {
             return true;
         } else
