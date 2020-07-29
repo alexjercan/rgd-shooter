@@ -62,7 +62,7 @@ public class Inventory : MonoBehaviour
     {
         currentItemInHand = 0;
         itemInHand = inventory[0];
-        dropTimer = 1 / 20.0f;
+        dropTimer = 1 / 20.0f;  
     }
 
     void Update()
@@ -211,6 +211,35 @@ public class Inventory : MonoBehaviour
     public void AddAmmo(AmmoType ammoType, int count)
     {
         munition[(int)ammoType].count += count;
+    }
+
+    private InventoryItem GetBestSuitableHeal()
+    {
+        int healthHandicap = GetComponent<EntityLogic>().MAX_HEALTH - GetComponent<EntityLogic>().health;
+
+        InventoryItem bestHeal = null;
+
+        foreach(InventoryItem itemInv in inventory)
+        {
+            if (itemInv.item.GetComponent<LootDetails>().isMedKit)
+            {
+                if (healthHandicap >= itemInv.item.GetComponent<MedKitLogic>().amount / 2 || bestHeal == null)
+                {
+                    bestHeal = itemInv;
+                }
+            }
+        }
+
+        return bestHeal;
+    }
+
+    public void HealPlayer()
+    {
+        InventoryItem bestHeal = GetBestSuitableHeal();
+        if (bestHeal != null)
+        {
+            bestHeal.item.GetComponent<MedKitLogic>().UseMedKit();
+        }
     }
 }
 

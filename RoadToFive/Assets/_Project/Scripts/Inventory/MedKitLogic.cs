@@ -26,7 +26,7 @@ public class MedKitLogic : MonoBehaviour
         }   
     }
 
-    void UseMedKit()
+    public void UseMedKit()
     {
         // dureaza 5 sec 
         // daca primeste input se intrerupe + reset time
@@ -46,7 +46,7 @@ public class MedKitLogic : MonoBehaviour
                 useTime = MAX_TIME_MEDKIT_USE;
                 isHealing = false;
 
-                // TODO: Crestem HP cu amount
+                GetComponent<LootDetails>().owner.GetComponent<EntityLogic>().TakeHeal(amount);
                 Inventory inventory = GetComponent<LootDetails>().owner.GetComponent<Inventory>();
                 inventory.inventory[inventory.itemIndex(this.gameObject)].count--;
                 if (inventory.inventory[inventory.itemIndex(this.gameObject)].count <= 0)
