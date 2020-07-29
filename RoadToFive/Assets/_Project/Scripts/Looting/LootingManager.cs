@@ -43,7 +43,7 @@ public class LootingManager : MonoBehaviour
         
         GameObject item = hit.transform.gameObject;
 
-        UnityEngine.Debug.Log(item.name);
+        //UnityEngine.Debug.Log(item.name);
         if (item.GetComponent<LootDetails>().isAmmo == true)
         {
             this.transform.parent.GetComponent<Inventory>().
@@ -56,7 +56,7 @@ public class LootingManager : MonoBehaviour
         {
             this.transform.parent.GetComponent<Inventory>().
             AddItem(item);
-            UnityEngine.Debug.Log("Item Picked");
+            //UnityEngine.Debug.Log("Item Picked");
         }
     }
 }
