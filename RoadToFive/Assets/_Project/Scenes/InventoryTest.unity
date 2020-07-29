@@ -48687,6 +48687,7 @@ GameObject:
   - component: {fileID: 813302516}
   - component: {fileID: 813302515}
   - component: {fileID: 813302519}
+  - component: {fileID: 813302520}
   m_Layer: 0
   m_Name: ClientSidePlayer
   m_TagString: Player
@@ -48926,6 +48927,19 @@ MonoBehaviour:
   - {fileID: 2025140884}
   - {fileID: 2024650895}
   - {fileID: 1242334311}
+--- !u!114 &813302520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813302514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57b893a57943bcb4daa7d56ef74c6319, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 969842523}
 --- !u!1001 &874441891
 PrefabInstance:
   m_ObjectHideFlags: 0
