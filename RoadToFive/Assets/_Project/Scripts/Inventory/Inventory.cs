@@ -5,6 +5,7 @@ using System.Security.Permissions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class Inventory : MonoBehaviour
 
 
     public const int maxInvetory = 10;
+    private Color selected = new Color(0.6367924f, 0.9803672f, 1f, 0.7215686f);
+    private Color empty = new Color(1, 0.9932215f, 1, 1);
 
     [Serializable]
     public class InventoryItem
@@ -55,6 +58,9 @@ public class Inventory : MonoBehaviour
 
     private InventoryItem bestHeal;
 
+    public GameObject[] InventorySlots;
+    public GameObject[] InventoryPics;
+
     public int GetAmmoCount(AmmoType ammoType)
     {
         return munition[(int)ammoType].count;
@@ -64,7 +70,9 @@ public class Inventory : MonoBehaviour
     {
         currentItemInHand = 0;
         itemInHand = inventory[0];
-        dropTimer = 1 / 20.0f;  
+        dropTimer = 1 / 20.0f;
+
+        InventoryPics[0].GetComponent<Image>().sprite = inventory[0].item.GetComponent<LootDetails>().InventoryPic;
     }
 
     void Update()
@@ -83,17 +91,55 @@ public class Inventory : MonoBehaviour
 
     public void DropItem()
     {
-        dropTimer += Time.deltaTime;
-        if (dropTimer >= 1 / 20.0f)
+        if (currentItemInHand != 0)
         {
-            itemInHand.count--;
-            if (itemInHand.count <= 0)
+
+            dropTimer += Time.deltaTime;
+            if (dropTimer >= 1 / 20.0f)
             {
-                Destroy(itemInHand.item);
-                inventory[currentItemInHand].InitItem();
+                itemInHand.count--;
+                if (itemInHand.count <= 0)
+                {
+                    bool isWeapon = itemInHand.item.GetComponent<LootDetails>().isWeapon;
+                    Destroy(itemInHand.item);
+                    inventory[currentItemInHand].InitItem();
+
+                    InventoryPics[currentItemInHand].GetComponent<Image>().sprite = null;
+
+                    if (isWeapon == true)
+                    {
+                        InventorySlots[currentItemInHand].GetComponent<Image>().color = empty;
+
+                        currentItemInHand = 0;
+                        itemInHand = inventory[0];
+                        inventory[0].item.GetComponent<WeaponStats>().OnWeaponChange();
+                        InventorySlots[currentItemInHand].GetComponent<Image>().color = selected;
+                    }
+                }
+                dropTimer = 0;
             }
-            dropTimer = 0;
         }
+    }
+
+    private int FirstOcuppiedSlot(int direction)
+    {
+
+        int r = currentItemInHand;
+        do
+        {
+            r += direction;
+
+            if (r < 0)
+            {
+                r = maxInvetory - 1;
+            }
+            if (r >= maxInvetory)
+            {
+                r = 0;
+            }
+        } while (inventory[r].item == null);
+
+        return r;
     }
 
     public void ScrollItems()
@@ -102,7 +148,11 @@ public class Inventory : MonoBehaviour
 
         if (wheelInput.y.ReadValue() != 0)
         {
-            currentItemInHand += Math.Sign(wheelInput.y.ReadValue());
+
+            InventorySlots[currentItemInHand].GetComponent<Image>().color = empty;
+
+            //currentItemInHand += Math.Sign(wheelInput.y.ReadValue());
+            currentItemInHand = FirstOcuppiedSlot(Math.Sign(wheelInput.y.ReadValue()));
             if (currentItemInHand < 0)
             {
                 currentItemInHand = maxInvetory - 1;
@@ -119,6 +169,9 @@ public class Inventory : MonoBehaviour
                     itemInHand.item.GetComponent<WeaponStats>().OnWeaponChange();
                 }
             }
+
+            InventorySlots[currentItemInHand].GetComponent<Image>().color = selected;
+
         }
     }
 
@@ -201,6 +254,9 @@ public class Inventory : MonoBehaviour
                 item.transform.SetParent(this.gameObject.transform);
                 item.transform.localPosition = Vector3.zero;
                 item.SetActive(false);
+
+                InventoryPics[idx].GetComponent<Image>().sprite = item.GetComponent<LootDetails>().InventoryPic;
+
             } else
             {
                 Debug.Log("Inventory is full");

@@ -78,6 +78,7 @@ MonoBehaviour:
   isAmmo: 0
   ammoType: 1
   isMedKit: 0
+  InventoryPic: {fileID: 21300000, guid: 473fa2f83f2a5724eaaf175b6b8bfd61, type: 3}
 --- !u!65 &1489678744125779799
 BoxCollider:
   m_ObjectHideFlags: 0

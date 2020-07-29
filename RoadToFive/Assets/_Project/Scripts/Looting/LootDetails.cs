@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LootDetails : MonoBehaviour
 {
@@ -15,4 +16,6 @@ public class LootDetails : MonoBehaviour
     public AmmoType ammoType;
 
     public bool isMedKit;
+
+    public Sprite InventoryPic;
 }
