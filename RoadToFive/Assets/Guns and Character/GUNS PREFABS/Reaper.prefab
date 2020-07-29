@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5289744190032583649}
   - component: {fileID: 5289744190032583648}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 5289744190881293978}
   - component: {fileID: 5289744190881293972}
   - component: {fileID: 5289744190881293973}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RC5300amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5289744191088081927}
   - component: {fileID: 5289744191088081926}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ammo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 5289744191247145508}
   - component: {fileID: 5289744191247145510}
   - component: {fileID: 5289744191247145511}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: reaper_mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 5289744191369464406}
   - component: {fileID: 5289744191369464407}
   - component: {fileID: 5289744191369464404}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: logo_plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,7 +367,7 @@ GameObject:
   - component: {fileID: 5289744191621761525}
   - component: {fileID: 5289744191621761530}
   - component: {fileID: 5289744191621761531}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: logo_plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -466,7 +466,7 @@ GameObject:
   - component: {fileID: 5289744191848004175}
   - component: {fileID: 2739595028429427213}
   - component: {fileID: 5175163797778884689}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Reaper
   m_TagString: LootItem
   m_Icon: {fileID: 0}

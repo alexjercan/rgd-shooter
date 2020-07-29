@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1020812102442181410}
   - component: {fileID: 1695435307}
   - component: {fileID: 1489678744125779799}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pistol
   m_TagString: LootItem
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 1020812102442155779}
   - component: {fileID: 1020812102439255843}
   - component: {fileID: 1020812102440254947}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Magazine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 1020812102442155781}
   - component: {fileID: 1020812102439255845}
   - component: {fileID: 1020812102440254949}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 1020812102442155785}
   - component: {fileID: 1020812102439255849}
   - component: {fileID: 1020812102440254953}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pistol_part
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -338,7 +338,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9065819552987904689}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

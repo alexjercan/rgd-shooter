@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8940139544624190072}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 7763946846574811665}
   - component: {fileID: 7763946846576138803}
   - component: {fileID: 7763946846577105139}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 7763946846574936212}
   - component: {fileID: 2465368499660135605}
   - component: {fileID: 3730653061181062817}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SciFiGun
   m_TagString: LootItem
   m_Icon: {fileID: 0}
@@ -232,7 +232,7 @@ GameObject:
   - component: {fileID: 7763946846574811669}
   - component: {fileID: 7763946846576138805}
   - component: {fileID: 7763946846577105141}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Munition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,7 +311,7 @@ GameObject:
   - component: {fileID: 7763946846574811671}
   - component: {fileID: 7763946846576138807}
   - component: {fileID: 7763946846577105143}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hull
   m_TagString: Untagged
   m_Icon: {fileID: 0}

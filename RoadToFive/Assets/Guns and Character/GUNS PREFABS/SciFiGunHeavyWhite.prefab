@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6541944561748556907}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 1270760260735274060}
   - component: {fileID: 1367583040}
   - component: {fileID: 4966095290022723126}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SciFiGunHeavyWhite
   m_TagString: LootItem
   m_Icon: {fileID: 0}

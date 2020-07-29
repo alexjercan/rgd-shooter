@@ -9,7 +9,7 @@ public class ShootingLogic : MonoBehaviour
     float rayDistance = 20.0f;
     public GameObject[] BulletHoles;
     public GameObject MainCamera;
-
+    public LayerMask layerMask;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +37,7 @@ public class ShootingLogic : MonoBehaviour
         RaycastHit hit;
         //the end Pos which defaults to the startPos + distance 
         Vector3 endPos = startPos + (distance * direction);
-        if (Physics.Raycast(ray, out hit, distance))
+        if (Physics.Raycast(ray, out hit, distance, ~layerMask))
         {
             //if we detect something
             endPos = hit.point;

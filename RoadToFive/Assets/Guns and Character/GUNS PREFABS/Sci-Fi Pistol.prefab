@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6068211088299852366}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 6657597840654051421}
   - component: {fileID: 5655825550537292403}
   - component: {fileID: 123218841239151606}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sci-Fi Pistol
   m_TagString: LootItem
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 5133564417555617298}
   - component: {fileID: 5133564417552193072}
   - component: {fileID: 5133564417553323248}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sci_fi_Pistol1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

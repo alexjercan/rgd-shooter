@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5459720886736913115}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 2776451506830227014}
   - component: {fileID: 3176720829047149250}
   - component: {fileID: 4838852540677232326}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sci-Fi Rifle_fbx
   m_TagString: LootItem
   m_Icon: {fileID: 0}
