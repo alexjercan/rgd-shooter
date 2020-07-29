@@ -178,10 +178,19 @@ public class Inventory : MonoBehaviour
             int idx = freeIndex();
             if (idx != -1) // not full
             {
+                item.GetComponent<LootDetails>().owner = this.gameObject;
+
                 inventory[idx].item = item;
                 inventory[idx].stackable = item.GetComponent<LootDetails>().stackable;
                 inventory[idx].count = item.GetComponent<LootDetails>().count;
                 inventory[idx].isWeapon = item.GetComponent<LootDetails>().isWeapon;
+
+                item.transform.SetParent(this.gameObject.transform);
+                item.transform.localPosition = Vector3.zero;
+                item.SetActive(false);
+            } else
+            {
+                Debug.Log("Inventory is full");
             }
         }
     }

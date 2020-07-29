@@ -28,7 +28,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5133564417555617296}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5133564417555515952
 GameObject:
@@ -40,9 +40,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5133564417555617296}
   - component: {fileID: 6657597840654051421}
+  - component: {fileID: 5655825550537292403}
+  - component: {fileID: 123218841239151606}
   m_Layer: 0
   m_Name: Sci-Fi Pistol
-  m_TagString: Untagged
+  m_TagString: LootItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58,8 +60,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children:
-  - {fileID: 5133564417555617298}
   - {fileID: 6068211088299852366}
+  - {fileID: 5133564417555617298}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -83,6 +85,38 @@ MonoBehaviour:
   spawnPointRotation: {x: -85.429, y: 260.931, z: 98.644}
   spawnPointScale: {x: 0.01, y: 0.01, z: 0.01}
   owner: {fileID: 0}
+--- !u!114 &5655825550537292403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5133564417555515952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46ae02a53413e1549a5e3afb44ec950c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 0}
+  count: 1
+  stackable: 0
+  isWeapon: 1
+  isAmmo: 0
+  ammoType: 2
+  isMedKit: 0
+--- !u!65 &123218841239151606
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5133564417555515952}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 15, z: 23}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5133564417555515954
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,7 +147,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5133564417555617296}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5133564417552193072
 MeshFilter:

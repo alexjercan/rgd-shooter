@@ -42,6 +42,8 @@ public class LootingManager : MonoBehaviour
         
         
         GameObject item = hit.transform.gameObject;
+
+        UnityEngine.Debug.Log(item.name);
         if (item.GetComponent<LootDetails>().isAmmo == true)
         {
             this.transform.parent.GetComponent<Inventory>().

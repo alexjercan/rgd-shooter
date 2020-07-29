@@ -42,9 +42,11 @@ GameObject:
   - component: {fileID: 1270760260738229935}
   - component: {fileID: 1270760260737228255}
   - component: {fileID: 1270760260735274060}
+  - component: {fileID: 1367583040}
+  - component: {fileID: 4966095290022723126}
   m_Layer: 0
   m_Name: SciFiGunHeavyWhite
-  m_TagString: Untagged
+  m_TagString: LootItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -131,3 +133,35 @@ MonoBehaviour:
   spawnPointRotation: {x: -79.21201, y: 206.923, z: 154.73}
   spawnPointScale: {x: 1.2, y: 1.2, z: 1.5}
   owner: {fileID: 0}
+--- !u!114 &1367583040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270760260735144167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46ae02a53413e1549a5e3afb44ec950c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 0}
+  count: 1
+  stackable: 0
+  isWeapon: 1
+  isAmmo: 0
+  ammoType: 3
+  isMedKit: 0
+--- !u!65 &4966095290022723126
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270760260735144167}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 0.35, z: 0.85}
+  m_Center: {x: 0, y: 0, z: 0.175}
