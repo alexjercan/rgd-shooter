@@ -50,6 +50,9 @@ public class Inventory : MonoBehaviour
 
     float dropTimer;
 
+    public Transform weaponPoint;
+    public GameObject animatorRig;
+
     public int GetAmmoCount(AmmoType ammoType)
     {
         return munition[(int)ammoType].count;
@@ -57,7 +60,6 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
-        inventory = new InventoryItem[maxInvetory];
         currentItemInHand = 0;
         itemInHand = inventory[0];
         dropTimer = 1 / 20.0f;
@@ -110,6 +112,13 @@ public class Inventory : MonoBehaviour
                 currentItemInHand = 0;
             }
             itemInHand = inventory[currentItemInHand];
+            if (itemInHand.item != null)
+            {
+                if (itemInHand.item.GetComponent<LootDetails>().isWeapon)
+                {
+                    itemInHand.item.GetComponent<WeaponStats>().OnWeaponChange();
+                }
+            }
         }
     }
 
@@ -179,6 +188,10 @@ public class Inventory : MonoBehaviour
             if (idx != -1) // not full
             {
                 item.GetComponent<LootDetails>().owner = this.gameObject;
+                if (item.GetComponent<LootDetails>().isWeapon)
+                {
+                    item.GetComponent<WeaponStats>().owner = this.gameObject;
+                }
 
                 inventory[idx].item = item;
                 inventory[idx].stackable = item.GetComponent<LootDetails>().stackable;

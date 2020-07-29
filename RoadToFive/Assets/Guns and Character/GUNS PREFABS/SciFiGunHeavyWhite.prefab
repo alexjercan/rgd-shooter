@@ -131,8 +131,10 @@ MonoBehaviour:
   ammoType: 3
   spawnPointPosition: {x: -0.00118, y: 0.00428, z: -0.00027}
   spawnPointRotation: {x: -79.21201, y: 206.923, z: 154.73}
-  spawnPointScale: {x: 1.2, y: 1.2, z: 1.5}
+  spawnPointScale: {x: 0.02, y: 0.02, z: 0.02}
+  localScale: {x: 1.5, y: 2, z: 2.1}
   owner: {fileID: 0}
+  animatorController: {fileID: 9100000, guid: ce157f2aa19f0d746b85a22ae7cf3b76, type: 2}
 --- !u!114 &1367583040
 MonoBehaviour:
   m_ObjectHideFlags: 0

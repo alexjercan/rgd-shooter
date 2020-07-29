@@ -178,14 +178,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94d7cbfb019f2fc4ea366ef2c91a6f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoCount: 0
+  ammoCount: 2147483647
   rateOfFire: 0
   damage: 0
   ammoType: 0
   spawnPointPosition: {x: -0.0025, y: 0.00905, z: -0.00081}
   spawnPointRotation: {x: -13.3, y: 443.1, z: -87.8}
   spawnPointScale: {x: 0.025, y: 0.025, z: 0.025}
+  localScale: {x: 4, y: 4, z: 4}
   owner: {fileID: 0}
+  animatorController: {fileID: 9100000, guid: 48eb6b31013c5ee4fa1db50713ed6c2b, type: 2}
 --- !u!114 &2465368499660135605
 MonoBehaviour:
   m_ObjectHideFlags: 0

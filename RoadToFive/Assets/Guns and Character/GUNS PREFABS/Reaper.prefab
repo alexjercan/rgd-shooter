@@ -508,7 +508,9 @@ MonoBehaviour:
   spawnPointPosition: {x: -0.003129977, y: 0.005508544, z: -0.002311918}
   spawnPointRotation: {x: -5.332, y: 271.46, z: 92.178}
   spawnPointScale: {x: 0.02, y: 0.02, z: 0.02}
+  localScale: {x: 0.2, y: 0.2, z: 0.2}
   owner: {fileID: 0}
+  animatorController: {fileID: 9100000, guid: ce157f2aa19f0d746b85a22ae7cf3b76, type: 2}
 --- !u!114 &2739595028429427213
 MonoBehaviour:
   m_ObjectHideFlags: 0
