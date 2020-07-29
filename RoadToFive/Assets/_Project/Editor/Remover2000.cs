@@ -8,16 +8,19 @@ namespace _Project.Editor
 {
 	public class Remover2000 : EditorWindow
 	{
-		[MenuItem ("Window/Remover2000")]
-		public static void  ShowWindow () 
+		[MenuItem("Window/Remover2000")]
+		public static void ShowWindow()
 		{
 			GetWindow(typeof(Remover2000));
 		}
 
-		private void OnGUI () 
+		private void OnGUI()
 		{
 			if (GUILayout.Button("DELETE ALL MESH COLLIDER")) RemoveComponenets<MeshCollider>();
 			if (GUILayout.Button("DELETE ALL MESH RENDERER")) RemoveComponenets<MeshRenderer>();
+			if (GUILayout.Button("ADD ALL MESH COLLIDER")) AddComponents<MeshRenderer>();
+
+
 
 			if (GUILayout.Button("SAVE THE MESS")) SaveScene();
 		}
@@ -28,23 +31,37 @@ namespace _Project.Editor
 			EditorSceneManager.SaveScene(scene);
 		}
 
+		private static void AddComponents<T>() where T : Component
+		{
+			var scene = SceneManager.GetActiveScene();
+			var rootObjectsInScene = new List<GameObject>();
+			scene.GetRootGameObjects(rootObjectsInScene);
+			foreach (var rootGameObject in rootObjectsInScene)
+			{
+				AddComponent<T>(rootGameObject);
+			}
+		}
+
+		private static void AddComponent<T>(GameObject gameObject) where T : Component
+		{
+			var gameObjects = gameObject.GetComponentsInChildren<Transform>();
+
+			foreach (var c in gameObjects)
+			{
+				if (c.GetComponent<T>() == null) 
+					c.gameObject.AddComponent<T>();
+			}
+		}
+		
+
 		private static void RemoveComponenets<T>() where T : Component
 		{
-			var currentGameObject = Selection.activeGameObject;
-
-			if (currentGameObject != null)
+			var scene = SceneManager.GetActiveScene();
+			var rootObjectsInScene = new List<GameObject>();
+			scene.GetRootGameObjects(rootObjectsInScene);
+			foreach (var rootGameObject in rootObjectsInScene)
 			{
-				RemoveComponent<T>(currentGameObject);
-			}
-			else
-			{
-				var scene = SceneManager.GetActiveScene();
-				var rootObjectsInScene = new List<GameObject>();
-				scene.GetRootGameObjects(rootObjectsInScene);
-				foreach (var rootGameObject in rootObjectsInScene)
-				{
-					RemoveComponent<T>(rootGameObject);
-				}
+				RemoveComponent<T>(rootGameObject);
 			}
 		}
 
