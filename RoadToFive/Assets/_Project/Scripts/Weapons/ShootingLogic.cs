@@ -26,7 +26,6 @@ public class ShootingLogic : MonoBehaviour
 
             DetectHit(MainCamera.transform.position, rayDistance, MainCamera.transform.TransformDirection(Vector3.forward));
         }
-
     }
 
     RaycastHit DetectHit(Vector3 startPos, float distance, Vector3 direction)

@@ -60,6 +60,7 @@ public class Inventory : MonoBehaviour
 
     public GameObject[] InventorySlots;
     public GameObject[] InventoryPics;
+    public GameObject[] Counts;
 
     public int GetAmmoCount(AmmoType ammoType)
     {
@@ -87,7 +88,34 @@ public class Inventory : MonoBehaviour
         UpdateCurrentWeaponAmmo();
 
         HealPlayer();
+
+        updateInventoryGUI();
     }
+
+    private void updateInventoryGUI()
+    {
+        int index = 0;
+        foreach (InventoryItem invItem in inventory)
+        {
+            if (invItem.item != null)
+            {
+                if (invItem.isWeapon)
+                {
+                    Counts[index].GetComponent<Text>().text = munition[(int)invItem.item.GetComponent<WeaponStats>().ammoType].count.ToString();
+
+                }
+                else {
+                    Counts[index].GetComponent<Text>().text = invItem.count.ToString();
+                }
+            } else
+            {
+                Counts[index].GetComponent<Text>().text = "";
+            }
+
+            index++;
+        }
+    }
+
 
     public void DropItem()
     {
