@@ -56,7 +56,7 @@ public class Inventory : MonoBehaviour
     public Transform weaponPoint;
     public GameObject animatorRig;
 
-    private InventoryItem bestHeal;
+    private InventoryItem healingUsed;
 
     public GameObject[] InventorySlots;
     public GameObject[] InventoryPics;
@@ -325,24 +325,26 @@ public class Inventory : MonoBehaviour
 
     public void HealPlayer()
     {
-        if (bestHeal != null)
+        if (healingUsed != null)
         {
-            if (bestHeal.item.GetComponent<MedKitLogic>().isHealing)
+            if (healingUsed.item.GetComponent<MedKitLogic>().isHealing)
             {
-                bestHeal.item.GetComponent<MedKitLogic>().UseMedKit();
+                healingUsed.item.GetComponent<MedKitLogic>().UseMedKit();
             }
             else
             {
-                bestHeal = null;
+                healingUsed = null;
             }
         }
 
         if (Keyboard.current.hKey.wasPressedThisFrame && GetComponent<EntityLogic>().health < GetComponent<EntityLogic>().MAX_HEALTH)
         {
-            bestHeal = GetBestSuitableHeal();
-            if (bestHeal != null)
+            Debug.Log("DA BA HEAL");
+            healingUsed = itemInHand.item.GetComponent<LootDetails>().isMedKit ? itemInHand : null;
+            Debug.Log(itemInHand.item.GetComponent<LootDetails>().isMedKit);
+            if (healingUsed != null)
             {
-                bestHeal.item.GetComponent<MedKitLogic>().isHealing = true;
+                healingUsed.item.GetComponent<MedKitLogic>().isHealing = true;
             }
         }
     }
