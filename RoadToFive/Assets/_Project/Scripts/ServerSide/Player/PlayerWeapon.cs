@@ -11,18 +11,16 @@ namespace _Project.Scripts.ServerSide.Player
         
         [SerializeField] private Transform shootOrigin;
         [SerializeField] private float maxBulletTravel;
-        [SerializeField] private int layerMask;
+        [SerializeField] private LayerMask layerMask;
 
         public void OnShoot(Vector3 direction)
         {
-            if (Physics.Raycast(shootOrigin.position, direction, out var hit, maxBulletTravel, layerMask))
-            {
-                var hitPoint = hit.point;
+            if (!Physics.Raycast(shootOrigin.position, direction, out var hit, maxBulletTravel, layerMask)) return;
+            var hitPoint = hit.point;
                 
-                //Shoot?.Invoke(this, hitPoint);
+            //Shoot?.Invoke(this, hitPoint); this can be used for visual effects
                 
-                hit.collider.GetComponent<EntityHealth>().Damage(_weapon.damage);
-            }
+            hit.collider.GetComponent<EntityHealth>().Damage(_weapon.Damage);
         }
 
         public void ChangeWeapon(Weapon weapon) => _weapon = weapon;

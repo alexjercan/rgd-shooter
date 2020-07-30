@@ -14,7 +14,8 @@ namespace _Project.Scripts.ServerSide
 
         [SerializeField] private PlayerMovement playerMovement;
         [SerializeField] private PlayerWeapon playerWeapon;
-        
+        [SerializeField] private PlayerInventory playerInventory;
+
         private void FixedUpdate()
         {
             ServerSend.PlayerPosition(Id, playerMovement);
