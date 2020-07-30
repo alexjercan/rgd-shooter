@@ -36,8 +36,7 @@ namespace _Project.Scripts.ClientSide
             var player = Instantiate(id == Client.MyId ? localPlayerPrefab : playerPrefab, position, rotation);
 
             var playerManager = player.GetComponent<PlayerManager>();
-            playerManager.Id = id;
-            playerManager.Username = username;
+            playerManager.Initialize(id, username);
             playerManagers.Add(id, playerManager);
         }
         

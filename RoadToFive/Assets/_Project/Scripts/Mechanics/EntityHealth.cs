@@ -13,6 +13,12 @@ namespace _Project.Scripts.Mechanics
         [SerializeField] private int maxHealth = 100;
 
         private void Start() => Health = maxHealth;
+
+        public void SetHealth(int health)
+        {
+            Health = health;
+            if (Health <= 0) Died?.Invoke(this, EventArgs.Empty);
+        }
         
         public void Damage(int damage)
         {

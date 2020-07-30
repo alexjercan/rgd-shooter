@@ -76,7 +76,7 @@ namespace _Project.Scripts.ClientSide.Networking
         {
             var id = packet.ReadInt();
             var health = packet.ReadInt();
-            
+            GameManager.Instance.playerManagers[id].SetHealth(health);
         }
     }
 }
