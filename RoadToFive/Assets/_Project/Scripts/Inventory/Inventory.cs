@@ -51,6 +51,8 @@ public class Inventory : MonoBehaviour
     public InventoryItem itemInHand;
     public int currentItemInHand;
 
+    public int weaponInHand;
+
     float dropTimer;
 
     public Transform weaponPoint;
@@ -71,6 +73,7 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         currentItemInHand = 0;
+        weaponInHand = 0;
         itemInHand = inventory[0];
         dropTimer = 1 / 20.0f;
 
@@ -141,7 +144,15 @@ public class Inventory : MonoBehaviour
 
                         currentItemInHand = 0;
                         itemInHand = inventory[0];
+                        weaponInHand = 0;
                         inventory[0].item.GetComponent<WeaponStats>().OnWeaponChange();
+                        InventorySlots[currentItemInHand].GetComponent<Image>().color = selected;
+                    } else
+                    {
+                        InventorySlots[currentItemInHand].GetComponent<Image>().color = empty;
+
+                        itemInHand = inventory[weaponInHand];
+                        currentItemInHand = weaponInHand;
                         InventorySlots[currentItemInHand].GetComponent<Image>().color = selected;
                     }
                 }
@@ -195,6 +206,7 @@ public class Inventory : MonoBehaviour
                 if (itemInHand.item.GetComponent<LootDetails>().isWeapon)
                 {
                     itemInHand.item.GetComponent<WeaponStats>().OnWeaponChange();
+                    weaponInHand = currentItemInHand;
                 }
             }
 
