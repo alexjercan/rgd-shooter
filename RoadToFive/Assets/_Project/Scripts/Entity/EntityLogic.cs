@@ -28,6 +28,11 @@ public class EntityLogic : MonoBehaviour
             {
                 health += armor;
                 armor = 0;
+                if (health <= 0)
+                {
+                    isDead = true;
+                    health = 0;
+                }
             }
         }
         else
