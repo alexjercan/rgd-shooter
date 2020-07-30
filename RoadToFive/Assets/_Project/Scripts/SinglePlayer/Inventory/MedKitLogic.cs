@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
-using _Project.Scripts.ServerSide.Entity;
+using _Project.Scripts.Mechanics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Permissions;
-using _Project.Scripts.ServerSide.Entity;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;

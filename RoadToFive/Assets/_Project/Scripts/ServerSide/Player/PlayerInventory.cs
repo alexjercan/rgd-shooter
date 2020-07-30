@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using _Project.Scripts.Util.Weapon;
 using UnityEngine;
 

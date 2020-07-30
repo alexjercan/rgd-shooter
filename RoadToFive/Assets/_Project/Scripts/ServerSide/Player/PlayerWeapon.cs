@@ -1,4 +1,4 @@
-﻿using _Project.Scripts.ServerSide.Entity;
+﻿using _Project.Scripts.Mechanics;
 using _Project.Scripts.Util.Weapon;
 using UnityEngine;
 

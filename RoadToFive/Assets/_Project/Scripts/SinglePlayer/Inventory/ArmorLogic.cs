@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using _Project.Scripts.ServerSide.Entity;
+using _Project.Scripts.Mechanics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

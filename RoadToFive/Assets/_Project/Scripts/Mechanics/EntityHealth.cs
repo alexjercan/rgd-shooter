@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace _Project.Scripts.ServerSide.Entity
+namespace _Project.Scripts.Mechanics
 {
     public class EntityHealth : MonoBehaviour
     {
