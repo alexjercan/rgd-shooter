@@ -13,7 +13,7 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
         
         private void FixedUpdate()
         {
-            ClientSend.PlayerMovement(playerMovementInput.MovementInput(),  playerManager.GetRotation());
+            ClientSend.PlayerMovement(playerMovementInput.GetMovementInput(),  playerManager.GetRotation());
         }
     }
 }

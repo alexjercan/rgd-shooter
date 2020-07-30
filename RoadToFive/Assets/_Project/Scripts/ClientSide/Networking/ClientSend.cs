@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace _Project.Scripts.ClientSide.Networking
 {
+    /// <summary>
+    /// SET DE FUNCTII CU CARE SE CONSTRUIESC PACHETELE CARE VOR FI TRIMISE CATRE SERVER
+    /// </summary>
     public static class ClientSend
     {
         private static void SendTcpData(Packet packet)

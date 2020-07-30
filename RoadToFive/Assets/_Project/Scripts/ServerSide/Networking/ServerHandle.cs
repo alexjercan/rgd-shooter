@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace _Project.Scripts.ServerSide.Networking
 {
+    /// <summary>
+    /// SET DE FUNCTII CARE SERIALIZEAZA DATELE PRIMITE PRIN PACHETE
+    /// </summary>
     public static class ServerHandle
     {
         public delegate void PacketHandler(int fromClient, Packet packet);

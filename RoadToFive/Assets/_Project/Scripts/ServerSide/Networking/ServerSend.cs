@@ -3,6 +3,9 @@ using _Project.Scripts.ServerSide.Player;
 
 namespace _Project.Scripts.ServerSide.Networking
 {
+    /// <summary>
+    /// SET DE FUNCTII CU CARE SE CONSTRUIESC PACHETELE CARE VOR FI TRIMISE CATRE CLIENT
+    /// </summary>
     public static class ServerSend
     {
         private static void SendTcpData(int toClient, Packet packet)

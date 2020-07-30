@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace _Project.Scripts.ServerSide.Player
 {
+    /// <summary>
+    /// COMPONENTA DE PE PLAYER LA NIVEL DE SERVER CARE SE OCUPA DE MOVEMENT
+    /// </summary>
     public class PlayerMovement : MonoBehaviour
     {
         public Transform PlayerTransform { get; private set; }

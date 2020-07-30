@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 namespace _Project.Scripts.ClientSide.LocalPlayer
 {
     /// <summary>
-    /// COMPONENTA SPECIFICA LOCAL-PLAYER-ULUI CARE SE OCUPA DE MOVEMENT
+    /// COMPONENTA SPECIFICA LOCAL-PLAYER-ULUI CARE SE OCUPA DE MOVEMENT INPUT
     /// </summary>
     public class PlayerMovementInput : MonoBehaviour
     {
@@ -17,6 +17,6 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
         public void JumpInputCallback(InputAction.CallbackContext context) => 
             _jumpInput = context.ReadValueAsButton();
 
-        public Vector3 MovementInput() => new Vector3(_movementInput.x, _jumpInput ? 1 : 0, _movementInput.y);
+        public Vector3 GetMovementInput() => new Vector3(_movementInput.x, _jumpInput ? 1 : 0, _movementInput.y);
     }
 }
