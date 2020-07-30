@@ -6,6 +6,7 @@ namespace _Project.Scripts.Mechanics
     public class EntityHealth : MonoBehaviour
     {
         public event EventHandler<EntityHealth> Damaged;
+        public event EventHandler Died;
 
         public int Health { get; private set; }
 
@@ -21,7 +22,7 @@ namespace _Project.Scripts.Mechanics
             Damaged?.Invoke(this, this);
             if (Health > 0) return;
             
-            gameObject.SetActive(false);
+            Died?.Invoke(this, EventArgs.Empty);
             Health = 0;
         }
 

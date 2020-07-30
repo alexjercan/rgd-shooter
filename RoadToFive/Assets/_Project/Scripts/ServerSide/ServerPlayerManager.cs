@@ -21,6 +21,7 @@ namespace _Project.Scripts.ServerSide
         private void Awake()
         {
             entityHealth.Damaged += (sender, health) => ServerSend.PlayerHealth(Id, health);
+            entityHealth.Died += (sender, args) => gameObject.SetActive(false);
         }
 
         private void FixedUpdate()
