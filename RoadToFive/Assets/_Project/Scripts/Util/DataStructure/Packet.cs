@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace _Project.Scripts.DataStructure
+namespace _Project.Scripts.Util.DataStructure
 {
     public enum ServerPackets
     {

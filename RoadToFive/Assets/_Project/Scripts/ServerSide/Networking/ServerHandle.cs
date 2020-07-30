@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using _Project.Scripts.DataStructure;
+using _Project.Scripts.Util.DataStructure;
 using UnityEngine;
 
 namespace _Project.Scripts.ServerSide.Networking

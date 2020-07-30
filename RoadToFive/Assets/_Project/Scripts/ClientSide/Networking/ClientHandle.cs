@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net;
-using _Project.Scripts.DataStructure;
+using _Project.Scripts.Util.DataStructure;
 using UnityEngine;
 
 namespace _Project.Scripts.ClientSide.Networking

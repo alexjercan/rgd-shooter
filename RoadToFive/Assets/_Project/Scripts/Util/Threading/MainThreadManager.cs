@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace _Project.Scripts.Threading
+namespace _Project.Scripts.Util.Threading
 {
     public class MainThreadManager : MonoBehaviour
     {

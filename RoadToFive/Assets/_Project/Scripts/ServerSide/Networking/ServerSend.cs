@@ -1,5 +1,5 @@
-﻿using _Project.Scripts.DataStructure;
-using _Project.Scripts.ServerSide.Player;
+﻿using _Project.Scripts.ServerSide.Player;
+using _Project.Scripts.Util.DataStructure;
 
 namespace _Project.Scripts.ServerSide.Networking
 {
