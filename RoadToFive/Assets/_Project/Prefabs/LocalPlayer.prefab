@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: 1113186598399107242}
   - component: {fileID: 7438593552546581623}
   - component: {fileID: 8671388314101409237}
+  - component: {fileID: 4444741897458480150}
   m_Layer: 0
   m_Name: LocalPlayer
   m_TagString: Untagged
@@ -202,6 +203,21 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 1a990abc-ef8e-4d53-9bf1-faafda2b5f17
     m_ActionName: Player/Look[/Mouse/delta/y,/Mouse/delta/y,/Mouse/delta/x,/Mouse/delta/x]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4444741897458480150}
+        m_MethodName: JumpInputCallback
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c0cddd99-a539-46d9-872c-fe70eb3238b5
+    m_ActionName: Player/Shoot[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -221,6 +237,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerManager: {fileID: 1113186598399107242}
   playerMovementInput: {fileID: 7438593552546581623}
+  playerRotation: {fileID: 8671388314101409237}
+  playerShootInput: {fileID: 4444741897458480150}
 --- !u!114 &1113186598399107242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,6 +279,18 @@ MonoBehaviour:
   mouseSensitivity: 2
   verticalRotationRange: 170
   cameraSmoothing: 1
+--- !u!114 &4444741897458480150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7597345135886232780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c862bac3b0d4e95813058d00f9fc176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7683952888175299244
 GameObject:
   m_ObjectHideFlags: 0

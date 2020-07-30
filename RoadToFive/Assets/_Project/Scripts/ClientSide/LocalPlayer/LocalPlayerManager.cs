@@ -10,10 +10,14 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
     {
         [SerializeField] private PlayerManager playerManager;
         [SerializeField] private PlayerMovementInput playerMovementInput;
-        
+        [SerializeField] private PlayerRotation playerRotation;
+        [SerializeField] private PlayerShootInput playerShootInput;
+
         private void FixedUpdate()
         {
-            ClientSend.PlayerMovement(playerMovementInput.GetMovementInput(),  playerManager.GetRotation());
+            ClientSend.PlayerMovement(playerMovementInput.GetMovementInput(),  playerRotation.GetRotation());
+            
+            if (playerShootInput) ClientSend.PlayerShoot(playerRotation.GetForwardDirection());
         }
     }
 }

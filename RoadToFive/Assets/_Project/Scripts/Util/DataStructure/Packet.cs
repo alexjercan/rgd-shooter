@@ -18,7 +18,7 @@ namespace _Project.Scripts.Util.DataStructure
     {
         WelcomeReceived,
         PlayerMovement,
-        
+        PlayerShoot,
     }
     
     public class Packet : IDisposable

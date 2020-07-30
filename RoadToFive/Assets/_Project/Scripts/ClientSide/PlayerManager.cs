@@ -17,7 +17,5 @@ namespace _Project.Scripts.ClientSide
         public void SetPosition(Vector3 position) => _transform.position = position;
 
         public void SetRotation(Quaternion rotation) => _transform.rotation = rotation;
-
-        public Quaternion GetRotation() => _transform.rotation;
     }
 }

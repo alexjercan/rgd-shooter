@@ -39,5 +39,15 @@ namespace _Project.Scripts.ClientSide.Networking
                 SendUdpData(packet);
             }
         }
+
+        public static void PlayerShoot(Vector3 direction)
+        {
+            using (var packet = new Packet((int) ClientPackets.PlayerShoot))
+            {
+                packet.Write(direction);
+
+                SendTcpData(packet);
+            }
+        }
     }
 }

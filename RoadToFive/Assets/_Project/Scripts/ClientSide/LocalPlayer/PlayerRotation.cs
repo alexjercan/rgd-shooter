@@ -49,6 +49,10 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
         public void LookInputCallback(InputAction.CallbackContext context) => 
             _lookInput = context.ReadValue<Vector2>();
         
+        public Quaternion GetRotation() => _transform.rotation;
+
+        public Vector3 GetForwardDirection() => _cameraTransform.forward;
+        
         private void RotateCharacter()
         {
             var mouseYInput = _lookInput.y;
