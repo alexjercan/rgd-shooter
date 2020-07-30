@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using _Project.Scripts.Mechanics;
 using _Project.Scripts.ServerSide.Networking;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -49,6 +50,7 @@ namespace _Project.Scripts.ServerSide
         {
             var player = Instantiate(playerPrefab, spawnLocation.position, Quaternion.identity);
             var playerManager = player.GetComponent<ServerPlayerManager>();
+            var entityHealth = player.GetComponent<EntityHealth>();
             playerManager.Initialize(clientId, username);
             playerManagers.Add(clientId, playerManager);
 

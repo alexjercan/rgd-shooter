@@ -1,4 +1,5 @@
-﻿using _Project.Scripts.ServerSide.Player;
+﻿using _Project.Scripts.Mechanics;
+using _Project.Scripts.ServerSide.Player;
 using _Project.Scripts.Util.DataStructure;
 
 namespace _Project.Scripts.ServerSide.Networking
@@ -86,6 +87,11 @@ namespace _Project.Scripts.ServerSide.Networking
             {
                 SendTcpDataToAll(packet.Write(playerId));
             }
+        }
+
+        public static void PlayerHealth(int playerId, EntityHealth entityHealth)
+        {
+            
         }
     }
 }

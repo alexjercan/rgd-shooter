@@ -31,7 +31,7 @@ public class ArmorLogic : MonoBehaviour
                 useTime = MAX_TIME_ARMOR_USE;
                 isTakingArmor = false;
 
-                GetComponent<LootDetails>().owner.GetComponent<EntityHealth>().AddArmor(amount);
+                //GetComponent<LootDetails>().owner.GetComponent<EntityHealth>().AddArmor(amount);
                 Inventory inventory = GetComponent<LootDetails>().owner.GetComponent<Inventory>();
                 inventory.inventory[inventory.itemIndex(this.gameObject)].count--;
                 if (inventory.inventory[inventory.itemIndex(this.gameObject)].count <= 0)

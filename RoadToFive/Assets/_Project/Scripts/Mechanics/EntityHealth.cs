@@ -1,16 +1,15 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace _Project.Scripts.Mechanics
 {
     public class EntityHealth : MonoBehaviour
     {
+        public event EventHandler<EntityHealth> Damaged;
+
         [SerializeField] private int maxHealth = 100;
-        [SerializeField] private int maxArmor = 100;
 
         private int _health;
-        private int _armor;
-
-        public bool isDead;
 
         private void Start() => _health = maxHealth;
         
@@ -18,15 +17,10 @@ namespace _Project.Scripts.Mechanics
         {
             if (_health <= 0) return;
             
-            _armor -= damage;
-            if (_armor >= 0) return;
-            
-            _health += _armor;
-            _armor = 0;
+            _health -= damage;
+            Damaged?.Invoke(this, this);
             if (_health > 0) return;
             
-            //TODO: UPDATE ON ALL CLIENTS
-            isDead = true;
             _health = 0;
         }
 
@@ -34,12 +28,6 @@ namespace _Project.Scripts.Mechanics
         {
             _health += heal;
             if (_health > maxHealth) _health = maxHealth;
-        }
-
-        public void AddArmor(int armorGained)
-        {
-            _armor += armorGained;
-            if (_armor > maxArmor) _armor = maxArmor;
         }
     }
 }

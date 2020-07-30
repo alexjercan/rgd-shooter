@@ -12,6 +12,7 @@ namespace _Project.Scripts.Util.DataStructure
         PlayerPosition,
         PlayerRotation,
         PlayerDisconnected,
+        PlayerHealth,
     }
 
     public enum ClientPackets

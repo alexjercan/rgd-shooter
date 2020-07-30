@@ -1,4 +1,6 @@
-﻿using _Project.Scripts.ServerSide.Networking;
+﻿using System;
+using _Project.Scripts.Mechanics;
+using _Project.Scripts.ServerSide.Networking;
 using _Project.Scripts.ServerSide.Player;
 using UnityEngine;
 
@@ -15,6 +17,12 @@ namespace _Project.Scripts.ServerSide
         [SerializeField] private PlayerMovement playerMovement;
         [SerializeField] private PlayerWeapon playerWeapon;
         [SerializeField] private PlayerInventory playerInventory;
+        [SerializeField] private EntityHealth entityHealth;
+
+        private void Awake()
+        {
+            entityHealth.Damaged += (sender, health) => ServerSend.PlayerHealth(Id, health);
+        }
 
         private void FixedUpdate()
         {
