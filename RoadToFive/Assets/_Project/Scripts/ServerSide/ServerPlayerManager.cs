@@ -29,7 +29,7 @@ namespace _Project.Scripts.ServerSide
 
         public void SetMovementInput(Vector3 movementInput, Quaternion rotation) => playerMovement.SetInput(movementInput, rotation);
 
-        public void SetShootDirection(Vector3 direction) => playerWeapon.Shoot(direction);
+        public void SetShootDirection(Vector3 direction) => playerWeapon.OnShoot(direction);
         
         public Vector3 GetPlayerPosition() => playerMovement.PlayerTransform.position;
 

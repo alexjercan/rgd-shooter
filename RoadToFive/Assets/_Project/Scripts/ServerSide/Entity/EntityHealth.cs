@@ -16,6 +16,8 @@ namespace _Project.Scripts.ServerSide.Entity
         
         public void Damage(int damage)
         {
+            if (_health <= 0) return;
+            
             _armor -= damage;
             if (_armor >= 0) return;
             
@@ -23,6 +25,7 @@ namespace _Project.Scripts.ServerSide.Entity
             _armor = 0;
             if (_health > 0) return;
             
+            //TODO: UPDATE ON ALL CLIENTS
             isDead = true;
             _health = 0;
         }
