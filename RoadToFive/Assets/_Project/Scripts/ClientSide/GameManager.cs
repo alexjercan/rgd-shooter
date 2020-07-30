@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using _Project.Scripts.ClientSide.Networking;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace _Project.Scripts.ClientSide
 {
@@ -45,6 +46,12 @@ namespace _Project.Scripts.ClientSide
             var player = playerManagers[clientId];
             playerManagers.Remove(clientId);
             Destroy(player.gameObject);
+        }
+        
+        public void ToggleCursor(InputAction.CallbackContext context)
+        {
+            Cursor.visible = !Cursor.visible;
+            Cursor.lockState = Cursor.lockState == CursorLockMode.None ? CursorLockMode.Locked : CursorLockMode.None;
         }
     }
 }

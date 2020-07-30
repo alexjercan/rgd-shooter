@@ -36,14 +36,6 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
-                },
-                {
-                    "name": "ToggleCursor",
-                    "type": "Button",
-                    "id": "a30d4c48-c168-47b6-ab9b-e91b35c165e4",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -178,10 +170,26 @@
                     "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
+                }
+            ]
+        },
+        {
+            "name": "UserInterface",
+            "id": "3068308e-b1de-4d7b-a6bc-5fea356790eb",
+            "actions": [
+                {
+                    "name": "ToggleCursor",
+                    "type": "Button",
+                    "id": "c9bd32bc-525d-4dfd-a631-63f7056c02ef",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
                 {
                     "name": "",
-                    "id": "6e930883-5f6d-4eda-93c4-a180c796cd26",
+                    "id": "c6403d76-9dad-4c05-b865-eda6f4d34595",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
