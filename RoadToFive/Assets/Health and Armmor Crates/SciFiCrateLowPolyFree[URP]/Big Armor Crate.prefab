@@ -68,7 +68,7 @@ MonoBehaviour:
   ammoType: 99
   isMedKit: 0
   isArmor: 1
-  InventoryPic: {fileID: 0}
+  InventoryPic: {fileID: 21300000, guid: 72d63bf73381e4147b638428869827f9, type: 3}
 --- !u!114 &7878045414036417179
 MonoBehaviour:
   m_ObjectHideFlags: 0

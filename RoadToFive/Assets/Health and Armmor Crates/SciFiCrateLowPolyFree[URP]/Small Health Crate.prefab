@@ -43,7 +43,7 @@ MeshCollider:
   m_GameObject: {fileID: 3383483183368206717}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -68,7 +68,7 @@ MonoBehaviour:
   ammoType: 99
   isMedKit: 1
   isArmor: 0
-  InventoryPic: {fileID: 0}
+  InventoryPic: {fileID: 21300000, guid: be9d59660727fd84994b7dc5ff7f4b5a, type: 3}
 --- !u!114 &3516111191393490432
 MonoBehaviour:
   m_ObjectHideFlags: 0
