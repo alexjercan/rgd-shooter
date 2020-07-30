@@ -79,7 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammoCount: 999
   rateOfFire: 0
-  damage: 0
+  damage: 10
   ammoType: 0
   spawnPointPosition: {x: -0.00294, y: 0.00763, z: -0.0025}
   spawnPointRotation: {x: -70, y: 260, z: 100}

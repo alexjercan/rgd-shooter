@@ -57,6 +57,7 @@ public class Inventory : MonoBehaviour
     public GameObject animatorRig;
 
     private InventoryItem healingUsed;
+    private InventoryItem armorUsed;
 
     public GameObject[] InventorySlots;
     public GameObject[] InventoryPics;
@@ -179,7 +180,6 @@ public class Inventory : MonoBehaviour
 
             InventorySlots[currentItemInHand].GetComponent<Image>().color = empty;
 
-            //currentItemInHand += Math.Sign(wheelInput.y.ReadValue());
             currentItemInHand = FirstOcuppiedSlot(Math.Sign(wheelInput.y.ReadValue()));
             if (currentItemInHand < 0)
             {
@@ -297,32 +297,6 @@ public class Inventory : MonoBehaviour
         munition[(int)ammoType].count += count;
     }
 
-    private InventoryItem GetBestSuitableHeal()
-    {
-        int healthHandicap = GetComponent<EntityLogic>().MAX_HEALTH - GetComponent<EntityLogic>().health;
-
-        InventoryItem bestSuitableHeal = null;
-
-        foreach(InventoryItem itemInv in inventory)
-        {
-            if (itemInv.item != null && itemInv.item.GetComponent<LootDetails>().isMedKit)
-            {
-                if (bestSuitableHeal == null)
-                {
-                    bestSuitableHeal = itemInv;
-                } else
-                {
-                    if (bestSuitableHeal.item.GetComponent<MedKitLogic>().amount < itemInv.item.GetComponent<MedKitLogic>().amount)
-                    {
-                        bestSuitableHeal = itemInv;
-                    }
-                }
-            }
-        }
-
-        return bestSuitableHeal;
-    }
-
     public void HealPlayer()
     {
         if (healingUsed != null)
@@ -335,16 +309,41 @@ public class Inventory : MonoBehaviour
             {
                 healingUsed = null;
             }
+        } else
+        {
+            if (armorUsed != null)
+            {
+                if (armorUsed.item.GetComponent<ArmorLogic>().isTakingArmor)
+                {
+                    armorUsed.item.GetComponent<ArmorLogic>().UseArmor();
+                }
+                else
+                {
+                    armorUsed = null;
+                }
+            }
         }
 
-        if (Keyboard.current.hKey.wasPressedThisFrame && GetComponent<EntityLogic>().health < GetComponent<EntityLogic>().MAX_HEALTH)
+        if (Keyboard.current.hKey.wasPressedThisFrame)
         {
-            Debug.Log("DA BA HEAL");
             healingUsed = itemInHand.item.GetComponent<LootDetails>().isMedKit ? itemInHand : null;
-            Debug.Log(itemInHand.item.GetComponent<LootDetails>().isMedKit);
             if (healingUsed != null)
             {
-                healingUsed.item.GetComponent<MedKitLogic>().isHealing = true;
+                if (GetComponent<EntityLogic>().health < GetComponent<EntityLogic>().MAX_HEALTH)
+                {
+                    healingUsed.item.GetComponent<MedKitLogic>().isHealing = true;
+                }
+            }
+            else
+            {
+                armorUsed = itemInHand.item.GetComponent<LootDetails>().isArmor ? itemInHand : null;
+                if (armorUsed != null)
+                {
+                    if (GetComponent<EntityLogic>().armor < GetComponent<EntityLogic>().MAX_ARMOR)
+                    {
+                        armorUsed.item.GetComponent<ArmorLogic>().isTakingArmor = true;
+                    }
+                }
             }
         }
     }
@@ -359,5 +358,4 @@ public enum AmmoType
     OPT = 3,
     NOUA = 4,
     ZECE = 5
-    // TODO: Sa ne gandim ce fel de munitie folosim
 }

@@ -11,6 +11,8 @@ public class ShootingLogic : MonoBehaviour
     public GameObject MainCamera;
     public LayerMask layerMask;
 
+    public GameObject thisPlayer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,9 +43,17 @@ public class ShootingLogic : MonoBehaviour
             //if we detect something
             endPos = hit.point;
 
-            // Spawn Bullet if shooting
-            if (Mouse.current.leftButton.wasPressedThisFrame) { 
-                Instantiate(BulletHoles[(int)GetComponentInChildren<LootDetails>().ammoType], hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
+            if (this.transform.GetChild(0).GetComponent<WeaponStats>().CanShoot())
+            {
+                // Spawn Bullet if shooting
+                if (Mouse.current.leftButton.wasPressedThisFrame)
+                {
+                    Instantiate(BulletHoles[(int)GetComponentInChildren<LootDetails>().ammoType], hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
+                    if (GetComponentInChildren<LootDetails>().ammoType != AmmoType.CINCI)
+                    {
+                        thisPlayer.GetComponent<Inventory>().munition[(int)GetComponentInChildren<LootDetails>().ammoType].count--;
+                    }
+                }
             }
         }
         // 2 is the duration the line is drawn, afterwards its deleted
