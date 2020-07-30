@@ -41,7 +41,6 @@ namespace _Project.Scripts.ClientSide.Networking
             using (var packet = new Packet((int) ClientPackets.PlayerShoot))
             {
                 SendTcpData(packet.Write(direction));
-                Debug.Log("SHOOTING");
             }
         }
     }

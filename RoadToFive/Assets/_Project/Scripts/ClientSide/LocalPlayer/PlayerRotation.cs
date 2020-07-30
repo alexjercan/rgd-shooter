@@ -48,9 +48,11 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
         
         public void LookInputCallback(InputAction.CallbackContext context) => 
             _lookInput = context.ReadValue<Vector2>();
-        
+
         public void ToggleCursor(InputAction.CallbackContext context)
         {
+            if (!context.started) return;
+            
             Cursor.visible = !Cursor.visible;
             Cursor.lockState = Cursor.lockState == CursorLockMode.None ? CursorLockMode.Locked : CursorLockMode.None;
         }

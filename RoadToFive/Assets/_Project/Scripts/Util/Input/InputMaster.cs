@@ -51,6 +51,14 @@ namespace _Project.Scripts.Util.Input
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ToggleCursor"",
+                    ""type"": ""Button"",
+                    ""id"": ""857be815-e18c-49d4-a590-c6f87cd840ab"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -185,26 +193,10 @@ namespace _Project.Scripts.Util.Input
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""UserInterface"",
-            ""id"": ""3068308e-b1de-4d7b-a6bc-5fea356790eb"",
-            ""actions"": [
-                {
-                    ""name"": ""ToggleCursor"",
-                    ""type"": ""Button"",
-                    ""id"": ""c9bd32bc-525d-4dfd-a631-63f7056c02ef"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                }
-            ],
-            ""bindings"": [
+                },
                 {
                     ""name"": """",
-                    ""id"": ""c6403d76-9dad-4c05-b865-eda6f4d34595"",
+                    ""id"": ""5ea2ecdc-8f2c-4ae1-a0ae-55ea51683b38"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -224,9 +216,7 @@ namespace _Project.Scripts.Util.Input
             m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
             m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
             m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
-            // UserInterface
-            m_UserInterface = asset.FindActionMap("UserInterface", throwIfNotFound: true);
-            m_UserInterface_ToggleCursor = m_UserInterface.FindAction("ToggleCursor", throwIfNotFound: true);
+            m_Player_ToggleCursor = m_Player.FindAction("ToggleCursor", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -280,6 +270,7 @@ namespace _Project.Scripts.Util.Input
         private readonly InputAction m_Player_Jump;
         private readonly InputAction m_Player_Look;
         private readonly InputAction m_Player_Shoot;
+        private readonly InputAction m_Player_ToggleCursor;
         public struct PlayerActions
         {
             private @InputMaster m_Wrapper;
@@ -288,6 +279,7 @@ namespace _Project.Scripts.Util.Input
             public InputAction @Jump => m_Wrapper.m_Player_Jump;
             public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
+            public InputAction @ToggleCursor => m_Wrapper.m_Player_ToggleCursor;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -309,6 +301,9 @@ namespace _Project.Scripts.Util.Input
                     @Shoot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                     @Shoot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                     @Shoot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
+                    @ToggleCursor.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleCursor;
+                    @ToggleCursor.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleCursor;
+                    @ToggleCursor.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleCursor;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -325,52 +320,19 @@ namespace _Project.Scripts.Util.Input
                     @Shoot.started += instance.OnShoot;
                     @Shoot.performed += instance.OnShoot;
                     @Shoot.canceled += instance.OnShoot;
-                }
-            }
-        }
-        public PlayerActions @Player => new PlayerActions(this);
-
-        // UserInterface
-        private readonly InputActionMap m_UserInterface;
-        private IUserInterfaceActions m_UserInterfaceActionsCallbackInterface;
-        private readonly InputAction m_UserInterface_ToggleCursor;
-        public struct UserInterfaceActions
-        {
-            private @InputMaster m_Wrapper;
-            public UserInterfaceActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
-            public InputAction @ToggleCursor => m_Wrapper.m_UserInterface_ToggleCursor;
-            public InputActionMap Get() { return m_Wrapper.m_UserInterface; }
-            public void Enable() { Get().Enable(); }
-            public void Disable() { Get().Disable(); }
-            public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(UserInterfaceActions set) { return set.Get(); }
-            public void SetCallbacks(IUserInterfaceActions instance)
-            {
-                if (m_Wrapper.m_UserInterfaceActionsCallbackInterface != null)
-                {
-                    @ToggleCursor.started -= m_Wrapper.m_UserInterfaceActionsCallbackInterface.OnToggleCursor;
-                    @ToggleCursor.performed -= m_Wrapper.m_UserInterfaceActionsCallbackInterface.OnToggleCursor;
-                    @ToggleCursor.canceled -= m_Wrapper.m_UserInterfaceActionsCallbackInterface.OnToggleCursor;
-                }
-                m_Wrapper.m_UserInterfaceActionsCallbackInterface = instance;
-                if (instance != null)
-                {
                     @ToggleCursor.started += instance.OnToggleCursor;
                     @ToggleCursor.performed += instance.OnToggleCursor;
                     @ToggleCursor.canceled += instance.OnToggleCursor;
                 }
             }
         }
-        public UserInterfaceActions @UserInterface => new UserInterfaceActions(this);
+        public PlayerActions @Player => new PlayerActions(this);
         public interface IPlayerActions
         {
             void OnMovement(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
             void OnLook(InputAction.CallbackContext context);
             void OnShoot(InputAction.CallbackContext context);
-        }
-        public interface IUserInterfaceActions
-        {
             void OnToggleCursor(InputAction.CallbackContext context);
         }
     }

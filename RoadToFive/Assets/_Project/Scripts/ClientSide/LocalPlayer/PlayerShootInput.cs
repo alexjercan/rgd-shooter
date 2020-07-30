@@ -7,9 +7,15 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
     {
         private bool _shootInput;
 
-        public void ShootInputCallback(InputAction.CallbackContext context) =>
-            _shootInput = Mouse.current.leftButton.wasPressedThisFrame;
+        public void ShootInputCallback(InputAction.CallbackContext context) => 
+            _shootInput = context.ReadValueAsButton();
 
-        public bool GetShootInput() => Mouse.current.leftButton.wasPressedThisFrame;
+
+        public bool GetShootInput()
+        {
+            var value = _shootInput;
+            _shootInput = false;
+            return value;
+        }
     }
 }
