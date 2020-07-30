@@ -10,8 +10,14 @@ namespace _Project.Scripts.ClientSide
         public int Id { get; set; }
         public string Username { get; set; }
 
-        public Transform PlayerTransform { get; private set; }
+        private Transform _transform;
 
-        private void Awake() => PlayerTransform = GetComponent<Transform>();
+        private void Awake() => _transform = GetComponent<Transform>();
+
+        public void SetPosition(Vector3 position) => _transform.position = position;
+
+        public void SetRotation(Quaternion rotation) => _transform.rotation = rotation;
+
+        public Quaternion GetRotation() => _transform.rotation;
     }
 }

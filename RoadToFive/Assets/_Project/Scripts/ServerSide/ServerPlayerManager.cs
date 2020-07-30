@@ -13,7 +13,7 @@ namespace _Project.Scripts.ServerSide
         public string Username { get; private set; }
 
         [SerializeField] private PlayerMovement playerMovement;
-
+        
         private void FixedUpdate()
         {
             ServerSend.PlayerPosition(Id, playerMovement);
