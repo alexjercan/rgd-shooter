@@ -1,7 +1,11 @@
-﻿using _Project.Scripts.DataStructure;
+﻿using _Project.Scripts.ServerSide.Player;
+using _Project.Scripts.Util.DataStructure;
 
 namespace _Project.Scripts.ServerSide.Networking
 {
+    /// <summary>
+    /// SET DE FUNCTII CU CARE SE CONSTRUIESC PACHETELE CARE VOR FI TRIMISE CATRE CLIENT
+    /// </summary>
     public static class ServerSend
     {
         private static void SendTcpData(int toClient, Packet packet)
@@ -56,23 +60,23 @@ namespace _Project.Scripts.ServerSide.Networking
         {
             using (var packet = new Packet((int)ServerPackets.SpawnPlayer))
             {
-                SendTcpData(toClient, packet.Write(player.Id).Write(player.Username).Write(player.PlayerTransform.position).Write(player.PlayerTransform.rotation));
+                SendTcpData(toClient, packet.Write(player.Id).Write(player.Username).Write(player.GetPlayerPosition()).Write(player.GetPlayerRotation()));
             }
         }
 
-        public static void PlayerPosition(ServerPlayerManager player)
+        public static void PlayerPosition(int id, PlayerMovement player)
         {
             using (var packet = new Packet((int) ServerPackets.PlayerPosition))
             {
-                SendUdpDataToAll(packet.Write(player.Id).Write(player.PlayerTransform.position));
+                SendUdpDataToAll(packet.Write(id).Write(player.PlayerTransform.position));
             }
         }
         
-        public static void PlayerRotation(ServerPlayerManager player)
+        public static void PlayerRotation(int id, PlayerMovement player)
         {
             using (var packet = new Packet((int) ServerPackets.PlayerRotation))
             {
-                SendUdpDataToAll(player.Id, packet.Write(player.Id).Write(player.PlayerTransform.rotation));
+                SendUdpDataToAll(id, packet.Write(id).Write(player.PlayerTransform.rotation));
             }
         }
 

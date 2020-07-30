@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
-using _Project.Scripts.DataStructure;
+using _Project.Scripts.Util.DataStructure;
 using UnityEngine;
 
 namespace _Project.Scripts.ServerSide.Networking
 {
+    /// <summary>
+    /// SET DE FUNCTII CARE SERIALIZEAZA DATELE PRIMITE PRIN PACHETE
+    /// </summary>
     public static class ServerHandle
     {
         public delegate void PacketHandler(int fromClient, Packet packet);

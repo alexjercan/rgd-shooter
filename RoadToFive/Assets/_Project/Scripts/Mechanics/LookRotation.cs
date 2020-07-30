@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace _Project.Scripts.ClientSide.Movement
+namespace _Project.Scripts.Mechanics
 {
     public class LookRotation
     {

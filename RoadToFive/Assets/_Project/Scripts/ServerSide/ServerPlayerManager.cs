@@ -1,32 +1,23 @@
-﻿using _Project.Scripts.ServerSide.Movement;
-using _Project.Scripts.ServerSide.Networking;
+﻿using _Project.Scripts.ServerSide.Networking;
+using _Project.Scripts.ServerSide.Player;
 using UnityEngine;
 
 namespace _Project.Scripts.ServerSide
 {
+    /// <summary>
+    /// SERVER PLAYER MANAGER CONTINE TOATE COMPONENTELE CARE DEFINESC UN JUCATOR DPDV AL SERVERULUI
+    /// </summary>
     public class ServerPlayerManager : MonoBehaviour
     {
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public Transform PlayerTransform { get; private set; }
-        public Vector3 MovementInput { get; set; }
-        
-        [SerializeField] private CharacterController characterController;
-        [SerializeField] private float movementSpeed = 6.0f;
-        [SerializeField] private float jumpHeight = 1.0f;
-        
-        private CharacterMovement _characterMovement;
+        public int Id { get; private set; }
+        public string Username { get; private set; }
 
-        private void Awake() => PlayerTransform = GetComponent<Transform>();
+        [SerializeField] private PlayerMovement playerMovement;
         
-        private void Start() => _characterMovement = new CharacterMovement();
-
         private void FixedUpdate()
         {
-            MoveCharacter();
-            
-            ServerSend.PlayerPosition(this);
-            ServerSend.PlayerRotation(this);
+            ServerSend.PlayerPosition(Id, playerMovement);
+            ServerSend.PlayerRotation(Id, playerMovement);
         }
         
         public void Initialize(int id, string username)
@@ -35,16 +26,10 @@ namespace _Project.Scripts.ServerSide
             Username = username;
         }
 
-        public void SetInput(Vector3 movementInput, Quaternion rotation)
-        {
-            MovementInput = movementInput;
-            PlayerTransform.rotation = rotation;
-        }
+        public void SetInput(Vector3 movementInput, Quaternion rotation) => playerMovement.SetInput(movementInput, rotation);
+        
+        public Vector3 GetPlayerPosition() => playerMovement.PlayerTransform.position;
 
-        private void MoveCharacter()
-        {
-            var controllerInput = _characterMovement.GetControllerInput(MovementInput, PlayerTransform.forward, PlayerTransform.right, characterController.isGrounded, jumpHeight, movementSpeed);
-            characterController.Move(controllerInput * Time.fixedDeltaTime);
-        }
+        public Quaternion GetPlayerRotation() => playerMovement.PlayerTransform.rotation;
     }
 }

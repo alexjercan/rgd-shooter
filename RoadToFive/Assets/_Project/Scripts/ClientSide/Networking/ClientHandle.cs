@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Net;
-using _Project.Scripts.DataStructure;
+using _Project.Scripts.Util.DataStructure;
 using UnityEngine;
 
 namespace _Project.Scripts.ClientSide.Networking
 {
+    /// <summary>
+    /// SET DE FUNCTII CARE SERIALIZEAZA DATELE PRIMITE PRIN PACHETE
+    /// </summary>
     public static class ClientHandle
     {
         public delegate void PacketHandler(Packet packet);
@@ -50,7 +53,7 @@ namespace _Project.Scripts.ClientSide.Networking
             var id = packet.ReadInt();
             var position = packet.ReadVector3();
 
-            GameManager.Instance.playerManagers[id].PlayerTransform.position = position;
+            GameManager.Instance.playerManagers[id].SetPosition(position);
         }
 
         private static void PlayerRotation(Packet packet)
@@ -58,7 +61,7 @@ namespace _Project.Scripts.ClientSide.Networking
             var id = packet.ReadInt();
             var rotation = packet.ReadQuaternion();
 
-            GameManager.Instance.playerManagers[id].PlayerTransform.rotation = rotation;
+            GameManager.Instance.playerManagers[id].SetRotation(rotation);
         }
 
         private static void PlayerDisconnected(Packet packet)

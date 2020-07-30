@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
-using _Project.Scripts.DataStructure;
-using _Project.Scripts.Threading;
+using _Project.Scripts.Util.DataStructure;
+using _Project.Scripts.Util.Threading;
 using UnityEngine;
 
 namespace _Project.Scripts.ServerSide.Networking
@@ -154,7 +154,7 @@ namespace _Project.Scripts.ServerSide.Networking
                 }
                 catch (Exception e)
                 {
-                    //Debug.Log($"Error sending data to {ClientEndPoint} via UDP: {e}");
+                    Debug.Log($"Error sending data to {ClientEndPoint} via UDP: {e}");
                 }
             }
 
@@ -179,7 +179,7 @@ namespace _Project.Scripts.ServerSide.Networking
             }
         }
 
-        public void Disconnect()
+        private void Disconnect()
         {
             Debug.Log($"{Tcp.Socket.Client.RemoteEndPoint} has disconnected.");
             
