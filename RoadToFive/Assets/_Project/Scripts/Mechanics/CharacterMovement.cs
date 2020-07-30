@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace _Project.Scripts.ServerSide.Movement
+namespace _Project.Scripts.Mechanics
 {
     public class CharacterMovement
     {

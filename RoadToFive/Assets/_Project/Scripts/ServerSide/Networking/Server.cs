@@ -57,7 +57,6 @@ namespace _Project.Scripts.ServerSide.Networking
             {
                 var clientIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
                 var data = UdpListener.EndReceive(result, ref clientIpEndPoint);
-                UdpListener.BeginReceive(UdpReceiveCallback, null);
 
                 if (data.Length < 4) return;
 
@@ -73,7 +72,8 @@ namespace _Project.Scripts.ServerSide.Networking
                         return;
                     }
 
-                    if (ClientConnections[clientId].Udp.ClientEndPoint.ToString() != clientIpEndPoint.ToString()) return;
+                    if (ClientConnections[clientId].Udp.ClientEndPoint.ToString() !=
+                        clientIpEndPoint.ToString()) return;
 
                     ClientConnections[clientId].Udp.HandleData(packet);
                 }
@@ -81,6 +81,10 @@ namespace _Project.Scripts.ServerSide.Networking
             catch (Exception e)
             {
                 Debug.Log($"Error receiving UDP data: {e}");
+            }
+            finally
+            {
+                UdpListener.BeginReceive(UdpReceiveCallback, null);
             }
         }
         

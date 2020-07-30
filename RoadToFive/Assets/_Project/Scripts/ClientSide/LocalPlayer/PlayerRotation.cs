@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using _Project.Scripts.Mechanics;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace _Project.Scripts.ClientSide.Movement
+namespace _Project.Scripts.ClientSide.LocalPlayer
 {
     /// <summary>
     /// COMPONENTA SPECIFICA LOCAL PLAYERULUI CARE SE OCUPA DE ROTATIE

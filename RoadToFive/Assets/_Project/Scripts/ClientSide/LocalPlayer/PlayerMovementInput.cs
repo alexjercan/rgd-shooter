@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace _Project.Scripts.ClientSide.Movement
+namespace _Project.Scripts.ClientSide.LocalPlayer
 {
     /// <summary>
     /// COMPONENTA SPECIFICA LOCAL-PLAYER-ULUI CARE SE OCUPA DE MOVEMENT
