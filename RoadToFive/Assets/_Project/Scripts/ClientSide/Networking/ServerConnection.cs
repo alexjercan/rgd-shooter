@@ -167,7 +167,7 @@ namespace _Project.Scripts.ClientSide.Networking
                 }
                 catch (Exception e)
                 {
-                    //Debug.Log($"Error sending data to server via UDP: {e}");
+                    Debug.Log($"Error sending data to server via UDP: {e}");
                 }
             }
 

@@ -24,9 +24,7 @@ namespace _Project.Scripts.ClientSide.Networking
         {
             using (var packet = new Packet((int) ClientPackets.WelcomeReceived))
             {
-                packet.Write(Client.MyId).Write("GUEST " + Client.MyId);
-                
-                SendTcpData(packet);
+                SendTcpData(packet.Write(Client.MyId).Write("GUEST " + Client.MyId));
             }
         }
 
@@ -34,9 +32,7 @@ namespace _Project.Scripts.ClientSide.Networking
         {
             using (var packet = new Packet((int) ClientPackets.PlayerMovement))
             {
-                packet.Write(movementInput).Write(rotation);
-
-                SendUdpData(packet);
+                SendUdpData(packet.Write(movementInput).Write(rotation));
             }
         }
 
@@ -44,9 +40,8 @@ namespace _Project.Scripts.ClientSide.Networking
         {
             using (var packet = new Packet((int) ClientPackets.PlayerShoot))
             {
-                packet.Write(direction);
-
-                SendTcpData(packet);
+                SendTcpData(packet.Write(direction));
+                Debug.Log("SHOOTING");
             }
         }
     }

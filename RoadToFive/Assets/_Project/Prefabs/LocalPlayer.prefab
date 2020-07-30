@@ -207,7 +207,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4444741897458480150}
-        m_MethodName: JumpInputCallback
+        m_MethodName: ShootInputCallback
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
