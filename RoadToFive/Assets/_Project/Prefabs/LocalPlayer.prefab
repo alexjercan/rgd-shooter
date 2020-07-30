@@ -232,8 +232,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: a30d4c48-c168-47b6-ab9b-e91b35c165e4
-    m_ActionName: Player/ToggleCursor[/Keyboard/escape]
+    m_ActionId: c9bd32bc-525d-4dfd-a631-63f7056c02ef
+    m_ActionName: UserInterface/ToggleCursor[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

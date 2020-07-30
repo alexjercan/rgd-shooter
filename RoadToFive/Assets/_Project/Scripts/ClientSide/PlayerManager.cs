@@ -21,7 +21,12 @@ namespace _Project.Scripts.ClientSide
         {
             _id = id;
             _username = username;
-            entityHealth.Died += (sender, args) => gameObject.SetActive(false);
+            entityHealth.Died += (sender, args) =>
+            {
+                gameObject.SetActive(false);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            };
         }
 
         public void SetPosition(Vector3 position) => _transform.position = position;

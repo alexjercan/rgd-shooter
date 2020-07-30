@@ -47,11 +47,5 @@ namespace _Project.Scripts.ClientSide
             playerManagers.Remove(clientId);
             Destroy(player.gameObject);
         }
-        
-        public void ToggleCursor(InputAction.CallbackContext context)
-        {
-            Cursor.visible = !Cursor.visible;
-            Cursor.lockState = Cursor.lockState == CursorLockMode.None ? CursorLockMode.Locked : CursorLockMode.None;
-        }
     }
 }
