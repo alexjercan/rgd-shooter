@@ -56,7 +56,8 @@ public class Inventory : MonoBehaviour
     public Transform weaponPoint;
     public GameObject animatorRig;
 
-    private InventoryItem bestHeal;
+    private InventoryItem healingUsed;
+    private InventoryItem armorUsed;
 
     public GameObject[] InventorySlots;
     public GameObject[] InventoryPics;
@@ -179,7 +180,6 @@ public class Inventory : MonoBehaviour
 
             InventorySlots[currentItemInHand].GetComponent<Image>().color = empty;
 
-            //currentItemInHand += Math.Sign(wheelInput.y.ReadValue());
             currentItemInHand = FirstOcuppiedSlot(Math.Sign(wheelInput.y.ReadValue()));
             if (currentItemInHand < 0)
             {
@@ -297,52 +297,53 @@ public class Inventory : MonoBehaviour
         munition[(int)ammoType].count += count;
     }
 
-    private InventoryItem GetBestSuitableHeal()
+    public void HealPlayer()
     {
-        int healthHandicap = GetComponent<EntityLogic>().MAX_HEALTH - GetComponent<EntityLogic>().health;
-
-        InventoryItem bestSuitableHeal = null;
-
-        foreach(InventoryItem itemInv in inventory)
+        if (healingUsed != null)
         {
-            if (itemInv.item != null && itemInv.item.GetComponent<LootDetails>().isMedKit)
+            if (healingUsed.item.GetComponent<MedKitLogic>().isHealing)
             {
-                if (bestSuitableHeal == null)
+                healingUsed.item.GetComponent<MedKitLogic>().UseMedKit();
+            }
+            else
+            {
+                healingUsed = null;
+            }
+        } else
+        {
+            if (armorUsed != null)
+            {
+                if (armorUsed.item.GetComponent<ArmorLogic>().isTakingArmor)
                 {
-                    bestSuitableHeal = itemInv;
-                } else
+                    armorUsed.item.GetComponent<ArmorLogic>().UseArmor();
+                }
+                else
                 {
-                    if (bestSuitableHeal.item.GetComponent<MedKitLogic>().amount < itemInv.item.GetComponent<MedKitLogic>().amount)
-                    {
-                        bestSuitableHeal = itemInv;
-                    }
+                    armorUsed = null;
                 }
             }
         }
 
-        return bestSuitableHeal;
-    }
-
-    public void HealPlayer()
-    {
-        if (bestHeal != null)
+        if (Keyboard.current.hKey.wasPressedThisFrame)
         {
-            if (bestHeal.item.GetComponent<MedKitLogic>().isHealing)
+            healingUsed = itemInHand.item.GetComponent<LootDetails>().isMedKit ? itemInHand : null;
+            if (healingUsed != null)
             {
-                bestHeal.item.GetComponent<MedKitLogic>().UseMedKit();
+                if (GetComponent<EntityLogic>().health < GetComponent<EntityLogic>().MAX_HEALTH)
+                {
+                    healingUsed.item.GetComponent<MedKitLogic>().isHealing = true;
+                }
             }
             else
             {
-                bestHeal = null;
-            }
-        }
-
-        if (Keyboard.current.hKey.wasPressedThisFrame && GetComponent<EntityLogic>().health < GetComponent<EntityLogic>().MAX_HEALTH)
-        {
-            bestHeal = GetBestSuitableHeal();
-            if (bestHeal != null)
-            {
-                bestHeal.item.GetComponent<MedKitLogic>().isHealing = true;
+                armorUsed = itemInHand.item.GetComponent<LootDetails>().isArmor ? itemInHand : null;
+                if (armorUsed != null)
+                {
+                    if (GetComponent<EntityLogic>().armor < GetComponent<EntityLogic>().MAX_ARMOR)
+                    {
+                        armorUsed.item.GetComponent<ArmorLogic>().isTakingArmor = true;
+                    }
+                }
             }
         }
     }
@@ -357,5 +358,4 @@ public enum AmmoType
     OPT = 3,
     NOUA = 4,
     ZECE = 5
-    // TODO: Sa ne gandim ce fel de munitie folosim
 }

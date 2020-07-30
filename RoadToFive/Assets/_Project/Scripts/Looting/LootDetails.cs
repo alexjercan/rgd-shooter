@@ -16,6 +16,7 @@ public class LootDetails : MonoBehaviour
     public AmmoType ammoType;
 
     public bool isMedKit;
+    public bool isArmor;
 
     public Sprite InventoryPic;
 }
