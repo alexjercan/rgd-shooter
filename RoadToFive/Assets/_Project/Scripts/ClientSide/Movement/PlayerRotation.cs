@@ -1,19 +1,20 @@
-﻿using _Project.Scripts.ClientSide.Networking;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace _Project.Scripts.ClientSide.Movement
 {
-    [RequireComponent(typeof(PlayerManager))]
-    public class PlayerInput : MonoBehaviour
+    /// <summary>
+    /// COMPONENTA SPECIFICA LOCAL PLAYERULUI CARE SE OCUPA DE ROTATIE
+    /// </summary>
+    public class PlayerRotation : MonoBehaviour
     {
         [SerializeField] private Camera playerCamera;
-
+        
         [Header("Camera settings")]
         [Range(0.1f, 5.0f)] [SerializeField] private float mouseSensitivity = 2.0f;
         [Range(0.0f, 180.0f)] [SerializeField] private float verticalRotationRange = 170.0f;
         [Range(1.0f, 5.0f)] [SerializeField] private float cameraSmoothing = 1.0f;
-
+        
         private Transform _transform;
         private Transform _cameraTransform;
         private float _internalMouseSensitivity;
@@ -23,7 +24,7 @@ namespace _Project.Scripts.ClientSide.Movement
         private Vector2 _movementInput;
         private Vector2 _lookInput;
         private bool _jumpInput;
-
+        
         private void Awake()
         {
             _transform = GetComponent<Transform>();
@@ -42,22 +43,11 @@ namespace _Project.Scripts.ClientSide.Movement
         private void FixedUpdate()
         {
             RotateCharacter();
-            
-            ClientSend.PlayerMovement(MovementInput(_movementInput, _jumpInput), _transform.rotation);
         }
         
-        public void MovementInputCallback(InputAction.CallbackContext context) => 
-            _movementInput = context.ReadValue<Vector2>();
-
-        public void JumpInputCallback(InputAction.CallbackContext context) => 
-            _jumpInput = context.ReadValueAsButton();
-
         public void LookInputCallback(InputAction.CallbackContext context) => 
             _lookInput = context.ReadValue<Vector2>();
-
-        private static Vector3 MovementInput(Vector2 movementInput, bool jumpInput) => 
-            new Vector3(movementInput.x, jumpInput ? 1 : 0, movementInput.y);
-
+        
         private void RotateCharacter()
         {
             var mouseYInput = _lookInput.y;
