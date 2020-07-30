@@ -22,6 +22,7 @@ namespace _Project.Scripts.ClientSide.Networking
                 {(int)ServerPackets.PlayerPosition, PlayerPosition},
                 {(int)ServerPackets.PlayerRotation, PlayerRotation},
                 {(int)ServerPackets.PlayerDisconnected, PlayerDisconnected},
+                {(int)ServerPackets.PlayerHealth, PlayerHealth},
             };
         }
 
@@ -69,6 +70,13 @@ namespace _Project.Scripts.ClientSide.Networking
             var id = packet.ReadInt();
 
             GameManager.Instance.DeSpawn(id);
+        }
+
+        private static void PlayerHealth(Packet packet)
+        {
+            var id = packet.ReadInt();
+            var health = packet.ReadInt();
+            
         }
     }
 }

@@ -7,27 +7,28 @@ namespace _Project.Scripts.Mechanics
     {
         public event EventHandler<EntityHealth> Damaged;
 
+        public int Health { get; private set; }
+
         [SerializeField] private int maxHealth = 100;
 
-        private int _health;
-
-        private void Start() => _health = maxHealth;
+        private void Start() => Health = maxHealth;
         
         public void Damage(int damage)
         {
-            if (_health <= 0) return;
+            if (Health <= 0) return;
             
-            _health -= damage;
+            Health -= damage;
             Damaged?.Invoke(this, this);
-            if (_health > 0) return;
+            if (Health > 0) return;
             
-            _health = 0;
+            gameObject.SetActive(false);
+            Health = 0;
         }
 
         public void Heal(int heal)
         {
-            _health += heal;
-            if (_health > maxHealth) _health = maxHealth;
+            Health += heal;
+            if (Health > maxHealth) Health = maxHealth;
         }
     }
 }

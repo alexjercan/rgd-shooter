@@ -91,7 +91,10 @@ namespace _Project.Scripts.ServerSide.Networking
 
         public static void PlayerHealth(int playerId, EntityHealth entityHealth)
         {
-            
+            using (var packet = new Packet((int) ServerPackets.PlayerHealth))
+            {
+                SendTcpDataToAll(packet.Write(playerId).Write(entityHealth.Health));
+            }
         }
     }
 }

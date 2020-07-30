@@ -1,5 +1,4 @@
-﻿using System;
-using _Project.Scripts.Mechanics;
+﻿using _Project.Scripts.Mechanics;
 using _Project.Scripts.ServerSide.Networking;
 using _Project.Scripts.ServerSide.Player;
 using UnityEngine;
@@ -26,6 +25,8 @@ namespace _Project.Scripts.ServerSide
 
         private void FixedUpdate()
         {
+            if (entityHealth.Health < 0) return;
+            
             ServerSend.PlayerPosition(Id, playerMovement);
             ServerSend.PlayerRotation(Id, playerMovement);
         }
