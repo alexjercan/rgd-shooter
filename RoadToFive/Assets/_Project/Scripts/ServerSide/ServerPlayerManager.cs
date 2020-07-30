@@ -1,4 +1,5 @@
-﻿using _Project.Scripts.Mechanics;
+﻿using System;
+using _Project.Scripts.Mechanics;
 using _Project.Scripts.ServerSide.Networking;
 using _Project.Scripts.ServerSide.Player;
 using UnityEngine;
@@ -22,7 +23,10 @@ namespace _Project.Scripts.ServerSide
         {
             entityHealth.Damaged += (sender, health) => ServerSend.PlayerHealth(Id, health);
             entityHealth.Died += (sender, args) => gameObject.SetActive(false);
-            
+        }
+
+        private void Start()
+        {
             //JUST FOR TESTING
             playerWeapon.SetActiveWeapon(playerInventory.GetWeapon(0));
         }
