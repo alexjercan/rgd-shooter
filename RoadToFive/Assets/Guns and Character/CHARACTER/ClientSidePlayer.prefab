@@ -1868,6 +1868,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 256
+  thisPlayer: {fileID: 5360099431805250592}
 --- !u!1 &5360099431711566517
 GameObject:
   m_ObjectHideFlags: 0
@@ -3920,6 +3921,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5655825550537292403, guid: dd70a21867847444c808de004c195c78,
+        type: 3}
+      propertyPath: owner
+      value: 
+      objectReference: {fileID: 5360099431805250592}
+    - target: {fileID: 6657597840654051421, guid: dd70a21867847444c808de004c195c78,
+        type: 3}
+      propertyPath: owner
+      value: 
+      objectReference: {fileID: 5360099431805250592}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd70a21867847444c808de004c195c78, type: 3}
 --- !u!1 &962912337483869210 stripped
