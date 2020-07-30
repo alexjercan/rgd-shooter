@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _Project.Scripts.ServerSide.Entity;
+using _Project.Scripts.Util.Weapon;
 using UnityEngine;
 
 namespace _Project.Scripts.ServerSide.Player
@@ -6,6 +7,7 @@ namespace _Project.Scripts.ServerSide.Player
     public class PlayerWeapon : MonoBehaviour
     {
         //public event EventHandler<Vector3> Shoot; 
+        private Weapon _weapon;
         
         [SerializeField] private Transform shootOrigin;
         [SerializeField] private float maxBulletTravel;
@@ -19,8 +21,10 @@ namespace _Project.Scripts.ServerSide.Player
                 
                 //Shoot?.Invoke(this, hitPoint);
                 
-                
+                hit.collider.GetComponent<EntityHealth>().Damage(_weapon.damage);
             }
         }
+
+        public void ChangeWeapon(Weapon weapon) => _weapon = weapon;
     }
 }
