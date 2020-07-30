@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 7813784391081288787}
   - component: {fileID: 4046840148571826170}
+  - component: {fileID: 416209283771326002}
+  - component: {fileID: 1261068304014331771}
   m_Layer: 0
   m_Name: Small Armor Crate
-  m_TagString: Untagged
+  m_TagString: LootItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,6 +48,42 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6489106948762979556, guid: 21c0b22c279d3a94888afe0e7a8a5924, type: 3}
+--- !u!114 &416209283771326002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7407935656321343317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46ae02a53413e1549a5e3afb44ec950c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 0}
+  count: 1
+  stackable: 1
+  isWeapon: 0
+  isAmmo: 0
+  ammoType: 99
+  isMedKit: 0
+  isArmor: 1
+  InventoryPic: {fileID: 0}
+--- !u!114 &1261068304014331771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7407935656321343317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75230898b47f72344a6a36316ec70e19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amount: 25
+  useTime: 5
+  isTakingArmor: 0
 --- !u!1001 &1351265967808972471
 PrefabInstance:
   m_ObjectHideFlags: 0

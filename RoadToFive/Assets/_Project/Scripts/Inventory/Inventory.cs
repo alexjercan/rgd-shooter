@@ -301,7 +301,7 @@ public class Inventory : MonoBehaviour
     {
         if (healingUsed != null)
         {
-            if (healingUsed.item.GetComponent<MedKitLogic>().isHealing)
+            if (healingUsed.item != null && healingUsed.item.GetComponent<MedKitLogic>().isHealing)
             {
                 healingUsed.item.GetComponent<MedKitLogic>().UseMedKit();
             }
@@ -313,7 +313,7 @@ public class Inventory : MonoBehaviour
         {
             if (armorUsed != null)
             {
-                if (armorUsed.item.GetComponent<ArmorLogic>().isTakingArmor)
+                if (armorUsed.item != null && armorUsed.item.GetComponent<ArmorLogic>().isTakingArmor)
                 {
                     armorUsed.item.GetComponent<ArmorLogic>().UseArmor();
                 }

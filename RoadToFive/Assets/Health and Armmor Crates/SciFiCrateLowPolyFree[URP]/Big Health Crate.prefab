@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2615159532744393339}
   - component: {fileID: 8075949812395606482}
+  - component: {fileID: 8586195848229792809}
+  - component: {fileID: 4005806785392254688}
   m_Layer: 0
-  m_Name: Health Crate
-  m_TagString: Untagged
+  m_Name: Big Health Crate
+  m_TagString: LootItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41,11 +43,47 @@ MeshCollider:
   m_GameObject: {fileID: 3383483183368206717}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6489106948762979556, guid: 21c0b22c279d3a94888afe0e7a8a5924, type: 3}
+--- !u!114 &8586195848229792809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3383483183368206717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46ae02a53413e1549a5e3afb44ec950c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 0}
+  count: 1
+  stackable: 1
+  isWeapon: 0
+  isAmmo: 0
+  ammoType: 99
+  isMedKit: 1
+  isArmor: 0
+  InventoryPic: {fileID: 0}
+--- !u!114 &4005806785392254688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3383483183368206717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d71aeae86f63d34c943116475329a63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amount: 50
+  useTime: 5
+  isHealing: 0
 --- !u!1001 &2111323763215729504
 PrefabInstance:
   m_ObjectHideFlags: 0

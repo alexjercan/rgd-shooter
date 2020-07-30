@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4899198879230430}
   - component: {fileID: 33844903098265522}
   - component: {fileID: 23837160318561302}
-  - component: {fileID: 95918293699601894}
   m_Layer: 0
   m_Name: ChamferBox001
   m_TagString: Untagged
@@ -80,25 +79,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!95 &95918293699601894
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1115351032398892}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1135426969492152
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,10 +119,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4338135683127106}
-  - component: {fileID: 111755915322781222}
+  - component: {fileID: 6215223055846841311}
+  - component: {fileID: 4636807456731178533}
   m_Layer: 0
   m_Name: Ammo_6
-  m_TagString: Untagged
+  m_TagString: LootItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -156,30 +137,47 @@ Transform:
   m_GameObject: {fileID: 1315437350006034}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.96, y: 0.050103307, z: -0.044960976}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4899198879230430}
   - {fileID: 4482973524995934}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!111 &111755915322781222
-Animation:
+--- !u!114 &6215223055846841311
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1315437350006034}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: d6739938a2598c149aaf2e3fb7055a16, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: d6739938a2598c149aaf2e3fb7055a16, type: 2}
-  - {fileID: 7400000, guid: 48b64535cb28d714c84a3dd97dd13f15, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46ae02a53413e1549a5e3afb44ec950c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 0}
+  count: 30
+  stackable: 1
+  isWeapon: 0
+  isAmmo: 1
+  ammoType: 1
+  isMedKit: 0
+  isArmor: 0
+  InventoryPic: {fileID: 0}
+--- !u!65 &4636807456731178533
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315437350006034}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.37271452, y: 0.38528508, z: 0.38614509}
+  m_Center: {x: 0.004571259, y: 0.1889998, z: 0.011427924}
 --- !u!1 &1730143607377926
 GameObject:
   m_ObjectHideFlags: 0

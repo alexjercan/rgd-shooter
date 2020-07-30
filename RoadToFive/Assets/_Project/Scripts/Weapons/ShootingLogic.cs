@@ -53,6 +53,7 @@ public class ShootingLogic : MonoBehaviour
                     {
                         thisPlayer.GetComponent<Inventory>().munition[(int)GetComponentInChildren<LootDetails>().ammoType].count--;
                     }
+
                 }
             }
         }
