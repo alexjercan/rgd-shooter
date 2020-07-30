@@ -1869,6 +1869,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   thisPlayer: {fileID: 5360099431805250592}
+  crossHairSprites:
+  - {fileID: 21300000, guid: cc95cc965eff5d24eadaa6a2162e860a, type: 3}
+  - {fileID: 21300000, guid: 26458f5a2a237774b8f1c9375339192d, type: 3}
 --- !u!1 &5360099431711566517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2310,7 +2313,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MAX_HEALTH: 100
+  MAX_ARMOR: 100
   health: 100
+  armor: 0
   isDead: 0
 --- !u!1 &5360099431877007661
 GameObject:
@@ -3074,7 +3079,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 06b7ccb3e21e01f45a7f575b8af05a4b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cc95cc965eff5d24eadaa6a2162e860a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class ShootingLogic : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class ShootingLogic : MonoBehaviour
     public LayerMask layerMask;
 
     public GameObject thisPlayer;
+    private bool crossairIsBlack = true;
+    public Sprite[] crossHairSprites;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +30,22 @@ public class ShootingLogic : MonoBehaviour
             Transform BulletSpawnPoint = this.transform.GetChild(0).GetChild(0);
 
             DetectHit(MainCamera.transform.position, rayDistance, MainCamera.transform.TransformDirection(Vector3.forward));
+        }
+
+        if (crossairIsBlack == true && this.transform.GetChild(0).GetComponent<WeaponStats>().CanShoot() == false)
+        {
+            // schimb din tinta neagra in rosie
+            crossairIsBlack = false;
+            MainCamera.transform.GetChild(0).transform.GetChild(0).GetComponent<Image>().sprite = crossHairSprites[1];
+
+        }
+
+        if (crossairIsBlack == false && this.transform.GetChild(0).GetComponent<WeaponStats>().CanShoot() == true)
+        {
+            // schimb din rosie in neagra
+            crossairIsBlack = true;
+            MainCamera.transform.GetChild(0).transform.GetChild(0).GetComponent<Image>().sprite = crossHairSprites[0];
+
         }
     }
 
@@ -53,7 +72,6 @@ public class ShootingLogic : MonoBehaviour
                     {
                         thisPlayer.GetComponent<Inventory>().munition[(int)GetComponentInChildren<LootDetails>().ammoType].count--;
                     }
-
                 }
             }
         }
