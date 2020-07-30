@@ -48,7 +48,13 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
         
         public void LookInputCallback(InputAction.CallbackContext context) => 
             _lookInput = context.ReadValue<Vector2>();
-        
+
+        public void ToggleCursor(InputAction.CallbackContext context)
+        {
+            Cursor.visible = !Cursor.visible;
+            Cursor.lockState = Cursor.lockState == CursorLockMode.None ? CursorLockMode.Locked : CursorLockMode.None;
+        }
+
         public Quaternion GetRotation() => _transform.rotation;
 
         public Vector3 GetForwardDirection() => _cameraTransform.forward;

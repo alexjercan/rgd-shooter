@@ -51,6 +51,14 @@ namespace _Project.Scripts.Util.Input
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ToggleCursor"",
+                    ""type"": ""Button"",
+                    ""id"": ""a30d4c48-c168-47b6-ab9b-e91b35c165e4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -185,6 +193,17 @@ namespace _Project.Scripts.Util.Input
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6e930883-5f6d-4eda-93c4-a180c796cd26"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleCursor"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -197,6 +216,7 @@ namespace _Project.Scripts.Util.Input
             m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
             m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
             m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
+            m_Player_ToggleCursor = m_Player.FindAction("ToggleCursor", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -250,6 +270,7 @@ namespace _Project.Scripts.Util.Input
         private readonly InputAction m_Player_Jump;
         private readonly InputAction m_Player_Look;
         private readonly InputAction m_Player_Shoot;
+        private readonly InputAction m_Player_ToggleCursor;
         public struct PlayerActions
         {
             private @InputMaster m_Wrapper;
@@ -258,6 +279,7 @@ namespace _Project.Scripts.Util.Input
             public InputAction @Jump => m_Wrapper.m_Player_Jump;
             public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
+            public InputAction @ToggleCursor => m_Wrapper.m_Player_ToggleCursor;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -279,6 +301,9 @@ namespace _Project.Scripts.Util.Input
                     @Shoot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                     @Shoot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                     @Shoot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
+                    @ToggleCursor.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleCursor;
+                    @ToggleCursor.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleCursor;
+                    @ToggleCursor.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleCursor;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -295,6 +320,9 @@ namespace _Project.Scripts.Util.Input
                     @Shoot.started += instance.OnShoot;
                     @Shoot.performed += instance.OnShoot;
                     @Shoot.canceled += instance.OnShoot;
+                    @ToggleCursor.started += instance.OnToggleCursor;
+                    @ToggleCursor.performed += instance.OnToggleCursor;
+                    @ToggleCursor.canceled += instance.OnToggleCursor;
                 }
             }
         }
@@ -305,6 +333,7 @@ namespace _Project.Scripts.Util.Input
             void OnJump(InputAction.CallbackContext context);
             void OnLook(InputAction.CallbackContext context);
             void OnShoot(InputAction.CallbackContext context);
+            void OnToggleCursor(InputAction.CallbackContext context);
         }
     }
 }

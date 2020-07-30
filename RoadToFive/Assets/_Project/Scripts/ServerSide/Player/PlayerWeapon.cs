@@ -16,13 +16,12 @@ namespace _Project.Scripts.ServerSide.Player
         public void OnShoot(Vector3 direction)
         {
             if (!Physics.Raycast(shootOrigin.position, direction, out var hit, maxBulletTravel, layerMask)) return;
-            var hitPoint = hit.point;
-                
-            //Shoot?.Invoke(this, hitPoint); this can be used for visual effects
+            //var hitPoint = hit.point;
+            //Shoot?.Invoke(this, hitPoint); TODO this can be used for visual effects 
                 
             hit.collider.GetComponent<EntityHealth>().Damage(_weapon.Damage);
         }
 
-        public void ChangeWeapon(Weapon weapon) => _weapon = weapon;
+        public void SetActiveWeapon(Weapon weapon) => _weapon = weapon;
     }
 }

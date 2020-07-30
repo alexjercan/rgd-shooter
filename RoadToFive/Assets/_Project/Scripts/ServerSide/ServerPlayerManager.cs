@@ -22,6 +22,9 @@ namespace _Project.Scripts.ServerSide
         {
             entityHealth.Damaged += (sender, health) => ServerSend.PlayerHealth(Id, health);
             entityHealth.Died += (sender, args) => gameObject.SetActive(false);
+            
+            //JUST FOR TESTING
+            playerWeapon.SetActiveWeapon(playerInventory.GetWeapon(0));
         }
 
         private void FixedUpdate()
