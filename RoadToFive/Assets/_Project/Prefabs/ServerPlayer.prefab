@@ -79,8 +79,8 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1.8
-  m_Radius: 0.3
+  m_Height: 1.6
+  m_Radius: 0.2
   m_SlopeLimit: 45
   m_StepOffset: 0.45
   m_SkinWidth: 0.08
@@ -172,7 +172,6 @@ GameObject:
   - component: {fileID: 6995918513772443350}
   - component: {fileID: 3548082011577881937}
   - component: {fileID: 7451015114064519118}
-  - component: {fileID: 8165509160172736129}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -189,7 +188,7 @@ Transform:
   m_GameObject: {fileID: 5198852694175132192}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.9, z: 0.6}
+  m_LocalScale: {x: 0.4, y: 0.8, z: 0.4}
   m_Children: []
   m_Father: {fileID: 3907515094001334495}
   m_RootOrder: 0
@@ -241,17 +240,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &8165509160172736129
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5198852694175132192}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
