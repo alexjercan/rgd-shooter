@@ -13,6 +13,7 @@ namespace _Project.Scripts.ServerSide
         public string Username { get; private set; }
 
         [SerializeField] private PlayerMovement playerMovement;
+        [SerializeField] private PlayerWeapon playerWeapon;
         
         private void FixedUpdate()
         {
@@ -26,7 +27,9 @@ namespace _Project.Scripts.ServerSide
             Username = username;
         }
 
-        public void SetInput(Vector3 movementInput, Quaternion rotation) => playerMovement.SetInput(movementInput, rotation);
+        public void SetMovementInput(Vector3 movementInput, Quaternion rotation) => playerMovement.SetInput(movementInput, rotation);
+
+        public void SetShootDirection(Vector3 direction) => playerWeapon.Shoot(direction);
         
         public Vector3 GetPlayerPosition() => playerMovement.PlayerTransform.position;
 

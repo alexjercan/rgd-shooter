@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using _Project.Scripts.ServerSide.Entity;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -36,7 +37,7 @@ public class MedKitLogic : MonoBehaviour
                 useTime = MAX_TIME_MEDKIT_USE;
                 isHealing = false;
 
-                GetComponent<LootDetails>().owner.GetComponent<EntityLogic>().TakeHeal(amount);
+                GetComponent<LootDetails>().owner.GetComponent<EntityHealth>().Heal(amount);
                 Inventory inventory = GetComponent<LootDetails>().owner.GetComponent<Inventory>();
                 inventory.inventory[inventory.itemIndex(this.gameObject)].count--;
                 if (inventory.inventory[inventory.itemIndex(this.gameObject)].count <= 0)

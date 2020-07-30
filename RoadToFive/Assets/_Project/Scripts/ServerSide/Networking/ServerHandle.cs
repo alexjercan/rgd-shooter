@@ -18,6 +18,7 @@ namespace _Project.Scripts.ServerSide.Networking
             {
                 {(int) ClientPackets.WelcomeReceived, WelcomeReceived},
                 {(int) ClientPackets.PlayerMovement, PlayerMovement},
+                {(int) ClientPackets.PlayerShoot, PlayerShoot},
             };
         }
 
@@ -37,7 +38,14 @@ namespace _Project.Scripts.ServerSide.Networking
             var movementInput = packet.ReadVector3();
             var rotation = packet.ReadQuaternion();
 
-            ServerManager.Instance.playerManagers[fromClient].SetInput(movementInput, rotation);
+            ServerManager.Instance.playerManagers[fromClient].SetMovementInput(movementInput, rotation);
+        }
+
+        private static void PlayerShoot(int fromClient, Packet packet)
+        {
+            var direction = packet.ReadVector3();
+            
+            ServerManager.Instance.playerManagers[fromClient].SetShootDirection(direction);
         }
     }
 }

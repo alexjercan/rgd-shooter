@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Permissions;
+using _Project.Scripts.ServerSide.Entity;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -329,20 +330,14 @@ public class Inventory : MonoBehaviour
             healingUsed = itemInHand.item.GetComponent<LootDetails>().isMedKit ? itemInHand : null;
             if (healingUsed != null)
             {
-                if (GetComponent<EntityLogic>().health < GetComponent<EntityLogic>().MAX_HEALTH)
-                {
-                    healingUsed.item.GetComponent<MedKitLogic>().isHealing = true;
-                }
+                healingUsed.item.GetComponent<MedKitLogic>().isHealing = true;
             }
             else
             {
                 armorUsed = itemInHand.item.GetComponent<LootDetails>().isArmor ? itemInHand : null;
                 if (armorUsed != null)
                 {
-                    if (GetComponent<EntityLogic>().armor < GetComponent<EntityLogic>().MAX_ARMOR)
-                    {
-                        armorUsed.item.GetComponent<ArmorLogic>().isTakingArmor = true;
-                    }
+                    armorUsed.item.GetComponent<ArmorLogic>().isTakingArmor = true;
                 }
             }
         }
