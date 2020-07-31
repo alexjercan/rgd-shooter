@@ -13,6 +13,7 @@ namespace _Project.Scripts.Util.DataStructure
         PlayerRotation,
         PlayerDisconnected,
         PlayerHealth,
+        CreateItemSpawner,
     }
 
     public enum ClientPackets
@@ -22,7 +23,7 @@ namespace _Project.Scripts.Util.DataStructure
         PlayerShoot,
     }
     
-    public class Packet : IDisposable
+    public sealed class Packet : IDisposable
     {
         private List<byte> _byteBuffer;
         private byte[] _byteArray;
@@ -230,7 +231,7 @@ namespace _Project.Scripts.Util.DataStructure
 
         private bool _disposed;
 
-        protected virtual void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (_disposed) return;
             if (disposing)

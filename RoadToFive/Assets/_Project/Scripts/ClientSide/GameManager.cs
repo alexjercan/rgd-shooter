@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using _Project.Scripts.ClientSide.Networking;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace _Project.Scripts.ClientSide
 {
@@ -11,6 +10,8 @@ namespace _Project.Scripts.ClientSide
         
         public Dictionary<int, PlayerManager> playerManagers = new Dictionary<int, PlayerManager>();
 
+        [SerializeField] private ItemSpawnerManager itemSpawnerManager;
+        
         [SerializeField] private GameObject localPlayerPrefab;
         [SerializeField] private GameObject playerPrefab;
 
@@ -46,6 +47,11 @@ namespace _Project.Scripts.ClientSide
             var player = playerManagers[clientId];
             playerManagers.Remove(clientId);
             Destroy(player.gameObject);
+        }
+
+        public void CreateItemSpawner(int spawnerId, Vector3 position, bool hasItem)
+        {
+            itemSpawnerManager.CreateItemSpawner(spawnerId, position, hasItem);
         }
     }
 }

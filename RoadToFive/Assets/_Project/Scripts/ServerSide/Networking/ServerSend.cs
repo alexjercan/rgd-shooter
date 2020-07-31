@@ -1,6 +1,7 @@
 ﻿using _Project.Scripts.Mechanics;
 using _Project.Scripts.ServerSide.Player;
 using _Project.Scripts.Util.DataStructure;
+using UnityEngine;
 
 namespace _Project.Scripts.ServerSide.Networking
 {
@@ -94,6 +95,14 @@ namespace _Project.Scripts.ServerSide.Networking
             using (var packet = new Packet((int) ServerPackets.PlayerHealth))
             {
                 SendTcpDataToAll(packet.Write(playerId).Write(entityHealth.Health));
+            }
+        }
+
+        public static void CreateItemSpawner(int toClient, int spawnerId, Vector3 position, bool hasItem)
+        {
+            using (var packet = new Packet((int) ServerPackets.CreateItemSpawner))
+            {
+                SendTcpData(toClient, packet.Write(spawnerId).Write(position).Write(hasItem));
             }
         }
     }
