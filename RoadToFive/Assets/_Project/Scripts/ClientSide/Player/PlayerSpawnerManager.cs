@@ -2,7 +2,7 @@
 using _Project.Scripts.ClientSide.Networking;
 using UnityEngine;
 
-namespace _Project.Scripts.ClientSide
+namespace _Project.Scripts.ClientSide.Player
 {
     public class PlayerSpawnerManager : MonoBehaviour
     {

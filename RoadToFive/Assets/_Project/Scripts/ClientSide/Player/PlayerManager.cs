@@ -1,7 +1,7 @@
 ﻿using _Project.Scripts.Mechanics;
 using UnityEngine;
 
-namespace _Project.Scripts.ClientSide
+namespace _Project.Scripts.ClientSide.Player
 {
     /// <summary>
     /// PLAYER MANAGER CONTINE TOATE COMPONENTELE CARE DEFINESC UN JUCATOR

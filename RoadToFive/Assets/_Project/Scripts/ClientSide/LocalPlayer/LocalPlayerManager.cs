@@ -1,4 +1,5 @@
 ﻿using _Project.Scripts.ClientSide.Networking;
+using _Project.Scripts.ClientSide.Player;
 using UnityEngine;
 
 namespace _Project.Scripts.ClientSide.LocalPlayer

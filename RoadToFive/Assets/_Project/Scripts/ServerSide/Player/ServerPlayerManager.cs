@@ -1,10 +1,8 @@
-﻿using System;
-using _Project.Scripts.Mechanics;
+﻿using _Project.Scripts.Mechanics;
 using _Project.Scripts.ServerSide.Networking;
-using _Project.Scripts.ServerSide.Player;
 using UnityEngine;
 
-namespace _Project.Scripts.ServerSide
+namespace _Project.Scripts.ServerSide.Player
 {
     /// <summary>
     /// SERVER PLAYER MANAGER CONTINE TOATE COMPONENTELE CARE DEFINESC UN JUCATOR DPDV AL SERVERULUI

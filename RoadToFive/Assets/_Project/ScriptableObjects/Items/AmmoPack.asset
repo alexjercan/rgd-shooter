@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ea8ded312154a578c54f8e34fcf4cb6, type: 3}
+  m_Name: AmmoPack
+  m_EditorClassIdentifier: 
+  id: 0
+  prefab: {fileID: 1020812102442181409, guid: 51cfd802047751f49bb46cddcb53ef8f, type: 3}
