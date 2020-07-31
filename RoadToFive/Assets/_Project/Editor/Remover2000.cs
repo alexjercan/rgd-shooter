@@ -18,7 +18,7 @@ namespace _Project.Editor
 		{
 			if (GUILayout.Button("DELETE ALL MESH COLLIDER")) RemoveComponenets<MeshCollider>();
 			if (GUILayout.Button("DELETE ALL MESH RENDERER")) RemoveComponenets<MeshRenderer>();
-			if (GUILayout.Button("ADD ALL MESH COLLIDER")) AddComponents<MeshRenderer>();
+			if (GUILayout.Button("ADD ALL MESH COLLIDER")) AddComponents<MeshCollider>();
 
 
 
