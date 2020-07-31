@@ -6,7 +6,7 @@ namespace _Project.Scripts.ClientSide.Player
 {
     public class PlayerInventory : MonoBehaviour
     {
-        private readonly Dictionary<int, ItemScriptableObject> _weapons = new Dictionary<int, ItemScriptableObject>();
+        private readonly List<ItemScriptableObject> _weaponList = new List<ItemScriptableObject>();
         private int _ammo;
 
         public void AddAmmo(int amount) => _ammo += amount;
@@ -14,9 +14,14 @@ namespace _Project.Scripts.ClientSide.Player
         public void AddWeapon(int weaponId)
         {
             var weapon = GameManager.Instance.items[weaponId];
-            if (_weapons.ContainsKey(weaponId) || weapon.ItemType != ItemScriptableObject.Type.Weapon) return;
-
-            _weapons.Add(weaponId, weapon);
+            if (_weaponList.Contains(weapon)|| weapon.ItemType != ItemScriptableObject.Type.Weapon) return;
+            _weaponList.Add(weapon);
         }
+
+        public ItemScriptableObject GetWeaponAtIndex(int index) => _weaponList[index];
+
+        public int GetWeaponCount() => _weaponList.Count;
+
+        public int GetAmmo() => _ammo;
     }
 }

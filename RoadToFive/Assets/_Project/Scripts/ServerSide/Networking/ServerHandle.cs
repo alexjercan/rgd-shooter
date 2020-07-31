@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using _Project.Scripts.ClientSide.Player;
 using _Project.Scripts.Util.DataStructure;
 using UnityEngine;
 
@@ -19,9 +20,10 @@ namespace _Project.Scripts.ServerSide.Networking
                 {(int) ClientPackets.WelcomeReceived, WelcomeReceived},
                 {(int) ClientPackets.PlayerMovement, PlayerMovement},
                 {(int) ClientPackets.PlayerShoot, PlayerShoot},
+                {(int) ClientPackets.HandWeapon, HandWeapon},
             };
         }
-
+        
         private static void WelcomeReceived(int fromClient, Packet packet)
         {
             var clientIdCheck = packet.ReadInt();
@@ -47,6 +49,13 @@ namespace _Project.Scripts.ServerSide.Networking
             var weaponId = packet.ReadInt();
             
             ServerManager.Instance.playerManagers[fromClient].ShootInDirection(direction, weaponId);
+        }
+
+        private static void HandWeapon(int fromClient, Packet packet)
+        {
+            var weaponIndex = packet.ReadInt();
+            
+            ServerSend.HandWeaponUpdate(fromClient, weaponIndex);
         }
     }
 }

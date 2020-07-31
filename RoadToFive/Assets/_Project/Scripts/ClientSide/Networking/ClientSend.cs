@@ -38,12 +38,26 @@ namespace _Project.Scripts.ClientSide.Networking
 
         public static void PlayerShoot(Vector3 direction, int weaponId)
         {
+            var playerManager = GameManager.Instance.GetPlayerManager(Client.MyId);
+
+            if (!playerManager.HasAmmo()) return;
+            
             using (var packet = new Packet((int) ClientPackets.PlayerShoot))
             {
                 SendTcpData(packet.Write(direction).Write(weaponId));
             }
             
-            GameManager.Instance.GetPlayerManager(Client.MyId).RemoveAmmo(1);
+            playerManager.RemoveAmmo(1);
+        }
+
+        public static void HandWeapon(int weaponIndex)
+        {
+            using (var packet = new Packet((int) ClientPackets.HandWeapon))
+            {
+                SendUdpData(packet.Write(weaponIndex));
+            }
+            
+            GameManager.Instance.GetPlayerManager(Client.MyId).SetWeaponTo(weaponIndex);
         }
     }
 }

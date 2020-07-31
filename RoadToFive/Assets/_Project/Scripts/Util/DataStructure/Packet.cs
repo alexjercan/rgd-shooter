@@ -18,6 +18,7 @@ namespace _Project.Scripts.Util.DataStructure
         ItemPickedUp,
         AmmoPickedUp,
         WeaponPickedUp,
+        HandWeaponUpdate,
     }
 
     public enum ClientPackets
@@ -25,6 +26,7 @@ namespace _Project.Scripts.Util.DataStructure
         WelcomeReceived,
         PlayerMovement,
         PlayerShoot,
+        HandWeapon,
     }
     
     public sealed class Packet : IDisposable //DONE DO NOT MODIFY

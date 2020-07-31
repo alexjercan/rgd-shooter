@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 4444741897458480150}
   - component: {fileID: -8724016493874492950}
   - component: {fileID: 7629583960536292604}
+  - component: {fileID: 1021433482912662801}
   m_Layer: 0
   m_Name: LocalPlayer
   m_TagString: Untagged
@@ -285,6 +286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityHealth: {fileID: -8724016493874492950}
   playerInventory: {fileID: 7629583960536292604}
+  handWeapon: {fileID: 1021433482912662801}
 --- !u!114 &7438593552546581623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,6 +352,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a32da74f1094f2e93888839eb2c000e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1021433482912662801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7597345135886232780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e45593cae1634b3fa44068ae6f519085, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handTransform: {fileID: 4450828200846611203}
 --- !u!1 &7683952888175299244
 GameObject:
   m_ObjectHideFlags: 0

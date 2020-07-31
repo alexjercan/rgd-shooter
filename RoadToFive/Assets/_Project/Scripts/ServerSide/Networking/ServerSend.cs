@@ -134,7 +134,15 @@ namespace _Project.Scripts.ServerSide.Networking
         {
             using (var packet = new Packet((int) ServerPackets.WeaponPickedUp))
             {
-                SendTcpData(clientId, packet.Write(clientId).Write(weaponId));
+                SendTcpDataToAll(packet.Write(clientId).Write(weaponId));
+            }
+        }
+
+        public static void HandWeaponUpdate(int clientId, int weaponIndex)
+        {
+            using (var packet = new Packet((int) ServerPackets.HandWeaponUpdate))
+            {
+                SendTcpDataToAll(clientId, packet.Write(clientId).Write(weaponIndex));
             }
         }
     }

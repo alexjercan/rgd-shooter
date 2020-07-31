@@ -19,6 +19,9 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
             ClientSend.PlayerMovement(playerMovementInput.GetMovementInput(),  playerRotation.GetRotation());
             
             if (playerShootInput.GetShootInput()) ClientSend.PlayerShoot(playerRotation.GetForwardDirection(), 0);
+
+            var weaponIndex = playerShootInput.GetWeaponIndex(playerManager.GetWeaponCount() - 1);
+            if (weaponIndex >= 0) ClientSend.HandWeapon(weaponIndex);
         }
     }
 }

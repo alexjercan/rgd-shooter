@@ -37,10 +37,16 @@ namespace _Project.Scripts.ClientSide.Player
 
         public void SetHealth(int health) => entityHealth.SetHealth(health);
 
+        public bool HasAmmo() => playerInventory.GetAmmo() > 0;
+        
         public void AddAmmo(int amount) => playerInventory.AddAmmo(amount);
 
         public void RemoveAmmo(int amount) => playerInventory.AddAmmo(-amount);
 
         public void AddWeapon(int weaponId) => playerInventory.AddWeapon(weaponId);
+
+        public int GetWeaponCount() => playerInventory.GetWeaponCount();
+        
+        public void SetWeaponTo(int index) => handWeapon.SetWeaponTo(playerInventory.GetWeaponAtIndex(index));
     }
 }
