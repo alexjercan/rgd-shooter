@@ -51,5 +51,7 @@ namespace _Project.Scripts.ServerSide.Player
         public void HealPlayer(int amount) => entityHealth.Heal(amount);
 
         public void AddAmmo(int amount) => ServerSend.AmmoPickedUp(Id, amount);
+
+        public void Weapon(int weaponId) => ServerSend.WeaponPickedUp(Id, weaponId);
     }
 }

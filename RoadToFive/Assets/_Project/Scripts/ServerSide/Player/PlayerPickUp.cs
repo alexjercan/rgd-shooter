@@ -26,6 +26,8 @@ namespace _Project.Scripts.ServerSide.Player
         
         private static void Weapon(ServerPlayerManager playerManager, ItemScriptableObject itemData)
         {
+            if (itemData.ItemType != ItemScriptableObject.Type.Weapon) return;
+            playerManager.Weapon(itemData.Id);
         }
     }
 }

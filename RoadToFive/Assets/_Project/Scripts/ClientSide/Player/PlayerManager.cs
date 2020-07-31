@@ -37,5 +37,7 @@ namespace _Project.Scripts.ClientSide.Player
         public void SetHealth(int health) => entityHealth.SetHealth(health);
 
         public void AddAmmo(int amount) => playerInventory.AddAmmo(amount);
+
+        public void AddWeapon(int weaponId) => playerInventory.AddWeapon(weaponId);
     }
 }

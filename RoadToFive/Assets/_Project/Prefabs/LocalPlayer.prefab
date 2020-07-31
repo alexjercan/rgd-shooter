@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 8671388314101409237}
   - component: {fileID: 4444741897458480150}
   - component: {fileID: -8724016493874492950}
+  - component: {fileID: 7629583960536292604}
   m_Layer: 0
   m_Name: LocalPlayer
   m_TagString: Untagged
@@ -253,6 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityHealth: {fileID: -8724016493874492950}
+  playerInventory: {fileID: 7629583960536292604}
 --- !u!114 &7438593552546581623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,6 +308,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+--- !u!114 &7629583960536292604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7597345135886232780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a32da74f1094f2e93888839eb2c000e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7683952888175299244
 GameObject:
   m_ObjectHideFlags: 0
