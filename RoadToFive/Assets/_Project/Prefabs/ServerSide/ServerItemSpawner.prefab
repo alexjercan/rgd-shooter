@@ -58,3 +58,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnerTimer: 10
+  itemScriptableObject: {fileID: 11400000, guid: e0d8a2d6186f5e047ab12e2621cf39c9,
+    type: 2}

@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemScriptableObjects:
   - {fileID: 11400000, guid: e0d8a2d6186f5e047ab12e2621cf39c9, type: 2}
-  clientItemSpawnerPrefab: {fileID: 8803993974579989372, guid: 010dbe9899b42ff44bc85a9cc304f52a,
+  itemSpawnerPrefab: {fileID: 8803993974579989372, guid: 010dbe9899b42ff44bc85a9cc304f52a,
     type: 3}
 --- !u!114 &925653704360119021
 MonoBehaviour:
