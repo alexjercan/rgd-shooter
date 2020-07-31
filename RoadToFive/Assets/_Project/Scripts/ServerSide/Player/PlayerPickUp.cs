@@ -19,9 +19,7 @@ namespace _Project.Scripts.ServerSide.Player
         private static void HealthKit(ServerPlayerManager playerManager, ItemScriptableObject itemData) => 
             playerManager.HealPlayer(itemData.amount);
 
-        private static void AmmoPack(ServerPlayerManager playerManager, ItemScriptableObject itemData)
-        {
-            
-        }
+        private static void AmmoPack(ServerPlayerManager playerManager, ItemScriptableObject itemData) => 
+            playerManager.AddAmmo(itemData.amount);
     }
 }
