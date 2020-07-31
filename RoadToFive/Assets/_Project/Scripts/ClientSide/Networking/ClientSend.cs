@@ -54,6 +54,7 @@ namespace _Project.Scripts.ClientSide.Networking
         {
             using (var packet = new Packet((int) ClientPackets.HandWeapon))
             {
+                Debug.Log("mori luatea draeiafnna fjk");
                 SendUdpData(packet.Write(weaponIndex));
             }
             
