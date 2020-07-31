@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ea8ded312154a578c54f8e34fcf4cb6, type: 3}
-  m_Name: AmmoPack
+  m_Name: HealthKit
   m_EditorClassIdentifier: 
-  id: 0
-  itemType: 1
+  id: 1
+  itemType: 0
   prefab: {fileID: 4328825737415016143, guid: 0c905c7d4b632ab4881b5501c87c118e, type: 3}
   amount: 100

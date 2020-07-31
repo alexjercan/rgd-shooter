@@ -344,7 +344,7 @@ PrefabInstance:
     - target: {fileID: 5762726690813155106, guid: a40aca49fe440fe439a8ccb62d3f02b3,
         type: 3}
       propertyPath: m_Name
-      value: AmmoSpawner
+      value: HealthSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 5762726690813155107, guid: a40aca49fe440fe439a8ccb62d3f02b3,
         type: 3}
@@ -401,6 +401,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5762726690813155108, guid: a40aca49fe440fe439a8ccb62d3f02b3,
+        type: 3}
+      propertyPath: itemScriptableObject
+      value: 
+      objectReference: {fileID: 11400000, guid: 47763db67215f454296656233d98a6ac,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a40aca49fe440fe439a8ccb62d3f02b3, type: 3}
 --- !u!4 &860019022 stripped
@@ -589,6 +595,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: ServerManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8163773156149510838, guid: eab7931263217ce4f8366d3184396c69,
+        type: 3}
+      propertyPath: weapons.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8163773156149510838, guid: eab7931263217ce4f8366d3184396c69,
+        type: 3}
+      propertyPath: weapons.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: baec03e2c5cdcdc4eb27cf5d18baa566,
+        type: 2}
     - target: {fileID: 8163773156149510839, guid: eab7931263217ce4f8366d3184396c69,
         type: 3}
       propertyPath: m_LocalPosition.x
