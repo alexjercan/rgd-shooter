@@ -11,18 +11,18 @@ namespace _Project.Scripts.ClientSide.Item
         [SerializeField] private List<ItemScriptableObject> itemScriptableObjects;
         [SerializeField] private ClientItemSpawner clientItemSpawnerPrefab;
 
-        private readonly Dictionary<int, GameObject> _itemPrefabs = new Dictionary<int, GameObject>();
+        private readonly Dictionary<int, ItemScriptableObject> _itemScriptableObjects = new Dictionary<int, ItemScriptableObject>();
         
         private void Awake()
         {
             foreach (var itemScriptableObject in itemScriptableObjects)
-                _itemPrefabs.Add(itemScriptableObject.id, itemScriptableObject.prefab);
+                _itemScriptableObjects.Add(itemScriptableObject.id, itemScriptableObject);
         }
 
         public void CreateItemSpawner(int spawnerId, Vector3 position, bool hasItem, int itemId)
         {
             var spawner = Instantiate(clientItemSpawnerPrefab, position, Quaternion.identity);
-            spawner.Initialize(spawnerId, hasItem, itemId, _itemPrefabs[itemId]);
+            spawner.Initialize(spawnerId, hasItem, itemId, _itemScriptableObjects[itemId].prefab);
 
             ItemSpawners.Add(spawnerId, spawner);
         }

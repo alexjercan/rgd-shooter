@@ -108,7 +108,7 @@ namespace _Project.Scripts.ServerSide.Networking
 
         public static void ItemSpawned(int spawnerId)
         {
-            using (var packet = new Packet((int) ServerPackets.CreateItemSpawner))
+            using (var packet = new Packet((int) ServerPackets.ItemSpawned))
             {
                 SendTcpDataToAll(packet.Write(spawnerId));
             }

@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using _Project.Scripts.ServerSide.Networking;
 using _Project.Scripts.ServerSide.Player;
 using UnityEngine;
 
@@ -47,7 +46,7 @@ namespace _Project.Scripts.ServerSide.Item
             yield return new WaitForSeconds(spawnerTimer);
 
             HasItem = true;
-            ServerSend.ItemSpawned(SpawnerId);
+            ItemSpawnerManager.ItemSpawned(SpawnerId);
         }
 
         private void ItemPickedUp(int byPlayer)
@@ -55,6 +54,7 @@ namespace _Project.Scripts.ServerSide.Item
             HasItem = false;
 
             StartCoroutine(SpawnItem());
+            ItemSpawnerManager.ItemPickedUp(SpawnerId, byPlayer);
         }
     }
 }

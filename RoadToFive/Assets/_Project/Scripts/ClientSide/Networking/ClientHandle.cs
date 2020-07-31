@@ -94,7 +94,7 @@ namespace _Project.Scripts.ClientSide.Networking
         private static void ItemSpawned(Packet packet)
         {
             var spawnerId = packet.ReadInt();
-            
+
             GameManager.Instance.SpawnItem(spawnerId);
         }
     }
