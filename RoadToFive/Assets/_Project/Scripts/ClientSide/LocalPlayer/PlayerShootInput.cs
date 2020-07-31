@@ -15,7 +15,8 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
         public void ScrollInputCallback(InputAction.CallbackContext context)
         {
             _weaponChanged = true;
-            _weaponIndex += (int) context.ReadValue<float>();
+            var value = (int) context.ReadValue<float>();
+            _weaponIndex += value;
         }
 
         public bool GetShootInput()

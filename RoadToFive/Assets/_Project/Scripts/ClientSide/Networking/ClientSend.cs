@@ -54,7 +54,7 @@ namespace _Project.Scripts.ClientSide.Networking
         {
             using (var packet = new Packet((int) ClientPackets.HandWeapon))
             {
-                SendUdpData(packet.Write(weaponIndex));
+                SendTcpData(packet.Write(weaponIndex));
             }
             
             GameManager.Instance.GetPlayerManager(Client.MyId).SetWeaponTo(weaponIndex);

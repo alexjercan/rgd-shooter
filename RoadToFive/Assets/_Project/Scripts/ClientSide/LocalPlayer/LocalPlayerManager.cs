@@ -14,11 +14,6 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
         [SerializeField] private PlayerRotation playerRotation;
         [SerializeField] private PlayerShootInput playerShootInput;
 
-        private void Start()
-        {
-            
-        }
-
         private void FixedUpdate()
         {
             ClientSend.PlayerMovement(playerMovementInput.GetMovementInput(),  playerRotation.GetRotation());
@@ -27,7 +22,7 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
 
             if (playerShootInput.DidWeaponChanged())
             {
-                var weaponIndex = playerShootInput.GetWeaponIndex(playerManager.GetWeaponCount() - 1);
+                var weaponIndex = playerShootInput.GetWeaponIndex(playerManager.GetWeaponCount());
                 if (weaponIndex >= 0) ClientSend.HandWeapon(weaponIndex);
             }
         }
