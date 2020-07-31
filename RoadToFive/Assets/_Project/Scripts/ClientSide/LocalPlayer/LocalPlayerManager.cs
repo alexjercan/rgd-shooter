@@ -14,6 +14,11 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
         [SerializeField] private PlayerRotation playerRotation;
         [SerializeField] private PlayerShootInput playerShootInput;
 
+        private void Start()
+        {
+            
+        }
+
         private void FixedUpdate()
         {
             ClientSend.PlayerMovement(playerMovementInput.GetMovementInput(),  playerRotation.GetRotation());

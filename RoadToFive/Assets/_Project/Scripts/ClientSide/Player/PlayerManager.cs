@@ -1,4 +1,5 @@
-﻿using _Project.Scripts.Mechanics;
+﻿using _Project.Scripts.ClientSide.Networking;
+using _Project.Scripts.Mechanics;
 using UnityEngine;
 
 namespace _Project.Scripts.ClientSide.Player
@@ -26,6 +27,7 @@ namespace _Project.Scripts.ClientSide.Player
             entityHealth.Died += (sender, args) =>
             {
                 gameObject.SetActive(false);
+                if (Client.MyId != _id) return;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
             };
