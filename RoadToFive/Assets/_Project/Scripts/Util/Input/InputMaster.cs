@@ -59,6 +59,14 @@ namespace _Project.Scripts.Util.Input
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ItemScroll"",
+                    ""type"": ""Button"",
+                    ""id"": ""30ca3105-6554-4b56-bb06-a8abb951329c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -204,6 +212,39 @@ namespace _Project.Scripts.Util.Input
                     ""action"": ""ToggleCursor"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""KeyBoard"",
+                    ""id"": ""336e2f7a-f842-40b0-bc24-57074323e3f3"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ItemScroll"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""a096ce58-7618-4cf4-8183-6bc1cda05549"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ItemScroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""c938b7c1-1085-4914-b62b-94de0cb55adb"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ItemScroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -217,6 +258,7 @@ namespace _Project.Scripts.Util.Input
             m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
             m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
             m_Player_ToggleCursor = m_Player.FindAction("ToggleCursor", throwIfNotFound: true);
+            m_Player_ItemScroll = m_Player.FindAction("ItemScroll", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -271,6 +313,7 @@ namespace _Project.Scripts.Util.Input
         private readonly InputAction m_Player_Look;
         private readonly InputAction m_Player_Shoot;
         private readonly InputAction m_Player_ToggleCursor;
+        private readonly InputAction m_Player_ItemScroll;
         public struct PlayerActions
         {
             private @InputMaster m_Wrapper;
@@ -280,6 +323,7 @@ namespace _Project.Scripts.Util.Input
             public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
             public InputAction @ToggleCursor => m_Wrapper.m_Player_ToggleCursor;
+            public InputAction @ItemScroll => m_Wrapper.m_Player_ItemScroll;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -304,6 +348,9 @@ namespace _Project.Scripts.Util.Input
                     @ToggleCursor.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleCursor;
                     @ToggleCursor.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleCursor;
                     @ToggleCursor.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleCursor;
+                    @ItemScroll.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnItemScroll;
+                    @ItemScroll.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnItemScroll;
+                    @ItemScroll.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnItemScroll;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -323,6 +370,9 @@ namespace _Project.Scripts.Util.Input
                     @ToggleCursor.started += instance.OnToggleCursor;
                     @ToggleCursor.performed += instance.OnToggleCursor;
                     @ToggleCursor.canceled += instance.OnToggleCursor;
+                    @ItemScroll.started += instance.OnItemScroll;
+                    @ItemScroll.performed += instance.OnItemScroll;
+                    @ItemScroll.canceled += instance.OnItemScroll;
                 }
             }
         }
@@ -334,6 +384,7 @@ namespace _Project.Scripts.Util.Input
             void OnLook(InputAction.CallbackContext context);
             void OnShoot(InputAction.CallbackContext context);
             void OnToggleCursor(InputAction.CallbackContext context);
+            void OnItemScroll(InputAction.CallbackContext context);
         }
     }
 }

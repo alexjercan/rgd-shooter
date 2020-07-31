@@ -44,6 +44,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "ItemScroll",
+                    "type": "Button",
+                    "id": "30ca3105-6554-4b56-bb06-a8abb951329c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -189,6 +197,39 @@
                     "action": "ToggleCursor",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "KeyBoard",
+                    "id": "336e2f7a-f842-40b0-bc24-57074323e3f3",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ItemScroll",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "a096ce58-7618-4cf4-8183-6bc1cda05549",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ItemScroll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "c938b7c1-1085-4914-b62b-94de0cb55adb",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ItemScroll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
