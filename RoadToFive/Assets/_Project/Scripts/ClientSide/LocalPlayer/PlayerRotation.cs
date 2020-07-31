@@ -7,7 +7,7 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
     /// <summary>
     /// COMPONENTA SPECIFICA LOCAL PLAYERULUI CARE SE OCUPA DE ROTATIE
     /// </summary>
-    public class PlayerRotation : MonoBehaviour
+    public class PlayerRotation : MonoBehaviour //DONE DO NOT MODIFY
     {
         [SerializeField] private Camera playerCamera;
         

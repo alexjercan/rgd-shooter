@@ -2,7 +2,7 @@
 
 namespace _Project.Scripts.ClientSide.Networking
 {
-    public static class Client 
+    public static class Client  //DONE DO NOT MODIFY
     {
         public static string ServerIp { get; private set; }
         public static int ServerPort { get; private set; }

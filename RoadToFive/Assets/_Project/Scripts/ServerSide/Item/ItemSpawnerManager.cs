@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.ServerSide.Item
 {
-    public class ItemSpawnerManager : MonoBehaviour
+    public class ItemSpawnerManager : MonoBehaviour  //DONE DO NOT MODIFY
     {
         public static void OnItemSpawned(int spawnerId) => ServerSend.ItemSpawned(spawnerId);
 

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.Mechanics
 {
-    public class CharacterMovement
+    public class CharacterMovement  //DONE DO NOT MODIFY
     {
         private const float GravityAcceleration = -9.81f * 2;
 

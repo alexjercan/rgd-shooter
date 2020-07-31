@@ -2,7 +2,7 @@
 
 namespace _Project.Scripts.Mechanics
 {
-    public class LookRotation
+    public class LookRotation  //DONE DO NOT MODIFY
     {
         private Vector3 _targetAngles;
         private Vector3 _followAngles;

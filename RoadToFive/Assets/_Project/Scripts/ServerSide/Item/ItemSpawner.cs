@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.ServerSide.Item
 {
-    public class ItemSpawner : MonoBehaviour
+    public class ItemSpawner : MonoBehaviour  //DONE DO NOT MODIFY
     {
         public int SpawnerId { get; private set; }
         public bool HasItem { get; private set; }

@@ -25,7 +25,7 @@ namespace _Project.Scripts.Util.DataStructure
         PlayerShoot,
     }
     
-    public sealed class Packet : IDisposable
+    public sealed class Packet : IDisposable //DONE DO NOT MODIFY
     {
         private List<byte> _byteBuffer;
         private byte[] _byteArray;

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace _Project.Scripts.Util.Threading
 {
-    public static class MainThreadScheduler
+    public static class MainThreadScheduler //DONE DO NOT MODIFY
     {
-        private static bool _actionToExecuteOnMainThread = false;
+        private static bool _actionToExecuteOnMainThread;
         private static readonly List<Action> MainThreadQueue = new List<Action>();
         private static readonly List<Action> MainThreadBufferQueue = new List<Action>();
 

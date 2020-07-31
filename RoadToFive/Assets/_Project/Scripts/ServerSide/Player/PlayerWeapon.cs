@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.ServerSide.Player
 {
-    public class PlayerWeapon : MonoBehaviour
+    public class PlayerWeapon : MonoBehaviour //DONE DO NOT MODIFY
     {
         [SerializeField] private Transform shootOrigin;
         [SerializeField] private float maxBulletTravel;

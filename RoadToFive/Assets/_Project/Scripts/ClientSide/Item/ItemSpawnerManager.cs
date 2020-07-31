@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.ClientSide.Item
 {
-    public class ItemSpawnerManager : MonoBehaviour
+    public class ItemSpawnerManager : MonoBehaviour //DONE DO NOT MODIFY
     {
         [SerializeField] private List<ItemScriptableObject> itemScriptableObjects;
         [SerializeField] private ItemSpawner itemSpawnerPrefab;
@@ -29,7 +29,5 @@ namespace _Project.Scripts.ClientSide.Item
         public void SpawnItem(int spawnerId) => _itemSpawners[spawnerId].SpawnItem();
 
         public void DeleteItem(int spawnerId) => _itemSpawners[spawnerId].DeleteItem();
-
-        public ItemScriptableObject GetItemFromSpawner(int spawnerId) => _itemSpawners[spawnerId].GetItemData();
     }
 }

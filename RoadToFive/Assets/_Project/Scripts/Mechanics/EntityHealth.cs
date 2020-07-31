@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.Mechanics
 {
-    public class EntityHealth : MonoBehaviour
+    public class EntityHealth : MonoBehaviour //DONE DO NOT MODIFY
     {
         public event EventHandler<EntityHealth> HealthChanged;
         public event EventHandler Died;

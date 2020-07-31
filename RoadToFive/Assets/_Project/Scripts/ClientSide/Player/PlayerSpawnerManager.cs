@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.ClientSide.Player
 {
-    public class PlayerSpawnerManager : MonoBehaviour
+    public class PlayerSpawnerManager : MonoBehaviour  //DONE DO NOT MODIFY
     {
         private readonly Dictionary<int, PlayerManager> _playerManagers = new Dictionary<int, PlayerManager>();
         

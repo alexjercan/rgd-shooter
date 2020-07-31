@@ -6,7 +6,7 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
     /// <summary>
     /// COMPONENTA SPECIFICA LOCAL-PLAYER-ULUI CARE SE OCUPA DE MOVEMENT INPUT
     /// </summary>
-    public class PlayerMovementInput : MonoBehaviour
+    public class PlayerMovementInput : MonoBehaviour //DONE DO NOT MODIFY
     {
         private Vector2 _movementInput;
         private bool _jumpInput;

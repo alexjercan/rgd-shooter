@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.ServerSide.Networking
 {
-    public class ClientConnection
+    public class ClientConnection  //DONE DO NOT MODIFY
     {
         private const int DataBufferSize = 4096;
 

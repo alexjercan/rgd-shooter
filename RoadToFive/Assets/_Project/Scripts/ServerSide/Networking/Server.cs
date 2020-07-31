@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.ServerSide.Networking
 {
-    public static class Server
+    public static class Server //DONE DO NOT MODIFY
     {
         public static int MaxPlayers { get; private set; }
         private static int Port { get; set; }
