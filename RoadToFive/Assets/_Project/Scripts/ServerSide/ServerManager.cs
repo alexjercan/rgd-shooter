@@ -64,6 +64,9 @@ namespace _Project.Scripts.ServerSide
 
             foreach (var serverPlayerManager in playerManagers.Values.Where(manager => manager.Id != clientId))
                 ServerSend.InitializeInventory(clientId, serverPlayerManager.Id, serverPlayerManager.GetWeapons());
+
+            foreach (var manager in playerManagers.Values.Where(manager => manager.Id != clientId))
+                ServerSend.HandWeaponUpdate(manager.Id, manager.GetHandWeaponIndex());
         }
 
         public void DeSpawn(int clientId)
