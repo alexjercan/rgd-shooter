@@ -7,12 +7,11 @@ namespace _Project.Scripts.ServerSide.Item
     public class ItemSpawner : MonoBehaviour
     {
         public int SpawnerId { get; private set; }
-        public int ItemId => itemScriptableObject.id;
         public bool HasItem { get; private set; }
         public Vector3 Position => _transform.position;
         
+        [SerializeField] public ItemScriptableObject itemScriptableObject;
         [SerializeField] private float spawnerTimer;
-        [SerializeField] private ItemScriptableObject itemScriptableObject;
 
         private static int _nextSpawnerId = 1;
         private Transform _transform;

@@ -1,5 +1,6 @@
 ﻿using _Project.Scripts.Mechanics;
 using _Project.Scripts.ServerSide.Networking;
+using _Project.Scripts.Util.Item;
 using UnityEngine;
 
 namespace _Project.Scripts.ServerSide.Player
@@ -15,10 +16,12 @@ namespace _Project.Scripts.ServerSide.Player
         [SerializeField] private PlayerMovement playerMovement;
         [SerializeField] private PlayerWeapon playerWeapon;
         [SerializeField] private EntityHealth entityHealth;
+        [SerializeField] private PlayerPickUp playerPickUp;
+        
 
         private void Awake()
         {
-            entityHealth.Damaged += (sender, health) => ServerSend.PlayerHealth(Id, health);
+            entityHealth.HealthChanged += (sender, health) => ServerSend.PlayerHealth(Id, health);
             entityHealth.Died += (sender, args) => gameObject.SetActive(false);
         }
 
@@ -43,5 +46,9 @@ namespace _Project.Scripts.ServerSide.Player
         public Vector3 GetPlayerPosition() => playerMovement.PlayerTransform.position;
 
         public Quaternion GetPlayerRotation() => playerMovement.PlayerTransform.rotation;
+        
+        public void PickUpItem(ItemScriptableObject itemData) => playerPickUp.PickUpItem(this, itemData);
+        
+        public void HealPlayer(int amount) => entityHealth.Heal(amount);
     }
 }

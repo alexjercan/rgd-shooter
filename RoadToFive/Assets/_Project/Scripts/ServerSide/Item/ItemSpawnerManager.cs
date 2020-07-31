@@ -15,6 +15,8 @@ namespace _Project.Scripts.ServerSide.Item
             var playerManager = other.GetComponent<ServerPlayerManager>();
             ServerSend.ItemPickedUp(spawnerId, playerManager.Id);
 
+            ServerManager.Instance.playerManagers[spawnerId].PickUpItem(ServerManager.Instance.itemSpawners[spawnerId].itemScriptableObject);
+            
             return true;
         }
     }

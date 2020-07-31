@@ -62,7 +62,7 @@ namespace _Project.Scripts.ServerSide
 
             foreach (var serverItemSpawner in itemSpawners.Values)
                 ServerSend.CreateItemSpawner(clientId, serverItemSpawner.SpawnerId,
-                    serverItemSpawner.Position, serverItemSpawner.HasItem, serverItemSpawner.ItemId);
+                    serverItemSpawner.Position, serverItemSpawner.HasItem, serverItemSpawner.itemScriptableObject.id);
         }
 
         public void DeSpawn(int clientId)

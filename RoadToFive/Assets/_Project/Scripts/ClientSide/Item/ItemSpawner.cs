@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.ClientSide.Item
 {
-    public class ItemSpawner : MonoBehaviour
+    public class ItemSpawner : MonoBehaviour //DONE DO NOT MODIFY
     {
         private int _spawnerId;
         private bool _hasItem;
