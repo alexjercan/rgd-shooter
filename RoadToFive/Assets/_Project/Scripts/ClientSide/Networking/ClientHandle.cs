@@ -131,6 +131,8 @@ namespace _Project.Scripts.ClientSide.Networking
         {
             var clientId = packet.ReadInt();
             var weaponIndex = packet.ReadInt();
+
+            if (weaponIndex < 0) return;
             
             GameManager.Instance.GetPlayerManager(clientId).SetWeaponTo(weaponIndex);
         }
