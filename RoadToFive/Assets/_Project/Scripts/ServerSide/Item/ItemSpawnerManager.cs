@@ -1,26 +1,21 @@
-﻿using System.Collections.Generic;
-using _Project.Scripts.ServerSide.Networking;
-using _Project.Scripts.Util.Item;
+﻿using _Project.Scripts.ServerSide.Networking;
+using _Project.Scripts.ServerSide.Player;
 using UnityEngine;
 
 namespace _Project.Scripts.ServerSide.Item
 {
     public class ItemSpawnerManager : MonoBehaviour
     {
-        public static readonly Dictionary<int, ServerItemSpawner> ItemSpawners = new Dictionary<int, ServerItemSpawner>();
+        public static void OnItemSpawned(int spawnerId) => ServerSend.ItemSpawned(spawnerId);
 
-        [SerializeField] private List<ItemScriptableObject> itemScriptableObjects;
-        
-        private static readonly Dictionary<int, ItemScriptableObject> _itemScriptableObjects = new Dictionary<int, ItemScriptableObject>();
-        
-        private void Awake()
+        public static bool OnTryPickUpItem(int spawnerId, Collider other)
         {
-            foreach (var itemScriptableObject in itemScriptableObjects)
-                _itemScriptableObjects.Add(itemScriptableObject.id, itemScriptableObject);
+            if (!other.CompareTag("Player")) return false;
+            
+            var playerManager = other.GetComponent<ServerPlayerManager>();
+            ServerSend.ItemPickedUp(spawnerId, playerManager.Id);
+
+            return true;
         }
-
-        public static void ItemSpawned(int spawnerId) => ServerSend.ItemSpawned(spawnerId);
-
-        public static void ItemPickedUp(int spawnerId, int clientId) => ServerSend.ItemPickedUp(spawnerId, clientId);
     }
 }

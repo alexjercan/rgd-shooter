@@ -12,7 +12,8 @@ namespace _Project.Scripts.ServerSide
         public static ServerManager Instance;
 
         public Dictionary<int, ServerPlayerManager> playerManagers = new Dictionary<int, ServerPlayerManager>();
-
+        public Dictionary<int, ItemSpawner> itemSpawners = new Dictionary<int, ItemSpawner>();
+         
         [SerializeField] private Transform spawnLocation;
         [SerializeField] private GameObject playerPrefab;
 
@@ -54,7 +55,7 @@ namespace _Project.Scripts.ServerSide
             foreach(var manager in playerManagers.Values)
                 ServerSend.SpawnPlayer(manager.Id, playerManager);
 
-            foreach (var serverItemSpawner in ItemSpawnerManager.ItemSpawners.Values)
+            foreach (var serverItemSpawner in itemSpawners.Values)
                 ServerSend.CreateItemSpawner(clientId, serverItemSpawner.SpawnerId,
                     serverItemSpawner.Position, serverItemSpawner.HasItem, serverItemSpawner.ItemId);
         }

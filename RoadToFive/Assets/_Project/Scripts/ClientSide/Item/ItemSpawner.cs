@@ -2,7 +2,7 @@
 
 namespace _Project.Scripts.ClientSide.Item
 {
-    public class ClientItemSpawner : MonoBehaviour
+    public class ItemSpawner : MonoBehaviour
     {
         private int _spawnerId;
         private bool _hasItem;
