@@ -2,6 +2,7 @@
 using _Project.Scripts.ClientSide.Item;
 using _Project.Scripts.ClientSide.Networking;
 using _Project.Scripts.ClientSide.Player;
+using _Project.Scripts.Util;
 using _Project.Scripts.Util.Item;
 using UnityEngine;
 
@@ -11,10 +12,9 @@ namespace _Project.Scripts.ClientSide
     {
         public static GameManager Instance;
 
-        [SerializeField] public List<ItemScriptableObject> items;
-        
         [SerializeField] private ItemSpawnerManager itemSpawnerManager;
         [SerializeField] private PlayerSpawnerManager playerSpawnerManager;
+        [SerializeField] private SpawnableItems spawnableItems;
         
         private void Awake()
         {
@@ -44,5 +44,7 @@ namespace _Project.Scripts.ClientSide
         public void SpawnItem(int spawnerId) => itemSpawnerManager.SpawnItem(spawnerId);
 
         public void DeleteItem(int spawnerId) => itemSpawnerManager.DeleteItem(spawnerId);
+        
+        public List<ItemScriptableObject> GetSpawnableItems() => spawnableItems.GetSpawnableItems();
     }
 }

@@ -10,15 +10,12 @@ namespace _Project.Scripts.ClientSide.Item
 
         private readonly Dictionary<int, ItemSpawner> _itemSpawners = new Dictionary<int, ItemSpawner>();
         
-        private void Start()
-        {
-            for (var i = 0; i < GameManager.Instance.items.Count; i++) GameManager.Instance.items[i].Id = i;
-        }
 
         public void CreateItemSpawner(int spawnerId, Vector3 position, bool hasItem, int itemId)
         {
             var spawner = Instantiate(itemSpawnerPrefab, position, Quaternion.identity);
-            spawner.Initialize(spawnerId, hasItem, itemId, GameManager.Instance.items[itemId]);
+            var items = GameManager.Instance.GetSpawnableItems();
+            spawner.Initialize(spawnerId, hasItem, itemId, items[itemId]);
 
             _itemSpawners.Add(spawnerId, spawner);
         }

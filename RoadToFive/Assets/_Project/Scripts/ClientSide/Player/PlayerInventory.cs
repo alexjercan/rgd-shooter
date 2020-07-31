@@ -13,7 +13,8 @@ namespace _Project.Scripts.ClientSide.Player
 
         public void AddWeapon(int weaponId)
         {
-            var weapon = GameManager.Instance.items[weaponId];
+            var items = GameManager.Instance.GetSpawnableItems();
+            var weapon = items[weaponId];
             if (_weaponList.Contains(weapon)|| weapon.ItemType != ItemScriptableObject.Type.Weapon) return;
             _weaponList.Add(weapon);
         }

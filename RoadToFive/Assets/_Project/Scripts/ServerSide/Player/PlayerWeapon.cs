@@ -13,9 +13,10 @@ namespace _Project.Scripts.ServerSide.Player
         public void OnShoot(Vector3 direction, int weaponId)
         {
             if (!Physics.Raycast(shootOrigin.position, direction, out var hit, maxBulletTravel, layerMask)) return;
-            
-            Debug.Log(hit.point);
-            hit.collider.GetComponent<EntityHealth>().Damage(((WeaponScriptableObject)ServerManager.Instance.items[weaponId]).damage);
+
+            var items = ServerManager.Instance.GetSpawnableItems();
+            var weapon = ((WeaponScriptableObject) items[weaponId]);
+            hit.collider.GetComponent<EntityHealth>().Damage(weapon.damage);
         }
     }
 }

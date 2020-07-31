@@ -22,7 +22,8 @@ namespace _Project.Scripts.ClientSide.Player
             }
             else
             {
-                var scriptableObject = GameManager.Instance.items[weaponId];
+                var items = GameManager.Instance.GetSpawnableItems();
+                var scriptableObject = items[weaponId];
                 if (scriptableObject.ItemType != ItemScriptableObject.Type.Weapon) return;
                 
                 _weaponsVisuals.Add(weaponId, Instantiate(scriptableObject.prefab, handTransform, false));

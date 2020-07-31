@@ -56,10 +56,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52748c9fb8084cdd9667e83cf558f524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 11400000, guid: a64cb3639c16f1f40853fa13c857845b, type: 2}
-  - {fileID: 11400000, guid: 440bdcddc6d806443b2d15664aa2482f, type: 2}
-  - {fileID: 11400000, guid: 097b197da24632c488695206d2903723, type: 2}
+  spawnableItems: {fileID: 0}
   spawnLocation: {fileID: 8163773156149510839}
   playerPrefab: {fileID: 3907515094001334465, guid: 7d97d986963c83d4d92133a14eb9923c,
     type: 3}

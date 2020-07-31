@@ -3,6 +3,7 @@ using System.Linq;
 using _Project.Scripts.ServerSide.Item;
 using _Project.Scripts.ServerSide.Networking;
 using _Project.Scripts.ServerSide.Player;
+using _Project.Scripts.Util;
 using _Project.Scripts.Util.Item;
 using UnityEngine;
 
@@ -14,8 +15,8 @@ namespace _Project.Scripts.ServerSide
 
         public Dictionary<int, ServerPlayerManager> playerManagers = new Dictionary<int, ServerPlayerManager>();
         public Dictionary<int, ItemSpawner> itemSpawners = new Dictionary<int, ItemSpawner>();
-        [SerializeField] public List<ItemScriptableObject> items = new List<ItemScriptableObject>(); 
-        
+
+        [SerializeField] private SpawnableItems spawnableItems;
         [SerializeField] private Transform spawnLocation;
         [SerializeField] private GameObject playerPrefab;
 
@@ -34,8 +35,6 @@ namespace _Project.Scripts.ServerSide
 
         private void Start()
         {
-            for (var i = 0; i < items.Count; i++) items[i].Id = i;
-
             QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = 30;
             Server.Start(20, 26950);
@@ -70,5 +69,7 @@ namespace _Project.Scripts.ServerSide
             playerManagers.Remove(clientId);
             Destroy(player.gameObject);
         }
+
+        public List<ItemScriptableObject> GetSpawnableItems() => spawnableItems.GetSpawnableItems();
     }
 }

@@ -11,8 +11,8 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
         public void ShootInputCallback(InputAction.CallbackContext context) => 
             _shootInput = context.ReadValueAsButton();
 
-        public void ScrollInputCallback(InputAction.CallbackContext context) => 
-            _weaponIndex = context.ReadValue<int>();
+        public void ScrollInputCallback(InputAction.CallbackContext context) =>
+            _weaponIndex += (int)context.ReadValue<float>();
 
         public bool GetShootInput()
         {

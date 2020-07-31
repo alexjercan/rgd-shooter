@@ -62,9 +62,9 @@ namespace _Project.Scripts.Util.Input
                 },
                 {
                     ""name"": ""ItemScroll"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""30ca3105-6554-4b56-bb06-a8abb951329c"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
