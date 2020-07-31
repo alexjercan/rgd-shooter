@@ -1,35 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5206462658854532167
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5459720886736913115}
-  m_Layer: 8
-  m_Name: BulletSpawnPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5459720886736913115
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5206462658854532167}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5.559, z: 0.36}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 7505017924667943375}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7505017924667717103
 GameObject:
   m_ObjectHideFlags: 0
@@ -41,9 +11,6 @@ GameObject:
   - component: {fileID: 7505017924667943375}
   - component: {fileID: 7505017924670843375}
   - component: {fileID: 7505017924669713199}
-  - component: {fileID: 2776451506830227014}
-  - component: {fileID: 3176720829047149250}
-  - component: {fileID: 4838852540677232326}
   m_Layer: 8
   m_Name: Sci-Fi Rifle_fbx
   m_TagString: LootItem
@@ -61,8 +28,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
-  m_Children:
-  - {fileID: 5459720886736913115}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -113,58 +79,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &2776451506830227014
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7505017924667717103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94d7cbfb019f2fc4ea366ef2c91a6f4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ammoCount: 0
-  rateOfFire: 0
-  damage: 100
-  ammoType: 5
-  spawnPointPosition: {x: -0.002402816, y: 0.01144345, z: -0.002402816}
-  spawnPointRotation: {x: 4, y: 180, z: 180}
-  spawnPointScale: {x: 0.02, y: 0.02, z: 0.02}
-  localScale: {x: 0.2, y: 0.2, z: 0.2}
-  owner: {fileID: 0}
-  animatorController: {fileID: 9100000, guid: ce157f2aa19f0d746b85a22ae7cf3b76, type: 2}
---- !u!114 &3176720829047149250
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7505017924667717103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46ae02a53413e1549a5e3afb44ec950c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  owner: {fileID: 0}
-  count: 1
-  stackable: 0
-  isWeapon: 1
-  isAmmo: 0
-  ammoType: 5
-  isMedKit: 0
-  InventoryPic: {fileID: 21300000, guid: 71b4ca67ebdda574e887ecd79b494323, type: 3}
---- !u!65 &4838852540677232326
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7505017924667717103}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 9.2, z: 3}
-  m_Center: {x: -0.010603897, y: -0.8993635, z: 0.1036281}

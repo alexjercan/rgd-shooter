@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: AmmoPack
   m_EditorClassIdentifier: 
   id: 0
-  prefab: {fileID: 1020812102442181409, guid: 51cfd802047751f49bb46cddcb53ef8f, type: 3}
+  prefab: {fileID: 4328825737415016143, guid: 0c905c7d4b632ab4881b5501c87c118e, type: 3}

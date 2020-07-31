@@ -54,7 +54,7 @@ namespace _Project.Scripts.ServerSide
             foreach(var manager in playerManagers.Values)
                 ServerSend.SpawnPlayer(manager.Id, playerManager);
 
-            foreach (var serverItemSpawner in ServerItemSpawner.ItemSpawners.Values)
+            foreach (var serverItemSpawner in ItemSpawnerManager.ItemSpawners.Values)
                 ServerSend.CreateItemSpawner(clientId, serverItemSpawner.SpawnerId,
                     serverItemSpawner.Position, serverItemSpawner.HasItem, serverItemSpawner.ItemId);
         }

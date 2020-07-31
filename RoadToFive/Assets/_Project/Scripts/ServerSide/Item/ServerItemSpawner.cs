@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using _Project.Scripts.ServerSide.Networking;
 using _Project.Scripts.ServerSide.Player;
 using UnityEngine;
@@ -13,8 +12,6 @@ namespace _Project.Scripts.ServerSide.Item
         public bool HasItem { get; private set; }
         public Vector3 Position => _transform.position;
         
-        public static readonly Dictionary<int, ServerItemSpawner> ItemSpawners = new Dictionary<int, ServerItemSpawner>();
-
         [SerializeField] private float spawnerTimer;
         [SerializeField] private int itemId;
 
@@ -29,7 +26,7 @@ namespace _Project.Scripts.ServerSide.Item
         private void Start()
         {
             SpawnerId = _nextSpawnerId;
-            ItemSpawners.Add(SpawnerId, this);
+            ItemSpawnerManager.ItemSpawners.Add(SpawnerId, this);
             HasItem = false;
             
             _nextSpawnerId++;
