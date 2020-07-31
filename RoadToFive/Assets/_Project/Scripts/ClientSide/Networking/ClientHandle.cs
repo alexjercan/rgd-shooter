@@ -25,6 +25,7 @@ namespace _Project.Scripts.ClientSide.Networking
                 {(int)ServerPackets.PlayerHealth, PlayerHealth},
                 {(int)ServerPackets.CreateItemSpawner, CreateItemSpawner},
                 {(int)ServerPackets.ItemSpawned, ItemSpawned},
+                {(int)ServerPackets.ItemPickedUp, ItemPickedUp},
             };
         }
 
@@ -96,6 +97,14 @@ namespace _Project.Scripts.ClientSide.Networking
             var spawnerId = packet.ReadInt();
 
             GameManager.Instance.SpawnItem(spawnerId);
+        }
+
+        private static void ItemPickedUp(Packet packet)
+        {
+            var spawnerId = packet.ReadInt();
+            var clientId = packet.ReadInt();
+
+            GameManager.Instance.DeleteItem(spawnerId);
         }
     }
 }

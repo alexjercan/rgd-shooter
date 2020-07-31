@@ -113,5 +113,13 @@ namespace _Project.Scripts.ServerSide.Networking
                 SendTcpDataToAll(packet.Write(spawnerId));
             }
         }
+        
+        public static void ItemPickedUp(int spawnerId, int byPlayer)
+        {
+            using (var packet = new Packet((int) ServerPackets.ItemPickedUp))
+            {
+                SendTcpDataToAll(packet.Write(spawnerId).Write(byPlayer));
+            }
+        }
     }
 }

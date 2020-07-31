@@ -38,5 +38,7 @@ namespace _Project.Scripts.ClientSide
             itemSpawnerManager.CreateItemSpawner(spawnerId, position, hasItem, itemId);
 
         public void SpawnItem(int spawnerId) => itemSpawnerManager.SpawnItem(spawnerId);
+
+        public void DeleteItem(int spawnerId) => itemSpawnerManager.DeleteItem(spawnerId);
     }
 }

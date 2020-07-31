@@ -19,14 +19,8 @@ namespace _Project.Scripts.ServerSide.Item
                 _itemScriptableObjects.Add(itemScriptableObject.id, itemScriptableObject);
         }
 
-        public static void ItemSpawned(int spawnerId)
-        {
-            ServerSend.ItemSpawned(spawnerId);
-        }
-        
-        public static void ItemPickedUp(int spawnerId, int clientId)
-        {
-            //ServerSend.ItemSpawned(spawnerId);
-        }
+        public static void ItemSpawned(int spawnerId) => ServerSend.ItemSpawned(spawnerId);
+
+        public static void ItemPickedUp(int spawnerId, int clientId) => ServerSend.ItemPickedUp(spawnerId, clientId);
     }
 }
