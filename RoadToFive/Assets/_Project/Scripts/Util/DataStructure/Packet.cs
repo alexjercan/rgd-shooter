@@ -16,6 +16,7 @@ namespace _Project.Scripts.Util.DataStructure
         CreateItemSpawner,
         ItemSpawned,
         ItemPickedUp,
+        AmmoPickedUp,
     }
 
     public enum ClientPackets

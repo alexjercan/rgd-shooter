@@ -26,6 +26,7 @@ namespace _Project.Scripts.ClientSide.Networking
                 {(int)ServerPackets.CreateItemSpawner, CreateItemSpawner},
                 {(int)ServerPackets.ItemSpawned, ItemSpawned},
                 {(int)ServerPackets.ItemPickedUp, ItemPickedUp},
+                {(int)ServerPackets.AmmoPickedUp, AmmoPickedUp},
             };
         }
 
@@ -105,6 +106,14 @@ namespace _Project.Scripts.ClientSide.Networking
             var clientId = packet.ReadInt();
 
             GameManager.Instance.DeleteItem(spawnerId);
+        }
+
+        private static void AmmoPickedUp(Packet packet)
+        {
+            var id = packet.ReadInt();
+            var amount = packet.ReadInt();
+            
+            GameManager.Instance.GetPlayerManager(id).AddAmmo(amount);
         }
     }
 }

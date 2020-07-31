@@ -14,7 +14,8 @@ namespace _Project.Scripts.ServerSide.Player
             {(int)ItemScriptableObject.ItemType.AmmoPack, AmmoPack},
         };
 
-        public void PickUpItem(ServerPlayerManager playerManager, ItemScriptableObject itemData) => PickUpHandlers[(int)itemData.itemType](playerManager, itemData);
+        public void PickUpItem(ServerPlayerManager playerManager, ItemScriptableObject itemData) => 
+            PickUpHandlers[(int)itemData.itemType](playerManager, itemData);
 
         private static void HealthKit(ServerPlayerManager playerManager, ItemScriptableObject itemData) => 
             playerManager.HealPlayer(itemData.amount);

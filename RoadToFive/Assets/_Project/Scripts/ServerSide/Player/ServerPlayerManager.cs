@@ -17,7 +17,6 @@ namespace _Project.Scripts.ServerSide.Player
         [SerializeField] private PlayerWeapon playerWeapon;
         [SerializeField] private EntityHealth entityHealth;
         [SerializeField] private PlayerPickUp playerPickUp;
-        [SerializeField] private PlayerInventory playerInventory;
 
         private void Awake()
         {
@@ -51,6 +50,6 @@ namespace _Project.Scripts.ServerSide.Player
         
         public void HealPlayer(int amount) => entityHealth.Heal(amount);
 
-        public void AddAmmo(int amount) => playerInventory.AddAmmo(amount);
+        public void AddAmmo(int amount) => ServerSend.AmmoPickedUp(Id, amount);
     }
 }

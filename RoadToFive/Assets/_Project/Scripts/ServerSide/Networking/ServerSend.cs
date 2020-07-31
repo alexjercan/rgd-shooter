@@ -121,5 +121,13 @@ namespace _Project.Scripts.ServerSide.Networking
                 SendTcpDataToAll(packet.Write(spawnerId).Write(byPlayer));
             }
         }
+
+        public static void AmmoPickedUp(int clientId, int amount)
+        {
+            using (var packet = new Packet((int) ServerPackets.AmmoPickedUp))
+            {
+                SendTcpData(clientId, packet.Write(clientId).Write(amount));
+            }
+        }
     }
 }

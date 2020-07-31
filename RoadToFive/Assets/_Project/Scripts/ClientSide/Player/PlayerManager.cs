@@ -9,6 +9,7 @@ namespace _Project.Scripts.ClientSide.Player
     public class PlayerManager : MonoBehaviour
     {
         [SerializeField] private EntityHealth entityHealth;
+        [SerializeField] private PlayerInventory playerInventory;
 
         private int _id;
         private string _username;
@@ -34,5 +35,7 @@ namespace _Project.Scripts.ClientSide.Player
         public void SetRotation(Quaternion rotation) => _transform.rotation = rotation;
 
         public void SetHealth(int health) => entityHealth.SetHealth(health);
+
+        public void AddAmmo(int amount) => playerInventory.AddAmmo(amount);
     }
 }
