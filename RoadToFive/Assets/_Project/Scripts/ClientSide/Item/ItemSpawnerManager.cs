@@ -15,7 +15,7 @@ namespace _Project.Scripts.ClientSide.Item
         private void Awake()
         {
             foreach (var itemScriptableObject in itemScriptableObjects)
-                _itemScriptableObjects.Add(itemScriptableObject.id, itemScriptableObject);
+                _itemScriptableObjects.Add(itemScriptableObject.Id, itemScriptableObject);
         }
 
         public void CreateItemSpawner(int spawnerId, Vector3 position, bool hasItem, int itemId)

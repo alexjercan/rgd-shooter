@@ -4,7 +4,8 @@ namespace _Project.Scripts.Util.Item
 {
     public class ItemScriptableObject : ScriptableObject
     {
-        public int id;
+        public int Id { get; set; }
+        
         public new string name;
         public ItemType itemType;
         public GameObject prefab;

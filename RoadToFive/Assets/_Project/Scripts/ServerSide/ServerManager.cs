@@ -14,9 +14,8 @@ namespace _Project.Scripts.ServerSide
 
         public Dictionary<int, ServerPlayerManager> playerManagers = new Dictionary<int, ServerPlayerManager>();
         public Dictionary<int, ItemSpawner> itemSpawners = new Dictionary<int, ItemSpawner>();
-        public Dictionary<int, ItemScriptableObject> items = new Dictionary<int, ItemScriptableObject>(); 
+        [SerializeField] public List<ItemScriptableObject> items = new List<ItemScriptableObject>(); 
         
-        [SerializeField] private List<ItemScriptableObject> itemScriptableObjects;
         [SerializeField] private Transform spawnLocation;
         [SerializeField] private GameObject playerPrefab;
 
@@ -35,7 +34,7 @@ namespace _Project.Scripts.ServerSide
 
         private void Start()
         {
-            foreach (var item in itemScriptableObjects) items.Add(item.id, item);
+            for (var i = 0; i < items.Count; i++) items[i].Id = i;
 
             QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = 30;
@@ -62,7 +61,7 @@ namespace _Project.Scripts.ServerSide
 
             foreach (var serverItemSpawner in itemSpawners.Values)
                 ServerSend.CreateItemSpawner(clientId, serverItemSpawner.SpawnerId,
-                    serverItemSpawner.Position, serverItemSpawner.HasItem, serverItemSpawner.itemScriptableObject.id);
+                    serverItemSpawner.Position, serverItemSpawner.HasItem, serverItemSpawner.itemScriptableObject.Id);
         }
 
         public void DeSpawn(int clientId)
