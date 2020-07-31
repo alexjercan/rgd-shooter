@@ -14,5 +14,6 @@ namespace _Project.Scripts.Util.Item
         public int id;
         public ItemType itemType;
         public GameObject prefab;
+        public int amount;
     }
 }

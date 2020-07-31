@@ -21,7 +21,7 @@ namespace _Project.Scripts.ClientSide.Item
         public void CreateItemSpawner(int spawnerId, Vector3 position, bool hasItem, int itemId)
         {
             var spawner = Instantiate(itemSpawnerPrefab, position, Quaternion.identity);
-            spawner.Initialize(spawnerId, hasItem, itemId, _itemScriptableObjects[itemId].prefab);
+            spawner.Initialize(spawnerId, hasItem, itemId, _itemScriptableObjects[itemId]);
 
             _itemSpawners.Add(spawnerId, spawner);
         }
@@ -29,5 +29,7 @@ namespace _Project.Scripts.ClientSide.Item
         public void SpawnItem(int spawnerId) => _itemSpawners[spawnerId].SpawnItem();
 
         public void DeleteItem(int spawnerId) => _itemSpawners[spawnerId].DeleteItem();
+
+        public ItemScriptableObject GetItemFromSpawner(int spawnerId) => _itemSpawners[spawnerId].GetItemData();
     }
 }

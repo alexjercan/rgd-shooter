@@ -14,19 +14,12 @@ namespace _Project.Scripts.ServerSide.Player
 
         [SerializeField] private PlayerMovement playerMovement;
         [SerializeField] private PlayerWeapon playerWeapon;
-        [SerializeField] private PlayerInventory playerInventory;
         [SerializeField] private EntityHealth entityHealth;
 
         private void Awake()
         {
             entityHealth.Damaged += (sender, health) => ServerSend.PlayerHealth(Id, health);
             entityHealth.Died += (sender, args) => gameObject.SetActive(false);
-        }
-
-        private void Start()
-        {
-            //JUST FOR TESTING
-            playerWeapon.SetActiveWeapon(playerInventory.GetWeapon(0));
         }
 
         private void FixedUpdate()
@@ -45,7 +38,7 @@ namespace _Project.Scripts.ServerSide.Player
 
         public void SetMovementInput(Vector3 movementInput, Quaternion rotation) => playerMovement.SetInput(movementInput, rotation);
 
-        public void SetShootDirection(Vector3 direction) => playerWeapon.OnShoot(direction);
+        public void ShootInDirection(Vector3 direction, int weaponId) => playerWeapon.OnShoot(direction, weaponId);
         
         public Vector3 GetPlayerPosition() => playerMovement.PlayerTransform.position;
 

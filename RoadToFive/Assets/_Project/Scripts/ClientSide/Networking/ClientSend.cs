@@ -36,11 +36,11 @@ namespace _Project.Scripts.ClientSide.Networking
             }
         }
 
-        public static void PlayerShoot(Vector3 direction)
+        public static void PlayerShoot(Vector3 direction, int weaponId)
         {
             using (var packet = new Packet((int) ClientPackets.PlayerShoot))
             {
-                SendTcpData(packet.Write(direction));
+                SendTcpData(packet.Write(direction).Write(weaponId));
             }
         }
     }
