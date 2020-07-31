@@ -7,17 +7,28 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
     {
         private bool _shootInput;
         private int _weaponIndex = 0;
+        private bool _weaponChanged;
 
         public void ShootInputCallback(InputAction.CallbackContext context) => 
             _shootInput = context.ReadValueAsButton();
 
-        public void ScrollInputCallback(InputAction.CallbackContext context) =>
-            _weaponIndex += (int)context.ReadValue<float>();
+        public void ScrollInputCallback(InputAction.CallbackContext context)
+        {
+            _weaponChanged = true;
+            _weaponIndex += (int) context.ReadValue<float>();
+        }
 
         public bool GetShootInput()
         {
             var value = _shootInput;
             _shootInput = false;
+            return value;
+        }
+
+        public bool DidWeaponChanged()
+        {
+            var value = _weaponChanged;
+            _weaponChanged = false;
             return value;
         }
 
