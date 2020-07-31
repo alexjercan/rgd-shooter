@@ -595,17 +595,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ServerManager
       objectReference: {fileID: 0}
-    - target: {fileID: 8163773156149510838, guid: eab7931263217ce4f8366d3184396c69,
-        type: 3}
-      propertyPath: weapons.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8163773156149510838, guid: eab7931263217ce4f8366d3184396c69,
-        type: 3}
-      propertyPath: weapons.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: baec03e2c5cdcdc4eb27cf5d18baa566,
-        type: 2}
     - target: {fileID: 8163773156149510839, guid: eab7931263217ce4f8366d3184396c69,
         type: 3}
       propertyPath: m_LocalPosition.x
