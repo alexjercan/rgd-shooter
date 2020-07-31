@@ -13,7 +13,7 @@ namespace _Project.Scripts.ClientSide.UserInterface
         private void Awake()
         {
             startMenu.SetActive(true);
-            connectMenu.SetActive(false);
+            connectMenu.SetActive(true);
         }
         
         public void ConnectToServer()

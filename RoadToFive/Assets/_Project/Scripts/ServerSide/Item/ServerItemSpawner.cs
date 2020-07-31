@@ -26,8 +26,12 @@ namespace _Project.Scripts.ServerSide.Item
 
         private void Start()
         {
-            Initialize(_nextSpawnerId);
+            SpawnerId = _nextSpawnerId;
+            ItemSpawners.Add(SpawnerId, this);
+            HasItem = false;
+            
             _nextSpawnerId++;
+            StartCoroutine(SpawnItem());
         }
 
         private void OnTriggerEnter(Collider other)
@@ -37,14 +41,6 @@ namespace _Project.Scripts.ServerSide.Item
             
             var playerManager = other.GetComponent<ServerPlayerManager>();
             ItemPickedUp(playerManager.Id);
-        }
-
-        private void Initialize(int spawnerId)
-        {
-            SpawnerId = spawnerId;
-            HasItem = false;
-            
-            StartCoroutine(SpawnItem());
         }
 
         private IEnumerator SpawnItem()
