@@ -140,10 +140,7 @@ namespace _Project.Scripts.ClientSide.Networking
             var clientId = packet.ReadInt();
             var weaponCount = packet.ReadInt();
             var playerManager = GameManager.Instance.GetPlayerManager(clientId);
-            for (var i = 0; i < weaponCount; i++)
-            {
-                playerManager.AddWeapon(packet.ReadInt());
-            }
+            for (var i = 0; i < weaponCount; i++) playerManager.AddWeapon(packet.ReadInt());
         }
     }
 }

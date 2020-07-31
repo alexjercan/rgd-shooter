@@ -55,7 +55,11 @@ namespace _Project.Scripts.ServerSide.Player
 
         public void AddAmmo(int amount) => ServerSend.AmmoPickedUp(Id, amount);
 
-        public void Weapon(int weaponId) => ServerSend.WeaponPickedUp(Id, weaponId);
+        public void Weapon(int weaponId)
+        {
+            playerInventory.AddWeapon(weaponId);
+            ServerSend.WeaponPickedUp(Id, weaponId);
+        }
 
         public List<int> GetWeapons() => playerInventory.GetWeapons();
     }
