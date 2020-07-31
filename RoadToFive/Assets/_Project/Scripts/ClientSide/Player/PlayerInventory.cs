@@ -7,12 +7,9 @@ namespace _Project.Scripts.ClientSide.Player
     public class PlayerInventory : MonoBehaviour
     {
         private readonly Dictionary<int, ItemScriptableObject> _weapons = new Dictionary<int, ItemScriptableObject>();
-        public int Ammo { get; private set; }
+        private int _ammo;
 
-        public void AddAmmo(int amount)
-        {
-            Ammo += amount;
-        }
+        public void AddAmmo(int amount) => _ammo += amount;
 
         public void AddWeapon(int weaponId)
         {

@@ -38,6 +38,8 @@ namespace _Project.Scripts.ClientSide.Player
 
         public void AddAmmo(int amount) => playerInventory.AddAmmo(amount);
 
+        public void RemoveAmmo(int amount) => playerInventory.AddAmmo(-amount);
+
         public void AddWeapon(int weaponId) => playerInventory.AddWeapon(weaponId);
     }
 }

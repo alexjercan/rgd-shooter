@@ -42,6 +42,8 @@ namespace _Project.Scripts.ClientSide.Networking
             {
                 SendTcpData(packet.Write(direction).Write(weaponId));
             }
+            
+            GameManager.Instance.GetPlayerManager(Client.MyId).RemoveAmmo(1);
         }
     }
 }
