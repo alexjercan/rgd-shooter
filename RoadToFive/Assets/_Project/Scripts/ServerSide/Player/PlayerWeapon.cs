@@ -1,4 +1,5 @@
 ﻿using _Project.Scripts.Mechanics;
+using _Project.Scripts.Util.Item;
 using UnityEngine;
 
 namespace _Project.Scripts.ServerSide.Player
@@ -13,7 +14,7 @@ namespace _Project.Scripts.ServerSide.Player
         {
             if (!Physics.Raycast(shootOrigin.position, direction, out var hit, maxBulletTravel, layerMask)) return;
 
-            hit.collider.GetComponent<EntityHealth>().Damage(ServerManager.Instance.weaponScriptableObjects[weaponId].damage);
+            hit.collider.GetComponent<EntityHealth>().Damage(((WeaponScriptableObject)ServerManager.Instance.items[weaponId]).damage);
         }
     }
 }

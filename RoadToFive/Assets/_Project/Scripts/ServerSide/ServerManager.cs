@@ -3,7 +3,7 @@ using System.Linq;
 using _Project.Scripts.ServerSide.Item;
 using _Project.Scripts.ServerSide.Networking;
 using _Project.Scripts.ServerSide.Player;
-using _Project.Scripts.Util.Weapon;
+using _Project.Scripts.Util.Item;
 using UnityEngine;
 
 namespace _Project.Scripts.ServerSide
@@ -14,9 +14,9 @@ namespace _Project.Scripts.ServerSide
 
         public Dictionary<int, ServerPlayerManager> playerManagers = new Dictionary<int, ServerPlayerManager>();
         public Dictionary<int, ItemSpawner> itemSpawners = new Dictionary<int, ItemSpawner>();
-        public Dictionary<int, WeaponScriptableObject> weaponScriptableObjects = new Dictionary<int, WeaponScriptableObject>(); 
+        public Dictionary<int, ItemScriptableObject> items = new Dictionary<int, ItemScriptableObject>(); 
         
-        [SerializeField] private List<WeaponScriptableObject> weapons;
+        [SerializeField] private List<ItemScriptableObject> itemScriptableObjects;
         [SerializeField] private Transform spawnLocation;
         [SerializeField] private GameObject playerPrefab;
 
@@ -35,7 +35,7 @@ namespace _Project.Scripts.ServerSide
 
         private void Start()
         {
-            foreach (var weapon in weapons) weaponScriptableObjects.Add(weapon.id, weapon);
+            foreach (var item in itemScriptableObjects) items.Add(item.id, item);
 
             QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = 30;

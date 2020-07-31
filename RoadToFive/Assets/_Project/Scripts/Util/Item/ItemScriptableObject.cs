@@ -2,18 +2,18 @@
 
 namespace _Project.Scripts.Util.Item
 {
-    [CreateAssetMenu(fileName = "new item", menuName = "Item/SpawnItem", order = 0)]
     public class ItemScriptableObject : ScriptableObject
     {
+        public int id;
+        public new string name;
+        public ItemType itemType;
+        public GameObject prefab;
+
         public enum ItemType
         {
             HealthKit,
             AmmoPack,
+            Weapon,
         }
-        
-        public int id;
-        public ItemType itemType;
-        public GameObject prefab;
-        public int amount;
     }
 }

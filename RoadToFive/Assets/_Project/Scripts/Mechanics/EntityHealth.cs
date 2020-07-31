@@ -18,11 +18,13 @@ namespace _Project.Scripts.Mechanics
         {
             Health = health;
             if (Health <= 0) Died?.Invoke(this, EventArgs.Empty);
+            if (Health > maxHealth) Health = maxHealth;
+            Debug.Log(Health);
         }
         
         public void Damage(int damage)
         {
-            if (Health <= 0) return;
+            if (Health <= 0 || damage < 0) return;
             
             Health -= damage;
             HealthChanged?.Invoke(this, this);
@@ -35,8 +37,7 @@ namespace _Project.Scripts.Mechanics
         public void Heal(int heal)
         {
             HealthChanged?.Invoke(this, this);
-            Health += heal;
-            if (Health > maxHealth) Health = maxHealth;
+            SetHealth(Health + heal);
         }
     }
 }

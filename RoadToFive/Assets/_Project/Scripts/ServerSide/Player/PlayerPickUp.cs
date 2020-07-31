@@ -12,15 +12,20 @@ namespace _Project.Scripts.ServerSide.Player
         {
             {(int)ItemScriptableObject.ItemType.HealthKit, HealthKit},
             {(int)ItemScriptableObject.ItemType.AmmoPack, AmmoPack},
+            {(int)ItemScriptableObject.ItemType.Weapon, Weapon},
         };
 
         public void PickUpItem(ServerPlayerManager playerManager, ItemScriptableObject itemData) => 
             PickUpHandlers[(int)itemData.itemType](playerManager, itemData);
 
         private static void HealthKit(ServerPlayerManager playerManager, ItemScriptableObject itemData) => 
-            playerManager.HealPlayer(itemData.amount);
+            playerManager.HealPlayer(((HealthKitScriptableObject)itemData).healAmount);
 
         private static void AmmoPack(ServerPlayerManager playerManager, ItemScriptableObject itemData) => 
-            playerManager.AddAmmo(itemData.amount);
+            playerManager.AddAmmo(((AmmoPackScriptableObject)itemData).ammoAmount);
+        
+        private static void Weapon(ServerPlayerManager playerManager, ItemScriptableObject itemData)
+        {
+        }
     }
 }
