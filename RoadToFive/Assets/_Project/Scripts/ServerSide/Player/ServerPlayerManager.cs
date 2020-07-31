@@ -1,4 +1,5 @@
-﻿using _Project.Scripts.Mechanics;
+﻿using System.Collections.Generic;
+using _Project.Scripts.Mechanics;
 using _Project.Scripts.ServerSide.Networking;
 using _Project.Scripts.Util.Item;
 using UnityEngine;
@@ -17,6 +18,8 @@ namespace _Project.Scripts.ServerSide.Player
         [SerializeField] private PlayerWeapon playerWeapon;
         [SerializeField] private EntityHealth entityHealth;
         [SerializeField] private PlayerPickUp playerPickUp;
+        [SerializeField] private PlayerInventory playerInventory;
+        
 
         private void Awake()
         {
@@ -53,5 +56,7 @@ namespace _Project.Scripts.ServerSide.Player
         public void AddAmmo(int amount) => ServerSend.AmmoPickedUp(Id, amount);
 
         public void Weapon(int weaponId) => ServerSend.WeaponPickedUp(Id, weaponId);
+
+        public List<int> GetWeapons() => playerInventory.GetWeapons();
     }
 }

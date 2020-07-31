@@ -19,6 +19,7 @@ namespace _Project.Scripts.Util.DataStructure
         AmmoPickedUp,
         WeaponPickedUp,
         HandWeaponUpdate,
+        InitializeInventory,
     }
 
     public enum ClientPackets

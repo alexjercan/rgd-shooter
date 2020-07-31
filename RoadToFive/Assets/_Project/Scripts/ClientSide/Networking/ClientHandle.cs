@@ -29,6 +29,7 @@ namespace _Project.Scripts.ClientSide.Networking
                 {(int)ServerPackets.AmmoPickedUp, AmmoPickedUp},
                 {(int)ServerPackets.WeaponPickedUp, WeaponPickedUp},
                 {(int)ServerPackets.HandWeaponUpdate, HandWeaponUpdate},
+                {(int)ServerPackets.InitializeInventory, InitializeInventory},
             };
         }
 
@@ -132,6 +133,17 @@ namespace _Project.Scripts.ClientSide.Networking
             var weaponIndex = packet.ReadInt();
             
             GameManager.Instance.GetPlayerManager(clientId).SetWeaponTo(weaponIndex);
+        }
+
+        private static void InitializeInventory(Packet packet)
+        {
+            var clientId = packet.ReadInt();
+            var weaponCount = packet.ReadInt();
+            var playerManager = GameManager.Instance.GetPlayerManager(clientId);
+            for (var i = 0; i < weaponCount; i++)
+            {
+                playerManager.AddWeapon(packet.ReadInt());
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using _Project.Scripts.Mechanics;
+﻿using System.Collections.Generic;
+using _Project.Scripts.Mechanics;
 using _Project.Scripts.ServerSide.Player;
 using _Project.Scripts.Util.DataStructure;
 using UnityEngine;
@@ -143,6 +144,18 @@ namespace _Project.Scripts.ServerSide.Networking
             using (var packet = new Packet((int) ServerPackets.HandWeaponUpdate))
             {
                 SendTcpDataToAll(clientId, packet.Write(clientId).Write(weaponIndex));
+            }
+        }
+        
+        public static void InitializeInventory(int toClient, int clientId, List<int> weapons)
+        {
+            using (var packet = new Packet((int) ServerPackets.InitializeInventory))
+            {
+                packet.Write(clientId);
+                packet.Write(weapons.Count);
+                foreach (var weapon in weapons) packet.Write(weapon);
+
+                SendTcpData(toClient, packet);
             }
         }
     }

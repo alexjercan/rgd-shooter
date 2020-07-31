@@ -61,6 +61,9 @@ namespace _Project.Scripts.ServerSide
             foreach (var serverItemSpawner in itemSpawners.Values)
                 ServerSend.CreateItemSpawner(clientId, serverItemSpawner.SpawnerId,
                     serverItemSpawner.Position, serverItemSpawner.HasItem, serverItemSpawner.itemScriptableObject.Id);
+
+            foreach (var serverPlayerManager in playerManagers.Values.Where(manager => manager.Id != clientId))
+                ServerSend.InitializeInventory(clientId, serverPlayerManager.Id, serverPlayerManager.GetWeapons());
         }
 
         public void DeSpawn(int clientId)
