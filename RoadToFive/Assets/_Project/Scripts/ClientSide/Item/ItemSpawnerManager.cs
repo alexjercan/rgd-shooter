@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using _Project.Scripts.ClientSide.Item;
 using UnityEngine;
 
-namespace _Project.Scripts.ClientSide
+namespace _Project.Scripts.ClientSide.Item
 {
     public class ItemSpawnerManager : MonoBehaviour
     {
@@ -10,12 +9,17 @@ namespace _Project.Scripts.ClientSide
 
         [SerializeField] private ClientItemSpawner clientItemSpawnerPrefab;
 
-        public void CreateItemSpawner(int spawnerId, Vector3 position, bool hasItem)
+        public void CreateItemSpawner(int spawnerId, Vector3 position, bool hasItem, int itemId)
         {
             var spawner = Instantiate(clientItemSpawnerPrefab, position, Quaternion.identity);
-            spawner.Initialize(spawnerId, hasItem);
+            spawner.Initialize(spawnerId, hasItem, itemId);
 
             ItemSpawners.Add(spawnerId, spawner);
+        }
+
+        public void SpawnItem(int spawnerId)
+        {
+            ItemSpawners[spawnerId].SpawnItem();
         }
     }
 }

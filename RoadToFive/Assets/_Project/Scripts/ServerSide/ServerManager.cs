@@ -55,7 +55,7 @@ namespace _Project.Scripts.ServerSide
 
             foreach (var serverItemSpawner in ServerItemSpawner.ItemSpawners.Values)
                 ServerSend.CreateItemSpawner(clientId, serverItemSpawner.SpawnerId,
-                    serverItemSpawner.Position, serverItemSpawner.HasItem);
+                    serverItemSpawner.Position, serverItemSpawner.HasItem, serverItemSpawner.ItemId);
         }
 
         public void DeSpawn(int clientId)

@@ -24,6 +24,7 @@ namespace _Project.Scripts.ClientSide.Networking
                 {(int)ServerPackets.PlayerDisconnected, PlayerDisconnected},
                 {(int)ServerPackets.PlayerHealth, PlayerHealth},
                 {(int)ServerPackets.CreateItemSpawner, CreateItemSpawner},
+                {(int)ServerPackets.ItemSpawned, ItemSpawned},
             };
         }
 
@@ -85,8 +86,16 @@ namespace _Project.Scripts.ClientSide.Networking
             var spawnerId = packet.ReadInt();
             var spawnerPosition = packet.ReadVector3();
             var hasItem = packet.ReadBool();
+            var itemId = packet.ReadInt();
             
-            GameManager.Instance.CreateItemSpawner(spawnerId, spawnerPosition, hasItem);
+            GameManager.Instance.CreateItemSpawner(spawnerId, spawnerPosition, hasItem, itemId);
+        }
+
+        private static void ItemSpawned(Packet packet)
+        {
+            var spawnerId = packet.ReadInt();
+            
+            GameManager.Instance.SpawnItem(spawnerId);
         }
     }
 }

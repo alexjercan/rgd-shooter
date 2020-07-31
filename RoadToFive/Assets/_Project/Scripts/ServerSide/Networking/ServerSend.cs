@@ -98,11 +98,19 @@ namespace _Project.Scripts.ServerSide.Networking
             }
         }
 
-        public static void CreateItemSpawner(int toClient, int spawnerId, Vector3 position, bool hasItem)
+        public static void CreateItemSpawner(int toClient, int spawnerId, Vector3 position, bool hasItem, int itemId)
         {
             using (var packet = new Packet((int) ServerPackets.CreateItemSpawner))
             {
-                SendTcpData(toClient, packet.Write(spawnerId).Write(position).Write(hasItem));
+                SendTcpData(toClient, packet.Write(spawnerId).Write(position).Write(hasItem).Write(itemId));
+            }
+        }
+
+        public static void ItemSpawned(int spawnerId)
+        {
+            using (var packet = new Packet((int) ServerPackets.CreateItemSpawner))
+            {
+                SendTcpDataToAll(packet.Write(spawnerId));
             }
         }
     }

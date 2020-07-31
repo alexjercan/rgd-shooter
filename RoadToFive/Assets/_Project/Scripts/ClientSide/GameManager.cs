@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using _Project.Scripts.ClientSide.Item;
 using _Project.Scripts.ClientSide.Networking;
 using UnityEngine;
 
@@ -49,9 +50,9 @@ namespace _Project.Scripts.ClientSide
             Destroy(player.gameObject);
         }
 
-        public void CreateItemSpawner(int spawnerId, Vector3 position, bool hasItem)
-        {
-            itemSpawnerManager.CreateItemSpawner(spawnerId, position, hasItem);
-        }
+        public void CreateItemSpawner(int spawnerId, Vector3 position, bool hasItem, int itemId) => 
+            itemSpawnerManager.CreateItemSpawner(spawnerId, position, hasItem, itemId);
+
+        public void SpawnItem(int spawnerId) => itemSpawnerManager.SpawnItem(spawnerId);
     }
 }

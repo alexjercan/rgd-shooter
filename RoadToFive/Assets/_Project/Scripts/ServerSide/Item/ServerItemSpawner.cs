@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using TMPro;
+using _Project.Scripts.ServerSide.Networking;
 using UnityEngine;
 
 namespace _Project.Scripts.ServerSide.Item
@@ -9,6 +8,7 @@ namespace _Project.Scripts.ServerSide.Item
     public class ServerItemSpawner : MonoBehaviour
     {
         public int SpawnerId { get; private set; }
+        public int ItemId { get; private set; }
         public bool HasItem { get; private set; }
         public Vector3 Position => _transform.position;
         
@@ -48,6 +48,7 @@ namespace _Project.Scripts.ServerSide.Item
             yield return new WaitForSeconds(spawnerTimer);
 
             HasItem = true;
+            ServerSend.ItemSpawned(SpawnerId);
         }
 
         private void ItemPickedUp(int byPlayer)

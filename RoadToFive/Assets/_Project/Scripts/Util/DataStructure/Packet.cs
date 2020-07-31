@@ -14,6 +14,7 @@ namespace _Project.Scripts.Util.DataStructure
         PlayerDisconnected,
         PlayerHealth,
         CreateItemSpawner,
+        ItemSpawned,
     }
 
     public enum ClientPackets
