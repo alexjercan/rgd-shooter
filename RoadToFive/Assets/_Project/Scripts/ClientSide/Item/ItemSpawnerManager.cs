@@ -10,7 +10,7 @@ namespace _Project.Scripts.ClientSide.Item
 
         private readonly Dictionary<int, ItemSpawner> _itemSpawners = new Dictionary<int, ItemSpawner>();
         
-        private void Awake()
+        private void Start()
         {
             for (var i = 0; i < GameManager.Instance.items.Count; i++) GameManager.Instance.items[i].Id = i;
         }

@@ -10,6 +10,7 @@ namespace _Project.Scripts.ClientSide.Player
     {
         [SerializeField] private EntityHealth entityHealth;
         [SerializeField] private PlayerInventory playerInventory;
+        [SerializeField] private HandWeapon handWeapon;
 
         private int _id;
         private string _username;
