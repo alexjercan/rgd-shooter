@@ -62,5 +62,9 @@ namespace _Project.Scripts.ServerSide.Player
         }
 
         public List<int> GetWeapons() => playerInventory.GetWeapons();
+
+        public void SetHandWeaponIndex(int index) => playerInventory.SetHandWeaponIndex(index);
+
+        public int GetHandWeaponIndex() => playerInventory.GetHandWeaponIndex();
     }
 }

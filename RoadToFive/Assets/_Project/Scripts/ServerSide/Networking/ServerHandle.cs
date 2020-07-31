@@ -54,6 +54,8 @@ namespace _Project.Scripts.ServerSide.Networking
         private static void HandWeapon(int fromClient, Packet packet)
         {
             var weaponIndex = packet.ReadInt();
+
+            ServerManager.Instance.playerManagers[fromClient].SetHandWeaponIndex(weaponIndex);
             
             ServerSend.HandWeaponUpdate(fromClient, weaponIndex);
         }

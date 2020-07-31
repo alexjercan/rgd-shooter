@@ -7,6 +7,7 @@ namespace _Project.Scripts.ServerSide.Player
     public class PlayerInventory : MonoBehaviour
     {
         private readonly List<int> _weaponIds = new List<int>();
+        private int _handWeaponIndex = -1;
         
         public void AddWeapon(int weaponId)
         {
@@ -17,5 +18,9 @@ namespace _Project.Scripts.ServerSide.Player
         }
 
         public List<int> GetWeapons() => _weaponIds;
+
+        public void SetHandWeaponIndex(int index) => _handWeaponIndex = index;
+
+        public int GetHandWeaponIndex() => _handWeaponIndex;
     }
 }
