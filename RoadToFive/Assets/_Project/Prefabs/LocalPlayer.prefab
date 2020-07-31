@@ -120,9 +120,9 @@ GameObject:
   - component: {fileID: 7597345135886232786}
   - component: {fileID: 2688584778235798391}
   - component: {fileID: 5902633289394618297}
-  - component: {fileID: 1113186598399107242}
   - component: {fileID: 7438593552546581623}
   - component: {fileID: 8671388314101409237}
+  - component: {fileID: 1113186598399107242}
   - component: {fileID: 4444741897458480150}
   - component: {fileID: -8724016493874492950}
   - component: {fileID: 7629583960536292604}
@@ -272,21 +272,6 @@ MonoBehaviour:
   playerMovementInput: {fileID: 7438593552546581623}
   playerRotation: {fileID: 8671388314101409237}
   playerShootInput: {fileID: 4444741897458480150}
---- !u!114 &1113186598399107242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7597345135886232780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 503d5bf4d12b4004bc50717e217edd46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityHealth: {fileID: -8724016493874492950}
-  playerInventory: {fileID: 7629583960536292604}
-  handWeapon: {fileID: 1021433482912662801}
 --- !u!114 &7438593552546581623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,6 +300,21 @@ MonoBehaviour:
   mouseSensitivity: 2
   verticalRotationRange: 170
   cameraSmoothing: 1
+--- !u!114 &1113186598399107242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7597345135886232780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 503d5bf4d12b4004bc50717e217edd46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityHealth: {fileID: -8724016493874492950}
+  playerInventory: {fileID: 7629583960536292604}
+  handWeapon: {fileID: 1021433482912662801}
 --- !u!114 &4444741897458480150
 MonoBehaviour:
   m_ObjectHideFlags: 0

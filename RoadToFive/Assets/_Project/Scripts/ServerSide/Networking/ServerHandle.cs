@@ -47,7 +47,7 @@ namespace _Project.Scripts.ServerSide.Networking
         {
             var direction = packet.ReadVector3();
             var weaponId = packet.ReadInt();
-            
+
             ServerManager.Instance.playerManagers[fromClient].ShootInDirection(direction, weaponId);
         }
 

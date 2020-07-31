@@ -30,5 +30,7 @@ namespace _Project.Scripts.ClientSide.Player
 
             _mainWeaponId = weaponId;
         }
+
+        public int GetHandWeaponId() => _mainWeaponId;
     }
 }

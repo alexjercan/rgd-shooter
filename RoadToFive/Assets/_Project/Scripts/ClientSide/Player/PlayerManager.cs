@@ -48,5 +48,7 @@ namespace _Project.Scripts.ClientSide.Player
         public int GetWeaponCount() => playerInventory.GetWeaponCount();
         
         public void SetWeaponTo(int index) => handWeapon.SetWeaponTo(playerInventory.GetWeaponAtIndex(index));
+
+        public int GetHandWeaponId() => handWeapon.GetHandWeaponId();
     }
 }

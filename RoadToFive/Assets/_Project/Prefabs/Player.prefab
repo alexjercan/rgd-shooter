@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 3907515094001334495}
   - component: {fileID: 4594071153502104276}
   - component: {fileID: 9035483983454482071}
+  - component: {fileID: 5950560752564066219}
   - component: {fileID: 2593160648065503261}
   m_Layer: 0
   m_Name: Player
@@ -78,8 +79,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityHealth: {fileID: 9035483983454482071}
-  playerInventory: {fileID: 0}
-  handWeapon: {fileID: 0}
+  playerInventory: {fileID: 5950560752564066219}
+  handWeapon: {fileID: 2593160648065503261}
 --- !u!114 &9035483983454482071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,6 +94,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+--- !u!114 &5950560752564066219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3907515094001334465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a32da74f1094f2e93888839eb2c000e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2593160648065503261
 MonoBehaviour:
   m_ObjectHideFlags: 0

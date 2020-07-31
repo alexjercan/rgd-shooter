@@ -19,7 +19,6 @@ namespace _Project.Scripts.Mechanics
             Health = health;
             if (Health <= 0) Died?.Invoke(this, EventArgs.Empty);
             if (Health > maxHealth) Health = maxHealth;
-            Debug.Log(Health);
         }
         
         public void Damage(int damage)
