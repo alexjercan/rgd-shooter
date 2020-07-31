@@ -1,19 +1,28 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace _Project.Scripts.ServerSide.Item
 {
-    public class ItemSpawner : MonoBehaviour
+    public class ServerItemSpawner : MonoBehaviour
     {
         public int SpawnerId { get; private set; }
+        public bool HasItem { get; private set; }
+        public Vector3 Position => _transform.position;
+        
+        public static readonly Dictionary<int, ServerItemSpawner> ItemSpawners = new Dictionary<int, ServerItemSpawner>();
 
         [SerializeField] private float spawnerTimer;
-        
-        private static readonly Dictionary<int, ItemSpawner> ItemSpawners = new Dictionary<int, ItemSpawner>();
+
         private static int _nextSpawnerId = 1;
-        private bool _hasItem;
+        private Transform _transform;
+
+        private void Awake()
+        {
+            _transform = GetComponent<Transform>();
+        }
 
         private void Start()
         {
@@ -23,6 +32,7 @@ namespace _Project.Scripts.ServerSide.Item
 
         private void OnTriggerEnter(Collider other)
         {
+            if (!HasItem) return;
             if (!other.CompareTag("Player")) return;
             
             var playerManager = other.GetComponent<ServerPlayerManager>();
@@ -32,7 +42,7 @@ namespace _Project.Scripts.ServerSide.Item
         private void Initialize(int spawnerId)
         {
             SpawnerId = spawnerId;
-            _hasItem = false;
+            HasItem = false;
             
             StartCoroutine(SpawnItem());
         }
@@ -41,12 +51,12 @@ namespace _Project.Scripts.ServerSide.Item
         {
             yield return new WaitForSeconds(spawnerTimer);
 
-            _hasItem = true;
+            HasItem = true;
         }
 
         private void ItemPickedUp(int byPlayer)
         {
-            _hasItem = false;
+            HasItem = false;
 
             StartCoroutine(SpawnItem());
         }

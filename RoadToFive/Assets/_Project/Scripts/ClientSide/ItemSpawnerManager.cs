@@ -6,13 +6,13 @@ namespace _Project.Scripts.ClientSide
 {
     public class ItemSpawnerManager : MonoBehaviour
     {
-        private static readonly Dictionary<int, ItemSpawner> ItemSpawners = new Dictionary<int, ItemSpawner>();
+        private static readonly Dictionary<int, ClientItemSpawner> ItemSpawners = new Dictionary<int, ClientItemSpawner>();
 
-        [SerializeField] private ItemSpawner itemSpawnerPrefab;
+        [SerializeField] private ClientItemSpawner clientItemSpawnerPrefab;
 
         public void CreateItemSpawner(int spawnerId, Vector3 position, bool hasItem)
         {
-            var spawner = Instantiate(itemSpawnerPrefab, position, Quaternion.identity);
+            var spawner = Instantiate(clientItemSpawnerPrefab, position, Quaternion.identity);
             spawner.Initialize(spawnerId, hasItem);
 
             ItemSpawners.Add(spawnerId, spawner);

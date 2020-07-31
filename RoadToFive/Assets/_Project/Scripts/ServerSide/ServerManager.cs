@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using _Project.Scripts.ServerSide.Item;
 using _Project.Scripts.ServerSide.Networking;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace _Project.Scripts.ServerSide
 {
@@ -12,12 +12,9 @@ namespace _Project.Scripts.ServerSide
 
         public Dictionary<int, ServerPlayerManager> playerManagers = new Dictionary<int, ServerPlayerManager>();
 
-        [SerializeField] private string mainSceneName;
         [SerializeField] private Transform spawnLocation;
         [SerializeField] private GameObject playerPrefab;
-        
-        private AsyncOperation _asyncOperation;
-        
+
         private void Awake()
         {
             if (Instance == null)
@@ -29,15 +26,13 @@ namespace _Project.Scripts.ServerSide
                 Debug.Log("Instance already exists, destroying object!");
                 Destroy(this);
             }
-            
-            _asyncOperation = SceneManager.LoadSceneAsync(mainSceneName, LoadSceneMode.Additive);
-            _asyncOperation.completed += operation => Server.Start(20, 26950);
         }
 
         private void Start()
         {
             QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = 30;
+            Server.Start(20, 26950);
         }
 
         private void OnApplicationQuit()
@@ -57,6 +52,10 @@ namespace _Project.Scripts.ServerSide
 
             foreach(var manager in playerManagers.Values)
                 ServerSend.SpawnPlayer(manager.Id, playerManager);
+
+            foreach (var serverItemSpawner in ServerItemSpawner.ItemSpawners.Values)
+                ServerSend.CreateItemSpawner(clientId, serverItemSpawner.SpawnerId,
+                    serverItemSpawner.Position, serverItemSpawner.HasItem);
         }
 
         public void DeSpawn(int clientId)
