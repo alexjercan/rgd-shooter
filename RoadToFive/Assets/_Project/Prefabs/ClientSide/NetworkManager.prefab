@@ -89,9 +89,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed686780935746c0a8722d1547876c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemScriptableObjects:
-  - {fileID: 11400000, guid: e0d8a2d6186f5e047ab12e2621cf39c9, type: 2}
-  - {fileID: 11400000, guid: 47763db67215f454296656233d98a6ac, type: 2}
+  items:
+  - {fileID: 11400000, guid: a64cb3639c16f1f40853fa13c857845b, type: 2}
+  - {fileID: 11400000, guid: 440bdcddc6d806443b2d15664aa2482f, type: 2}
+  - {fileID: 11400000, guid: 097b197da24632c488695206d2903723, type: 2}
   itemSpawnerPrefab: {fileID: 8803993974579989372, guid: 010dbe9899b42ff44bc85a9cc304f52a,
     type: 3}
 --- !u!114 &925653704360119021
