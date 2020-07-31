@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f32b3fced71741f8ba3da44c14084329, type: 3}
   m_Name: HealthKit
   m_EditorClassIdentifier: 
-  id: 0
-  name: 
-  itemType: 0
-  prefab: {fileID: 0}
-  healAmount: 0
+  name: healthKit
+  prefab: {fileID: 4328825737415016143, guid: 0c905c7d4b632ab4881b5501c87c118e, type: 3}
+  healAmount: 100

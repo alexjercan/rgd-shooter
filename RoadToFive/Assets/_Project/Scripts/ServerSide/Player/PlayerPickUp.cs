@@ -10,13 +10,13 @@ namespace _Project.Scripts.ServerSide.Player
 
         private static readonly Dictionary<int, PickUpHandler> PickUpHandlers = new Dictionary<int, PickUpHandler>()
         {
-            {(int)ItemScriptableObject.ItemType.HealthKit, HealthKit},
-            {(int)ItemScriptableObject.ItemType.AmmoPack, AmmoPack},
-            {(int)ItemScriptableObject.ItemType.Weapon, Weapon},
+            {(int)ItemScriptableObject.Type.HealthKit, HealthKit},
+            {(int)ItemScriptableObject.Type.AmmoPack, AmmoPack},
+            {(int)ItemScriptableObject.Type.Weapon, Weapon},
         };
 
         public void PickUpItem(ServerPlayerManager playerManager, ItemScriptableObject itemData) => 
-            PickUpHandlers[(int)itemData.itemType](playerManager, itemData);
+            PickUpHandlers[(int)itemData.ItemType](playerManager, itemData);
 
         private static void HealthKit(ServerPlayerManager playerManager, ItemScriptableObject itemData) => 
             playerManager.HealPlayer(((HealthKitScriptableObject)itemData).healAmount);

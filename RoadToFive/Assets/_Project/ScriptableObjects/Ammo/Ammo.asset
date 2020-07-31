@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f858cc156a0440278178de75fea876b8, type: 3}
-  m_Name: Rifle
+  m_Script: {fileID: 11500000, guid: 4a8b3b9344654b3d887642a976128c38, type: 3}
+  m_Name: Ammo
   m_EditorClassIdentifier: 
-  name: rifle
-  prefab: {fileID: 4376327263824057857, guid: 3bc9db2e259c999459a0f571e28987ce, type: 3}
-  damage: 100
+  name: ammo
+  prefab: {fileID: 4328825737415016143, guid: 0c905c7d4b632ab4881b5501c87c118e, type: 3}
+  ammoAmount: 100

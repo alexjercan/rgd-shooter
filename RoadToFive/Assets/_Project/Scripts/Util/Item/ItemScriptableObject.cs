@@ -2,15 +2,15 @@
 
 namespace _Project.Scripts.Util.Item
 {
-    public class ItemScriptableObject : ScriptableObject
+    public abstract class ItemScriptableObject : ScriptableObject
     {
         public int Id { get; set; }
+        public abstract Type ItemType { get; }
         
         public new string name;
-        public ItemType itemType;
         public GameObject prefab;
 
-        public enum ItemType
+        public enum Type
         {
             HealthKit,
             AmmoPack,
