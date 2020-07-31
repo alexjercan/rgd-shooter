@@ -56,7 +56,7 @@ namespace _Project.Scripts.ClientSide.Networking
             var id = packet.ReadInt();
             var position = packet.ReadVector3();
 
-            GameManager.Instance.playerManagers[id].SetPosition(position);
+            GameManager.Instance.GetPlayerManager(id).SetPosition(position);
         }
 
         private static void PlayerRotation(Packet packet)
@@ -64,7 +64,7 @@ namespace _Project.Scripts.ClientSide.Networking
             var id = packet.ReadInt();
             var rotation = packet.ReadQuaternion();
 
-            GameManager.Instance.playerManagers[id].SetRotation(rotation);
+            GameManager.Instance.GetPlayerManager(id).SetRotation(rotation);
         }
 
         private static void PlayerDisconnected(Packet packet)
@@ -78,7 +78,7 @@ namespace _Project.Scripts.ClientSide.Networking
         {
             var id = packet.ReadInt();
             var health = packet.ReadInt();
-            GameManager.Instance.playerManagers[id].SetHealth(health);
+            GameManager.Instance.GetPlayerManager(id).SetHealth(health);
         }
 
         private static void CreateItemSpawner(Packet packet)
