@@ -26,7 +26,6 @@ public class enemy_ai : MonoBehaviour
     {
         nm = GetComponent<NavMeshAgent>();
         StartCoroutine(Think());
-        target = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     public void SetTargets(IEnumerable<Transform> targetTransforms) => targets.AddRange(targetTransforms);
@@ -37,8 +36,10 @@ public class enemy_ai : MonoBehaviour
     {
         while(true)
         {
+            yield return new WaitForSeconds(reactionTime);
+            
             if (!targets.Any()) continue;
-            target = targets.FirstOrDefault(); //TODO: AM FACUT CEVA CA SA MEARGA
+            target = targets.First(); //TODO: AM FACUT CEVA CA SA MEARGA + mutat yield la inceput
             
             switch (aiState)
             {
@@ -78,9 +79,6 @@ public class enemy_ai : MonoBehaviour
                 default:
                     break;
             }
-
-            
-            yield return new WaitForSeconds(reactionTime);
         }
     }
 
