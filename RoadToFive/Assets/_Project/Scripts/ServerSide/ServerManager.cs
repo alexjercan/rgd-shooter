@@ -15,7 +15,7 @@ namespace _Project.Scripts.ServerSide
         public Dictionary<int, ServerPlayerManager> playerManagers = new Dictionary<int, ServerPlayerManager>();
         public Dictionary<int, ItemSpawner> itemSpawners = new Dictionary<int, ItemSpawner>();
 
-        [SerializeField] public SpawnableItems spawnableItems;
+        public SpawnableItems spawnableItems;
         [SerializeField] private Transform spawnLocation;
         [SerializeField] private GameObject playerPrefab;
 
