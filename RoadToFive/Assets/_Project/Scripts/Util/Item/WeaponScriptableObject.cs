@@ -7,6 +7,5 @@ namespace _Project.Scripts.Util.Item
     {
         public override Type ItemType => Type.Weapon;
         public int damage;
-        public Sprite inventoryPic;
     }
 }

@@ -9,6 +9,7 @@ namespace _Project.Scripts.Util.Item
         
         public new string name;
         public GameObject prefab;
+        public Sprite inventoryPic;
 
         public enum Type
         {

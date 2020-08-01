@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2064582487964742763}
   - component: {fileID: 5823232324963837063}
   m_Layer: 0
-  m_Name: InventoryPic
+  m_Name: InventoryPic2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 5102993807304716752}
   - component: {fileID: 4714563331580953505}
   m_Layer: 0
-  m_Name: InventorySlot
+  m_Name: InventorySlot0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -513,7 +513,7 @@ GameObject:
   - component: {fileID: 3292500423220703895}
   - component: {fileID: 4342208805215646476}
   m_Layer: 0
-  m_Name: InventoryPic
+  m_Name: InventoryPic1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -587,7 +587,7 @@ GameObject:
   - component: {fileID: 5538654924881865844}
   - component: {fileID: 7827453479724801477}
   m_Layer: 0
-  m_Name: InventorySlot (3)
+  m_Name: InventorySlot3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -763,6 +763,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82951b3e8d20d9f469130041d92ed930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inventory: {fileID: 7629583960536292604}
+  _weaponInHand: {fileID: 4444741897458480150}
+  _inventoryPictures:
+  - {fileID: 3756975819859510355}
+  - {fileID: 4342208805215646476}
+  - {fileID: 5823232324963837063}
+  - {fileID: 4257674645899822636}
+  - {fileID: 2105991133932705609}
+  - {fileID: 2389930280822757920}
+  _inventoryCells:
+  - {fileID: 4714563331580953505}
+  - {fileID: 7323197405269361330}
+  - {fileID: 2363740780659336116}
+  - {fileID: 7827453479724801477}
+  - {fileID: 6055273438685231087}
+  - {fileID: 1881038865200466273}
+  _inactiveInventoryPic: {r: 1, g: 0.99215686, b: 1, a: 1}
+  _selectedInventoryPic: {r: 0.63529414, g: 0.98039216, b: 1, a: 0.72156864}
 --- !u!1 &3736629760848811187
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,7 +869,7 @@ GameObject:
   - component: {fileID: 5373843595060589933}
   - component: {fileID: 2363740780659336116}
   m_Layer: 0
-  m_Name: InventorySlot (2)
+  m_Name: InventorySlot2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1004,7 +1022,7 @@ GameObject:
   - component: {fileID: 8762011349436064656}
   - component: {fileID: 4257674645899822636}
   m_Layer: 0
-  m_Name: InventoryPic
+  m_Name: InventoryPic3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1154,7 +1172,7 @@ GameObject:
   - component: {fileID: 8945469199535732007}
   - component: {fileID: 6055273438685231087}
   m_Layer: 0
-  m_Name: InventorySlot (4)
+  m_Name: InventorySlot4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1229,7 +1247,7 @@ GameObject:
   - component: {fileID: 7969058921942370471}
   - component: {fileID: 2389930280822757920}
   m_Layer: 0
-  m_Name: InventoryPic
+  m_Name: InventoryPic5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1562,7 +1580,7 @@ GameObject:
   - component: {fileID: 6655378379262389849}
   - component: {fileID: 3756975819859510355}
   m_Layer: 0
-  m_Name: InventoryPic
+  m_Name: InventoryPic0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2098,7 +2116,7 @@ GameObject:
   - component: {fileID: 7029976465773991331}
   - component: {fileID: 2105991133932705609}
   m_Layer: 0
-  m_Name: InventoryPic
+  m_Name: InventoryPic4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2250,7 +2268,7 @@ GameObject:
   - component: {fileID: 1914098678159711806}
   - component: {fileID: 1881038865200466273}
   m_Layer: 0
-  m_Name: InventorySlot (5)
+  m_Name: InventorySlot5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2403,7 +2421,7 @@ GameObject:
   - component: {fileID: 3860916547089101605}
   - component: {fileID: 7323197405269361330}
   m_Layer: 0
-  m_Name: InventorySlot (1)
+  m_Name: InventorySlot1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
