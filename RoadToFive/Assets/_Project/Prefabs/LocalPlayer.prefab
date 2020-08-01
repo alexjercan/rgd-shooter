@@ -327,6 +327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 503d5bf4d12b4004bc50717e217edd46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transform: {fileID: 7597345135886232786}
   entityHealth: {fileID: -8724016493874492950}
   playerInventory: {fileID: 7629583960536292604}
   handWeapon: {fileID: 1021433482912662801}
