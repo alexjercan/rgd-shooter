@@ -172,8 +172,6 @@ namespace _Project.Scripts.ClientSide.Networking
             var enemyPosition = packet.ReadVector3(); 
             var enemyRotation = packet.ReadQuaternion();
 
-            Debug.Log(enemyId);
-            
             var enemyManager = GameManager.Instance.enemySpawnerManager.GetEnemy(enemyId);
 
             if (enemyManager == null) return;
