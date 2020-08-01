@@ -41,9 +41,6 @@ GameObject:
   - component: {fileID: 1270760260734888327}
   - component: {fileID: 1270760260738229935}
   - component: {fileID: 1270760260737228255}
-  - component: {fileID: 1270760260735274060}
-  - component: {fileID: 1367583040}
-  - component: {fileID: 4966095290022723126}
   m_Layer: 8
   m_Name: SciFiGunHeavyWhite
   m_TagString: LootItem
@@ -113,58 +110,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &1270760260735274060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1270760260735144167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94d7cbfb019f2fc4ea366ef2c91a6f4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ammoCount: 0
-  rateOfFire: 0
-  damage: 40
-  ammoType: 3
-  spawnPointPosition: {x: -0.00118, y: 0.00428, z: -0.00027}
-  spawnPointRotation: {x: -79.21201, y: 206.923, z: 154.73}
-  spawnPointScale: {x: 0.02, y: 0.02, z: 0.02}
-  localScale: {x: 1.5, y: 2, z: 2.1}
-  owner: {fileID: 0}
-  animatorController: {fileID: 9100000, guid: ce157f2aa19f0d746b85a22ae7cf3b76, type: 2}
---- !u!114 &1367583040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1270760260735144167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46ae02a53413e1549a5e3afb44ec950c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  owner: {fileID: 0}
-  count: 1
-  stackable: 0
-  isWeapon: 1
-  isAmmo: 0
-  ammoType: 3
-  isMedKit: 0
-  InventoryPic: {fileID: 21300000, guid: 92f2f817561a51249b7fb6c8c27a43a5, type: 3}
---- !u!65 &4966095290022723126
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1270760260735144167}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.35, z: 0.85}
-  m_Center: {x: 0, y: 0, z: 0.175}

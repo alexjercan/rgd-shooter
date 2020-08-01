@@ -39,9 +39,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5133564417555617296}
-  - component: {fileID: 6657597840654051421}
-  - component: {fileID: 5655825550537292403}
-  - component: {fileID: 123218841239151606}
   m_Layer: 8
   m_Name: Sci-Fi Pistol
   m_TagString: LootItem
@@ -65,61 +62,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6657597840654051421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5133564417555515952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94d7cbfb019f2fc4ea366ef2c91a6f4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ammoCount: 999
-  rateOfFire: 0
-  damage: 10
-  ammoType: 0
-  spawnPointPosition: {x: -0.00294, y: 0.00763, z: -0.0025}
-  spawnPointRotation: {x: -70, y: 260, z: 100}
-  spawnPointScale: {x: 0.01, y: 0.01, z: 0.01}
-  localScale: {x: 0.05, y: 0.05, z: 0.05}
-  owner: {fileID: 0}
-  animatorController: {fileID: 9100000, guid: 48eb6b31013c5ee4fa1db50713ed6c2b, type: 2}
---- !u!114 &5655825550537292403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5133564417555515952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46ae02a53413e1549a5e3afb44ec950c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  owner: {fileID: 0}
-  count: 1
-  stackable: 0
-  isWeapon: 1
-  isAmmo: 0
-  ammoType: 0
-  isMedKit: 0
-  InventoryPic: {fileID: 21300000, guid: 9dfea134bc67bd246be352003b66bdff, type: 3}
---- !u!65 &123218841239151606
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5133564417555515952}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 5, y: 15, z: 23}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5133564417555515954
 GameObject:
   m_ObjectHideFlags: 0
