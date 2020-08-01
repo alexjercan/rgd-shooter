@@ -12,12 +12,11 @@ namespace _Project.Scripts.ServerSide.Player
         public int Id { get; private set; }
         public string Username { get; private set; }
 
-        [SerializeField] public PlayerMovement playerMovement;
-        [SerializeField] public PlayerWeapon playerWeapon;
-        [SerializeField] public EntityHealth entityHealth;
-        [SerializeField] public PlayerPickUp playerPickUp;
-        [SerializeField] public PlayerInventory playerInventory;
-        
+        public PlayerMovement playerMovement;
+        public PlayerWeapon playerWeapon;
+        public EntityHealth entityHealth;
+        public PlayerPickUp playerPickUp;
+        public PlayerInventory playerInventory;
 
         private void Awake()
         {

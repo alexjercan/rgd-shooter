@@ -8,7 +8,8 @@ namespace _Project.Scripts.ServerSide.Player
     /// </summary>
     public class PlayerMovement : MonoBehaviour //DONE DO NOT MODIFY
     {
-        [SerializeField] public new Transform transform;
+        public new Transform transform;
+        
         [SerializeField] private CharacterController characterController;
         [SerializeField] private float movementSpeed = 6.0f;
         [SerializeField] private float jumpHeight = 1.0f;
