@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3907179480845374186}
   - component: {fileID: 3513760163012975200}
   - component: {fileID: 925653704360119021}
+  - component: {fileID: 1062586493248694865}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -62,6 +63,7 @@ MonoBehaviour:
   itemSpawnerManager: {fileID: 3513760163012975200}
   playerSpawnerManager: {fileID: 3907179480845374186}
   spawnableItems: {fileID: 0}
+  enemySpawnerManager: {fileID: 0}
 --- !u!114 &3907179480845374186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,3 +109,16 @@ MonoBehaviour:
   startMenu: {fileID: 0}
   connectMenu: {fileID: 0}
   ipField: {fileID: 0}
+--- !u!114 &1062586493248694865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3170699895991411808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d294e6a340254d538c54a31c8142227a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 0}

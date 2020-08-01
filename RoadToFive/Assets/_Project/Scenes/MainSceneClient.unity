@@ -433,6 +433,12 @@ PrefabInstance:
       propertyPath: ipField
       value: 
       objectReference: {fileID: 156532947}
+    - target: {fileID: 1062586493248694865, guid: 27e22281ddb615840a08269d4043a873,
+        type: 3}
+      propertyPath: enemyPrefab
+      value: 
+      objectReference: {fileID: 6980399287354948052, guid: 6582d2445ee8fad4495538f998052647,
+        type: 3}
     - target: {fileID: 3170699895991411808, guid: 27e22281ddb615840a08269d4043a873,
         type: 3}
       propertyPath: m_Name
@@ -498,8 +504,25 @@ PrefabInstance:
       propertyPath: spawnableItems
       value: 
       objectReference: {fileID: 1601432585}
+    - target: {fileID: 3170699895991411811, guid: 27e22281ddb615840a08269d4043a873,
+        type: 3}
+      propertyPath: enemySpawnerManager
+      value: 
+      objectReference: {fileID: 1505698244}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27e22281ddb615840a08269d4043a873, type: 3}
+--- !u!114 &1505698244 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1062586493248694865, guid: 27e22281ddb615840a08269d4043a873,
+    type: 3}
+  m_PrefabInstance: {fileID: 1394997847}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d294e6a340254d538c54a31c8142227a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1601432584
 PrefabInstance:
   m_ObjectHideFlags: 0

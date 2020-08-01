@@ -20,7 +20,8 @@ namespace _Project.Scripts.Util.DataStructure
         WeaponPickedUp,
         HandWeaponUpdate,
         InitializeInventory,
-        SpawnEnemy
+        SpawnEnemy,
+        EnemyHealth
     }
 
     public enum ClientPackets

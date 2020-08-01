@@ -31,7 +31,7 @@ namespace _Project.Scripts.ClientSide.Networking
                 {(int)ServerPackets.HandWeaponUpdate, HandWeaponUpdate},
                 {(int)ServerPackets.InitializeInventory, InitializeInventory},
                 {(int)ServerPackets.SpawnEnemy, SpawnEnemy},
-                
+                {(int)ServerPackets.EnemyHealth, EnemyHealth},
             };
         }
 
@@ -154,7 +154,15 @@ namespace _Project.Scripts.ClientSide.Networking
             var enemyPosition = packet.ReadVector3(); 
             var enemyRotation = packet.ReadQuaternion();
             
-            GameManager.Instance. enemySpawnerManager.SpawnEnemy(enemyId, enemyPosition, enemyRotation);
+            GameManager.Instance.enemySpawnerManager.SpawnEnemy(enemyId, enemyPosition, enemyRotation);
+        }
+
+        public static void EnemyHealth(Packet packet)
+        {
+            var enemyId = packet.ReadInt();
+            var health = packet.ReadInt();
+            
+            GameManager.Instance.enemySpawnerManager.GetEnemy(enemyId).entityHealth.SetHealth(health);
         }
     }
 }

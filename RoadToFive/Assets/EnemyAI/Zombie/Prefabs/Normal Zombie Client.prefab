@@ -9,11 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1546498272559694780}
-  - component: {fileID: 1546498272559694781}
-  - component: {fileID: 1546498272559694770}
-  - component: {fileID: 5166958905414776516}
+  - component: {fileID: 6980399287354948052}
+  - component: {fileID: 72904791074293329}
   m_Layer: 0
-  m_Name: Normal Zombie
+  m_Name: Normal Zombie Client
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,29 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!195 &1546498272559694781
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1546498272559694771}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.2
-  m_Speed: 2
-  m_Acceleration: 10000
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 1.6
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!114 &1546498272559694770
+--- !u!114 &6980399287354948052
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,17 +42,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1546498272559694771}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15bd0ec1dce17814cb6fade7e47d378b, type: 3}
+  m_Script: {fileID: 11500000, guid: e0e16a6201be4a78bbb2c7def63a66af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  targets: []
-  aiState: 0
-  DistanceThreshold: 10
-  reactionTime: 0.1
-  animator: {fileID: 4505557802555960364}
-  attackThreshold: 1.5
---- !u!114 &5166958905414776516
+  entityHealth: {fileID: 72904791074293329}
+--- !u!114 &72904791074293329
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -84,10 +55,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1546498272559694771}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79b58cdcb19540cdad9f5d849d2389b1, type: 3}
+  m_Script: {fileID: 11500000, guid: 67e6b542fe103ca4c951b6bb460a1c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyAi: {fileID: 1546498272559694770}
+  maxHealth: 100
 --- !u!1001 &1546498272193636940
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -165,12 +136,6 @@ PrefabInstance:
 --- !u!4 &5768257019530363222 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 8f7380da49034cd488ddff94b1ac35d1,
-    type: 3}
-  m_PrefabInstance: {fileID: 1546498272193636940}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &4505557802555960364 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: -6057140222963153312, guid: 8f7380da49034cd488ddff94b1ac35d1,
     type: 3}
   m_PrefabInstance: {fileID: 1546498272193636940}
   m_PrefabAsset: {fileID: 0}

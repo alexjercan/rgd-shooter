@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using _Project.Scripts.Mechanics;
+using _Project.Scripts.ServerSide.Networking;
 using UnityEngine;
 
 namespace _Project.Scripts.ServerSide.Enemy
@@ -8,7 +10,8 @@ namespace _Project.Scripts.ServerSide.Enemy
         public bool IsAlive { get; private set; }
         public int EnemyId { get; private set; }
         public enemy_ai enemyAi;
-
+        public EntityHealth entityHealth;
+        
         private static int _enemyId;
         
         private void Start()
@@ -20,6 +23,14 @@ namespace _Project.Scripts.ServerSide.Enemy
 
             var transforms = ServerManager.Instance.playerManagers.Values.Select(manager => manager.transform);
             enemyAi.SetTargets(transforms);
+
+            entityHealth.HealthChanged += (sender, health) => ServerSend.EnemyHealth(_enemyId, health);
+            
+            entityHealth.Died += (sender, args) =>
+            {
+                IsAlive = false;
+                gameObject.SetActive(false);
+            };
         }
     }
 }

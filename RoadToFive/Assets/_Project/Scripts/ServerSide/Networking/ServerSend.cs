@@ -174,5 +174,13 @@ namespace _Project.Scripts.ServerSide.Networking
                     .Write(enemyManager.transform.rotation));
             }
         }
+
+        public static void EnemyHealth(int enemyId, EntityHealth entityHealth)
+        {
+            using (var packet = new Packet((int) ServerPackets.EnemyHealth))
+            {
+                SendTcpDataToAll(packet.Write(enemyId).Write(entityHealth.Health));
+            }
+        }
     }
 }
