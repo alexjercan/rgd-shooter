@@ -15,7 +15,6 @@ namespace _Project.Scripts.ServerSide.Player
             if (!Physics.Raycast(shootOrigin.position, direction, out var hit, maxBulletTravel, layerMask)) return;
 
             var items = ServerManager.Instance.spawnableItems.GetSpawnableItems();
-            Debug.Log(weaponId);
             var weapon = (WeaponScriptableObject) items[weaponId];
             var entityHealth = hit.collider.GetComponent<EntityHealth>();
             if (entityHealth != null) entityHealth.Damage(weapon.damage);
