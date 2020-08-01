@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5166958905414776516}
   - component: {fileID: 72904791074293329}
   m_Layer: 0
-  m_Name: Normal Zombie
+  m_Name: Normal Zombie Server
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,6 +89,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAi: {fileID: 1546498272559694770}
+  entityHealth: {fileID: 72904791074293329}
 --- !u!114 &72904791074293329
 MonoBehaviour:
   m_ObjectHideFlags: 0

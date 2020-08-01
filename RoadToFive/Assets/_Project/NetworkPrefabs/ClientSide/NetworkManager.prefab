@@ -63,7 +63,7 @@ MonoBehaviour:
   itemSpawnerManager: {fileID: 3513760163012975200}
   playerSpawnerManager: {fileID: 3907179480845374186}
   spawnableItems: {fileID: 0}
-  enemySpawnerManager: {fileID: 0}
+  enemySpawnerManager: {fileID: 1062586493248694865}
 --- !u!114 &3907179480845374186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,4 +121,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d294e6a340254d538c54a31c8142227a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 0}
+  enemyPrefab: {fileID: 6980399287354948052, guid: 6582d2445ee8fad4495538f998052647,
+    type: 3}
