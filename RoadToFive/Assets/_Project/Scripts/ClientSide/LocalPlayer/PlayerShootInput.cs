@@ -37,7 +37,6 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
         {
             if (weaponListSize <= 0) return -1;
             _weaponIndex = (_weaponIndex + weaponListSize) % weaponListSize;
-            Debug.Log(_weaponIndex);
             return _weaponIndex;
         }
     }
