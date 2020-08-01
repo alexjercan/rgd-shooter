@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using _Project.Scripts.Mechanics;
 using _Project.Scripts.ServerSide.Networking;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace _Project.Scripts.ServerSide.Enemy
         public int EnemyId { get; private set; }
         public enemy_ai enemyAi;
         public EntityHealth entityHealth;
+        public new Transform transform;
         
         private static int _enemyId;
         
@@ -31,6 +33,11 @@ namespace _Project.Scripts.ServerSide.Enemy
                 IsAlive = false;
                 gameObject.SetActive(false);
             };
+        }
+
+        private void FixedUpdate()
+        {
+            ServerSend.EnemyPositionAndRotation(EnemyId, transform.position, transform.rotation);
         }
     }
 }

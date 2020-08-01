@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityHealth: {fileID: 72904791074293329}
+  transform: {fileID: 1546498272559694780}
 --- !u!114 &72904791074293329
 MonoBehaviour:
   m_ObjectHideFlags: 0

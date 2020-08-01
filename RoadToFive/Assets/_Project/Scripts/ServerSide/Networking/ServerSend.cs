@@ -182,5 +182,13 @@ namespace _Project.Scripts.ServerSide.Networking
                 SendTcpDataToAll(packet.Write(enemyId).Write(entityHealth.Health));
             }
         }
+
+        public static void EnemyPositionAndRotation(int enemyId, Vector3 transformPosition, Quaternion transformRotation)
+        {
+            using (var packet = new Packet((int) ServerPackets.EnemyPositionAndRotation))
+            {
+                SendTcpDataToAll(packet.Write(enemyId).Write(transformPosition).Write(transformRotation));
+            }
+        }
     }
 }

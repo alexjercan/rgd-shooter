@@ -32,9 +32,10 @@ namespace _Project.Scripts.ClientSide.Networking
                 {(int)ServerPackets.InitializeInventory, InitializeInventory},
                 {(int)ServerPackets.SpawnEnemy, SpawnEnemy},
                 {(int)ServerPackets.EnemyHealth, EnemyHealth},
+                {(int)ServerPackets.EnemyPositionAndRotation, EnemyPositionAndRotation},
             };
         }
-
+        
         private static void Welcome(Packet packet)
         {
             var message = packet.ReadString();
@@ -164,5 +165,16 @@ namespace _Project.Scripts.ClientSide.Networking
             
             GameManager.Instance.enemySpawnerManager.GetEnemy(enemyId).entityHealth.SetHealth(health);
         }
+        
+        private static void EnemyPositionAndRotation(Packet packet)
+        {
+            var enemyId = packet.ReadInt();
+            var enemyPosition = packet.ReadVector3(); 
+            var enemyRotation = packet.ReadQuaternion();
+
+            GameManager.Instance.enemySpawnerManager.GetEnemy(enemyId).transform.position = enemyPosition;
+            GameManager.Instance.enemySpawnerManager.GetEnemy(enemyId).transform.rotation = enemyRotation;
+        }
+
     }
 }
