@@ -22,7 +22,8 @@ namespace _Project.Scripts.Util.DataStructure
         InitializeInventory,
         SpawnEnemy,
         EnemyHealth,
-        EnemyPositionAndRotation
+        EnemyPositionAndRotation,
+        SendEnemyState
     }
 
     public enum ClientPackets

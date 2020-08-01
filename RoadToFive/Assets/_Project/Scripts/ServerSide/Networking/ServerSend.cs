@@ -191,5 +191,13 @@ namespace _Project.Scripts.ServerSide.Networking
                 SendUdpDataToAll(packet.Write(enemyId).Write(transformPosition).Write(transformRotation));
             }
         }
+
+        public static void SendEnemyState(int enemyId, int aiState)
+        {
+            using (var packet = new Packet((int) ServerPackets.SendEnemyState))
+            {
+                SendUdpDataToAll(packet.Write(enemyId).Write(aiState));
+            }
+        }
     }
 }

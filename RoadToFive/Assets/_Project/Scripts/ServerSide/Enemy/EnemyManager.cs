@@ -26,6 +26,8 @@ namespace _Project.Scripts.ServerSide.Enemy
             EnemyId = _nextEnemyId;
             _nextEnemyId++;
 
+            enemyAi.enemyId = EnemyId;
+
             var transforms = ServerManager.Instance.playerManagers.Values.Select(manager => manager.transform);
             enemyAi.SetTargets(transforms);
 

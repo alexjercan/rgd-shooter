@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1103755685471041474}
   - component: {fileID: -4096316620965790259}
   - component: {fileID: 3507415239024837645}
+  - component: {fileID: 2963273507326207498}
   m_Layer: 0
   m_Name: Small Zombie Client
   m_TagString: Untagged
@@ -47,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityHealth: {fileID: 3507415239024837645}
   transform: {fileID: 1103755685471041474}
+  enemyAnimatorManager: {fileID: 2963273507326207498}
 --- !u!114 &3507415239024837645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,6 +62,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+--- !u!114 &2963273507326207498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103755685471041473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 430f0d8a85bf43ae8d59c199e547f0b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2639642634212481467}
 --- !u!1001 &1103755685310177243
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -147,6 +162,12 @@ PrefabInstance:
 --- !u!4 &5344619628295533761 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 8f7380da49034cd488ddff94b1ac35d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1103755685310177243}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2639642634212481467 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: -6057140222963153312, guid: 8f7380da49034cd488ddff94b1ac35d1,
     type: 3}
   m_PrefabInstance: {fileID: 1103755685310177243}
   m_PrefabAsset: {fileID: 0}

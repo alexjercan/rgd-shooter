@@ -70,12 +70,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15bd0ec1dce17814cb6fade7e47d378b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyId: 0
   target: {fileID: 0}
   targets: []
   aiState: 0
   DistanceThreshold: 10
   reactionTime: 0.1
-  animator: {fileID: 4505557802555960364}
   attackThreshold: 1.5
 --- !u!114 &5166958905414776516
 MonoBehaviour:
@@ -211,19 +211,13 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 8f7380da49034cd488ddff94b1ac35d1,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f7380da49034cd488ddff94b1ac35d1, type: 3}
 --- !u!4 &5768257019530363222 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 8f7380da49034cd488ddff94b1ac35d1,
-    type: 3}
-  m_PrefabInstance: {fileID: 1546498272193636940}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &4505557802555960364 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: -6057140222963153312, guid: 8f7380da49034cd488ddff94b1ac35d1,
     type: 3}
   m_PrefabInstance: {fileID: 1546498272193636940}
   m_PrefabAsset: {fileID: 0}

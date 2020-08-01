@@ -33,6 +33,7 @@ namespace _Project.Scripts.ClientSide.Networking
                 {(int)ServerPackets.SpawnEnemy, SpawnEnemy},
                 {(int)ServerPackets.EnemyHealth, EnemyHealth},
                 {(int)ServerPackets.EnemyPositionAndRotation, EnemyPositionAndRotation},
+                {(int)ServerPackets.SendEnemyState, SendEnemyState},
             };
         }
         
@@ -181,5 +182,16 @@ namespace _Project.Scripts.ClientSide.Networking
             enemyManager.transform.rotation = enemyRotation;
         }
 
+        private static void SendEnemyState(Packet packet)
+        {
+            var enemyId = packet.ReadInt();
+            var aiState = (enemy_ai.AIState) packet.ReadInt();
+            
+            var enemyManager = GameManager.Instance.enemySpawnerManager.GetEnemy(enemyId);
+
+            if (enemyManager == null) return;
+
+            enemyManager.enemyAnimatorManager.SetAIState(aiState);
+        }
     }
 }

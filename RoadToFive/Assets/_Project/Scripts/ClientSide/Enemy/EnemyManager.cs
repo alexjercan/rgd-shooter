@@ -7,5 +7,6 @@ namespace _Project.Scripts.ClientSide.Enemy
     {
         public EntityHealth entityHealth;
         public new Transform transform;
+        public EnemyAnimatorManager enemyAnimatorManager;
     }
 }

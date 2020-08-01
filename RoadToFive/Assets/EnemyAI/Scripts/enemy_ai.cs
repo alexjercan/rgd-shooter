@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using _Project.Scripts.ServerSide.Networking;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class enemy_ai : MonoBehaviour
 {
     NavMeshAgent nm;
+    public int enemyId;
     public Transform target;
     public List<Transform> targets = new List<Transform>();
 
@@ -17,8 +19,7 @@ public class enemy_ai : MonoBehaviour
     public float DistanceThreshold = 10f ;
     
     public float reactionTime = 0.2f;
-
-    public Animator animator;
+    
     public float attackThreshold = 1.5f;
 
     // Start is called before the first frame update
@@ -50,7 +51,7 @@ public class enemy_ai : MonoBehaviour
                     if (dist < DistanceThreshold)
                     {
                         aiState = AIState.chasing;
-                        animator.SetBool("Chase", true);
+                        ServerSend.SendEnemyState(enemyId, (int) aiState);
                     }
                     nm.SetDestination(transform.position);
                     break;
@@ -59,13 +60,13 @@ public class enemy_ai : MonoBehaviour
                     if (dist > DistanceThreshold)
                     {
                         aiState = AIState.idle;
-                        animator.SetBool("Chase", false);
+                        ServerSend.SendEnemyState(enemyId, (int) aiState);
                     }
                     nm.SetDestination(target.position);
                     if(dist < attackThreshold)
                     {
                         aiState = AIState.attack;
-                        animator.SetBool("Attack", true);
+                        ServerSend.SendEnemyState(enemyId, (int) aiState);
                     }
                     break;
                 case AIState.attack:
@@ -74,7 +75,7 @@ public class enemy_ai : MonoBehaviour
                     if(dist> attackThreshold)
                     {
                         aiState = AIState.chasing;
-                        animator.SetBool("Attack", false);
+                        ServerSend.SendEnemyState(enemyId, (int) aiState);
                     }
 
                     break;
