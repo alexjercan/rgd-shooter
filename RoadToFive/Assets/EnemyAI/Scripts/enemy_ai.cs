@@ -7,6 +7,7 @@ public class enemy_ai : MonoBehaviour
 {
     NavMeshAgent nm;
     public Transform target;
+    public List<Transform> targets = new List<Transform>();
 
     public enum AIState {idle, chasing, attack};
 
@@ -27,11 +28,9 @@ public class enemy_ai : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public void SetTargets(IEnumerable<Transform> targetTransforms) => targets.AddRange(targetTransforms);
+
+    public void AddTarget(Transform targetTransform) => targets.Add(targetTransform);
 
     IEnumerator Think() //used for optimization
     {

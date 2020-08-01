@@ -46,5 +46,10 @@ namespace _Project.Scripts.ClientSide
         public void DeleteItem(int spawnerId) => itemSpawnerManager.DeleteItem(spawnerId);
         
         public List<ItemScriptableObject> GetSpawnableItems() => spawnableItems.GetSpawnableItems();
+
+        public void SpawnEnemy(int enemyId, Vector3 enemyPosition, Quaternion enemyRotation)
+        {
+            Debug.Log($"Spawning enemy {enemyId}");
+        }
     }
 }

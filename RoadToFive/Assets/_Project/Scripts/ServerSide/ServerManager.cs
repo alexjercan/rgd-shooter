@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using _Project.Scripts.ServerSide.Enemy;
 using _Project.Scripts.ServerSide.Item;
 using _Project.Scripts.ServerSide.Networking;
 using _Project.Scripts.ServerSide.Player;
@@ -14,7 +15,8 @@ namespace _Project.Scripts.ServerSide
 
         public Dictionary<int, ServerPlayerManager> playerManagers = new Dictionary<int, ServerPlayerManager>();
         public Dictionary<int, ItemSpawner> itemSpawners = new Dictionary<int, ItemSpawner>();
-
+        public Dictionary<int, EnemyManager> enemyManagers = new Dictionary<int, EnemyManager>();
+        
         public SpawnableItems spawnableItems;
         [SerializeField] private Transform spawnLocation;
         [SerializeField] private GameObject playerPrefab;
@@ -51,21 +53,34 @@ namespace _Project.Scripts.ServerSide
             playerManager.Initialize(clientId, username);
             playerManagers.Add(clientId, playerManager);
 
+            //======================INITIALIZING PLAYERS ON ALL CLIENTS==========================
+            
             foreach (var manager in playerManagers.Values.Where(manager => manager.Id != clientId))
                 ServerSend.SpawnPlayer(clientId, manager);
 
             foreach(var manager in playerManagers.Values)
                 ServerSend.SpawnPlayer(manager.Id, playerManager);
 
+            //======================INITIALIZING SPAWNERS ON ALL CLIENTS====================
+            
             foreach (var serverItemSpawner in itemSpawners.Values)
                 ServerSend.CreateItemSpawner(clientId, serverItemSpawner.SpawnerId,
                     serverItemSpawner.Position, serverItemSpawner.HasItem, serverItemSpawner.itemScriptableObject.Id);
 
+            //======================INITIALIZING INEVNTORY ON ALL CLIENTS====================
+            
             foreach (var serverPlayerManager in playerManagers.Values.Where(manager => manager.Id != clientId))
                 ServerSend.InitializeInventory(clientId, serverPlayerManager.Id, serverPlayerManager.playerInventory.GetWeapons());
 
             foreach (var manager in playerManagers.Values.Where(manager => manager.Id != clientId))
                 ServerSend.HandWeaponUpdate(manager.Id, manager.playerInventory.GetHandWeaponIndex());
+
+            //======================INITIALIZING ENEMIES ON ALL CLIENTS====================
+            
+            foreach (var enemyManager in enemyManagers.Values.Where(manager => manager.isAlive)) 
+                ServerSend.SpawnEnemy(clientId, enemyManager);
+
+            foreach (var enemyManager in enemyManagers.Values) enemyManager.enemyAi.AddTarget(playerManager.transform);
         }
 
         public void DeSpawn(int clientId)

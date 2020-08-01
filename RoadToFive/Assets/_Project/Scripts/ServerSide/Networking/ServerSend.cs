@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using _Project.Scripts.Mechanics;
+using _Project.Scripts.ServerSide.Enemy;
 using _Project.Scripts.ServerSide.Player;
 using _Project.Scripts.Util.DataStructure;
 using UnityEngine;
@@ -160,6 +161,17 @@ namespace _Project.Scripts.ServerSide.Networking
                 foreach (var weapon in weapons) packet.Write(weapon);
 
                 SendTcpData(toClient, packet);
+            }
+        }
+
+        public static void SpawnEnemy(int clientId, EnemyManager enemyManager)
+        {
+            using (var packet = new Packet((int) ServerPackets.SpawnEnemy))
+            {
+                SendTcpData(clientId, packet
+                    .Write(enemyManager.enemyId)
+                    .Write(enemyManager.transform.position)
+                    .Write(enemyManager.transform.rotation));
             }
         }
     }

@@ -30,6 +30,8 @@ namespace _Project.Scripts.ClientSide.Networking
                 {(int)ServerPackets.WeaponPickedUp, WeaponPickedUp},
                 {(int)ServerPackets.HandWeaponUpdate, HandWeaponUpdate},
                 {(int)ServerPackets.InitializeInventory, InitializeInventory},
+                {(int)ServerPackets.SpawnEnemy, SpawnEnemy},
+                
             };
         }
 
@@ -144,6 +146,15 @@ namespace _Project.Scripts.ClientSide.Networking
             var weaponCount = packet.ReadInt();
             var playerManager = GameManager.Instance.GetPlayerManager(clientId);
             for (var i = 0; i < weaponCount; i++) playerManager.playerInventory.AddWeapon(packet.ReadInt());
+        }
+        
+        private static void SpawnEnemy(Packet packet)
+        {
+            var enemyId = packet.ReadInt();
+            var enemyPosition = packet.ReadVector3(); 
+            var enemyRotation = packet.ReadQuaternion();
+            
+            GameManager.Instance.SpawnEnemy(enemyId, enemyPosition, enemyRotation);
         }
     }
 }
