@@ -77,7 +77,7 @@ namespace _Project.Scripts.ServerSide
 
             //======================INITIALIZING ENEMIES ON ALL CLIENTS====================
             
-            foreach (var enemyManager in enemyManagers.Values.Where(manager => manager.isAlive)) 
+            foreach (var enemyManager in enemyManagers.Values.Where(manager => manager.IsAlive)) 
                 ServerSend.SpawnEnemy(clientId, enemyManager);
 
             foreach (var enemyManager in enemyManagers.Values) enemyManager.enemyAi.AddTarget(playerManager.transform);

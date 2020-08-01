@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1103755685471041474}
   - component: {fileID: 1103755685471041475}
   - component: {fileID: 1103755685471041472}
+  - component: {fileID: 2330587571130015795}
   m_Layer: 0
   m_Name: Small Zombie
   m_TagString: Untagged
@@ -68,11 +69,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  targets: []
   aiState: 0
   DistanceThreshold: 15
   reactionTime: 0.01
   animator: {fileID: 2639642634212481467}
   attackThreshold: 1.5
+--- !u!114 &2330587571130015795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103755685471041473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79b58cdcb19540cdad9f5d849d2389b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAlive: 0
+  enemyAi: {fileID: 1103755685471041472}
 --- !u!1001 &1103755685310177243
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -169,7 +169,7 @@ namespace _Project.Scripts.ServerSide.Networking
             using (var packet = new Packet((int) ServerPackets.SpawnEnemy))
             {
                 SendTcpData(clientId, packet
-                    .Write(enemyManager.enemyId)
+                    .Write(enemyManager.EnemyId)
                     .Write(enemyManager.transform.position)
                     .Write(enemyManager.transform.rotation));
             }

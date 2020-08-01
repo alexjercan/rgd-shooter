@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -36,6 +37,9 @@ public class enemy_ai : MonoBehaviour
     {
         while(true)
         {
+            if (!targets.Any()) continue;
+            target = targets.FirstOrDefault(); //TODO: AM FACUT CEVA CA SA MEARGA
+            
             switch (aiState)
             {
                 case AIState.idle:

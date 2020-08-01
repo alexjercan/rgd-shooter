@@ -5,17 +5,17 @@ namespace _Project.Scripts.ServerSide.Enemy
 {
     public class EnemyManager : MonoBehaviour
     {
-        public bool isAlive;
-        public int enemyId;
+        public bool IsAlive { get; private set; }
+        public int EnemyId { get; private set; }
         public enemy_ai enemyAi;
 
         private static int _enemyId;
         
         private void Start()
         {
-            isAlive = true;
+            IsAlive = true;
             ServerManager.Instance.enemyManagers.Add(_enemyId, this);
-            enemyId = _enemyId;
+            EnemyId = _enemyId;
             _enemyId++;
 
             var transforms = ServerManager.Instance.playerManagers.Values.Select(manager => manager.transform);

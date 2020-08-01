@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8197991562420004178}
   - component: {fileID: 8197991562420004179}
   - component: {fileID: 8197991562420004176}
+  - component: {fileID: 6155373904558089260}
   m_Layer: 0
   m_Name: Fat Zombie
   m_TagString: Untagged
@@ -68,11 +69,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  targets: []
   aiState: 0
   DistanceThreshold: 10
   reactionTime: 0.2
   animator: {fileID: 6500289563986012156}
   attackThreshold: 3
+--- !u!114 &6155373904558089260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8197991562420004177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79b58cdcb19540cdad9f5d849d2389b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAlive: 0
+  enemyId: 0
+  enemyAi: {fileID: 8197991562420004176}
 --- !u!1001 &8197991562611630492
 PrefabInstance:
   m_ObjectHideFlags: 0
