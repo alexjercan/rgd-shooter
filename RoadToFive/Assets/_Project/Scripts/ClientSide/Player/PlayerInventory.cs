@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.ClientSide.Player
 {
-    public class PlayerInventory : MonoBehaviour
+    public class PlayerInventory : MonoBehaviour //DONE DO NOT MODIFY
     {
         private readonly List<ItemScriptableObject> _weaponList = new List<ItemScriptableObject>();
         private int _ammo;

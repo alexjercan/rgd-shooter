@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.ClientSide.Player
 {
-    public class HandWeapon : MonoBehaviour
+    public class HandWeapon : MonoBehaviour //DONE DO NOT MODIFY
     {
         [SerializeField] private Transform handTransform;
         

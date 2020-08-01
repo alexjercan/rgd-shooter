@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using _Project.Scripts.Mechanics;
+﻿using _Project.Scripts.Mechanics;
 using _Project.Scripts.ServerSide.Networking;
-using _Project.Scripts.Util.Item;
 using UnityEngine;
 
 namespace _Project.Scripts.ServerSide.Player
@@ -14,11 +12,11 @@ namespace _Project.Scripts.ServerSide.Player
         public int Id { get; private set; }
         public string Username { get; private set; }
 
-        [SerializeField] private PlayerMovement playerMovement;
-        [SerializeField] private PlayerWeapon playerWeapon;
-        [SerializeField] private EntityHealth entityHealth;
-        [SerializeField] private PlayerPickUp playerPickUp;
-        [SerializeField] private PlayerInventory playerInventory;
+        [SerializeField] public PlayerMovement playerMovement;
+        [SerializeField] public PlayerWeapon playerWeapon;
+        [SerializeField] public EntityHealth entityHealth;
+        [SerializeField] public PlayerPickUp playerPickUp;
+        [SerializeField] public PlayerInventory playerInventory;
         
 
         private void Awake()
@@ -40,31 +38,5 @@ namespace _Project.Scripts.ServerSide.Player
             Id = id;
             Username = username;
         }
-
-        public void SetMovementInput(Vector3 movementInput, Quaternion rotation) => playerMovement.SetInput(movementInput, rotation);
-
-        public void ShootInDirection(Vector3 direction, int weaponId) => playerWeapon.OnShoot(direction, weaponId);
-        
-        public Vector3 GetPlayerPosition() => playerMovement.PlayerTransform.position;
-
-        public Quaternion GetPlayerRotation() => playerMovement.PlayerTransform.rotation;
-        
-        public void PickUpItem(ItemScriptableObject itemData) => playerPickUp.PickUpItem(this, itemData);
-        
-        public void HealPlayer(int amount) => entityHealth.Heal(amount);
-
-        public void AddAmmo(int amount) => ServerSend.AmmoPickedUp(Id, amount);
-
-        public void Weapon(int weaponId)
-        {
-            playerInventory.AddWeapon(weaponId);
-            ServerSend.WeaponPickedUp(Id, weaponId);
-        }
-
-        public List<int> GetWeapons() => playerInventory.GetWeapons();
-
-        public void SetHandWeaponIndex(int index) => playerInventory.SetHandWeaponIndex(index);
-
-        public int GetHandWeaponIndex() => playerInventory.GetHandWeaponIndex();
     }
 }
