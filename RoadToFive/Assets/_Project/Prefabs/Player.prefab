@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 503d5bf4d12b4004bc50717e217edd46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transform: {fileID: 3907515094001334495}
   entityHealth: {fileID: 9035483983454482071}
   playerInventory: {fileID: 5950560752564066219}
   handWeapon: {fileID: 2593160648065503261}

@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99d5e3d5011a407394438bea6907ba16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transform: {fileID: 3907515094001334495}
   characterController: {fileID: 5462781134774312540}
   movementSpeed: 3
   jumpHeight: 0.5

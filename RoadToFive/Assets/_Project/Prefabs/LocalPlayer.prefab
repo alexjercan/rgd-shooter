@@ -2235,6 +2235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
@@ -2303,6 +2304,13 @@ CanvasRenderer:
   m_GameObject: {fileID: 8142454209758478415}
   m_CullTransparentMesh: 0
 --- !u!114 &1881038865200466273
+=======
+  transform: {fileID: 7597345135886232786}
+  entityHealth: {fileID: -8724016493874492950}
+  playerInventory: {fileID: 7629583960536292604}
+  handWeapon: {fileID: 1021433482912662801}
+--- !u!114 &4444741897458480150
+>>>>>>> c7c86720625289da41804e50e2a70c5a097c9052
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

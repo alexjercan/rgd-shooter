@@ -61,7 +61,7 @@ namespace _Project.Scripts.ClientSide.Networking
             var id = packet.ReadInt();
             var position = packet.ReadVector3();
 
-            GameManager.Instance.GetPlayerManager(id).SetPosition(position);
+            GameManager.Instance.GetPlayerManager(id).transform.position = position;
         }
 
         private static void PlayerRotation(Packet packet)
@@ -69,7 +69,7 @@ namespace _Project.Scripts.ClientSide.Networking
             var id = packet.ReadInt();
             var rotation = packet.ReadQuaternion();
 
-            GameManager.Instance.GetPlayerManager(id).SetRotation(rotation);
+            GameManager.Instance.GetPlayerManager(id).transform.rotation = rotation;
         }
 
         private static void PlayerDisconnected(Packet packet)
@@ -83,7 +83,7 @@ namespace _Project.Scripts.ClientSide.Networking
         {
             var id = packet.ReadInt();
             var health = packet.ReadInt();
-            GameManager.Instance.GetPlayerManager(id).SetHealth(health);
+            GameManager.Instance.GetPlayerManager(id).entityHealth.SetHealth(health);
         }
 
         private static void CreateItemSpawner(Packet packet)
@@ -116,7 +116,7 @@ namespace _Project.Scripts.ClientSide.Networking
             var id = packet.ReadInt();
             var amount = packet.ReadInt();
             
-            GameManager.Instance.GetPlayerManager(id).AddAmmo(amount);
+            GameManager.Instance.GetPlayerManager(id).playerInventory.AddAmmo(amount);
         }
         
         private static void WeaponPickedUp(Packet packet)
@@ -124,7 +124,7 @@ namespace _Project.Scripts.ClientSide.Networking
             var id = packet.ReadInt();
             var weaponId = packet.ReadInt();
             
-            GameManager.Instance.GetPlayerManager(id).AddWeapon(weaponId);
+            GameManager.Instance.GetPlayerManager(id).playerInventory.AddWeapon(weaponId);
         }
 
         private static void HandWeaponUpdate(Packet packet)
@@ -133,8 +133,9 @@ namespace _Project.Scripts.ClientSide.Networking
             var weaponIndex = packet.ReadInt();
 
             if (weaponIndex < 0) return;
-            
-            GameManager.Instance.GetPlayerManager(clientId).SetWeaponTo(weaponIndex);
+
+            var playerManager = GameManager.Instance.GetPlayerManager(clientId);
+            playerManager.handWeapon.SetWeaponTo(playerManager.playerInventory.GetWeaponAtIndex(weaponIndex));
         }
 
         private static void InitializeInventory(Packet packet)
@@ -142,7 +143,7 @@ namespace _Project.Scripts.ClientSide.Networking
             var clientId = packet.ReadInt();
             var weaponCount = packet.ReadInt();
             var playerManager = GameManager.Instance.GetPlayerManager(clientId);
-            for (var i = 0; i < weaponCount; i++) playerManager.AddWeapon(packet.ReadInt());
+            for (var i = 0; i < weaponCount; i++) playerManager.playerInventory.AddWeapon(packet.ReadInt());
         }
     }
 }

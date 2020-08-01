@@ -9,20 +9,20 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
     /// </summary>
     public class LocalPlayerManager : MonoBehaviour
     {
-        [SerializeField] private PlayerManager playerManager;
-        [SerializeField] private PlayerMovementInput playerMovementInput;
-        [SerializeField] private PlayerRotation playerRotation;
-        [SerializeField] private PlayerShootInput playerShootInput;
+        public PlayerManager playerManager;
+        public PlayerMovementInput playerMovementInput;
+        public PlayerRotation playerRotation;
+        public PlayerShootInput playerShootInput;
 
         private void FixedUpdate()
         {
             ClientSend.PlayerMovement(playerMovementInput.GetMovementInput(),  playerRotation.GetRotation());
             
-            if (playerShootInput.GetShootInput()) ClientSend.PlayerShoot(playerRotation.GetForwardDirection(), playerManager.GetHandWeaponId());
+            if (playerShootInput.GetShootInput()) ClientSend.PlayerShoot(playerRotation.GetForwardDirection(), playerManager.handWeapon.GetHandWeaponId());
 
             if (playerShootInput.DidWeaponChanged())
             {
-                var weaponIndex = playerShootInput.GetWeaponIndex(playerManager.GetWeaponCount());
+                var weaponIndex = playerShootInput.GetWeaponIndex(playerManager.playerInventory.GetWeaponCount());
                 if (weaponIndex >= 0) ClientSend.HandWeapon(weaponIndex);
             }
         }

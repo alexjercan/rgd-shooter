@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using _Project.Scripts.ClientSide.Player;
 using _Project.Scripts.Util.DataStructure;
 using UnityEngine;
 
@@ -40,7 +39,7 @@ namespace _Project.Scripts.ServerSide.Networking
             var movementInput = packet.ReadVector3();
             var rotation = packet.ReadQuaternion();
 
-            ServerManager.Instance.playerManagers[fromClient].SetMovementInput(movementInput, rotation);
+            ServerManager.Instance.playerManagers[fromClient].playerMovement.SetInput(movementInput, rotation);
         }
 
         private static void PlayerShoot(int fromClient, Packet packet)
@@ -48,14 +47,14 @@ namespace _Project.Scripts.ServerSide.Networking
             var direction = packet.ReadVector3();
             var weaponId = packet.ReadInt();
 
-            ServerManager.Instance.playerManagers[fromClient].ShootInDirection(direction, weaponId);
+            ServerManager.Instance.playerManagers[fromClient].playerWeapon.OnShoot(direction, weaponId);
         }
 
         private static void HandWeapon(int fromClient, Packet packet)
         {
             var weaponIndex = packet.ReadInt();
 
-            ServerManager.Instance.playerManagers[fromClient].SetHandWeaponIndex(weaponIndex);
+            ServerManager.Instance.playerManagers[fromClient].playerInventory.SetHandWeaponIndex(weaponIndex);
             
             ServerSend.HandWeaponUpdate(fromClient, weaponIndex);
         }

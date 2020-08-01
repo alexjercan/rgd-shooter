@@ -40,14 +40,14 @@ namespace _Project.Scripts.ClientSide.Networking
         {
             var playerManager = GameManager.Instance.GetPlayerManager(Client.MyId);
 
-            if (!playerManager.HasAmmo()) return;
+            if (playerManager.playerInventory.GetAmmo() <= 0) return;
             
             using (var packet = new Packet((int) ClientPackets.PlayerShoot))
             {
                 SendTcpData(packet.Write(direction).Write(weaponId));
             }
             
-            playerManager.RemoveAmmo(1);
+            playerManager.playerInventory.AddAmmo(-1);
         }
 
         public static void HandWeapon(int weaponIndex)
@@ -56,8 +56,10 @@ namespace _Project.Scripts.ClientSide.Networking
             {
                 SendTcpData(packet.Write(weaponIndex));
             }
+
+            var playerManager = GameManager.Instance.GetPlayerManager(Client.MyId);
             
-            GameManager.Instance.GetPlayerManager(Client.MyId).SetWeaponTo(weaponIndex);
+            playerManager.handWeapon.SetWeaponTo(playerManager.playerInventory.GetWeaponAtIndex(weaponIndex));
         }
     }
 }

@@ -4,7 +4,6 @@ using _Project.Scripts.ServerSide.Item;
 using _Project.Scripts.ServerSide.Networking;
 using _Project.Scripts.ServerSide.Player;
 using _Project.Scripts.Util;
-using _Project.Scripts.Util.Item;
 using UnityEngine;
 
 namespace _Project.Scripts.ServerSide
@@ -16,7 +15,7 @@ namespace _Project.Scripts.ServerSide
         public Dictionary<int, ServerPlayerManager> playerManagers = new Dictionary<int, ServerPlayerManager>();
         public Dictionary<int, ItemSpawner> itemSpawners = new Dictionary<int, ItemSpawner>();
 
-        [SerializeField] private SpawnableItems spawnableItems;
+        public SpawnableItems spawnableItems;
         [SerializeField] private Transform spawnLocation;
         [SerializeField] private GameObject playerPrefab;
 
@@ -63,10 +62,10 @@ namespace _Project.Scripts.ServerSide
                     serverItemSpawner.Position, serverItemSpawner.HasItem, serverItemSpawner.itemScriptableObject.Id);
 
             foreach (var serverPlayerManager in playerManagers.Values.Where(manager => manager.Id != clientId))
-                ServerSend.InitializeInventory(clientId, serverPlayerManager.Id, serverPlayerManager.GetWeapons());
+                ServerSend.InitializeInventory(clientId, serverPlayerManager.Id, serverPlayerManager.playerInventory.GetWeapons());
 
             foreach (var manager in playerManagers.Values.Where(manager => manager.Id != clientId))
-                ServerSend.HandWeaponUpdate(manager.Id, manager.GetHandWeaponIndex());
+                ServerSend.HandWeaponUpdate(manager.Id, manager.playerInventory.GetHandWeaponIndex());
         }
 
         public void DeSpawn(int clientId)
@@ -75,7 +74,5 @@ namespace _Project.Scripts.ServerSide
             playerManagers.Remove(clientId);
             Destroy(player.gameObject);
         }
-
-        public List<ItemScriptableObject> GetSpawnableItems() => spawnableItems.GetSpawnableItems();
     }
 }

@@ -63,7 +63,11 @@ namespace _Project.Scripts.ServerSide.Networking
         {
             using (var packet = new Packet((int)ServerPackets.SpawnPlayer))
             {
-                SendTcpData(toClient, packet.Write(player.Id).Write(player.Username).Write(player.GetPlayerPosition()).Write(player.GetPlayerRotation()));
+                SendTcpData(toClient, 
+                    packet.Write(player.Id)
+                        .Write(player.Username)
+                        .Write(player.playerMovement.transform.position)
+                        .Write(player.playerMovement.transform.rotation));
             }
         }
 
@@ -71,7 +75,7 @@ namespace _Project.Scripts.ServerSide.Networking
         {
             using (var packet = new Packet((int) ServerPackets.PlayerPosition))
             {
-                SendUdpDataToAll(packet.Write(id).Write(player.PlayerTransform.position));
+                SendUdpDataToAll(packet.Write(id).Write(player.transform.position));
             }
         }
         
@@ -79,7 +83,7 @@ namespace _Project.Scripts.ServerSide.Networking
         {
             using (var packet = new Packet((int) ServerPackets.PlayerRotation))
             {
-                SendUdpDataToAll(id, packet.Write(id).Write(player.PlayerTransform.rotation));
+                SendUdpDataToAll(id, packet.Write(id).Write(player.transform.rotation));
             }
         }
 
