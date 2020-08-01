@@ -22,7 +22,7 @@ namespace _Project.Scripts.ClientSide.Player
             }
             else
             {
-                var items = GameManager.Instance.GetSpawnableItems();
+                var items = GameManager.Instance.spawnableItems.GetSpawnableItems();
                 var scriptableObject = items[weaponId];
                 if (scriptableObject.ItemType != ItemScriptableObject.Type.Weapon) return;
                 

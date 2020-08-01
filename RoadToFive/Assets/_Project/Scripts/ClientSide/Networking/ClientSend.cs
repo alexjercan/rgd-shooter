@@ -38,7 +38,7 @@ namespace _Project.Scripts.ClientSide.Networking
 
         public static void PlayerShoot(Vector3 direction, int weaponId)
         {
-            var playerManager = GameManager.Instance.GetPlayerManager(Client.MyId);
+            var playerManager = GameManager.Instance.playerSpawnerManager.GetPlayerManager(Client.MyId);
 
             if (playerManager.playerInventory.GetAmmo() <= 0) return;
             
@@ -57,7 +57,7 @@ namespace _Project.Scripts.ClientSide.Networking
                 SendTcpData(packet.Write(weaponIndex));
             }
 
-            var playerManager = GameManager.Instance.GetPlayerManager(Client.MyId);
+            var playerManager = GameManager.Instance.playerSpawnerManager.GetPlayerManager(Client.MyId);
             
             playerManager.handWeapon.SetWeaponTo(playerManager.playerInventory.GetWeaponAtIndex(weaponIndex));
         }

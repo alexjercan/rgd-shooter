@@ -14,7 +14,7 @@ namespace _Project.Scripts.ClientSide.Item
         public void CreateItemSpawner(int spawnerId, Vector3 position, bool hasItem, int itemId)
         {
             var spawner = Instantiate(itemSpawnerPrefab, position, Quaternion.identity);
-            var items = GameManager.Instance.GetSpawnableItems();
+            var items = GameManager.Instance.spawnableItems.GetSpawnableItems();
             spawner.Initialize(spawnerId, hasItem, itemId, items[itemId]);
 
             _itemSpawners.Add(spawnerId, spawner);

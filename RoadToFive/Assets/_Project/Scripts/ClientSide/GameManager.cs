@@ -12,9 +12,9 @@ namespace _Project.Scripts.ClientSide
     {
         public static GameManager Instance;
 
-        [SerializeField] private ItemSpawnerManager itemSpawnerManager;
-        [SerializeField] private PlayerSpawnerManager playerSpawnerManager;
-        [SerializeField] private SpawnableItems spawnableItems;
+        public ItemSpawnerManager itemSpawnerManager;
+        public PlayerSpawnerManager playerSpawnerManager;
+        public SpawnableItems spawnableItems;
         
         private void Awake()
         {
@@ -30,22 +30,6 @@ namespace _Project.Scripts.ClientSide
         }
 
         private void OnApplicationQuit() => Client.Disconnect();
-
-        public void SpawnPlayer(int id, string username, Vector3 position, Quaternion rotation) => 
-            playerSpawnerManager.SpawnPlayer(id, username, position, rotation);
-
-        public void DeSpawn(int clientId) => playerSpawnerManager.DeSpawn(clientId);
-        
-        public PlayerManager GetPlayerManager(int id) => playerSpawnerManager.GetPlayerManager(id);
-
-        public void CreateItemSpawner(int spawnerId, Vector3 position, bool hasItem, int itemId) => 
-            itemSpawnerManager.CreateItemSpawner(spawnerId, position, hasItem, itemId);
-
-        public void SpawnItem(int spawnerId) => itemSpawnerManager.SpawnItem(spawnerId);
-
-        public void DeleteItem(int spawnerId) => itemSpawnerManager.DeleteItem(spawnerId);
-        
-        public List<ItemScriptableObject> GetSpawnableItems() => spawnableItems.GetSpawnableItems();
 
         public void SpawnEnemy(int enemyId, Vector3 enemyPosition, Quaternion enemyRotation)
         {
