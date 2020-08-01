@@ -5,12 +5,12 @@ namespace _Project.Scripts.ClientSide.Enemy
 {
     public class EnemySpawnerManager : MonoBehaviour
     {
-        [SerializeField] private  EnemyManager enemyPrefab;
-
         private readonly Dictionary<int, EnemyManager> _enemies = new Dictionary<int, EnemyManager>();
 
-        public void SpawnEnemy(int enemyId, Vector3 position, Quaternion rotation)
+        public void SpawnEnemy(int enemyId, int enemyType, Vector3 position, Quaternion rotation)
         {
+            var enemyPrefab = GameManager.Instance.spawnableEnemies.GetSpawnableItems()[enemyType].clientPrefab;
+            
             var enemy = Instantiate(enemyPrefab, position, rotation);
             _enemies.Add(enemyId, enemy);
             

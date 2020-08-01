@@ -152,10 +152,11 @@ namespace _Project.Scripts.ClientSide.Networking
         private static void SpawnEnemy(Packet packet)
         {
             var enemyId = packet.ReadInt();
+            var enemyType = packet.ReadInt();
             var enemyPosition = packet.ReadVector3(); 
             var enemyRotation = packet.ReadQuaternion();
             
-            GameManager.Instance.enemySpawnerManager.SpawnEnemy(enemyId, enemyPosition, enemyRotation);
+            GameManager.Instance.enemySpawnerManager.SpawnEnemy(enemyId, enemyType, enemyPosition, enemyRotation);
         }
 
         public static void EnemyHealth(Packet packet)

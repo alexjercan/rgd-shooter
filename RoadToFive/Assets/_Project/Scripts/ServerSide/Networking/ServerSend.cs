@@ -170,6 +170,7 @@ namespace _Project.Scripts.ServerSide.Networking
             {
                 SendTcpData(clientId, packet
                     .Write(enemyManager.EnemyId)
+                    .Write(enemyManager.enemyScriptableObject.Id)
                     .Write(enemyManager.transform.position)
                     .Write(enemyManager.transform.rotation));
             }

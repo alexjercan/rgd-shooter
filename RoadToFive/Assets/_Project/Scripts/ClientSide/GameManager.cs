@@ -15,7 +15,8 @@ namespace _Project.Scripts.ClientSide
         public PlayerSpawnerManager playerSpawnerManager;
         public SpawnableItems spawnableItems;
         public EnemySpawnerManager enemySpawnerManager;
-        
+        public SpawnableEnemies spawnableEnemies;
+
         private void Awake()
         {
             if (Instance == null)

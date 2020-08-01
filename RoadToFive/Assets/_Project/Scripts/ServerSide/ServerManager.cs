@@ -18,6 +18,7 @@ namespace _Project.Scripts.ServerSide
         public Dictionary<int, EnemyManager> enemyManagers = new Dictionary<int, EnemyManager>();
         
         public SpawnableItems spawnableItems;
+        public SpawnableEnemies spawnableEnemies;
         [SerializeField] private Transform spawnLocation;
         [SerializeField] private GameObject playerPrefab;
 

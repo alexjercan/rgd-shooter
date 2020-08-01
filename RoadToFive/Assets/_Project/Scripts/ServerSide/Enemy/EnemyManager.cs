@@ -2,6 +2,7 @@
 using System.Linq;
 using _Project.Scripts.Mechanics;
 using _Project.Scripts.ServerSide.Networking;
+using _Project.Scripts.Util.Enemy;
 using UnityEngine;
 
 namespace _Project.Scripts.ServerSide.Enemy
@@ -10,6 +11,8 @@ namespace _Project.Scripts.ServerSide.Enemy
     {
         public bool IsAlive { get; private set; }
         public int EnemyId { get; private set; }
+
+        public EnemyScriptableObject enemyScriptableObject;
         public enemy_ai enemyAi;
         public EntityHealth entityHealth;
         public new Transform transform;

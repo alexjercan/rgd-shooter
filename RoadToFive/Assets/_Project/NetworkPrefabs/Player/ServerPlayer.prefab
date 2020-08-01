@@ -136,7 +136,7 @@ MonoBehaviour:
   maxBulletTravel: 100
   layerMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 513
 --- !u!114 &2913339880796930774
 MonoBehaviour:
   m_ObjectHideFlags: 0

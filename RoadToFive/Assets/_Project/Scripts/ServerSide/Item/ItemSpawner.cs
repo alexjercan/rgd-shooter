@@ -10,7 +10,8 @@ namespace _Project.Scripts.ServerSide.Item
         public bool HasItem { get; private set; }
         public Vector3 Position => _transform.position;
         
-        [SerializeField] public ItemScriptableObject itemScriptableObject;
+        public ItemScriptableObject itemScriptableObject;
+        
         [SerializeField] private float spawnerTimer;
 
         private static int _nextSpawnerId = 1;
