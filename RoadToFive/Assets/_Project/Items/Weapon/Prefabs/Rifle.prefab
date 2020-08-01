@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4376327263824057858}
   m_Layer: 0
-  m_Name: WeaponRifle
+  m_Name: Rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +56,7 @@ PrefabInstance:
     - target: {fileID: 7505017924667943375, guid: ddd991d421b8aca4080bc8522e5e601f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7505017924667943375, guid: ddd991d421b8aca4080bc8522e5e601f,
         type: 3}
@@ -97,6 +97,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7505017924667943375, guid: ddd991d421b8aca4080bc8522e5e601f,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7505017924667943375, guid: ddd991d421b8aca4080bc8522e5e601f,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7505017924667943375, guid: ddd991d421b8aca4080bc8522e5e601f,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddd991d421b8aca4080bc8522e5e601f, type: 3}
