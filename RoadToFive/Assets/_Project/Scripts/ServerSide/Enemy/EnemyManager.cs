@@ -14,19 +14,19 @@ namespace _Project.Scripts.ServerSide.Enemy
         public EntityHealth entityHealth;
         public new Transform transform;
         
-        private static int _enemyId;
+        private static int _nextEnemyId;
         
         private void Start()
         {
             IsAlive = true;
-            ServerManager.Instance.enemyManagers.Add(_enemyId, this);
-            EnemyId = _enemyId;
-            _enemyId++;
+            ServerManager.Instance.enemyManagers.Add(_nextEnemyId, this);
+            EnemyId = _nextEnemyId;
+            _nextEnemyId++;
 
             var transforms = ServerManager.Instance.playerManagers.Values.Select(manager => manager.transform);
             enemyAi.SetTargets(transforms);
 
-            entityHealth.HealthChanged += (sender, health) => ServerSend.EnemyHealth(_enemyId, health);
+            entityHealth.HealthChanged += (sender, health) => ServerSend.EnemyHealth(EnemyId, health);
             
             entityHealth.Died += (sender, args) =>
             {
