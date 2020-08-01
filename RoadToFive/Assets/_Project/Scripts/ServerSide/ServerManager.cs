@@ -86,8 +86,11 @@ namespace _Project.Scripts.ServerSide
         public void DeSpawn(int clientId)
         {
             var player = playerManagers[clientId];
+            foreach (var enemyManager in enemyManagers.Values) enemyManager.enemyAi.AddTarget(player.transform);
+            
             playerManagers.Remove(clientId);
             Destroy(player.gameObject);
+            
         }
     }
 }

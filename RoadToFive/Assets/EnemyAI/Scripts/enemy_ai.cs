@@ -32,6 +32,8 @@ public class enemy_ai : MonoBehaviour
 
     public void AddTarget(Transform targetTransform) => targets.Add(targetTransform);
 
+    public void RemoveTarget(Transform targetTransform) => targets.Remove(targetTransform);
+
     IEnumerator Think() //used for optimization
     {
         while(true)
