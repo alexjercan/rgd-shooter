@@ -31,10 +31,11 @@ public class UiInventory : MonoBehaviour
         }
 
         int currentItem = _weaponInHand.GetWeaponIndex(count);
-        if (previousItem != currentItem)
+        if (currentItem >= 0 && previousItem != currentItem)
         {
             _inventoryCells[previousItem].color = _inactiveInventoryPic;
             _inventoryCells[currentItem].color = _selectedInventoryPic;
+            previousItem = currentItem;
         }
     }
 }

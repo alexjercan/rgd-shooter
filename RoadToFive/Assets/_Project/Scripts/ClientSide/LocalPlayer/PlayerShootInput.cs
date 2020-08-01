@@ -33,11 +33,10 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
             return value;
         }
 
-        public int GetWeaponIndex(int maxWeaponIndex)
+        public int GetWeaponIndex(int weaponListSize)
         {
-            if (maxWeaponIndex < 0) return -1;
-            if (maxWeaponIndex == 0) _weaponIndex = 0;
-            else _weaponIndex %= maxWeaponIndex;
+            if (weaponListSize <= 0) return -1;
+            _weaponIndex = (_weaponIndex + weaponListSize) % weaponListSize;
             return _weaponIndex;
         }
     }
