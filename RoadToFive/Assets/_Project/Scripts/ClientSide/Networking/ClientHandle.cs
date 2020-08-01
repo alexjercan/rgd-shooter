@@ -154,7 +154,7 @@ namespace _Project.Scripts.ClientSide.Networking
             var enemyPosition = packet.ReadVector3(); 
             var enemyRotation = packet.ReadQuaternion();
             
-            GameManager.Instance.SpawnEnemy(enemyId, enemyPosition, enemyRotation);
+            GameManager.Instance. enemySpawnerManager.SpawnEnemy(enemyId, enemyPosition, enemyRotation);
         }
     }
 }

@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using _Project.Scripts.ClientSide.Enemy;
 using _Project.Scripts.ClientSide.Item;
 using _Project.Scripts.ClientSide.Networking;
 using _Project.Scripts.ClientSide.Player;
 using _Project.Scripts.Util;
-using _Project.Scripts.Util.Item;
 using UnityEngine;
 
 namespace _Project.Scripts.ClientSide
@@ -15,6 +14,7 @@ namespace _Project.Scripts.ClientSide
         public ItemSpawnerManager itemSpawnerManager;
         public PlayerSpawnerManager playerSpawnerManager;
         public SpawnableItems spawnableItems;
+        public EnemySpawnerManager enemySpawnerManager;
         
         private void Awake()
         {
@@ -30,10 +30,5 @@ namespace _Project.Scripts.ClientSide
         }
 
         private void OnApplicationQuit() => Client.Disconnect();
-
-        public void SpawnEnemy(int enemyId, Vector3 enemyPosition, Quaternion enemyRotation)
-        {
-            Debug.Log($"Spawning enemy {enemyId}");
-        }
     }
 }
