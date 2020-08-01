@@ -69,7 +69,7 @@ public class enemy_ai : MonoBehaviour
                     }
                     break;
                 case AIState.attack:
-                    Debug.Log("Attack ! ");
+                    //Debug.Log("Attack ! ");
                     dist = Vector3.Distance(target.position, transform.position);
                     if(dist> attackThreshold)
                     {

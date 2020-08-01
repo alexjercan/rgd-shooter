@@ -187,7 +187,7 @@ namespace _Project.Scripts.ServerSide.Networking
         {
             using (var packet = new Packet((int) ServerPackets.EnemyPositionAndRotation))
             {
-                SendTcpDataToAll(packet.Write(enemyId).Write(transformPosition).Write(transformRotation));
+                SendUdpDataToAll(packet.Write(enemyId).Write(transformPosition).Write(transformRotation));
             }
         }
     }

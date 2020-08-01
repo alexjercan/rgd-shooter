@@ -163,7 +163,7 @@ namespace _Project.Scripts.ClientSide.Networking
             var enemyId = packet.ReadInt();
             var health = packet.ReadInt();
             
-            GameManager.Instance.enemySpawnerManager.GetEnemy(enemyId).entityHealth.SetHealth(health);
+            GameManager.Instance.enemySpawnerManager.GetEnemy(enemyId)?.entityHealth.SetHealth(health);
         }
         
         private static void EnemyPositionAndRotation(Packet packet)
@@ -172,8 +172,14 @@ namespace _Project.Scripts.ClientSide.Networking
             var enemyPosition = packet.ReadVector3(); 
             var enemyRotation = packet.ReadQuaternion();
 
-            GameManager.Instance.enemySpawnerManager.GetEnemy(enemyId).transform.position = enemyPosition;
-            GameManager.Instance.enemySpawnerManager.GetEnemy(enemyId).transform.rotation = enemyRotation;
+            Debug.Log(enemyId);
+            
+            var enemyManager = GameManager.Instance.enemySpawnerManager.GetEnemy(enemyId);
+
+            if (enemyManager == null) return;
+            
+            enemyManager.transform.position = enemyPosition;
+            enemyManager.transform.rotation = enemyRotation;
         }
 
     }

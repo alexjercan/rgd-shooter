@@ -12,12 +12,15 @@ namespace _Project.Scripts.ClientSide.Enemy
         public void SpawnEnemy(int enemyId, Vector3 position, Quaternion rotation)
         {
             var enemy = Instantiate(enemyPrefab, position, rotation);
-            enemy.entityHealth.Died += (sender, args) => DeleteEnemy(enemyId);
-
             _enemies.Add(enemyId, enemy);
+            
+            enemy.entityHealth.Died += (sender, args) => DeleteEnemy(enemyId);
         }
 
-        public EnemyManager GetEnemy(int enemyId) => _enemies[enemyId];
+        public EnemyManager GetEnemy(int enemyId)
+        {
+            return _enemies.ContainsKey(enemyId) == false ? null : _enemies[enemyId];
+        }
 
         private void DeleteEnemy(int enemyId)
         {
