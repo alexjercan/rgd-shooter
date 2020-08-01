@@ -1,41 +1,43 @@
-﻿using _Project.Scripts.ClientSide.LocalPlayer;
+﻿using System.Collections.Generic;
+using _Project.Scripts.ClientSide.LocalPlayer;
 using _Project.Scripts.ClientSide.Player;
 using _Project.Scripts.Util.Item;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UiInventory : MonoBehaviour
+namespace _Project.Scripts.ClientSide.UserInterface
 {
-    [SerializeField] private PlayerInventory _inventory;
-    [SerializeField] private PlayerShootInput _weaponInHand;
-    [SerializeField] private List<Image> _inventoryPictures;
-    [SerializeField] private List<Image> _inventoryCells;
-    [SerializeField] private Color _inactiveInventoryPic;
-    [SerializeField] private Color _selectedInventoryPic;
-    private int previousItem;
-    void Start()
+    public class UiInventory : MonoBehaviour
     {
-        previousItem = 0;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        int count = _inventory.GetWeaponCount();
-        for (int index = 0; index < count; ++index)
+        [SerializeField] private PlayerInventory _inventory;
+        [SerializeField] private PlayerShootInput _weaponInHand;
+        [SerializeField] private List<Image> _inventoryPictures;
+        [SerializeField] private List<Image> _inventoryCells;
+        [SerializeField] private Color _inactiveInventoryPic;
+        [SerializeField] private Color _selectedInventoryPic;
+        private int previousItem;
+        void Start()
         {
-            ItemScriptableObject weapon = _inventory.GetWeaponAtIndex(index);
-            _inventoryPictures[index].sprite = weapon.inventoryPic;
+            previousItem = 0;
         }
 
-        int currentItem = _weaponInHand.GetWeaponIndex(count);
-        if (currentItem >= 0 && previousItem != currentItem)
+        // Update is called once per frame
+        void Update()
         {
-            _inventoryCells[previousItem].color = _inactiveInventoryPic;
-            _inventoryCells[currentItem].color = _selectedInventoryPic;
-            previousItem = currentItem;
+            int count = _inventory.GetWeaponCount();
+            for (int index = 0; index < count; ++index)
+            {
+                ItemScriptableObject weapon = _inventory.GetWeaponAtIndex(index);
+                _inventoryPictures[index].sprite = weapon.inventoryPic;
+            }
+
+            int currentItem = _weaponInHand.GetWeaponIndex(count);
+            if (currentItem >= 0 && previousItem != currentItem)
+            {
+                _inventoryCells[previousItem].color = _inactiveInventoryPic;
+                _inventoryCells[currentItem].color = _selectedInventoryPic;
+                previousItem = currentItem;
+            }
         }
     }
 }
