@@ -15,4 +15,6 @@ MonoBehaviour:
   name: pistol
   prefab: {fileID: 4376327263824057857, guid: a9488a412de426a4dbda304923ba1efb, type: 3}
   inventoryPic: {fileID: 21300000, guid: 473fa2f83f2a5724eaaf175b6b8bfd61, type: 3}
+  handWeaponManagerPrefab: {fileID: -7331870595642721916, guid: a9488a412de426a4dbda304923ba1efb,
+    type: 3}
   damage: 50

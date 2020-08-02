@@ -15,4 +15,6 @@ MonoBehaviour:
   name: revolver
   prefab: {fileID: 7873746951937096481, guid: d2cf5a924ef5de2478602163f4f740cd, type: 3}
   inventoryPic: {fileID: 21300000, guid: 476b012501fc5ba469f1735d5742c9a5, type: 3}
+  handWeaponManagerPrefab: {fileID: 4282532438169826810, guid: d2cf5a924ef5de2478602163f4f740cd,
+    type: 3}
   damage: 70

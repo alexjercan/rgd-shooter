@@ -15,4 +15,6 @@ MonoBehaviour:
   name: reaper
   prefab: {fileID: 657924282241402250, guid: 97e7bf94633cd1940a861f48ffcdbc55, type: 3}
   inventoryPic: {fileID: 21300000, guid: 74fadcf41227aa74baf6c5dec5eeefcf, type: 3}
+  handWeaponManagerPrefab: {fileID: -3154103704176090552, guid: 97e7bf94633cd1940a861f48ffcdbc55,
+    type: 3}
   damage: 90

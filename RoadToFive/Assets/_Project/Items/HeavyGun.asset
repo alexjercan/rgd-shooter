@@ -15,4 +15,6 @@ MonoBehaviour:
   name: heavy gun
   prefab: {fileID: 8435222385398640041, guid: bcaae547b59f1b24f81f2b0c548c6a9a, type: 3}
   inventoryPic: {fileID: 21300000, guid: 92f2f817561a51249b7fb6c8c27a43a5, type: 3}
+  handWeaponManagerPrefab: {fileID: -7535462795440453786, guid: bcaae547b59f1b24f81f2b0c548c6a9a,
+    type: 3}
   damage: 80

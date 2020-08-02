@@ -15,4 +15,6 @@ MonoBehaviour:
   name: laser pistol
   prefab: {fileID: 2366693032732418968, guid: db93e4874fcf0a6499654760c53878ed, type: 3}
   inventoryPic: {fileID: 21300000, guid: 9dfea134bc67bd246be352003b66bdff, type: 3}
+  handWeaponManagerPrefab: {fileID: 3268323265822197383, guid: db93e4874fcf0a6499654760c53878ed,
+    type: 3}
   damage: 60

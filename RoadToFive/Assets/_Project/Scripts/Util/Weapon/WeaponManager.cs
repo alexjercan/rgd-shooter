@@ -9,7 +9,7 @@ namespace _Project.Scripts.Util.Weapon
 
         public void ShootWeapon()
         {
-            var bulletShoot = Instantiate(bulletShootPrefab, barrelEndPoint, false);
+            var bulletShoot = Instantiate(bulletShootPrefab, barrelEndPoint.position, barrelEndPoint.rotation);
         }
     }
 }
