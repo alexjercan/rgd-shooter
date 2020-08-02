@@ -33,7 +33,7 @@ namespace _Project.Scripts.ServerSide.Enemy
         // Start is called before the first frame update
         void Start()
         {
-            _waitTime = reactionTime;
+            _waitTime = attackInterval;
             StartCoroutine(Think());
         }
 
@@ -56,10 +56,12 @@ namespace _Project.Scripts.ServerSide.Enemy
         {
             while(true)
             {
-                yield return new WaitForSeconds(_waitTime);
+                yield return new WaitForSeconds(reactionTime);
             
                 if (!targets.Any()) continue;
                 target = targets.First(); //TODO: AM FACUT CEVA CA SA MEARGA + mutat yield la inceput
+
+                _waitTime += reactionTime;
             
                 switch (aiState)
                 {
@@ -71,7 +73,6 @@ namespace _Project.Scripts.ServerSide.Enemy
                             ServerSend.SendEnemyState(enemyId, (int) aiState);
                         }
                         agent.SetDestination(transform.position);
-                        _waitTime = reactionTime;
                         break;
                     case AIState.chasing:
                         dist = Vector3.Distance(target.transform.position, transform.position);
@@ -79,12 +80,12 @@ namespace _Project.Scripts.ServerSide.Enemy
                         {
                             aiState = AIState.idle;
                             ServerSend.SendEnemyState(enemyId, (int) aiState);
-                            _waitTime = reactionTime;
                         }
                         agent.SetDestination(target.transform.position);
-                        if(dist < attackThreshold)
+                        if(dist < attackThreshold && _waitTime >= attackInterval)
                         {
                             aiState = AIState.attack;
+                            _waitTime = 0;
                             ServerSend.SendEnemyState(enemyId, (int) aiState);
                         }
                         break;
@@ -92,7 +93,6 @@ namespace _Project.Scripts.ServerSide.Enemy
                         aiState = AIState.chasing;
                         target.Damage(damageAmount);
                         ServerSend.SendEnemyState(enemyId, (int) aiState);
-                        _waitTime = attackInterval;
                         break;
                     default:
                         break;
