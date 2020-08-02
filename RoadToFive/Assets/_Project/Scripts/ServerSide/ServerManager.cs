@@ -18,7 +18,6 @@ namespace _Project.Scripts.ServerSide
         public Dictionary<int, EnemyManager> enemyManagers = new Dictionary<int, EnemyManager>();
         
         public SpawnableItems spawnableItems;
-        public SpawnableEnemies spawnableEnemies;
         [SerializeField] private Transform spawnLocation;
         [SerializeField] private GameObject playerPrefab;
 
@@ -81,13 +80,13 @@ namespace _Project.Scripts.ServerSide
             foreach (var enemyManager in enemyManagers.Values.Where(manager => manager.IsAlive)) 
                 ServerSend.SpawnEnemy(clientId, enemyManager);
 
-            foreach (var enemyManager in enemyManagers.Values) enemyManager.enemyAi.AddTarget(playerManager.transform);
+            foreach (var enemyManager in enemyManagers.Values) enemyManager.enemyAi.AddTarget(playerManager.entityHealth);
         }
 
         public void DeSpawn(int clientId)
         {
             var player = playerManagers[clientId];
-            foreach (var enemyManager in enemyManagers.Values) enemyManager.enemyAi.RemoveTarget(player.transform);
+            foreach (var enemyManager in enemyManagers.Values) enemyManager.enemyAi.RemoveTarget(player.entityHealth);
             
             playerManagers.Remove(clientId);
             Destroy(player.gameObject);

@@ -193,7 +193,7 @@ namespace _Project.Scripts.ClientSide.Networking
 
             if (enemyManager == null) return;
 
-            enemyManager.enemyAnimatorManager.SetAIState(aiState);
+            enemyManager.enemyAnimatorManager.SetAiState(aiState);
         }
 
         private static void PlayerShoot(Packet packet)

@@ -14,6 +14,15 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
         public PlayerRotation playerRotation;
         public PlayerShootInput playerShootInput;
 
+        private void Start()
+        {
+            playerManager.entityHealth.Died += (sender, args) =>
+            {
+                Debug.Log("YOU DIED LOL NOOB");
+                playerRotation.playerCamera.transform.SetParent(null);
+            };
+        }
+        
         private void FixedUpdate()
         {
             ClientSend.PlayerMovement(playerMovementInput.GetMovementInput(),  playerRotation.GetRotation());

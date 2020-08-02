@@ -9,7 +9,7 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
     /// </summary>
     public class PlayerRotation : MonoBehaviour //DONE DO NOT MODIFY
     {
-        [SerializeField] private Camera playerCamera;
+        public Camera playerCamera;
         
         [Header("Camera settings")]
         [Range(0.1f, 5.0f)] [SerializeField] private float mouseSensitivity = 2.0f;

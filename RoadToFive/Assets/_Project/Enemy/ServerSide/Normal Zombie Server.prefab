@@ -77,6 +77,7 @@ MonoBehaviour:
   aiState: 0
   DistanceThreshold: 10
   reactionTime: 0.1
+  attackInterval: 5
   attackThreshold: 1.5
 --- !u!114 &5166958905414776516
 MonoBehaviour:
@@ -212,7 +213,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 8f7380da49034cd488ddff94b1ac35d1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f7380da49034cd488ddff94b1ac35d1, type: 3}

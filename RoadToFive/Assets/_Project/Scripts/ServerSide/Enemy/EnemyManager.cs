@@ -28,8 +28,8 @@ namespace _Project.Scripts.ServerSide.Enemy
 
             enemyAi.enemyId = EnemyId;
 
-            var transforms = ServerManager.Instance.playerManagers.Values.Select(manager => manager.transform);
-            enemyAi.SetTargets(transforms);
+            var healths = ServerManager.Instance.playerManagers.Values.Select(manager => manager.entityHealth);
+            enemyAi.SetTargets(healths);
 
             entityHealth.HealthChanged += (sender, health) => ServerSend.EnemyHealth(EnemyId, health);
             

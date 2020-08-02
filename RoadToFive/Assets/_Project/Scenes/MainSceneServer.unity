@@ -23696,7 +23696,7 @@ Transform:
   - {fileID: 1899007715}
   - {fileID: 1140299801}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &918148158
 GameObject:
@@ -23793,7 +23793,7 @@ PrefabInstance:
     - target: {fileID: 2702979250776374073, guid: 27038147ee6e6054c9f6b677eef9d48d,
         type: 3}
       propertyPath: m_Name
-      value: HealthSpawner
+      value: HealthSpawner - spawner
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27038147ee6e6054c9f6b677eef9d48d, type: 3}
@@ -23868,7 +23868,7 @@ PrefabInstance:
     - target: {fileID: 3233274629245100927, guid: 71b0da9e0621e494f878f9376979e974,
         type: 3}
       propertyPath: m_Name
-      value: LaserPistol
+      value: LaserPistol - spawner
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71b0da9e0621e494f878f9376979e974, type: 3}
@@ -24163,7 +24163,7 @@ PrefabInstance:
     - target: {fileID: 8163773156149510839, guid: eab7931263217ce4f8366d3184396c69,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8163773156149510839, guid: eab7931263217ce4f8366d3184396c69,
         type: 3}
@@ -24192,7 +24192,7 @@ PrefabInstance:
     - target: {fileID: 4821663970845562252, guid: 4c2d3ab193ec04d43bc713c078357b43,
         type: 3}
       propertyPath: m_Name
-      value: AmmoSpawner
+      value: AmmoSpawner - spawner
       objectReference: {fileID: 0}
     - target: {fileID: 4821663970845562253, guid: 4c2d3ab193ec04d43bc713c078357b43,
         type: 3}
@@ -24322,7 +24322,7 @@ PrefabInstance:
     - target: {fileID: 5061481949429511375, guid: bba5d15c3b33a1e499054f8554bbf1f5,
         type: 3}
       propertyPath: m_Name
-      value: Reaper
+      value: Reaper - spawner
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bba5d15c3b33a1e499054f8554bbf1f5, type: 3}
@@ -24377,7 +24377,7 @@ PrefabInstance:
     - target: {fileID: 8967008347750354289, guid: 2dbe10a8d65edb84f8da64f08b41176f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8967008347750354289, guid: 2dbe10a8d65edb84f8da64f08b41176f,
         type: 3}
