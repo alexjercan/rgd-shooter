@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ede90bfedb424a54913a730eeb21b31b, type: 3}
-  m_Name: Small
+  m_Name: Small Zombie
   m_EditorClassIdentifier: 
   clientPrefab: {fileID: -4096316620965790259, guid: 3b6b4b5c578967c458b6d87c8f7b57d3,
     type: 3}

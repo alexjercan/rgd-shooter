@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net;
+using _Project.Scripts.ServerSide.Enemy;
 using _Project.Scripts.Util.DataStructure;
 using UnityEngine;
 
@@ -185,7 +186,7 @@ namespace _Project.Scripts.ClientSide.Networking
         private static void SendEnemyState(Packet packet)
         {
             var enemyId = packet.ReadInt();
-            var aiState = (enemy_ai.AIState) packet.ReadInt();
+            var aiState = (EnemyAi.AIState) packet.ReadInt();
             
             var enemyManager = GameManager.Instance.enemySpawnerManager.GetEnemy(enemyId);
 

@@ -13,7 +13,7 @@ namespace _Project.Scripts.ServerSide.Enemy
         public int EnemyId { get; private set; }
 
         public EnemyScriptableObject enemyScriptableObject;
-        public enemy_ai enemyAi;
+        public EnemyAi enemyAi;
         public EntityHealth entityHealth;
         public new Transform transform;
         

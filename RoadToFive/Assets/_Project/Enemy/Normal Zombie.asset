@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ede90bfedb424a54913a730eeb21b31b, type: 3}
-  m_Name: Normal
+  m_Name: Normal Zombie
   m_EditorClassIdentifier: 
   clientPrefab: {fileID: 6980399287354948052, guid: 6582d2445ee8fad4495538f998052647,
     type: 3}

@@ -70,6 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15bd0ec1dce17814cb6fade7e47d378b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agent: {fileID: 1546498272559694781}
   enemyId: 0
   target: {fileID: 0}
   targets: []
