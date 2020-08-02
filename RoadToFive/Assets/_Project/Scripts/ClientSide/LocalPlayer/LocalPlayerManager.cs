@@ -18,7 +18,8 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
         {
             ClientSend.PlayerMovement(playerMovementInput.GetMovementInput(),  playerRotation.GetRotation());
             
-            if (playerShootInput.GetShootInput()) ClientSend.PlayerShoot(playerRotation.GetForwardDirection(), playerManager.handWeapon.MainWeaponId);
+            if (playerShootInput.GetShootInput() && playerManager.handWeapon.MainWeaponId != -1) 
+                ClientSend.PlayerShoot(playerRotation.GetForwardDirection(), playerManager.handWeapon.MainWeaponId);
 
             if (playerShootInput.DidWeaponChanged())
             {

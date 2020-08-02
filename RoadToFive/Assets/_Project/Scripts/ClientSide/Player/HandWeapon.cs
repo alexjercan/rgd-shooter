@@ -10,7 +10,7 @@ namespace _Project.Scripts.ClientSide.Player
         [SerializeField] private Transform handTransform;
         
         public readonly Dictionary<int, WeaponManager> WeaponManagers = new Dictionary<int, WeaponManager>();
-        public int MainWeaponId { get; private set; }
+        public int MainWeaponId { get; private set; } = -1;
 
         public void SetWeaponTo(ItemScriptableObject weapon)
         {
