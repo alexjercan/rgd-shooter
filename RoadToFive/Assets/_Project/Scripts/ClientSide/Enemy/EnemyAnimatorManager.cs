@@ -8,21 +8,23 @@ namespace _Project.Scripts.ClientSide.Enemy
     {
         public Animator animator;
         
+        //TODO: FIX ANIMATIONS NOT WORKING, MODELS DESYNC BECAUSE OF THEM
+        //TODO: MAKE ATTACK TRIGGER NOT BOOL
         public void SetAiState(EnemyAi.AIState aiState)
         {
             switch (aiState)
             {
                 case EnemyAi.AIState.idle:
-                    //animator.SetBool("Chase", false);
                     //animator.SetBool("Attack", false);
+                    //animator.SetBool("Chase", false);
                     break;
                 case EnemyAi.AIState.chasing:
-                    //animator.SetBool("Chase", true);
                     //animator.SetBool("Attack", false);
+                    //animator.SetBool("Chase", true);
                     break;
                 case EnemyAi.AIState.attack:
-                    //animator.SetBool("Attack", true);
                     //animator.SetBool("Chase", false);
+                    //animator.SetBool("Attack", true);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(aiState), aiState, null);
