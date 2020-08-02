@@ -199,5 +199,13 @@ namespace _Project.Scripts.ServerSide.Networking
                 SendUdpDataToAll(packet.Write(enemyId).Write(aiState));
             }
         }
+
+        public static void PlayerShoot(int fromClient)
+        {
+            using (var packet = new Packet((int) ServerPackets.PlayerShoot))
+            {
+                SendUdpDataToAll(packet.Write(fromClient));
+            }
+        }
     }
 }

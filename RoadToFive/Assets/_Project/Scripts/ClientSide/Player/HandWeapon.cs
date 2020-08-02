@@ -9,17 +9,17 @@ namespace _Project.Scripts.ClientSide.Player
     {
         [SerializeField] private Transform handTransform;
         
-        private readonly Dictionary<int, WeaponManager> _weaponManagers = new Dictionary<int, WeaponManager>();
-        private int _mainWeaponId;
+        public readonly Dictionary<int, WeaponManager> WeaponManagers = new Dictionary<int, WeaponManager>();
+        public int MainWeaponId { get; private set; }
 
         public void SetWeaponTo(ItemScriptableObject weapon)
         {
             var weaponId = weapon.Id;
             
-            if (_weaponManagers.ContainsKey(_mainWeaponId)) _weaponManagers[_mainWeaponId].gameObject.SetActive(false);
-            if (_weaponManagers.ContainsKey(weaponId))
+            if (WeaponManagers.ContainsKey(MainWeaponId)) WeaponManagers[MainWeaponId].gameObject.SetActive(false);
+            if (WeaponManagers.ContainsKey(weaponId))
             {
-                _weaponManagers[weaponId].gameObject.SetActive(true);
+                WeaponManagers[weaponId].gameObject.SetActive(true);
             }
             else
             {
@@ -29,12 +29,10 @@ namespace _Project.Scripts.ClientSide.Player
 
                 var weaponManagerPrefab = (WeaponScriptableObject) scriptableObject;
                 var weaponManager = Instantiate(weaponManagerPrefab.handWeaponManagerPrefab, handTransform, false);
-                _weaponManagers.Add(weaponId, weaponManager);
+                WeaponManagers.Add(weaponId, weaponManager);
             }
 
-            _mainWeaponId = weaponId;
+            MainWeaponId = weaponId;
         }
-
-        public int GetHandWeaponId() => _mainWeaponId;
     }
 }

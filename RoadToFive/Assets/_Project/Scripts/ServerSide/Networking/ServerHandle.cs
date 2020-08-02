@@ -48,6 +48,8 @@ namespace _Project.Scripts.ServerSide.Networking
             var weaponId = packet.ReadInt();
 
             ServerManager.Instance.playerManagers[fromClient].playerWeapon.OnShoot(direction, weaponId);
+
+            ServerSend.PlayerShoot(fromClient);
         }
 
         private static void HandWeapon(int fromClient, Packet packet)

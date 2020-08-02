@@ -35,6 +35,7 @@ namespace _Project.Scripts.ClientSide.Networking
                 {(int)ServerPackets.EnemyHealth, EnemyHealth},
                 {(int)ServerPackets.EnemyPositionAndRotation, EnemyPositionAndRotation},
                 {(int)ServerPackets.SendEnemyState, SendEnemyState},
+                {(int)ServerPackets.PlayerShoot, PlayerShoot},
             };
         }
         
@@ -193,6 +194,15 @@ namespace _Project.Scripts.ClientSide.Networking
             if (enemyManager == null) return;
 
             enemyManager.enemyAnimatorManager.SetAIState(aiState);
+        }
+
+        private static void PlayerShoot(Packet packet)
+        {
+            var playerId = packet.ReadInt();
+
+            var playerManager = GameManager.Instance.playerSpawnerManager.GetPlayerManager(playerId);
+            var handWeapon = playerManager.handWeapon;
+            handWeapon.WeaponManagers[handWeapon.MainWeaponId].ShootWeapon();
         }
     }
 }
