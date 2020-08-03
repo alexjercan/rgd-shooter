@@ -1,4 +1,5 @@
-﻿using _Project.Scripts.ClientSide.Networking;
+﻿using System;
+using _Project.Scripts.ClientSide.Networking;
 using _Project.Scripts.ClientSide.Player;
 using UnityEngine;
 
@@ -13,13 +14,31 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
         public PlayerMovementInput playerMovementInput;
         public PlayerRotation playerRotation;
         public PlayerShootInput playerShootInput;
+        private Camera _orbitCamera;
+
+        private void Awake()
+        {
+            _orbitCamera = Camera.main;
+        }
 
         private void Start()
         {
+            _orbitCamera.gameObject.SetActive(false);
+            
             playerManager.entityHealth.Died += (sender, args) =>
             {
                 Debug.Log("YOU DIED LOL NOOB");
-                playerRotation.playerCamera.transform.SetParent(null);
+                _orbitCamera.gameObject.SetActive(true);
+            };
+
+            playerManager.entityHealth.Damaged += (sender, health) =>
+            {
+                Debug.Log("Make the screen red. Took Damage!");
+            };
+
+            playerManager.entityHealth.Healed += (sender, health) =>
+            {
+                Debug.Log("Show particles for healing");
             };
         }
         

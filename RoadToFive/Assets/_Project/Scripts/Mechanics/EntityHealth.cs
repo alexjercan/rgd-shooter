@@ -5,7 +5,8 @@ namespace _Project.Scripts.Mechanics
 {
     public class EntityHealth : MonoBehaviour //DONE DO NOT MODIFY
     {
-        public event EventHandler<EntityHealth> HealthChanged;
+        public event EventHandler<EntityHealth> Damaged;
+        public event EventHandler<EntityHealth> Healed;
         public event EventHandler Died;
 
         public int Health { get; private set; }
@@ -26,7 +27,7 @@ namespace _Project.Scripts.Mechanics
             if (Health <= 0 || damage < 0) return;
             
             Health -= damage;
-            HealthChanged?.Invoke(this, this);
+            Damaged?.Invoke(this, this);
             if (Health > 0) return;
             
             Died?.Invoke(this, EventArgs.Empty);
@@ -35,7 +36,7 @@ namespace _Project.Scripts.Mechanics
 
         public void Heal(int heal)
         {
-            HealthChanged?.Invoke(this, this);
+            Healed?.Invoke(this, this);
             SetHealth(Health + heal);
         }
     }

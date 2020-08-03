@@ -31,7 +31,8 @@ namespace _Project.Scripts.ServerSide.Enemy
             var healths = ServerManager.Instance.playerManagers.Values.Select(manager => manager.entityHealth);
             enemyAi.SetTargets(healths);
 
-            entityHealth.HealthChanged += (sender, health) => ServerSend.EnemyHealth(EnemyId, health);
+            entityHealth.Damaged += (sender, health) => ServerSend.EnemyHealth(EnemyId, health);
+            entityHealth.Healed += (sender, health) => ServerSend.EnemyHealth(EnemyId, health);
             
             entityHealth.Died += (sender, args) =>
             {

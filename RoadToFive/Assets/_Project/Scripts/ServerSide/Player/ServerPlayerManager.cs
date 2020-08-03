@@ -20,7 +20,8 @@ namespace _Project.Scripts.ServerSide.Player
 
         private void Awake()
         {
-            entityHealth.HealthChanged += (sender, health) => ServerSend.PlayerHealth(Id, health);
+            entityHealth.Damaged += (sender, health) => ServerSend.PlayerHealth(Id, health);
+            entityHealth.Healed += (sender, health) => ServerSend.PlayerHealth(Id, health);
             entityHealth.Died += (sender, args) => gameObject.SetActive(false);
         }
 
