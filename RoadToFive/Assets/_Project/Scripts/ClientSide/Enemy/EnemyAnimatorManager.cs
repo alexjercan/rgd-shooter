@@ -15,16 +15,16 @@ namespace _Project.Scripts.ClientSide.Enemy
             switch (aiState)
             {
                 case EnemyAi.AIState.idle:
-                    //animator.SetBool("Attack", false);
-                    //animator.SetBool("Chase", false);
+                    animator.SetBool("Attack", false);
+                    animator.SetBool("Chase", false);
                     break;
                 case EnemyAi.AIState.chasing:
-                    //animator.SetBool("Attack", false);
-                    //animator.SetBool("Chase", true);
+                    animator.SetBool("Attack", false);
+                    animator.SetBool("Chase", true);
                     break;
                 case EnemyAi.AIState.attack:
-                    //animator.SetBool("Chase", false);
-                    //animator.SetBool("Attack", true);
+                    animator.SetBool("Chase", false);
+                    animator.SetBool("Attack", true);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(aiState), aiState, null);

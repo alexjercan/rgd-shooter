@@ -1786,6 +1786,7 @@ GameObject:
   - component: {fileID: 8318275234458073099}
   - component: {fileID: 9105321744961065394}
   - component: {fileID: 4322833126020725532}
+  - component: {fileID: 6603203203745543416}
   m_Layer: 0
   m_Name: UI Canvas
   m_TagString: Untagged
@@ -1904,6 +1905,18 @@ MonoBehaviour:
   - {fileID: 8747349367289459458}
   _inactiveInventoryPic: {r: 1, g: 0.99215686, b: 1, a: 1}
   _selectedInventoryPic: {r: 0.63529414, g: 0.98039216, b: 1, a: 0.72156864}
+--- !u!114 &6603203203745543416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6004908356089825707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0e6a21c482146a38997feab75724c8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6730861335115429758
 GameObject:
   m_ObjectHideFlags: 0

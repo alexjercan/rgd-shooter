@@ -347,6 +347,7 @@ MonoBehaviour:
   playerMovementInput: {fileID: 2366460923307501920}
   playerRotation: {fileID: 3309544953385686772}
   playerShootInput: {fileID: 2937443093934020802}
+  uiHealth: {fileID: 7187505483742347469}
 --- !u!114 &2366460923307501920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -634,11 +635,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 6004908356089825707, guid: 6d8f22eee6ae76c41986510dd60e584e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6705922092128486340, guid: 6d8f22eee6ae76c41986510dd60e584e,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -707,6 +703,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4043225845594846261}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7187505483742347469 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6603203203745543416, guid: 6d8f22eee6ae76c41986510dd60e584e,
+    type: 3}
+  m_PrefabInstance: {fileID: 4043225845594846261}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0e6a21c482146a38997feab75724c8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8875454421079803321
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 ﻿using System;
 using _Project.Scripts.ClientSide.Networking;
 using _Project.Scripts.ClientSide.Player;
+using _Project.Scripts.ClientSide.UserInterface;
 using UnityEngine;
 
 namespace _Project.Scripts.ClientSide.LocalPlayer
@@ -14,6 +15,8 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
         public PlayerMovementInput playerMovementInput;
         public PlayerRotation playerRotation;
         public PlayerShootInput playerShootInput;
+        public UiHealth uiHealth;
+        
         private Camera _orbitCamera;
 
         private void Awake()
@@ -33,12 +36,12 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
 
             playerManager.entityHealth.Damaged += (sender, health) =>
             {
-                Debug.Log("Make the screen red. Took Damage!");
+                uiHealth.DamageReceive();
             };
 
             playerManager.entityHealth.Healed += (sender, health) =>
             {
-                Debug.Log("Show particles for healing");
+                uiHealth.HealReceive();
             };
         }
         
