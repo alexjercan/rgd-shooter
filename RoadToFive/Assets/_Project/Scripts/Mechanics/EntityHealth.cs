@@ -17,6 +17,10 @@ namespace _Project.Scripts.Mechanics
 
         public void SetHealth(int health)
         {
+            Debug.Log($"{Health} {health}");
+            if (Health > health) Damaged?.Invoke(this, this);
+            else Healed?.Invoke(this, this);
+        
             Health = health;
             if (Health <= 0) Died?.Invoke(this, EventArgs.Empty);
             if (Health > maxHealth) Health = maxHealth;
@@ -36,8 +40,8 @@ namespace _Project.Scripts.Mechanics
 
         public void Heal(int heal)
         {
+            Health = Mathf.Clamp(Health + heal, 0, maxHealth);
             Healed?.Invoke(this, this);
-            SetHealth(Health + heal);
         }
     }
 }
