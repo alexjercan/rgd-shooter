@@ -17,7 +17,6 @@ namespace _Project.Scripts.Mechanics
 
         public void SetHealth(int health)
         {
-            Debug.Log($"{Health} {health}");
             if (Health > health) Damaged?.Invoke(this, this);
             else Healed?.Invoke(this, this);
         
