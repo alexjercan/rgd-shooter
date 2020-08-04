@@ -207,5 +207,13 @@ namespace _Project.Scripts.ServerSide.Networking
                 SendUdpDataToAll(packet.Write(fromClient));
             }
         }
+
+        public static void BulletHit(RaycastHit hit)
+        {
+            using (var packet = new Packet((int) ServerPackets.BulletHit))
+            {
+                SendUdpDataToAll(packet.Write(hit.point).Write(hit.normal));
+            }
+        }
     }
 }

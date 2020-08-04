@@ -24,7 +24,8 @@ namespace _Project.Scripts.Util.DataStructure
         EnemyHealth,
         EnemyPositionAndRotation,
         SendEnemyState,
-        PlayerShoot
+        PlayerShoot,
+        BulletHit
     }
 
     public enum ClientPackets

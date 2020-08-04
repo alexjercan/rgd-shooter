@@ -16,6 +16,7 @@ namespace _Project.Scripts.ClientSide
         public SpawnableItems spawnableItems;
         public EnemySpawnerManager enemySpawnerManager;
         public SpawnableEnemies spawnableEnemies;
+        public BulletHoleSpawner bulletHolesSpawner;
 
         private void Awake()
         {

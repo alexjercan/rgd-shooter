@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6214713153545581865
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4782650005071895330}
+  - component: {fileID: 3269479011604962042}
+  m_Layer: 0
+  m_Name: BulletHoleSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4782650005071895330
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6214713153545581865}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3269479011604962042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6214713153545581865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5da4012b2f974e11a07673c146a20160, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletHolePrefabs:
+  - {fileID: -2173401005027218276, guid: 7d57e605099e91e4da76081e6d8cf51b, type: 3}
+  - {fileID: -2173401005027218276, guid: 3a9536b0653200f4c80a9eb2db3e71e7, type: 3}
+  - {fileID: -2173401005027218276, guid: 925bbe6c738a1ae418ac123a71c5e901, type: 3}
+  - {fileID: -2173401005027218276, guid: b15c82028a0dfc048abc2105ce869c96, type: 3}
+  - {fileID: -2173401005027218276, guid: 00792d477f1a49043ae1aa6dfea4625f, type: 3}
+  - {fileID: -2173401005027218276, guid: 1a617c7a3e717bf469b91f8abb8af9f5, type: 3}

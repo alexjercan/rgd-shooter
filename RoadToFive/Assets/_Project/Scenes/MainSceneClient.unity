@@ -598,8 +598,25 @@ PrefabInstance:
       propertyPath: spawnableEnemies
       value: 
       objectReference: {fileID: 158777914}
+    - target: {fileID: 3170699895991411811, guid: 27e22281ddb615840a08269d4043a873,
+        type: 3}
+      propertyPath: bulletHolesSpawner
+      value: 
+      objectReference: {fileID: 1452742292}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27e22281ddb615840a08269d4043a873, type: 3}
+--- !u!114 &1452742292 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3269479011604962042, guid: 2494067efd04b6a48acde7fc2e274235,
+    type: 3}
+  m_PrefabInstance: {fileID: 1932637939979043365}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5da4012b2f974e11a07673c146a20160, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1601432584
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -916,6 +933,75 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e689a148037b6e14abbd8ab7b7e5c066, type: 3}
+--- !u!1001 &1932637939979043365
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4782650005071895330, guid: 2494067efd04b6a48acde7fc2e274235,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 467.56415
+      objectReference: {fileID: 0}
+    - target: {fileID: 4782650005071895330, guid: 2494067efd04b6a48acde7fc2e274235,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.6990607
+      objectReference: {fileID: 0}
+    - target: {fileID: 4782650005071895330, guid: 2494067efd04b6a48acde7fc2e274235,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 394.38235
+      objectReference: {fileID: 0}
+    - target: {fileID: 4782650005071895330, guid: 2494067efd04b6a48acde7fc2e274235,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4782650005071895330, guid: 2494067efd04b6a48acde7fc2e274235,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4782650005071895330, guid: 2494067efd04b6a48acde7fc2e274235,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4782650005071895330, guid: 2494067efd04b6a48acde7fc2e274235,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4782650005071895330, guid: 2494067efd04b6a48acde7fc2e274235,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4782650005071895330, guid: 2494067efd04b6a48acde7fc2e274235,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4782650005071895330, guid: 2494067efd04b6a48acde7fc2e274235,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4782650005071895330, guid: 2494067efd04b6a48acde7fc2e274235,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6214713153545581865, guid: 2494067efd04b6a48acde7fc2e274235,
+        type: 3}
+      propertyPath: m_Name
+      value: BulletHoleSpawner
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2494067efd04b6a48acde7fc2e274235, type: 3}
 --- !u!1001 &4298192334706300090
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.Util.Weapon
 {
-	public class BulletShoot : MonoBehaviour
+	public class GameObjectDespawner : MonoBehaviour
 	{
 		public float despawnTime = 10f;
 

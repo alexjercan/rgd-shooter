@@ -18,11 +18,13 @@ namespace _Project.Scripts.ServerSide.Player
         public PlayerPickUp playerPickUp;
         public PlayerInventory playerInventory;
 
-        private void Awake()
+        private void Start()
         {
             entityHealth.Damaged += (sender, health) => ServerSend.PlayerHealth(Id, health);
             entityHealth.Healed += (sender, health) => ServerSend.PlayerHealth(Id, health);
             entityHealth.Died += (sender, args) => gameObject.SetActive(false);
+
+            playerWeapon.BulletHit += (sender, hit) => ServerSend.BulletHit(hit);
         }
 
         private void FixedUpdate()

@@ -65,6 +65,7 @@ MonoBehaviour:
   spawnableItems: {fileID: 0}
   enemySpawnerManager: {fileID: 1062586493248694865}
   spawnableEnemies: {fileID: 0}
+  bulletHolesSpawner: {fileID: 0}
 --- !u!114 &3907179480845374186
 MonoBehaviour:
   m_ObjectHideFlags: 0

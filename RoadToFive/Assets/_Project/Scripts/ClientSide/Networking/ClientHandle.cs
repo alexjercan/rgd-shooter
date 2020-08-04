@@ -36,6 +36,7 @@ namespace _Project.Scripts.ClientSide.Networking
                 {(int)ServerPackets.EnemyPositionAndRotation, EnemyPositionAndRotation},
                 {(int)ServerPackets.SendEnemyState, SendEnemyState},
                 {(int)ServerPackets.PlayerShoot, PlayerShoot},
+                {(int)ServerPackets.BulletHit, BulletHit},
             };
         }
         
@@ -203,6 +204,14 @@ namespace _Project.Scripts.ClientSide.Networking
             var playerManager = GameManager.Instance.playerSpawnerManager.GetPlayerManager(playerId);
             var handWeapon = playerManager.handWeapon;
             handWeapon.WeaponManagers[handWeapon.MainWeaponId].ShootWeapon();
+        }
+
+        private static void BulletHit(Packet packet)
+        {
+            var hitPosition = packet.ReadVector3();
+            var hitNormal = packet.ReadVector3();
+            
+            GameManager.Instance.bulletHolesSpawner.SpawnBulletHole(hitPosition, hitNormal);
         }
     }
 }
