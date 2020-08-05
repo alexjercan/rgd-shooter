@@ -10,12 +10,12 @@ namespace _Project.Scripts.ClientSide.UserInterface
 
         private void Start()
         {
-            ammoIndicator.text = "0 bullets";
+            ammoIndicator.text = "0";
         }
 
         public void AmmoIndicatorUpdate(PlayerInventory inventory)
         {
-            ammoIndicator.text = $"{inventory.Ammo} bullets";
+            ammoIndicator.text = $"{inventory.Ammo}";
         }
     }
 }
