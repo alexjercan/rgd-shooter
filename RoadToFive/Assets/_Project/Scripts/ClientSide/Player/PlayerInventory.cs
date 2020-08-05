@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using _Project.Scripts.Util.Item;
 using UnityEngine;
 
@@ -6,10 +7,16 @@ namespace _Project.Scripts.ClientSide.Player
 {
     public class PlayerInventory : MonoBehaviour //DONE DO NOT MODIFY
     {
-        private readonly List<ItemScriptableObject> _weaponList = new List<ItemScriptableObject>();
-        private int _ammo;
+        public event EventHandler<PlayerInventory> AmmoChanged;
+        public int Ammo { get; private set; }
 
-        public void AddAmmo(int amount) => _ammo += amount;
+        private readonly List<ItemScriptableObject> _weaponList = new List<ItemScriptableObject>();
+
+        public void AddAmmo(int amount)
+        {
+            Ammo += amount;
+            AmmoChanged?.Invoke(this, this);
+        }
 
         public void AddWeapon(int weaponId)
         {
@@ -23,6 +30,6 @@ namespace _Project.Scripts.ClientSide.Player
 
         public int GetWeaponCount() => _weaponList.Count;
 
-        public int GetAmmo() => _ammo;
+        public int GetAmmo() => Ammo;
     }
 }

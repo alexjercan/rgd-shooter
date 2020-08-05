@@ -16,6 +16,7 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
         public PlayerRotation playerRotation;
         public PlayerShootInput playerShootInput;
         public UiHealth uiHealth;
+        public UiAmmo uiAmmo;
         
         private Camera _orbitCamera;
 
@@ -36,12 +37,17 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
 
             playerManager.entityHealth.Damaged += (sender, health) =>
             {
-                uiHealth.DamageReceive();
+                uiHealth.DamageReceive(health);
             };
 
             playerManager.entityHealth.Healed += (sender, health) =>
             {
-                uiHealth.HealReceive();
+                uiHealth.HealReceive(health);
+            };
+
+            playerManager.playerInventory.AmmoChanged += (sender, inventory) =>
+            {
+                uiAmmo.AmmoIndicatorUpdate(inventory);
             };
         }
         
