@@ -15,13 +15,13 @@ namespace _Project.Scripts.ClientSide.UserInterface
         public void DamageReceive(EntityHealth entityHealth)
         {
             ChangeIndicatorColor(entityHealth);
-            StartCoroutine(flashScreen());
+            StartCoroutine(FlashScreen());
         }
 
         public void HealReceive(EntityHealth entityHealth)
         {
             ChangeIndicatorColor(entityHealth);
-            StartCoroutine(healingEffect());
+            StartCoroutine(HealingEffect());
         }
 
         private void ChangeIndicatorColor(EntityHealth entityHealth)
@@ -29,7 +29,7 @@ namespace _Project.Scripts.ClientSide.UserInterface
             healthIndicator.color = new Color(1, 0, 0, 1 - entityHealth.Health / (float) entityHealth.MaxHealth);
         }
 
-        private IEnumerator flashScreen()
+        private IEnumerator FlashScreen()
         {
             damageFlash.gameObject.SetActive(true);
             while (damageFlash.color.a < 0.85f)
@@ -45,7 +45,7 @@ namespace _Project.Scripts.ClientSide.UserInterface
             damageFlash.gameObject.SetActive(false);
         }
 
-        private IEnumerator healingEffect()
+        private IEnumerator HealingEffect()
         {
             healingParticles.gameObject.SetActive(true);
             healingParticles.Play();
