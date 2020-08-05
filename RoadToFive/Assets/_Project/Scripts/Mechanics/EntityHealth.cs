@@ -10,17 +10,19 @@ namespace _Project.Scripts.Mechanics
         public event EventHandler Died;
 
         public int Health { get; private set; }
-
+        public int MaxHealth => maxHealth;
+        
         [SerializeField] private int maxHealth = 100;
 
         private void Start() => Health = maxHealth;
 
         public void SetHealth(int health)
         {
-            if (Health > health) Damaged?.Invoke(this, this);
+            var oldHealth = Health;
+            Health = health;
+            if (oldHealth > health) Damaged?.Invoke(this, this);
             else Healed?.Invoke(this, this);
         
-            Health = health;
             if (Health <= 0) Died?.Invoke(this, EventArgs.Empty);
             if (Health > maxHealth) Health = maxHealth;
         }

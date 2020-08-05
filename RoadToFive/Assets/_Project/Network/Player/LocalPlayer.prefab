@@ -500,6 +500,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1298329744615609900, guid: 6d8f22eee6ae76c41986510dd60e584e,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2917631441871934989, guid: 6d8f22eee6ae76c41986510dd60e584e,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -635,6 +640,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6603203203745543416, guid: 6d8f22eee6ae76c41986510dd60e584e,
+        type: 3}
+      propertyPath: entityHealth
+      value: 
+      objectReference: {fileID: 9035483983454482071}
     - target: {fileID: 6705922092128486340, guid: 6d8f22eee6ae76c41986510dd60e584e,
         type: 3}
       propertyPath: m_AnchorMin.y
