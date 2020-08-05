@@ -8,6 +8,11 @@ namespace _Project.Scripts.ClientSide.UserInterface
     {
         [SerializeField] private Text ammoIndicator;
 
+        private void Start()
+        {
+            ammoIndicator.text = "0 bullets";
+        }
+
         public void AmmoIndicatorUpdate(PlayerInventory inventory)
         {
             ammoIndicator.text = $"{inventory.Ammo} bullets";

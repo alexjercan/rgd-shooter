@@ -348,6 +348,7 @@ MonoBehaviour:
   playerRotation: {fileID: 3309544953385686772}
   playerShootInput: {fileID: 2937443093934020802}
   uiHealth: {fileID: 7187505483742347469}
+  uiAmmo: {fileID: 6299293639368585586}
 --- !u!114 &2366460923307501920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -723,6 +724,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0e6a21c482146a38997feab75724c8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6299293639368585586 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8032163667164972359, guid: 6d8f22eee6ae76c41986510dd60e584e,
+    type: 3}
+  m_PrefabInstance: {fileID: 4043225845594846261}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f029e35f16f4d928b2b3832830517fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &8875454421079803321
