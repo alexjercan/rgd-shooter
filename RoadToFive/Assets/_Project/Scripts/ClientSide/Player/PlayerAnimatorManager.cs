@@ -21,6 +21,13 @@ namespace _Project.Scripts.ClientSide.Player
             var position = playerTransform.position;
             _velocity = position - _lastPosition;
             _lastPosition = position;
+
+            UpdateAnimation();
+        }
+
+        private void UpdateAnimation()
+        {
+            if (Vector3.Angle(playerTransform.forward, _velocity))
         }
     }
 }
