@@ -58,9 +58,8 @@ namespace _Project.Scripts.ServerSide.Enemy
             {
                 yield return new WaitForSeconds(reactionTime);
             
-                if (!targets.Any()) continue;
-                target = targets.First(); //TODO: AM FACUT CEVA CA SA MEARGA + mutat yield la inceput
-
+                if (!targets.Any()) continue; //TODO: AM FACUT CEVA CA SA MEARGA + mutat yield la inceput
+                target = targets.OrderBy(health => Vector3.Distance(transform.position, health.transform.position)).First();
                 _waitTime += reactionTime;
             
                 switch (aiState)

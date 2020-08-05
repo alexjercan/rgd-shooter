@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace _Project.Scripts.ClientSide.Player
 {
@@ -10,6 +9,8 @@ namespace _Project.Scripts.ClientSide.Player
 
         private Vector3 _lastPosition;
         private Vector3 _velocity;
+        private static readonly int Walk = Animator.StringToHash("Walk");
+        private static readonly int Backwards = Animator.StringToHash("Backwards");
 
         private void Start()
         {
@@ -21,6 +22,20 @@ namespace _Project.Scripts.ClientSide.Player
             var position = playerTransform.position;
             _velocity = position - _lastPosition;
             _lastPosition = position;
+
+            UpdateAnimation();
+        }
+
+        private void UpdateAnimation()
+        {
+            if (_velocity == Vector3.zero)
+            {
+                playerAnimator.SetBool(Walk, false);
+                return;
+            }
+
+            playerAnimator.SetBool(Walk, true);
+            playerAnimator.SetBool(Backwards, !(Vector3.Angle(playerTransform.forward, _velocity) <= 180));
         }
     }
 }

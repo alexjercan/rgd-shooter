@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 9035483983454482071}
   - component: {fileID: 5950560752564066219}
   - component: {fileID: 2593160648065503261}
+  - component: {fileID: 6716516919996707451}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -120,6 +121,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handTransform: {fileID: 2339265238505657441}
+--- !u!114 &6716516919996707451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3907515094001334465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0754376736374b3099516c9bbf45052e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 3907515094001334495}
+  playerAnimator: {fileID: 4113214010302623206}
 --- !u!1001 &4654163540812661269
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -197,6 +212,12 @@ PrefabInstance:
 --- !u!4 &4113214010483005177 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8756118410469397740, guid: d93981e85dc0f0e4ba834e9f1949e136,
+    type: 3}
+  m_PrefabInstance: {fileID: 4654163540812661269}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4113214010302623206 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8756118410305859571, guid: d93981e85dc0f0e4ba834e9f1949e136,
     type: 3}
   m_PrefabInstance: {fileID: 4654163540812661269}
   m_PrefabAsset: {fileID: 0}
