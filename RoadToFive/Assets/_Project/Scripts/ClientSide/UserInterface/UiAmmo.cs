@@ -1,5 +1,4 @@
-﻿using _Project.Scripts.ClientSide.Player;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace _Project.Scripts.ClientSide.UserInterface
@@ -13,9 +12,9 @@ namespace _Project.Scripts.ClientSide.UserInterface
             ammoIndicator.text = "0";
         }
 
-        public void AmmoIndicatorUpdate(PlayerInventory inventory)
+        public void AmmoIndicatorUpdate(int ammo)
         {
-            ammoIndicator.text = $"{inventory.Ammo}";
+            ammoIndicator.text = $"{ammo}";
         }
     }
 }

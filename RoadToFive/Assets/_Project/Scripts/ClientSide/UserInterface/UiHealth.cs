@@ -1,6 +1,4 @@
-﻿using _Project.Scripts.Mechanics;
-using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,21 +10,21 @@ namespace _Project.Scripts.ClientSide.UserInterface
         [SerializeField] private ParticleSystem healingParticles;
         [SerializeField] private Image damageFlash;
 
-        public void DamageReceive(EntityHealth entityHealth)
+        public void DamageReceive(int health, int maxHealth)
         {
-            ChangeIndicatorColor(entityHealth);
+            ChangeIndicatorColor(health, maxHealth);
             StartCoroutine(FlashScreen());
         }
 
-        public void HealReceive(EntityHealth entityHealth)
+        public void HealReceive(int health, int maxHealth)
         {
-            ChangeIndicatorColor(entityHealth);
+            ChangeIndicatorColor(health, maxHealth);
             StartCoroutine(HealingEffect());
         }
 
-        private void ChangeIndicatorColor(EntityHealth entityHealth)
+        private void ChangeIndicatorColor(int health, int maxHealth)
         {
-            healthIndicator.color = new Color(1, 0, 0, 1 - entityHealth.Health / (float) entityHealth.MaxHealth);
+            healthIndicator.color = new Color(1, 0, 0, 1 - health / (float) maxHealth);
         }
 
         private IEnumerator FlashScreen()

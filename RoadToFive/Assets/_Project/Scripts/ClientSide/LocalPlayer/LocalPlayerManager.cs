@@ -37,17 +37,17 @@ namespace _Project.Scripts.ClientSide.LocalPlayer
 
             playerManager.entityHealth.Damaged += (sender, health) =>
             {
-                uiHealth.DamageReceive(health);
+                uiHealth.DamageReceive(health.Health, health.MaxHealth);
             };
 
             playerManager.entityHealth.Healed += (sender, health) =>
             {
-                uiHealth.HealReceive(health);
+                uiHealth.HealReceive(health.Health, health.MaxHealth);
             };
 
             playerManager.playerInventory.AmmoChanged += (sender, inventory) =>
             {
-                uiAmmo.AmmoIndicatorUpdate(inventory);
+                uiAmmo.AmmoIndicatorUpdate(inventory.Ammo);
             };
         }
         
