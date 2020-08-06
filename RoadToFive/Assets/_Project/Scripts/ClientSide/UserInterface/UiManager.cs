@@ -21,6 +21,9 @@ namespace _Project.Scripts.ClientSide.UserInterface
             startMenu.SetActive(false);
             ipField.interactable = false;
             Client.ConnectToServer(ipField.text);
+            
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
 }
