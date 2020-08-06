@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Ammo
   m_EditorClassIdentifier: 
   name: ammo
-  prefab: {fileID: 3165474014229546039, guid: c0a193fe0166ca941bf1ecd3673b5515, type: 3}
+  prefab: {fileID: 5408488495054830384, guid: c1d9ab1d51327cc4298ab17312257454, type: 3}
   inventoryPic: {fileID: 0}
   ammoAmount: 100
