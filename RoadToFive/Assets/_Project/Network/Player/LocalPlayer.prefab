@@ -1163,6 +1163,26 @@ PrefabInstance:
       propertyPath: m_Text
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1663113189832833593, guid: 6d8f22eee6ae76c41986510dd60e584e,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663113189832833593, guid: 6d8f22eee6ae76c41986510dd60e584e,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663113189832833593, guid: 6d8f22eee6ae76c41986510dd60e584e,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663113189832833593, guid: 6d8f22eee6ae76c41986510dd60e584e,
+        type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2351186811153055703, guid: 6d8f22eee6ae76c41986510dd60e584e,
         type: 3}
       propertyPath: m_PixelPerfect
