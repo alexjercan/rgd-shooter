@@ -75,7 +75,7 @@ MonoBehaviour:
   target: {fileID: 0}
   targets: []
   aiState: 0
-  DistanceThreshold: 30
+  DistanceThreshold: 15
   reactionTime: 0.2
   attackInterval: 5
   attackThreshold: 3
