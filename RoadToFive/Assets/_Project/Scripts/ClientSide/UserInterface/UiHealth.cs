@@ -9,6 +9,8 @@ namespace _Project.Scripts.ClientSide.UserInterface
         [SerializeField] private Image healthIndicator;
         [SerializeField] private ParticleSystem healingParticles;
         [SerializeField] private Image damageFlash;
+        [SerializeField] private AudioSource pickUpSound;
+        [SerializeField] private AudioSource hitSound;
 
         public void DamageReceive(int health, int maxHealth)
         {
@@ -29,6 +31,8 @@ namespace _Project.Scripts.ClientSide.UserInterface
 
         private IEnumerator FlashScreen()
         {
+            hitSound.Play();
+
             damageFlash.gameObject.SetActive(true);
             while (damageFlash.color.a < 0.85f)
             {
@@ -45,6 +49,8 @@ namespace _Project.Scripts.ClientSide.UserInterface
 
         private IEnumerator HealingEffect()
         {
+            pickUpSound.Play();
+
             healingParticles.gameObject.SetActive(true);
             healingParticles.Play();
             yield return new WaitForSeconds(2);

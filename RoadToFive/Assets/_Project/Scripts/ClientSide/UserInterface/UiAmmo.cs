@@ -6,6 +6,7 @@ namespace _Project.Scripts.ClientSide.UserInterface
     public class UiAmmo : MonoBehaviour
     {
         [SerializeField] private Text ammoIndicator;
+        [SerializeField] private AudioSource pickUpSound;
 
         private void Start()
         {
@@ -14,7 +15,12 @@ namespace _Project.Scripts.ClientSide.UserInterface
 
         public void AmmoIndicatorUpdate(int ammo)
         {
+            if (ammo - int.Parse(ammoIndicator.text) > 0)
+            {
+                pickUpSound.Play();
+            }
             ammoIndicator.text = $"{ammo}";
+            
         }
     }
 }
