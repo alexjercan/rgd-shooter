@@ -118,7 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transform: {fileID: 3907515094001334495}
   characterController: {fileID: 5462781134774312540}
-  movementSpeed: 3
+  movementSpeed: 4
   jumpHeight: 0.5
 --- !u!114 &7018376480943063081
 MonoBehaviour:
