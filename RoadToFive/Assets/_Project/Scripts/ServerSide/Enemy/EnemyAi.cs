@@ -66,7 +66,7 @@ namespace _Project.Scripts.ServerSide.Enemy
                 {
                     case AIState.idle:
                         float dist = Vector3.Distance(target.transform.position, transform.position);
-                        if (dist < DistanceThreshold)
+                        if (dist < DistanceThreshold && Mathf.Abs(target.transform.position.y - transform.position.y) < 2f)
                         {
                             aiState = AIState.chasing;
                             ServerSend.SendEnemyState(enemyId, (int) aiState);
@@ -75,7 +75,7 @@ namespace _Project.Scripts.ServerSide.Enemy
                         break;
                     case AIState.chasing:
                         dist = Vector3.Distance(target.transform.position, transform.position);
-                        if (dist > DistanceThreshold)
+                        if (dist > DistanceThreshold || Mathf.Abs(target.transform.position.y - transform.position.y) >= 2f)
                         {
                             aiState = AIState.idle;
                             ServerSend.SendEnemyState(enemyId, (int) aiState);
